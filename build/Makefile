@@ -29,7 +29,10 @@ COMMON_FLAGS := -arch $(ARCH) -isysroot $(SDK) -miphoneos-version-min=$(MIN_IOS)
                 -fobjc-arc -fmodules -O2 -Wall -Wno-unused-parameter -Wno-deprecated-declarations \
                 -I$(SRC) -DCODEXAPP_REPLICA=1
 
-APP_SRC := $(shell find $(SRC) -name '*.m' 2>/dev/null | sort)
+# 说明：GeneratedUI/ 是"类级等价"占位骨架（无行为实现），为了让工程先跑通出包，
+#       默认不参与编译；需要它们进二进制时，把下面的 NOT_GEN 去掉即可。
+NOT_GEN := -not -path '*/GeneratedUI/*'
+APP_SRC := $(shell find $(SRC) -name '*.m' $(NOT_GEN) 2>/dev/null | sort)
 APP_FRAMEWORKS := -framework UIKit -framework Foundation -framework AVFoundation -framework AVFAudio \
                   -framework Security -framework CoreFoundation -framework CoreGraphics -framework QuartzCore \
                   -framework PhotosUI -framework QuickLook -framework SafariServices -framework WebKit \
