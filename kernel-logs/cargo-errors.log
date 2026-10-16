@@ -1,0 +1,500 @@
+[1m[92m   Compiling[0m reqwest v0.12.28
+[1m[92m   Compiling[0m rama-tls-rustls v0.3.0-alpha.4
+[1m[92m   Compiling[0m tungstenite v0.27.0 (https://github.com/openai-oss-forks/tungstenite-rs?rev=4fffad30fe373adbdcffab9545e9e9bf4f2fc19f#4fffad30)
+[1m[92m   Compiling[0m codex-network-proxy v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/network-proxy)
+[1m[92m   Compiling[0m codex-http-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/http-client)
+[1m[92m   Compiling[0m tokio-tungstenite v0.28.0 (https://github.com/openai-oss-forks/tokio-tungstenite?rev=0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186#0e5b2d73)
+[1m[92m   Compiling[0m axum v0.8.8
+[1m[92m   Compiling[0m codex-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-client)
+[1m[92m   Compiling[0m codex-websocket-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/websocket-client)
+[1m[92m   Compiling[0m tonic v0.14.3
+[1m[92m   Compiling[0m opentelemetry-http v0.31.0
+[1m[92m   Compiling[0m os_info v3.14.0
+[1m[92m   Compiling[0m chacha20poly1305 v0.10.1
+[1m[92m   Compiling[0m fluent v0.17.0
+[1m[92m   Compiling[0m rust-embed v8.11.0
+[1m[92m   Compiling[0m pbkdf2 v0.12.2
+[1m[92m   Compiling[0m proc-macro-error-attr3 v3.1.1
+[1m[92m   Compiling[0m tonic-prost v0.14.3
+[1m[92m   Compiling[0m opentelemetry-proto v0.31.0
+[1m[92m   Compiling[0m streaming-iterator v0.1.9
+[1m[92m   Compiling[0m cfg_aliases v0.2.1
+[1m[92m   Compiling[0m proc-macro-error3 v3.1.1
+[1m[92m   Compiling[0m i18n-embed v0.16.0
+[1m[92m   Compiling[0m hpke v0.12.0
+[1m[92m   Compiling[0m opentelemetry-otlp v0.31.0
+[1m[92m   Compiling[0m cookie-factory v0.3.3
+[1m[92m   Compiling[0m secrecy v0.10.3
+[1m[92m   Compiling[0m codex-protocol v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/protocol)
+[1m[92m   Compiling[0m windows-targets v0.52.6
+[1m[92m   Compiling[0m io_tee v0.1.1
+[1m[92m   Compiling[0m vcpkg v0.2.15
+[1m[92m   Compiling[0m bech32 v0.11.1
+[1m[92m   Compiling[0m age-core v0.12.0
+[1m[92m   Compiling[0m libsqlite3-sys v0.37.0
+[1m[92m   Compiling[0m windows-result v0.2.0
+[1m[92m   Compiling[0m i18n-embed-fl v0.10.1
+[1m[92m   Compiling[0m scrypt v0.11.0
+[1m[92m   Compiling[0m codex-install-context v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/install-context)
+[1m[92m   Compiling[0m keyring v3.6.3
+[1m[92m   Compiling[0m codex-keyring-store v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/keyring-store)
+[1m[92m   Compiling[0m age v0.12.1
+[1m[92m   Compiling[0m mxc_telemetry v0.8.0 (https://github.com/microsoft/mxc?rev=6cd3d58f05d3447e67109cfb75e042803b843ca4#6cd3d58f)
+[1m[92m   Compiling[0m hashlink v0.11.0
+[1m[92m   Compiling[0m windows-strings v0.1.0
+[1m[92m   Compiling[0m futures-intrusive v0.5.0
+[1m[92m   Compiling[0m crossbeam-queue v0.3.12
+[1m[92m   Compiling[0m aws-smithy-http v0.62.6
+[1m[92m   Compiling[0m aws-credential-types v1.2.11
+[1m[92m   Compiling[0m aws-types v1.3.11
+[1m[92m   Compiling[0m windows-interface v0.58.0
+[1m[92m   Compiling[0m windows-implement v0.58.0
+[1m[92m   Compiling[0m unicode-general-category v1.1.0
+[1m[92m   Compiling[0m sqlx-core v0.9.0
+[1m[92m   Compiling[0m windows-core v0.58.0
+[1m[92m   Compiling[0m aws-smithy-http-client v1.1.12
+[1m[92m   Compiling[0m aws-smithy-observability v0.1.5
+[1m[92m   Compiling[0m atoi v2.0.0
+[1m[92m   Compiling[0m dirs-sys-next v0.1.2
+[1m[92m   Compiling[0m dotenvy v0.15.7
+[1m[92m   Compiling[0m chunked_transfer v1.5.0
+[1m[92m   Compiling[0m codex-windows-sandbox v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/windows-sandbox-rs)
+[1m[92m   Compiling[0m ascii v1.1.0
+[1m[92m   Compiling[0m sqlx-macros-core v0.9.0
+[1m[92m   Compiling[0m tiny_http v0.12.0
+[1m[92m   Compiling[0m dirs-next v2.0.0
+[1m[92m   Compiling[0m sqlx-sqlite v0.9.0
+[1m[92m   Compiling[0m aws-smithy-runtime v1.9.5
+[1m[92m   Compiling[0m windows v0.58.0
+[1m[92m   Compiling[0m aws-sigv4 v1.3.7
+[1m[92m   Compiling[0m crypto_secretbox v0.1.1
+[1m[92m   Compiling[0m ed25519 v2.2.3
+[1m[92m   Compiling[0m kqueue-sys v1.0.4
+[1m[92m   Compiling[0m tracing-appender v0.2.4
+[1m[92m   Compiling[0m mxc_config_contract v0.8.0 (https://github.com/microsoft/mxc?rev=6cd3d58f05d3447e67109cfb75e042803b843ca4#6cd3d58f)
+[1m[92m   Compiling[0m blake2 v0.10.6
+[1m[92m   Compiling[0m cidr v0.3.2
+[1m[92m   Compiling[0m glob v0.3.3
+[1m[92m   Compiling[0m codex-build-info v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/build-info)
+[1m[92m   Compiling[0m crypto_box v0.9.1
+[1m[92m   Compiling[0m aws-runtime v1.5.17
+[1m[92m   Compiling[0m wxc_common v0.8.0 (https://github.com/microsoft/mxc?rev=6cd3d58f05d3447e67109cfb75e042803b843ca4#6cd3d58f)
+[1m[92m   Compiling[0m kqueue v1.1.1
+[1m[92m   Compiling[0m ed25519-dalek v2.2.0
+[1m[92m   Compiling[0m sqlx v0.9.0
+[1m[92m   Compiling[0m sqlx-macros v0.9.0
+[1m[92m   Compiling[0m aws-smithy-json v0.61.9
+[1m[92m   Compiling[0m webbrowser v1.2.4
+[1m[92m   Compiling[0m thiserror-impl-no-std v2.0.2
+[1m[92m   Compiling[0m rayon v1.11.0
+[1m[92m   Compiling[0m nucleo-matcher v0.3.1 (https://github.com/helix-editor/nucleo.git?rev=4253de9faabb4e5c6d81d946a5e35a90f87347ee#4253de9f)
+[1m[92m   Compiling[0m codex-uds v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/uds)
+[1m[92m   Compiling[0m notify-types v2.1.0
+[1m[92m   Compiling[0m include_dir_macros v0.7.4
+[1m[92m   Compiling[0m codex-skills v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/skills)
+[1m[92m   Compiling[0m file-id v0.2.3
+[1m[92m   Compiling[0m codex-utils-template v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/template)
+[1m[92m   Compiling[0m unsafe-libyaml v0.2.11
+[1m[92m   Compiling[0m include_dir v0.7.4
+[1m[92m   Compiling[0m nucleo v0.5.0 (https://github.com/helix-editor/nucleo.git?rev=4253de9faabb4e5c6d81d946a5e35a90f87347ee#4253de9f)
+[1m[92m   Compiling[0m notify v8.2.0
+[1m[92m   Compiling[0m thiserror-no-std v2.0.2
+[1m[92m   Compiling[0m serde_yaml v0.9.34+deprecated
+[1m[92m   Compiling[0m codex-file-system v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/file-system)
+[1m[92m   Compiling[0m codex-api v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-api)
+[1m[92m   Compiling[0m codex-features v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/features)
+[1m[92m   Compiling[0m codex-git-utils v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/git-utils)
+[1m[92m   Compiling[0m codex-model-provider-info v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/model-provider-info)
+[1m[92m   Compiling[0m codex-shell-command v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/shell-command)
+[1m[92m   Compiling[0m codex-config v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/config)
+[1m[92m   Compiling[0m codex-otel v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/otel)
+[1m[92m   Compiling[0m codex-history v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/history)
+[1m[92m   Compiling[0m codex-secrets v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/secrets)
+[1m[92m   Compiling[0m codex-utils-output-truncation v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/output-truncation)
+[1m[92m   Compiling[0m codex-state v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/state)
+[1m[92m   Compiling[0m codex-agent-identity v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/agent-identity)
+[1m[92m   Compiling[0m codex-mxc-sandbox v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/mxc-sandbox)
+[1m[92m   Compiling[0m codex-workload-identity v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/workload-identity)
+[1m[92m   Compiling[0m ignore v0.4.25
+[1m[92m   Compiling[0m codex-terminal-detection v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/terminal-detection)
+[1m[92m   Compiling[0m codex-sandboxing v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/sandboxing)
+[1m[92m   Compiling[0m codex-file-search v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/file-search)
+[1m[92m   Compiling[0m codex-exec-server-protocol v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/exec-server-protocol)
+[1m[92m   Compiling[0m codex-file-watcher v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/file-watcher)
+[1m[92m   Compiling[0m clatter v2.2.0
+[1m[92m   Compiling[0m codex-login v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/login)
+[1m[92m   Compiling[0m codex-websocket-auth v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/websocket-auth)
+[1m[92m   Compiling[0m codex-core-plugin-common v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/core-plugin-common)
+[1m[92m   Compiling[0m debugid v0.8.0
+[1m[92m   Compiling[0m xmlparser v0.13.6
+[1m[92m   Compiling[0m prettyplease v0.2.37
+[1m[92m   Compiling[0m aws-smithy-xml v0.60.13
+[1m[92m   Compiling[0m sentry-types v0.46.1
+[1m[92m   Compiling[0m codex-exec-server v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/exec-server)
+[1m[92m   Compiling[0m codex-rollout v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/rollout)
+[1m[92m   Compiling[0m codex-context-fragments v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/context-fragments)
+[1m[92m   Compiling[0m nix v0.31.3
+[1m[92m   Compiling[0m aws-smithy-query v0.60.9
+[1m[92m   Compiling[0m darling_core v0.24.0
+[1m[92m   Compiling[0m foldhash v0.1.5
+[1m[92m   Compiling[0m hashbrown v0.15.5
+[1m[92m   Compiling[0m aws-sdk-sts v1.95.0
+[1m[92m   Compiling[0m darling_macro v0.24.0
+[1m[92m   Compiling[0m codex-guardian-context v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/guardian-context)
+[1m[92m   Compiling[0m sentry-core v0.46.1
+[1m[92m   Compiling[0m aws-sdk-ssooidc v1.93.0
+[1m[92m   Compiling[0m aws-sdk-sso v1.91.0
+[1m[92m   Compiling[0m aws-sdk-signin v1.2.0
+[1m[92m   Compiling[0m filetime v0.2.27
+[1m[92m   Compiling[0m codex-collaboration-mode-templates v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/collaboration-mode-templates)
+[1m[92m   Compiling[0m fixedbitset v0.5.7
+[1m[92m   Compiling[0m codex-prompts v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/prompts)
+[1m[92m   Compiling[0m petgraph v0.8.3
+[1m[92m   Compiling[0m tar v0.4.45
+[1m[92m   Compiling[0m prost-types v0.14.3
+[1m[92m   Compiling[0m aws-config v1.8.12
+[1m[92m   Compiling[0m sentry v0.46.1
+[1m[92m   Compiling[0m darling v0.24.0
+[1m[92m   Compiling[0m schemars_derive v1.2.1
+[1m[92m   Compiling[0m rmcp v3.3.0 (https://github.com/modelcontextprotocol/rust-sdk?rev=3e636cab26c013eca5131103c03d20237f12c4df#3e636cab)
+[1m[92m   Compiling[0m prost-build v0.14.3
+[1m[92m   Compiling[0m schemars v1.2.1
+[1m[92m   Compiling[0m codex-aws-auth v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/aws-auth)
+[1m[92m   Compiling[0m process-wrap v10.0.0
+[1m[92m   Compiling[0m rmcp-macros v3.3.0 (https://github.com/modelcontextprotocol/rust-sdk?rev=3e636cab26c013eca5131103c03d20237f12c4df#3e636cab)
+[1m[92m   Compiling[0m codex-feedback v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/feedback)
+[1m[92m   Compiling[0m codex-models-manager v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/models-manager)
+[1m[92m   Compiling[0m tonic-build v0.14.3
+[1m[92m   Compiling[0m codex-response-debug-context v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/response-debug-context)
+[1m[92m   Compiling[0m oauth2 v5.0.0
+[1m[92m   Compiling[0m reqwest v0.13.4
+[1m[92m   Compiling[0m sse-stream v0.2.5
+[1m[92m   Compiling[0m protoc-bin-vendored-linux-ppcle_64 v3.2.0
+[1m[92m   Compiling[0m pastey v0.2.1
+[1m[92m   Compiling[0m protoc-bin-vendored-linux-s390_64 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored-win32 v3.2.0
+[1m[92m   Compiling[0m base64 v0.23.0
+[1m[92m   Compiling[0m protoc-bin-vendored-linux-aarch_64 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored-macos-aarch_64 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored-macos-x86_64 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored-linux-x86_64 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored-linux-x86_32 v3.2.0
+[1m[92m   Compiling[0m protoc-bin-vendored v3.2.0
+[1m[92m   Compiling[0m codex-model-provider v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/model-provider)
+[1m[92m   Compiling[0m tonic-prost-build v0.14.3
+[1m[92m   Compiling[0m codex-utils-plugins v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/plugins)
+[1m[92m   Compiling[0m codex-code-mode-protocol v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/code-mode-protocol)
+[1m[92m   Compiling[0m codex-plugin v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/plugin)
+[1m[92m   Compiling[0m codex-connectors v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/connectors)
+[1m[92m   Compiling[0m num-complex v0.4.6
+[1m[92m   Compiling[0m codex-diagnostics v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/diagnostics)
+[1m[92m   Compiling[0m jsonptr v0.7.1
+[1m[92m   Compiling[0m symphonia-core v0.6.0
+[1m[92m   Compiling[0m codex-experimental-api-macros v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-experimental-api-macros)
+[1m[92m   Compiling[0m codex-code-mode v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/code-mode)
+[1m[92m   Compiling[0m codex-app-server-protocol-noop-macros v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-protocol-noop-macros)
+[1m[92m   Compiling[0m lzma-sys v0.1.20
+[1m[92m   Compiling[0m symphonia-metadata v0.6.0
+[1m[92m   Compiling[0m bzip2-sys v0.1.13+1.0.8
+[1m[92m   Compiling[0m symphonia-common v0.6.0
+[1m[92m   Compiling[0m darling_core v0.20.11
+[1m[92m   Compiling[0m zip v2.4.2
+[1m[92m   Compiling[0m bzip2 v0.5.2
+[1m[92m   Compiling[0m zopfli v0.8.3
+[1m[92m   Compiling[0m lzma-rs v0.3.0
+[1m[92m   Compiling[0m darling_macro v0.20.11
+[1m[92m   Compiling[0m darling v0.20.11
+[1m[92m   Compiling[0m stop-words v0.9.0
+[1m[92m   Compiling[0m pulldown-cmark v0.10.3
+[1m[92m   Compiling[0m extended v0.1.0
+[1m[92m   Compiling[0m deflate64 v0.1.10
+[1m[92m   Compiling[0m symphonia-format-riff v0.6.0
+[1m[92m   Compiling[0m cached_proc_macro v0.25.0
+[1m[92m   Compiling[0m symphonia-format-isomp4 v0.6.0
+[1m[92m   Compiling[0m symphonia-format-ogg v0.6.0
+[1m[92m   Compiling[0m symphonia-format-mkv v0.6.0
+[1m[92m   Compiling[0m symphonia-bundle-mp3 v0.6.0
+[1m[92m   Compiling[0m codex-rmcp-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/rmcp-client)
+[1m[92m   Compiling[0m codex-tools v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/tools)
+[1m[92m   Compiling[0m codex-app-server-protocol v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-protocol)
+[1m[92m   Compiling[0m codex-hooks v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/hooks)
+[1m[92m   Compiling[0m caseless v0.2.2
+[1m[92m   Compiling[0m cached_proc_macro_types v0.1.1
+[1m[92m   Compiling[0m pulldown-cmark-escape v0.10.1
+[1m[92m   Compiling[0m xz2 v0.1.7
+[1m[92m   Compiling[0m web-time v1.1.0
+[1m[92m   Compiling[0m cached v0.56.0
+[1m[92m   Compiling[0m codex-mcp v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-mcp)
+[1m[92m   Compiling[0m symphonia v0.6.0
+[1m[92m   Compiling[0m codex-apply-patch v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/apply-patch)
+[1m[92m   Compiling[0m codex-shell-escalation v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/shell-escalation)
+[1m[92m   Compiling[0m rust-stemmers v1.2.0
+[1m[92m   Compiling[0m deunicode v1.6.2
+[1m[92m   Compiling[0m bm25 v2.3.2
+[1m[92m   Compiling[0m codex-utils-audio v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/audio)
+[1m[92m   Compiling[0m codex-rollout-trace v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/rollout-trace)
+[1m[92m   Compiling[0m codex-agent-roles v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/agent-roles)
+[1m[92m   Compiling[0m codex-agent-graph-store v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/agent-graph-store)
+[1m[92m   Compiling[0m codex-memories-read v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/memories/read)
+[1m[92m   Compiling[0m codex-extension-api v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/extension-api)
+[1m[92m   Compiling[0m codex-agent-message-board-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/agent-message-board)
+[1m[92m   Compiling[0m codex-utils-git-discovery v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/git-discovery)
+[1m[92m   Compiling[0m codex-attachment-store v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/attachment-store)
+[1m[92m   Compiling[0m whoami v1.6.1
+[1m[92m   Compiling[0m signal-hook v0.3.18
+[1m[92m   Compiling[0m codex-backend-openapi-models v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-backend-openapi-models)
+[1m[92m   Compiling[0m codex-agent-message-board-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/agent-message-board-client)
+[1m[92m   Compiling[0m unicode-width v0.2.1
+[1m[92m   Compiling[0m is_ci v1.2.0
+[1m[92m   Compiling[0m codex-backend-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/backend-client)
+[1m[92m   Compiling[0m is-terminal v0.4.17
+[1m[92m   Compiling[0m owo-colors v4.3.0
+[1m[92m   Compiling[0m supports-color v2.1.0
+[1m[92m   Compiling[0m supports-color v3.0.2
+[1m[92m   Compiling[0m castaway v0.2.4
+[1m[92m   Compiling[0m darling_core v0.23.0
+[1m[92m   Compiling[0m compact_str v0.9.1
+[1m[92m   Compiling[0m unicode-truncate v2.0.1
+[1m[92m   Compiling[0m strum v0.28.0
+[1m[92m   Compiling[0m kasuari v0.4.12
+[1m[92m   Compiling[0m instability v0.3.11
+[1m[92m   Compiling[0m ratatui-core v0.1.2
+[1m[92m   Compiling[0m codex-linux-sandbox v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/linux-sandbox)
+[1m[92m   Compiling[0m indoc v2.0.7
+[1m[92m   Compiling[0m darling_macro v0.23.0
+[1m[92m   Compiling[0m codex-utils-cli v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/cli)
+[1m[92m   Compiling[0m darling v0.23.0
+[1m[92m   Compiling[0m onig_sys v69.9.1
+[1m[92m   Compiling[0m num_cpus v1.17.0
+[1m[92m   Compiling[0m deadpool-runtime v0.1.4
+[1m[92m   Compiling[0m deadpool v0.12.3
+[1m[92m   Compiling[0m signal-hook-mio v0.2.5
+[1m[92m   Compiling[0m assert-json-diff v2.0.2
+[1m[92m   Compiling[0m async-stream-impl v0.3.6
+[1m[92m   Compiling[0m line-clipping v0.3.7
+[1m[92m   Compiling[0m object v0.37.3
+[1m[92m   Compiling[0m async-stream v0.3.6
+[1m[92m   Compiling[0m codex-arg0 v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/arg0)
+[1m[92m   Compiling[0m ratatui-widgets v0.3.2
+[1m[92m   Compiling[0m wiremock v0.6.5
+[1m[92m   Compiling[0m crossterm v0.29.0 (https://github.com/openai-oss-forks/crossterm?rev=ed1cdab335221515706178d68495bba2aed1924f#ed1cdab3)
+[1m[92m   Compiling[0m codex-git-attribution v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/git-attribution)
+[1m[92m   Compiling[0m codex-cloud-config v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/cloud-config)
+[1m[92m   Compiling[0m codex-home v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/codex-home)
+[1m[92m   Compiling[0m quinn-udp v0.5.14
+[1m[92m   Compiling[0m codex-user-verification v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/user-verification)
+[1m[92m   Compiling[0m codex-utils-json-to-toml v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/json-to-toml)
+[1m[92m   Compiling[0m quick-xml v0.39.4
+[1m[92m   Compiling[0m eyre v0.6.12
+[1m[92m   Compiling[0m gimli v0.32.3
+[1m[92m   Compiling[0m color-spantrace v0.3.0
+[1m[92m   Compiling[0m plist v1.9.0
+[1m[92m   Compiling[0m ratatui-crossterm v0.1.2
+[1m[92m   Compiling[0m quinn v0.11.9
+[1m[92m   Compiling[0m tracing-error v0.2.1
+[1m[92m   Compiling[0m addr2line v0.25.1
+[1m[92m   Compiling[0m bincode v1.3.3
+[1m[92m   Compiling[0m codex-analytics v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/analytics)
+[1m[92m   Compiling[0m codex-thread-store v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/thread-store)
+[1m[92m   Compiling[0m simdutf8 v0.1.5
+[1m[92m   Compiling[0m rustc-demangle v0.1.27
+[1m[92m   Compiling[0m onig v6.5.1
+[1m[92m   Compiling[0m lru-slab v0.1.2
+[1m[92m   Compiling[0m quinn-proto v0.11.15
+[1m[92m   Compiling[0m syntect v5.3.0
+[1m[92m   Compiling[0m codex-core-plugins v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/core-plugins)
+[1m[92m   Compiling[0m codex-skills-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/skills)
+[1m[92m   Compiling[0m codex-guardian-reviewer v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/guardian-reviewer)
+[1m[92m   Compiling[0m backtrace v0.3.76
+[1m[92m   Compiling[0m ansi-to-tui v8.0.1
+[1m[92m   Compiling[0m ratatui v0.30.2
+[1m[92m   Compiling[0m codex-worktree v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/worktree)
+[1m[92m   Compiling[0m codex-utils-sandbox-summary v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/sandbox-summary)
+[1m[92m   Compiling[0m codex-connectors-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/connectors)
+[1m[92m   Compiling[0m diffy v0.4.2
+[1m[92m   Compiling[0m unicode-linebreak v0.1.5
+[1m[92m   Compiling[0m smawk v0.3.2
+[1m[92m   Compiling[0m dtor-proc-macro v0.0.6
+[1m[92m   Compiling[0m textwrap v0.16.2
+[1m[92m   Compiling[0m dtor v0.1.1
+[1m[92m   Compiling[0m color-eyre v0.6.5
+[1m[92m   Compiling[0m codex-ansi-escape v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ansi-escape)
+[1m[92m   Compiling[0m two-face v0.5.1
+[1m[92m   Compiling[0m ratatui-macros v0.7.2
+[1m[92m   Compiling[0m codex-cloud-tasks-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/cloud-tasks-client)
+[1m[92m   Compiling[0m codex-mermaid v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/mermaid)
+[1m[92m   Compiling[0m codex-message-history v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/message-history)
+[1m[92m   Compiling[0m codex-realtime-webrtc v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/realtime-webrtc)
+[1m[92m   Compiling[0m codex-utils-approval-presets v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/approval-presets)
+[1m[92m   Compiling[0m h3 v0.0.8 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+[1m[92m   Compiling[0m codex-utils-sleep-inhibitor v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/sleep-inhibitor)
+[1m[92m   Compiling[0m codex-utils-elapsed v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/elapsed)
+[1m[92m   Compiling[0m ctor-proc-macro v0.0.7
+[1m[92m   Compiling[0m pathdiff v0.2.3
+[1m[92m   Compiling[0m codex-utils-fuzzy-match v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/fuzzy-match)
+[1m[92m   Compiling[0m h3-quinn v0.0.10 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+[1m[92m   Compiling[0m ctor v0.6.3
+[1m[92m   Compiling[0m codex-cloud-tasks-mock-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/cloud-tasks-mock-client)
+[1m[92m   Compiling[0m codex-process-hardening v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/process-hardening)
+[1m[33mwarning[0m[1m: constant `SET_RLIMIT_CORE_FAILED_EXIT_CODE` is never used[0m
+  [1m[94m--> [0mprocess-hardening/src/lib.rs:42:7
+   [1m[94m|[0m
+[1m[94m42[0m [1m[94m|[0m const SET_RLIMIT_CORE_FAILED_EXIT_CODE: i32 = 7;
+   [1m[94m|[0m       [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mnote[0m: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: function `set_core_file_size_limit_to_zero` is never used[0m
+   [1m[94m--> [0mprocess-hardening/src/lib.rs:104:4
+    [1m[94m|[0m
+[1m[94m104[0m [1m[94m|[0m fn set_core_file_size_limit_to_zero() {
+    [1m[94m|[0m    [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `remove_env_vars_with_prefix` is never used[0m
+   [1m[94m--> [0mprocess-hardening/src/lib.rs:126:4
+    [1m[94m|[0m
+[1m[94m126[0m [1m[94m|[0m fn remove_env_vars_with_prefix(prefix: &[u8]) {
+    [1m[94m|[0m    [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `env_keys_with_prefix` is never used[0m
+   [1m[94m--> [0mprocess-hardening/src/lib.rs:135:4
+    [1m[94m|[0m
+[1m[94m135[0m [1m[94m|[0m fn env_keys_with_prefix<I>(vars: I, prefix: &[u8]) -> Vec<OsString>
+    [1m[94m|[0m    [1m[33m^^^^^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m: `codex-process-hardening` (lib) generated 4 warnings
+[1m[92m   Compiling[0m codex-cli v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/cli)
+[1m[92m   Compiling[0m codex-responses-api-proxy v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/responses-api-proxy)
+[1m[92m   Compiling[0m codex-core v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/core)
+[1m[92m   Compiling[0m codex-tcp-tunnel v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/tcp-tunnel)
+[1m[92m   Compiling[0m codex-stdio-to-uds v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/stdio-to-uds)
+[1m[92m   Compiling[0m clap_complete v4.5.65
+[1m[92m   Compiling[0m codex-memories-write v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/memories/write)
+[1m[92m   Compiling[0m codex-app-server-transport v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-transport)
+[1m[92m   Compiling[0m codex-history-notes-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/history-notes)
+[1m[92m   Compiling[0m codex-chatgpt v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/chatgpt)
+[1m[92m   Compiling[0m codex-web-search-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/web-search)
+[1m[92m   Compiling[0m codex-external-agent-migration v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/external-agent-migration)
+[1m[92m   Compiling[0m codex-mcp-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/mcp)
+[1m[92m   Compiling[0m codex-queue-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/queue)
+[1m[92m   Compiling[0m codex-image-generation-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/image-generation)
+[1m[92m   Compiling[0m codex-goal-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/goal)
+[1m[92m   Compiling[0m codex-guardian-v2 v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/guardian-v2)
+[1m[92m   Compiling[0m codex-memories-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/memories)
+[1m[92m   Compiling[0m codex-agent-extension v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ext/agent)
+[1m[92m   Compiling[0m codex-lmstudio v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/lmstudio)
+[1m[92m   Compiling[0m codex-app-server v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server)
+[1m[92m   Compiling[0m codex-ollama v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/ollama)
+[1m[92m   Compiling[0m codex-app-server-daemon v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-daemon)
+[1m[92m   Compiling[0m codex-utils-oss v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/utils/oss)
+[1m[92m   Compiling[0m codex-app-server-test-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-test-client)
+[1m[92m   Compiling[0m codex-app-server-client v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/app-server-client)
+[1m[92m   Compiling[0m codex-tui v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/tui)
+[1m[92m   Compiling[0m codex-exec v0.162.1 (/Users/runner/work/Aicash/Aicash/upstream/codex-rs/exec)
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+   [1m[94m--> [0mtui/src/clipboard_copy.rs:103:25
+    [1m[94m|[0m
+[1m[94m103[0m [1m[94m|[0m         let clipboard = arboard::Clipboard::new();
+    [1m[94m|[0m                         [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+[1m[96mhelp[0m: there is an enum variant `crate::app_event::TranscriptExportDestination::Clipboard` and 3 others; try using the variant's enum
+    [1m[94m|[0m
+[1m[94m103[0m [91m- [0m        let clipboard = [91marboard::Clipboard[0m::new();
+[1m[94m103[0m [92m+ [0m        let clipboard = [92mcrate::app_event::TranscriptExportDestination[0m::new();
+    [1m[94m|[0m
+[1m[94m103[0m [91m- [0m        let clipboard = [91marboard::Clipboard[0m::new();
+[1m[94m103[0m [92m+ [0m        let clipboard = [92mcrate::clipboard_copy::worker::CopyDestination[0m::new();
+    [1m[94m|[0m
+[1m[94m103[0m [91m- [0m        let clipboard = [91marboard::Clipboard[0m::new();
+[1m[94m103[0m [92m+ [0m        let clipboard = [92mcrate::clipboard_copy::worker::PasteSource[0m::new();
+    [1m[94m|[0m
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+  [1m[94m--> [0mtui/src/clipboard_paste/text.rs:27:13
+   [1m[94m|[0m
+[1m[94m27[0m [1m[94m|[0m             arboard::Clipboard::new().and_then(|mut clipboard| clipboard.get_text()),
+   [1m[94m|[0m             [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+[1m[96mhelp[0m: there is an enum variant `crate::app_event::TranscriptExportDestination::Clipboard` and 3 others; try using the variant's enum
+   [1m[94m|[0m
+[1m[94m27[0m [91m- [0m            [91marboard::Clipboard[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+[1m[94m27[0m [92m+ [0m            [92mcrate::app_event::TranscriptExportDestination[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+   [1m[94m|[0m
+[1m[94m27[0m [91m- [0m            [91marboard::Clipboard[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+[1m[94m27[0m [92m+ [0m            [92mcrate::clipboard_copy::worker::CopyDestination[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+   [1m[94m|[0m
+[1m[94m27[0m [91m- [0m            [91marboard::Clipboard[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+[1m[94m27[0m [92m+ [0m            [92mcrate::clipboard_copy::worker::PasteSource[0m::new().and_then(|mut clipboard| clipboard.get_text()),
+   [1m[94m|[0m
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+  [1m[94m--> [0mtui/src/clipboard_paste.rs:58:18
+   [1m[94m|[0m
+[1m[94m58[0m [1m[94m|[0m     let mut cb = arboard::Clipboard::new()
+   [1m[94m|[0m                  [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+[1m[96mhelp[0m: there is an enum variant `crate::app_event::TranscriptExportDestination::Clipboard` and 3 others; try using the variant's enum
+   [1m[94m|[0m
+[1m[94m58[0m [91m- [0m    let mut cb = [91marboard::Clipboard[0m::new()
+[1m[94m58[0m [92m+ [0m    let mut cb = [92mcrate::app_event::TranscriptExportDestination[0m::new()
+   [1m[94m|[0m
+[1m[94m58[0m [91m- [0m    let mut cb = [91marboard::Clipboard[0m::new()
+[1m[94m58[0m [92m+ [0m    let mut cb = [92mcrate::clipboard_copy::worker::CopyDestination[0m::new()
+   [1m[94m|[0m
+[1m[94m58[0m [91m- [0m    let mut cb = [91marboard::Clipboard[0m::new()
+[1m[94m58[0m [92m+ [0m    let mut cb = [92mcrate::clipboard_copy::worker::PasteSource[0m::new()
+   [1m[94m|[0m
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+  [1m[94m--> [0mtui/src/clipboard_paste/text.rs:44:13
+   [1m[94m|[0m
+[1m[94m44[0m [1m[94m|[0m         Err(arboard::Error::ContentNotAvailable) => String::new(),
+   [1m[94m|[0m             [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+[1m[96mhelp[0m: consider importing one of these items
+   [1m[94m|[0m
+[1m[94m 4[0m [92m+ use std::error::Error;[0m
+   [1m[94m|[0m
+[1m[94m 4[0m [92m+ use std::fmt::Error;[0m
+   [1m[94m|[0m
+[1m[94m 4[0m [92m+ use std::io::Error;[0m
+   [1m[94m|[0m
+[1m[94m 4[0m [92m+ use core::error::Error;[0m
+   [1m[94m|[0m
+   [1m[94m= [0mand 1 other candidate
+[1m[96mhelp[0m: if you import `Error`, refer to it directly
+   [1m[94m|[0m
+[1m[94m44[0m [91m- [0m        Err([91marboard::[0mError::ContentNotAvailable) => String::new(),
+[1m[94m44[0m [92m+ [0m        Err(Error::ContentNotAvailable) => String::new(),
+   [1m[94m|[0m
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+   [1m[94m--> [0mtui/src/clipboard_copy.rs:254:23
+    [1m[94m|[0m
+[1m[94m254[0m [1m[94m|[0m     clipboard: Result<arboard::Clipboard, arboard::Error>,
+    [1m[94m|[0m                       [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+   [1m[94m--> [0mtui/src/clipboard_copy.rs:254:43
+    [1m[94m|[0m
+[1m[94m254[0m [1m[94m|[0m     clipboard: Result<arboard::Clipboard, arboard::Error>,
+    [1m[94m|[0m                                           [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+
+[1m[91merror[E0433][0m[1m: cannot find module or crate `arboard` in this scope[0m
+  [1m[94m--> [0mtui/src/clipboard_paste/text.rs:39:28
+   [1m[94m|[0m
+[1m[94m39[0m [1m[94m|[0m     result: Result<String, arboard::Error>,
+   [1m[94m|[0m                            [1m[91m^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `arboard`[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mhelp[0m: if you wanted to use a crate named `arboard`, use `cargo add arboard` to add it to your `Cargo.toml`
+
+[1mFor more information about this error, try `rustc --explain E0433`.[0m
+[1m[91merror[0m: could not compile `codex-tui` (lib) due to 7 previous errors
