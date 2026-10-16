@@ -77,7 +77,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
     env[CAEnvTheosHelper] = CARuntimePaths.theosHelperPath;
     env[CAEnvTheosBash] = CARuntimePaths.bashPath;
     env[CAEnvTheosRuntime] = CARuntimePaths.runtimeDownloadsDirectory;
-    env[CAEnvTheosSDKRoot] = [CARuntimePaths.runtimeRootForID:@"theos"];
+    env[CAEnvTheosSDKRoot] = [CARuntimePaths.runtimeDownloadsDirectory stringByAppendingPathComponent:@"theos"];
 
     NSString *path = [@[[CARuntimePaths helpersDirectory], CARuntimePaths.helperSearchPath] componentsJoinedByString:@":"];
     env[@"PATH"] = path;

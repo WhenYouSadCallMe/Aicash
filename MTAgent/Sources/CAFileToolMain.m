@@ -103,7 +103,7 @@ static int CAToolLs(int argc, char **argv)
         else if ([argument isEqualToString:@"-a"] || [argument isEqualToString:@"--all"]) showAll = YES;
         else if ([argument isEqualToString:@"-h"] || [argument isEqualToString:@"--human-readable"]) human = YES;
         else if ([argument isEqualToString:@"-R"] || [argument isEqualToString:@"--recursive"]) recursive = YES;
-        else if (argument.length && argument[0] == '-') { /* 忽略其余开关 */ }
+        else if (argument.length && [argument characterAtIndex:0] == '-') { /* 忽略其余开关 */ }
         else [paths addObject:argument];
     }
     if (!paths.count) [paths addObject:@"."];
@@ -239,7 +239,7 @@ static int CAToolCopyOrMove(int argc, char **argv, BOOL move)
     NSMutableArray<NSString *> *paths = [NSMutableArray array];
     for (int i = 1; i < argc; i++) {
         NSString *argument = [NSString stringWithUTF8String:argv[i]];
-        if (argument.length && argument[0] == '-') continue;
+        if (argument.length && [argument characterAtIndex:0] == '-') continue;
         [paths addObject:argument];
     }
     if (paths.count < 2) return CAUnsupported(move ? @"mv" : @"cp", @"missing operand");
@@ -458,7 +458,7 @@ static int CAToolHeadOrTail(int argc, char **argv, BOOL tail)
         NSString *argument = [NSString stringWithUTF8String:argv[i]];
         if ([argument isEqualToString:@"-n"] && i + 1 < argc) { lines = [NSString stringWithUTF8String:argv[++i]].integerValue; continue; }
         if ([argument hasPrefix:@"-n"]) { lines = [argument substringFromIndex:2].integerValue; continue; }
-        if ([argument hasPrefix:@"-"] && argument.length > 1 && isdigit((unsigned char)argument[1])) { lines = [argument substringFromIndex:1].integerValue; continue; }
+        if ([argument hasPrefix:@"-"] && argument.length > 1 && isdigit((unsigned char)[argument characterAtIndex:1])) { lines = [argument substringFromIndex:1].integerValue; continue; }
         [paths addObject:argument];
     }
     NSString *text = nil;
@@ -484,7 +484,7 @@ static int CAToolGrep(int argc, char **argv)
         else if ([argument isEqualToString:@"-v"] || [argument isEqualToString:@"--invert-match"]) invert = YES;
         else if ([argument isEqualToString:@"-F"] || [argument isEqualToString:@"--fixed-strings"]) fixed = YES;
         else if ([argument isEqualToString:@"-r"] || [argument isEqualToString:@"-R"] || [argument isEqualToString:@"--recursive"]) continue;
-        else if (argument.length && argument[0] == '-') continue;
+        else if (argument.length && [argument characterAtIndex:0] == '-') continue;
         else [operands addObject:argument];
     }
     if (!operands.count) return CAUnsupported(@"grep", @"missing pattern");
@@ -545,7 +545,7 @@ static int CAToolSed(int argc, char **argv)
         if ([argument isEqualToString:@"-E"] || [argument isEqualToString:@"-r"]) continue;
         if ([argument isEqualToString:@"-i"]) { [paths addObject:@"-i"]; continue; }
         if (!scripts.count && ([argument containsString:@"s/"] || [argument containsString:@"s|"])) { [scripts addObject:argument]; continue; }
-        if (!scripts.count && argument.length && argument[0] == '-') continue;
+        if (!scripts.count && argument.length && [argument characterAtIndex:0] == '-') continue;
         if (!scripts.count) { [scripts addObject:argument]; continue; }
         [paths addObject:argument];
     }
@@ -595,7 +595,7 @@ static int CAToolSort(int argc, char **argv)
         else if ([argument isEqualToString:@"--sort=size"]) keySpec = @"size";
         else if ([argument isEqualToString:@"--sort=time"]) keySpec = @"time";
         else if ([argument hasPrefix:@"-k"] && argument.length > 2) keySpec = [argument substringFromIndex:2];
-        else if (argument.length && argument[0] == '-') continue;
+        else if (argument.length && [argument characterAtIndex:0] == '-') continue;
         else [paths addObject:argument];
     }
     NSString *text = paths.count ? [NSString stringWithContentsOfFile:paths.firstObject encoding:NSUTF8StringEncoding error:NULL]
@@ -626,7 +626,7 @@ static int CAToolUniq(int argc, char **argv)
         NSString *argument = [NSString stringWithUTF8String:argv[i]];
         if ([argument isEqualToString:@"-c"]) count = YES;
         else if ([argument isEqualToString:@"-d"]) onlyDuplicates = YES;
-        else if (argument.length && argument[0] == '-') continue;
+        else if (argument.length && [argument characterAtIndex:0] == '-') continue;
         else [paths addObject:argument];
     }
     NSString *text = paths.count ? [NSString stringWithContentsOfFile:paths.firstObject encoding:NSUTF8StringEncoding error:NULL]
@@ -670,7 +670,7 @@ static int CAToolHexDump(int argc, char **argv, BOOL octalMode)
     NSMutableArray<NSString *> *paths = [NSMutableArray array];
     for (int i = 1; i < argc; i++) {
         NSString *argument = [NSString stringWithUTF8String:argv[i]];
-        if (argument.length && argument[0] == '-') continue;
+        if (argument.length && [argument characterAtIndex:0] == '-') continue;
         [paths addObject:argument];
     }
     NSData *data = paths.count ? [NSData dataWithContentsOfFile:paths.firstObject] : [NSFileHandle.fileHandleWithStandardInput readDataToEndOfFile];
@@ -707,7 +707,7 @@ static int CAToolFind(int argc, char **argv)
         if ([argument isEqualToString:@"-name"] && i + 1 < argc) { namePattern = [NSString stringWithUTF8String:argv[++i]]; continue; }
         if ([argument isEqualToString:@"-type"] && i + 1 < argc) { typeFilter = [NSString stringWithUTF8String:argv[++i]]; continue; }
         if ([argument isEqualToString:@"-maxdepth"] && i + 1 < argc) { maxDepth = [NSString stringWithUTF8String:argv[++i]].integerValue; continue; }
-        if (argument.length && argument[0] == '-') continue;
+        if (argument.length && [argument characterAtIndex:0] == '-') continue;
         [roots addObject:argument];
     }
     NSRegularExpression *regex = namePattern ? [NSRegularExpression regularExpressionWithPattern:
@@ -793,7 +793,7 @@ static int CAToolTar(int argc, char **argv)
     BOOL nextIsArchive = NO;
     for (int i = 1; i < argc; i++) {
         NSString *argument = [NSString stringWithUTF8String:argv[i]];
-        if (argument.length && argument[0] == '-' && ![argument isEqualToString:@"-"]) {
+        if (argument.length && [argument characterAtIndex:0] == '-' && ![argument isEqualToString:@"-"]) {
             for (NSUInteger c = 1; c < argument.length; c++) {
                 unichar flag = [argument characterAtIndex:c];
                 if (flag == 'c') create = YES;
@@ -827,7 +827,7 @@ static int CAToolTar(int argc, char **argv)
             if (stat(path.fileSystemRepresentation, &st) != 0) continue;
             CATarWriteHeader(writer, isDirectory ? [relative stringByAppendingString:@"/"] : relative, &st, isDirectory ? '5' : '0');
             if (!isDirectory) {
-                NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe];
+                NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
                 if (!data) data = [NSData dataWithContentsOfFile:path];
                 if (data) {
                     [writer writeData:data];

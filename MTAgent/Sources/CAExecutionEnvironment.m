@@ -4,6 +4,7 @@
 //           shell 探针（EUID/SHELL_OK/DOCS_READ/DOCS_WRITE）、spawn 模式（forkless-posix_spawn / native-fork）
 //
 
+#import <objc/message.h>
 #import "CACommon.h"
 #import "CARuntimePaths.h"
 #import "CAExecutionEnvironment.h"
@@ -159,10 +160,10 @@
 
 - (NSString *)resolvedBrandWithApplicationEvidence:(NSArray<NSString *> *)evidence legacyName:(NSString *)legacy
 {
-    if ([evidence containsString:@"path:/var/jb/usr/lib/roothidehooks.dylib"]) return @"roothide";
-    if ([evidence containsString:@"path:/var/jb/basebin"]) return @"bootstrap";
-    if ([evidence containsString:@"path:/var/jb/usr/lib/libhooker.dylib"]) return @"libhooker";
-    if ([evidence containsString:@"path:/var/jb/usr/lib/libsubstrate.dylib"]) return @"substrate";
+    if ([evidence containsObject:@"path:/var/jb/usr/lib/roothidehooks.dylib"]) return @"roothide";
+    if ([evidence containsObject:@"path:/var/jb/basebin"]) return @"bootstrap";
+    if ([evidence containsObject:@"path:/var/jb/usr/lib/libhooker.dylib"]) return @"libhooker";
+    if ([evidence containsObject:@"path:/var/jb/usr/lib/libsubstrate.dylib"]) return @"substrate";
     return legacy ?: @"unknown";
 }
 

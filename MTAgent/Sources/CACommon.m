@@ -86,7 +86,7 @@ BOOL CAIsHelperInvocation(void)
 
 #pragma mark - helper 进程派生工具（原包观测：forkless-posix_spawn / native-fork）
 
-int CASpawnHelper(NSString *executable, NSArray<NSString *> *arguments, NSDictionary<NSString *> *environment, NSString *workingDirectory)
+int CASpawnHelper(NSString *executable, NSArray<NSString *> *arguments, NSDictionary<NSString *, NSString *> *environment, NSString *workingDirectory)
 {
     const char *path = executable.fileSystemRepresentation;
     NSMutableArray<NSString *> *argvList = [NSMutableArray arrayWithObject:executable];
@@ -107,11 +107,8 @@ int CASpawnHelper(NSString *executable, NSArray<NSString *> *arguments, NSDictio
     posix_spawn_file_actions_t actions;
     posix_spawn_file_actions_init(&actions);
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
-    // posix_spawn_file_actions_addchdir_np 在较新 SDK 上标注 iOS 16+：必须做可用性守卫，
-    // 否则以 iOS 15 为部署目标会直接编译报错（unavailable）。
-    if (workingDirectory.length && @available(iOS 16.0, *)) {
-        posix_spawn_file_actions_addchdir_np(&actions, workingDirectory.fileSystemRepresentation);
-    }
+    // posix_spawn_file_actions_addchdir_np 在 iOS SDK 中不可用（macOS 专属符号），
+    // 需要指定工作目录的调用方请使用 CAProcess（内部以 /bin/sh -c 'cd … && exec …' 实现）。
 #endif
     (void)workingDirectory;   // 说明：本 helper 当前无调用点；调用方请用 CAProcess.currentDirectoryURL 指定工作目录
 
