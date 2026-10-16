@@ -1,0 +1,111 @@
+From b540a013914aacb32f5eb8e9f2c8277a7fbdf12b Mon Sep 17 00:00:00 2001
+From: aicash <aicash@local>
+Date: Sat, 17 Oct 2026 00:37:17 +0800
+Subject: [PATCH] iOS: gate tui clipboard code away from iOS (reuse Android
+ fallback paths)
+
+---
+ codex-rs/tui/src/clipboard_copy.rs       | 6 +++---
+ codex-rs/tui/src/clipboard_paste.rs      | 8 ++++----
+ codex-rs/tui/src/clipboard_paste/text.rs | 6 +++---
+ 3 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/codex-rs/tui/src/clipboard_copy.rs b/codex-rs/tui/src/clipboard_copy.rs
+index cedbd5d..a9a6658 100644
+--- a/codex-rs/tui/src/clipboard_copy.rs
++++ b/codex-rs/tui/src/clipboard_copy.rs
+@@ -98,12 +98,12 @@ fn copy_to_clipboard(
+     begin_delivery: impl Fn() -> Result<(), String>,
+     osc52: impl Fn(&str) -> Result<(), String>,
+ ) -> Result<CopyOutcome, String> {
+-    #[cfg(not(target_os = "android"))]
++    #[cfg(not(any(target_os = "android", target_os = "ios")))]
+     let native_copy = {
+         let clipboard = arboard::Clipboard::new();
+         move |text: &str, html: Option<&str>| arboard_copy(clipboard, text, html)
+     };
+-    #[cfg(target_os = "android")]
++    #[cfg(any(target_os = "android", target_os = "ios"))]
+     let native_copy = |_text: &str, _html: Option<&str>| {
+         Err("native clipboard unavailable on Android".to_string())
+     };
+@@ -249,7 +249,7 @@ pub(crate) fn is_wsl_session() -> bool {
+ }
+ 
+ /// Write to the native clipboard. The TUI owns any process-wide stderr redirection.
+-#[cfg(not(target_os = "android"))]
++#[cfg(not(any(target_os = "android", target_os = "ios")))]
+ fn arboard_copy(
+     clipboard: Result<arboard::Clipboard, arboard::Error>,
+     text: &str,
+diff --git a/codex-rs/tui/src/clipboard_paste.rs b/codex-rs/tui/src/clipboard_paste.rs
+index cc5489d..dd9ca2b 100644
+--- a/codex-rs/tui/src/clipboard_paste.rs
++++ b/codex-rs/tui/src/clipboard_paste.rs
+@@ -51,7 +51,7 @@ pub struct PastedImageInfo {
+ }
+ 
+ /// Capture image from system clipboard, encode to PNG, and return bytes + info.
+-#[cfg(not(target_os = "android"))]
++#[cfg(not(any(target_os = "android", target_os = "ios")))]
+ pub fn paste_image_as_png() -> Result<(Vec<u8>, PastedImageInfo), PasteImageError> {
+     let _span = tracing::debug_span!("paste_image_as_png").entered();
+     tracing::debug!("attempting clipboard image read");
+@@ -113,7 +113,7 @@ pub fn paste_image_as_png() -> Result<(Vec<u8>, PastedImageInfo), PasteImageErro
+ }
+ 
+ /// Android/Termux does not support arboard; return a clear error.
+-#[cfg(target_os = "android")]
++#[cfg(any(target_os = "android", target_os = "ios"))]
+ pub fn paste_image_as_png() -> Result<(Vec<u8>, PastedImageInfo), PasteImageError> {
+     Err(PasteImageError::ClipboardUnavailable(
+         "clipboard image paste is unsupported on Android".into(),
+@@ -121,7 +121,7 @@ pub fn paste_image_as_png() -> Result<(Vec<u8>, PastedImageInfo), PasteImageErro
+ }
+ 
+ /// Convenience: write to a temp file and return its path + info.
+-#[cfg(not(target_os = "android"))]
++#[cfg(not(any(target_os = "android", target_os = "ios")))]
+ pub fn paste_image_to_temp_png() -> Result<(PathBuf, PastedImageInfo), PasteImageError> {
+     // First attempt: read image from system clipboard via arboard (native paths or image data).
+     match paste_image_as_png() {
+@@ -232,7 +232,7 @@ fn try_dump_windows_clipboard_image() -> Option<String> {
+     None
+ }
+ 
+-#[cfg(target_os = "android")]
++#[cfg(any(target_os = "android", target_os = "ios"))]
+ pub fn paste_image_to_temp_png() -> Result<(PathBuf, PastedImageInfo), PasteImageError> {
+     // Keep error consistent with paste_image_as_png.
+     Err(PasteImageError::ClipboardUnavailable(
+diff --git a/codex-rs/tui/src/clipboard_paste/text.rs b/codex-rs/tui/src/clipboard_paste/text.rs
+index 32fcb1b..57dcf1c 100644
+--- a/codex-rs/tui/src/clipboard_paste/text.rs
++++ b/codex-rs/tui/src/clipboard_paste/text.rs
+@@ -21,20 +21,20 @@ pub(crate) fn read(deadline: Instant) -> Result<String, String> {
+             .map_err(|_| "could not start clipboard reader")?
+             .block_on(read_command(command, deadline));
+     }
+-    #[cfg(not(target_os = "android"))]
++    #[cfg(not(any(target_os = "android", target_os = "ios")))]
+     {
+         native_result(
+             arboard::Clipboard::new().and_then(|mut clipboard| clipboard.get_text()),
+             deadline,
+         )
+     }
+-    #[cfg(target_os = "android")]
++    #[cfg(any(target_os = "android", target_os = "ios"))]
+     {
+         validate(String::new(), deadline)
+     }
+ }
+ 
+-#[cfg(not(target_os = "android"))]
++#[cfg(not(any(target_os = "android", target_os = "ios")))]
+ pub(crate) fn native_result(
+     result: Result<String, arboard::Error>,
+     deadline: Instant,
+-- 
+2.55.0.windows.5
+
