@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIView *)header;
     - (id)labelWithSize:(id)arg1 weight:(id)arg2 secondary:(id)arg3;
     - (UILabel *)planLabel;
-    - (unsigned __int64)quotaRefreshGeneration;
+    - (unsigned long long)quotaRefreshGeneration;
     - (CAConversationRecord *)record;
     - (UIButton *)refreshButton;
     - (void)refreshQuota;

@@ -141,7 +141,7 @@
     return nil;
 }
 
-- (unsigned __int64)saveGeneration
+- (unsigned long long)saveGeneration
 {
     // TODO(parity)
     return 0;

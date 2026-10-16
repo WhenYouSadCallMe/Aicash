@@ -181,8 +181,7 @@
     self.remoteRevision = [NSString stringWithFormat:@"%ld", (long)entry.revision];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
         [self publishDownload:@"download" progress:0.0];
-        NSString *packagePath = [[CARuntimePaths.runtimeDownloadsDirectory]
-                                 stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%ld.tar.gz", entry.runtimeID, (long)entry.revision]];
+        NSString *packagePath = [CARuntimePaths.runtimeDownloadsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%ld.tar.gz", entry.runtimeID, (long)entry.revision]];
         NSError *error = nil;
         BOOL ok = [self downloadURLString:entry.archiveURL toPath:packagePath progress:nil error:&error];
         if (ok && entry.archiveSHA256.length) {
@@ -235,7 +234,6 @@
 + (NSString *)runtimeIdentifier { return @"python"; }
 - (NSString *)pythonHome
 {
-    if (_pythonHome) return _pythonHome;
     return [[CARuntimePaths runtimeRootForID:self.runtimeID] stringByAppendingPathComponent:@"lib/python3.13"];
 }
 - (NSString *)pythonExecutablePath
@@ -254,8 +252,8 @@
 - (NSString *)theosRoot { return [CARuntimePaths runtimeRootForID:self.runtimeID]; }
 - (NSString *)theosMakePath { return [[self theosRoot] stringByAppendingPathComponent:@"usr/bin/make"]; }
 - (NSString *)theosSDKPath { return [[self theosRoot] stringByAppendingPathComponent:@"sdks/iPhoneOS16.5.sdk"]; }
-- (NSString *)downloadedArchivePath { return [[CARuntimePaths.runtimeDownloadsDirectory] stringByAppendingPathComponent:@"TheosRuntime.tar.gz"]; }
-- (NSString *)downloadedMetadataPath { return [[CARuntimePaths.runtimeDownloadsDirectory] stringByAppendingPathComponent:@"TheosRuntime.bundle.json"]; }
+- (NSString *)downloadedArchivePath { return [CARuntimePaths.runtimeDownloadsDirectory stringByAppendingPathComponent:@"TheosRuntime.tar.gz"]; }
+- (NSString *)downloadedMetadataPath { return [CARuntimePaths.runtimeDownloadsDirectory stringByAppendingPathComponent:@"TheosRuntime.bundle.json"]; }
 - (NSString *)bundledArchivePath { return [[NSBundle.mainBundle.bundlePath stringByAppendingPathComponent:@"Helpers/theos-runtime.tar.gz"] copy]; }
 - (BOOL)hasDownloadedPackage { return [NSFileManager.defaultManager fileExistsAtPath:self.downloadedArchivePath]; }
 - (BOOL)downloadedPackageMatchesRemoteManifest
@@ -292,13 +290,13 @@
 - (NSString *)radare2Prefix { return [[CARuntimePaths runtimeRootForID:self.runtimeID] stringByAppendingPathComponent:@"r2"]; }
 - (NSString *)stagingPath
 {
-    NSString *path = [[CARuntimePaths.runtimeDownloadsDirectory] stringByAppendingPathComponent:@"ReverseTools"];
+    NSString *path = [CARuntimePaths.runtimeDownloadsDirectory stringByAppendingPathComponent:@"ReverseTools"];
     [CARuntimePaths ensureDirectory:path mode:0700 error:NULL];
     return path;
 }
 - (void)migrateLegacyCacheIfNeeded
 {
-    NSString *legacy = [[CARuntimePaths.cachesDirectory] stringByAppendingPathComponent:@"ReverseTools"];
+    NSString *legacy = [CARuntimePaths.cachesDirectory stringByAppendingPathComponent:@"ReverseTools"];
     if (![NSFileManager.defaultManager fileExistsAtPath:legacy]) return;
     NSError *error = nil;
     [[NSFileManager defaultManager] moveItemAtPath:legacy toPath:[CARuntimePaths.reverseToolsDirectory] error:&error];

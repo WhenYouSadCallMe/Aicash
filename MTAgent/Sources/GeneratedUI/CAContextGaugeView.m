@@ -24,7 +24,7 @@
     return nil;
 }
 
-- (signed __int64)percent
+- (signed long long)percent
 {
     // TODO(parity)
     return 0;

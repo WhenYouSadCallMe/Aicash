@@ -9,11 +9,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CATodoProgressButton : NSObject
-    - (signed __int64)activeIndex;
+    - (signed long long)activeIndex;
     - (CAGradientLayer *)activeSegmentLayer;
     - (double)completedFraction;
     - (CAGradientLayer *)completedLayer;
-    - (unsigned __int64)completedSteps;
+    - (unsigned long long)completedSteps;
     - (CAGradientLayer *)completionSheenLayer;
     - (void)didMoveToWindow;
     - (bool)hasActiveSegment;
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setTrailLayer:(id)arg1;
     - (void)setWasComplete:(id)arg1;
     - (void)synchronizeActivityAnimations;
-    - (unsigned __int64)totalSteps;
+    - (unsigned long long)totalSteps;
     - (CALayer *)trackLayer;
     - (CAGradientLayer *)trailLayer;
     - (void)traitCollectionDidChange:(id)arg1;

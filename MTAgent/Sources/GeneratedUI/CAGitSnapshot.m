@@ -7,13 +7,13 @@
 
 @implementation CAGitSnapshot
 
-- (unsigned __int64)ahead
+- (unsigned long long)ahead
 {
     // TODO(parity)
     return 0;
 }
 
-- (unsigned __int64)behind
+- (unsigned long long)behind
 {
     // TODO(parity)
     return 0;
@@ -179,7 +179,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)stagedCount
+- (unsigned long long)stagedCount
 {
     // TODO(parity)
     return 0;
@@ -203,7 +203,7 @@
     return nil;
 }
 
-- (unsigned __int64)unstagedCount
+- (unsigned long long)unstagedCount
 {
     // TODO(parity)
     return 0;

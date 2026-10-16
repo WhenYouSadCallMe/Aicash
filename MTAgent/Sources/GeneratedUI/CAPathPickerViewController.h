@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UITableView *)tableView;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (void)themeDidChange;
     - (void)viewDidLoad;

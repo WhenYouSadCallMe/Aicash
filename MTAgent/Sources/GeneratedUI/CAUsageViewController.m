@@ -79,7 +79,7 @@
     return nil;
 }
 
-- (unsigned __int64)quotaRefreshGeneration
+- (unsigned long long)quotaRefreshGeneration
 {
     // TODO(parity)
     return 0;

@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (signed __int64)exitCode
+- (signed long long)exitCode
 {
     // TODO(parity)
     return 0;
@@ -37,7 +37,7 @@
     return nil;
 }
 
-- (unsigned __int64)outputBytes
+- (unsigned long long)outputBytes
 {
     // TODO(parity)
     return 0;
@@ -100,7 +100,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)status
+- (signed long long)status
 {
     // TODO(parity)
     return 0;

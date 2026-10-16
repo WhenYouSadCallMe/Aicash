@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)itemAtIndexPath:(id)arg1;
     - (void)layoutSubviews;
     - (bool)moveHighlightBy:(id)arg1;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (id)onClose;
     - (id)onSelectItem;
     - (double)preferredHeight;
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
     - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2;
     - (double)tableView:(id)arg1 heightForHeaderInSection:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (bool)tableView:(id)arg1 shouldHighlightRowAtIndexPath:(id)arg2;
     - (id)tableView:(id)arg1 viewForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 viewForHeaderInSection:(id)arg2;

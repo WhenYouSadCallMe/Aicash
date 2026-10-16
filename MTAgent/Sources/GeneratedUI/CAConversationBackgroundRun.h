@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSArray *)inFlightAttachments;
     - (CAConversationBackgroundRun *)initWithEngine:(id)arg1 record:(id)arg2 inFlightAttachments:(id)arg3 generatedArtifactPaths:(id)arg4 generatedArtifactMessage:(id)arg5;
     - (CAConversationRecord *)record;
-    - (unsigned __int64)saveGeneration;
+    - (unsigned long long)saveGeneration;
     - (void)saveNow;
     - (void)scheduleSave;
     - (void)setDidFinish:(id)arg1;

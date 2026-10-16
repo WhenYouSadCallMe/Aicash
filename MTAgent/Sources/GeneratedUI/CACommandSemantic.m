@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (signed __int64)kindForCommand:(id)arg1
+- (signed long long)kindForCommand:(id)arg1
 {
     // TODO(parity)
     return 0;

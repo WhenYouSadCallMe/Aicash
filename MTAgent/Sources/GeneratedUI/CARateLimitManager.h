@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)quotaBadgeText;
     - (void)recordTurnFinishedWithTokens:(id)arg1;
     - (void)resetSessionTokenCount;
-    - (unsigned __int64)sessionTotalTokens;
+    - (unsigned long long)sessionTotalTokens;
     - (void)setAvailable:(id)arg1;
     - (void)setLastUpdatedAt:(id)arg1;
     - (void)setLoadingCache:(id)arg1;

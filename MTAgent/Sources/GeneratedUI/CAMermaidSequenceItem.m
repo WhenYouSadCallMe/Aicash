@@ -37,7 +37,7 @@
     return nil;
 }
 
-- (signed __int64)matchingIndex
+- (signed long long)matchingIndex
 {
     // TODO(parity)
     return 0;
@@ -116,7 +116,7 @@
     return nil;
 }
 
-- (signed __int64)type
+- (signed long long)type
 {
     // TODO(parity)
     return 0;

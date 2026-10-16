@@ -9,17 +9,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAgentTurn : NSObject
-    - (signed __int64)blockTypeForMessage:(id)arg1;
+    - (signed long long)blockTypeForMessage:(id)arg1;
     - (NSMutableArray *)blocks;
     - (bool)isQueued;
-    - (signed __int64)role;
+    - (signed long long)role;
     - (void)setBlocks:(id)arg1;
     - (void)setQueued:(id)arg1;
     - (void)setRole:(id)arg1;
     - (void)setTurnId:(id)arg1;
     - (bool)shouldDisplayMessage:(id)arg1;
     - (NSString *)turnId;
-    - (signed __int64)turnRoleForMessage:(id)arg1;
+    - (signed long long)turnRoleForMessage:(id)arg1;
     - (id)turnsFromMessages:(id)arg1;
 
 @end

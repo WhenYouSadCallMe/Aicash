@@ -48,7 +48,7 @@
     return NO;
 }
 
-- (unsigned __int64)supportedInterfaceOrientations
+- (unsigned long long)supportedInterfaceOrientations
 {
     // TODO(parity)
     return 0;

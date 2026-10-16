@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIImageView *)iconView;
     - (CAToolCardCell *)initWithFrame:(id)arg1;
     - (NSString *)lastItemID;
-    - (signed __int64)lastStatus;
+    - (signed long long)lastStatus;
     - (void)loadCompleteOutput:(id)arg1;
     - (id)onShowFullOutput;
     - (id)onStop;

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)nameDidEdit;
     - (UITextField *)nameField;
     - (UITableViewCell *)nameFieldCell;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (UILabel *)profileName;
     - (UILabel *)profileSubtitle;
     - (UIBarButtonItem *)saveItem;
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
     - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (bool)textFieldShouldReturn:(id)arg1;

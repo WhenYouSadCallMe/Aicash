@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setTableView:(id)arg1;
     - (void)setWorkspaces:(id)arg1;
     - (NSDictionary *)statusByPath;
-    - (unsigned __int64)statusGeneration;
+    - (unsigned long long)statusGeneration;
     - (UITableView *)tableView;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (void)themeDidChange;

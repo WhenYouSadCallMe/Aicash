@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setType:(id)arg1;
     - (NSArray *)tableAlignments;
     - (NSArray *)tableRows;
-    - (signed __int64)type;
+    - (signed long long)type;
 
 @end
 

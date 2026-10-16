@@ -10,11 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAToolItem : NSObject
     - (NSString *)command;
-    - (signed __int64)exitCode;
+    - (signed long long)exitCode;
     - (bool)isExpanded;
     - (NSString *)itemId;
     - (NSString *)output;
-    - (unsigned __int64)outputBytes;
+    - (unsigned long long)outputBytes;
     - (NSString *)outputFile;
     - (bool)outputPersistencePending;
     - (void)setCommand:(id)arg1;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setOutputFile:(id)arg1;
     - (void)setOutputPersistencePending:(id)arg1;
     - (void)setStatus:(id)arg1;
-    - (signed __int64)status;
+    - (signed long long)status;
 
 @end
 

@@ -7,7 +7,7 @@
 
 @implementation CAUpdateProgress
 
-- (signed __int64)completedBytes
+- (signed long long)completedBytes
 {
     // TODO(parity)
     return 0;
@@ -44,7 +44,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)stage
+- (signed long long)stage
 {
     // TODO(parity)
     return 0;
@@ -56,7 +56,7 @@
     return nil;
 }
 
-- (signed __int64)totalBytes
+- (signed long long)totalBytes
 {
     // TODO(parity)
     return 0;

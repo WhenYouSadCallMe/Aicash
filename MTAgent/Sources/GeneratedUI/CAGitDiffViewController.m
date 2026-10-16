@@ -30,7 +30,7 @@
     return nil;
 }
 
-- (unsigned __int64)generation
+- (unsigned long long)generation
 {
     // TODO(parity)
     return 0;

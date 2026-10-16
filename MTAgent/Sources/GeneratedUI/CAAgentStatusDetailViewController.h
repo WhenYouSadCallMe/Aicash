@@ -10,14 +10,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAgentStatusDetailViewController : UIViewController
     - (CAAgentStatusDetailViewController *)initWithSnapshot:(id)arg1;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (void)refreshTitle;
     - (id)sections;
     - (void)setSnapshot:(id)arg1;
     - (NSDictionary *)snapshot;
     - (id)statusText:(id)arg1;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (void)updateSnapshot:(id)arg1;
     - (void)viewDidLoad;

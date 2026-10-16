@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)chatBackgroundColor;
     - (id)controlBorderColor;
     - (id)controlFillColor;
-    - (signed __int64)mode;
+    - (signed long long)mode;
     - (id)neutralLight:(id)arg1 dark:(id)arg2;
     - (id)primaryTextColor;
     - (id)raisedSurfaceColor;

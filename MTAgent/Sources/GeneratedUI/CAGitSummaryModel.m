@@ -7,13 +7,13 @@
 
 @implementation CAGitSummaryModel
 
-- (unsigned __int64)ahead
+- (unsigned long long)ahead
 {
     // TODO(parity)
     return 0;
 }
 
-- (unsigned __int64)behind
+- (unsigned long long)behind
 {
     // TODO(parity)
     return 0;

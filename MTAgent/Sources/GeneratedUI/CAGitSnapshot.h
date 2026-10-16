@@ -9,8 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAGitSnapshot : NSObject
-    - (unsigned __int64)ahead;
-    - (unsigned __int64)behind;
+    - (unsigned long long)ahead;
+    - (unsigned long long)behind;
     - (NSString *)branch;
     - (NSString *)branchSummary;
     - (NSArray *)changes;
@@ -41,11 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setUpstream:(id)arg1;
     - (void)setUserEmail:(id)arg1;
     - (void)setUserName:(id)arg1;
-    - (unsigned __int64)stagedCount;
+    - (unsigned long long)stagedCount;
     - (bool)trackingCountsKnown;
     - (NSString *)trackingRef;
     - (NSString *)trackingRemote;
-    - (unsigned __int64)unstagedCount;
+    - (unsigned long long)unstagedCount;
     - (NSString *)upstream;
     - (NSString *)userEmail;
     - (NSString *)userName;

@@ -18,7 +18,7 @@
     return nil;
 }
 
-- (signed __int64)numberOfPreviewItemsInPreviewController:(id)arg1
+- (signed long long)numberOfPreviewItemsInPreviewController:(id)arg1
 {
     // TODO(parity)
     return 0;

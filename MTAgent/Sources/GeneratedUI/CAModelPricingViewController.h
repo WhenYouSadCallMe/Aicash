@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)candidateTitle:(id)arg1;
     - (void)closePage;
     - (id)modelAtIndexPath:(id)arg1;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (NSDictionary *)officialDisplaySnapshot;
     - (NSArray *)officialModels;
     - (void)prepareDisplaySnapshots;
@@ -31,14 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setSyncSpinnerItem:(id)arg1;
     - (void)setThirdPartyDisplaySnapshot:(id)arg1;
     - (void)setThirdPartyModels:(id)arg1;
-    - (unsigned __int64)snapshotGeneration;
+    - (unsigned long long)snapshotGeneration;
     - (UIBarButtonItem *)syncItem;
     - (void)syncPricing;
     - (UIActivityIndicatorView *)syncSpinner;
     - (UIBarButtonItem *)syncSpinnerItem;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (void)themeDidChange;

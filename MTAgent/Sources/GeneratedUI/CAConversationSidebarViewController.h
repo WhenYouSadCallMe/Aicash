@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UILabel *)emptyLabel;
     - (void)expandWorkspaceAtPath:(id)arg1;
     - (NSMutableSet *)expandedWorkspacePaths;
-    - (unsigned __int64)filzaRequestGeneration;
+    - (unsigned long long)filzaRequestGeneration;
     - (void)finishPermanentWorkspaceRemovalAtPath:(id)arg1;
     - (UIView *)footerSeparator;
     - (NSLayoutConstraint *)footerTop;
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)labelWithSize:(id)arg1 weight:(id)arg2;
     - (void)moveRecord:(id)arg1;
     - (void)newConversationForWorkspacePath:(id)arg1;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (void)openSettings;
     - (void)openUsage;
     - (void)openWorkspacePathInFilza:(id)arg1;
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIControl *)quotaControl;
     - (UIStackView *)quotaHeading;
     - (NSString *)quotaRefreshError;
-    - (unsigned __int64)quotaRefreshGeneration;
+    - (unsigned long long)quotaRefreshGeneration;
     - (UILabel *)quotaStatus;
     - (UILabel *)quotaTitle;
     - (NSLayoutConstraint *)quotaTop;
@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
     - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2;
     - (double)tableView:(id)arg1 heightForHeaderInSection:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 trailingSwipeActionsConfigurationForRowAtIndexPath:(id)arg2;
     - (id)tableView:(id)arg1 viewForHeaderInSection:(id)arg2;
     - (void)themeDidChange;

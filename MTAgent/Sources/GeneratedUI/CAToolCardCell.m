@@ -116,7 +116,7 @@
     return nil;
 }
 
-- (signed __int64)lastStatus
+- (signed long long)lastStatus
 {
     // TODO(parity)
     return 0;

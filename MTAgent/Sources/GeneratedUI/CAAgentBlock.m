@@ -45,7 +45,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)type
+- (signed long long)type
 {
     // TODO(parity)
     return 0;

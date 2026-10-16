@@ -7,13 +7,13 @@
 
 @implementation CAAgentRuntimeManager
 
-- (unsigned __int64)activeProcessCount
+- (unsigned long long)activeProcessCount
 {
     // TODO(parity)
     return 0;
 }
 
-- (unsigned __int64)activeRootProcessCount
+- (unsigned long long)activeRootProcessCount
 {
     // TODO(parity)
     return 0;

@@ -105,7 +105,7 @@
     return NO;
 }
 
-- (signed __int64)kind
+- (signed long long)kind
 {
     // TODO(parity)
     return 0;
@@ -123,7 +123,7 @@
     return nil;
 }
 
-- (signed __int64)numberOfSectionsInTableView:(id)arg1
+- (signed long long)numberOfSectionsInTableView:(id)arg1
 {
     // TODO(parity)
     return 0;
@@ -198,7 +198,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2
+- (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2
 {
     // TODO(parity)
     return 0;

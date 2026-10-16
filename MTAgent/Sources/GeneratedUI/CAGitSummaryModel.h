@@ -9,8 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAGitSummaryModel : NSObject
-    - (unsigned __int64)ahead;
-    - (unsigned __int64)behind;
+    - (unsigned long long)ahead;
+    - (unsigned long long)behind;
     - (bool)branchEnabled;
     - (NSString *)branchTitle;
     - (bool)busy;

@@ -129,7 +129,7 @@
     return nil;
 }
 
-- (unsigned __int64)musingGeneration
+- (unsigned long long)musingGeneration
 {
     // TODO(parity)
     return 0;
@@ -147,7 +147,7 @@
     return nil;
 }
 
-- (signed __int64)musingPhraseIndex
+- (signed long long)musingPhraseIndex
 {
     // TODO(parity)
     return 0;
@@ -159,7 +159,7 @@
     return nil;
 }
 
-- (signed __int64)nextMusingIndex
+- (signed long long)nextMusingIndex
 {
     // TODO(parity)
     return 0;

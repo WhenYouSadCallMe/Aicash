@@ -9,16 +9,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAUpdateProgress : NSObject
-    - (signed __int64)completedBytes;
+    - (signed long long)completedBytes;
     - (double)fraction;
     - (void)setCompletedBytes:(id)arg1;
     - (void)setFraction:(id)arg1;
     - (void)setStage:(id)arg1;
     - (void)setStatus:(id)arg1;
     - (void)setTotalBytes:(id)arg1;
-    - (signed __int64)stage;
+    - (signed long long)stage;
     - (NSString *)status;
-    - (signed __int64)totalBytes;
+    - (signed long long)totalBytes;
 
 @end
 

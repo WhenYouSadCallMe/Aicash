@@ -31,7 +31,7 @@
     return nil;
 }
 
-- (unsigned __int64)questionIndex
+- (unsigned long long)questionIndex
 {
     // TODO(parity)
     return 0;

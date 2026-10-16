@@ -10,13 +10,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAMessageItem : NSObject
     - (NSString *)activityDetail;
-    - (unsigned __int64)activityDetailBytes;
+    - (unsigned long long)activityDetailBytes;
     - (NSString *)activityDetailFile;
     - (bool)activityDetailPersistencePending;
     - (id)activityDetailRenderCache;
     - (double)activityDuration;
     - (bool)activityExpanded;
-    - (signed __int64)activityKind;
+    - (signed long long)activityKind;
     - (id)activityMessageWithKind:(id)arg1 title:(id)arg2 detail:(id)arg3 running:(id)arg4;
     - (NSString *)activityModelName;
     - (bool)activityModelRequested;
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSArray *)queuedAttachments;
     - (NSString *)queuedComposerText;
     - (NSString *)queuedPromptText;
-    - (signed __int64)role;
+    - (signed long long)role;
     - (void)setActivityDetail:(id)arg1;
     - (void)setActivityDetailBytes:(id)arg1;
     - (void)setActivityDetailFile:(id)arg1;

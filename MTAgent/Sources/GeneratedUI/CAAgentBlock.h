@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setGroupedMessages:(id)arg1;
     - (void)setMessage:(id)arg1;
     - (void)setType:(id)arg1;
-    - (signed __int64)type;
+    - (signed long long)type;
 
 @end
 

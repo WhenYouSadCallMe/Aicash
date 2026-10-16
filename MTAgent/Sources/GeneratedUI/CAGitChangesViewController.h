@@ -41,14 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleEmptyAction;
     - (CAGitChangesViewController *)initWithWorkspacePath:(id)arg1;
     - (void)initializeRepository;
-    - (signed __int64)kindForSection:(id)arg1;
+    - (signed long long)kindForSection:(id)arg1;
     - (bool)loading;
     - (UIBarButtonItem *)moreItem;
     - (id)moreMenu;
     - (bool)mutating;
     - (NSString *)networkAction;
     - (NSString *)networkBranch;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (id)onRepositoryChanged;
     - (void)openDiff:(id)arg1 staged:(id)arg2;
     - (NSString *)operationStatus;
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)rebuildModel;
     - (void)refresh;
     - (UIRefreshControl *)refreshControl;
-    - (unsigned __int64)refreshGeneration;
+    - (unsigned long long)refreshGeneration;
     - (UIBarButtonItem *)refreshItem;
     - (id)remoteSummaryText;
     - (void)requestRemoteCredentials;
@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setWorkspacePath:(id)arg1;
     - (void)showMessage:(id)arg1 detail:(id)arg2;
     - (void)showSuccess:(id)arg1 detail:(id)arg2;
-    - (signed __int64)sideForKind:(id)arg1;
+    - (signed long long)sideForKind:(id)arg1;
     - (CAGitSnapshot *)snapshot;
     - (bool)stageAll;
     - (void)stageEverything;
@@ -120,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2;
     - (double)tableView:(id)arg1 heightForHeaderInSection:(id)arg2;
     - (id)tableView:(id)arg1 leadingSwipeActionsConfigurationForRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 trailingSwipeActionsConfigurationForRowAtIndexPath:(id)arg2;
     - (id)tableView:(id)arg1 viewForHeaderInSection:(id)arg2;

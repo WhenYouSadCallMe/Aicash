@@ -7,7 +7,7 @@
 
 @implementation CAUpdateViewController
 
-- (signed __int64)activeStage
+- (signed long long)activeStage
 {
     // TODO(parity)
     return 0;

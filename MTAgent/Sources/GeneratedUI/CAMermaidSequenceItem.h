@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (double)height;
     - (NSString *)kind;
     - (NSString *)label;
-    - (signed __int64)matchingIndex;
+    - (signed long long)matchingIndex;
     - (NSString *)notePosition;
     - (void)setCrossArrow:(id)arg1;
     - (void)setDashed:(id)arg1;
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setY:(id)arg1;
     - (NSString *)source;
     - (NSString *)target;
-    - (signed __int64)type;
+    - (signed long long)type;
     - (double)y;
 
 @end

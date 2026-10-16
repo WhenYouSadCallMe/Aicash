@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)close;
     - (UIViewController *)detailController;
     - (bool)mainRunning;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (void)setDetailController:(id)arg1;
     - (void)setMainRunning:(id)arg1;
     - (void)setSnapshots:(id)arg1;
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UITableView *)tableView;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (void)updateSnapshots:(id)arg1 mainRunning:(id)arg2;
     - (void)viewDidLoad;

@@ -44,7 +44,7 @@
     return nil;
 }
 
-- (unsigned __int64)statusGeneration
+- (unsigned long long)statusGeneration
 {
     // TODO(parity)
     return 0;
@@ -67,7 +67,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2
+- (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2
 {
     // TODO(parity)
     return 0;

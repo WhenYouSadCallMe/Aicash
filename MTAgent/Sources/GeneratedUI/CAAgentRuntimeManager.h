@@ -9,8 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAgentRuntimeManager : NSObject
-    - (unsigned __int64)activeProcessCount;
-    - (unsigned __int64)activeRootProcessCount;
+    - (unsigned long long)activeProcessCount;
+    - (unsigned long long)activeRootProcessCount;
     - (id)diagnosticSnapshot;
     - (bool)lastLaunchUsedRootPersona;
     - (id)launchCodexExecutable:(id)arg1 arguments:(id)arg2 currentDirectory:(id)arg3 environment:(id)arg4 outputHandler:(id)arg5 errorHandler:(id)arg6 terminationHandler:(id)arg7 error:(id)arg8;

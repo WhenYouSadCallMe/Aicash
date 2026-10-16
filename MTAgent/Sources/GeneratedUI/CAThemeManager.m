@@ -42,7 +42,7 @@
     return nil;
 }
 
-- (signed __int64)mode
+- (signed long long)mode
 {
     // TODO(parity)
     return 0;

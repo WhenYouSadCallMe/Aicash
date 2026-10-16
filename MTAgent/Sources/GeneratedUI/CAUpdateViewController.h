@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAUpdateViewController : UIViewController
-    - (signed __int64)activeStage;
+    - (signed long long)activeStage;
     - (void)applyTheme;
     - (UIView *)card;
     - (UIButton *)closeButton;

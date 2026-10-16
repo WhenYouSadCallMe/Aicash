@@ -7,7 +7,7 @@
 
 @implementation CAComposerCameraCoordinator
 
-- (signed __int64)cameraAuthorizationStatus
+- (signed long long)cameraAuthorizationStatus
 {
     // TODO(parity)
     return 0;

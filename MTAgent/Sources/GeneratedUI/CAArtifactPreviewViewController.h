@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAArtifactPreviewViewController : UIViewController
     - (void)close;
     - (CAArtifactPreviewViewController *)initWithPath:(id)arg1;
-    - (signed __int64)numberOfPreviewItemsInPreviewController:(id)arg1;
+    - (signed long long)numberOfPreviewItemsInPreviewController:(id)arg1;
     - (NSString *)path;
     - (AVPlayerViewController *)playerController;
     - (id)previewController:(id)arg1 previewItemAtIndex:(id)arg2;

@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)lastStateTitle;
     - (void)loadCompleteDetail:(id)arg1;
     - (void)logVisibleState:(id)arg1;
-    - (unsigned __int64)measuredRevision;
+    - (unsigned long long)measuredRevision;
     - (CGSize)measuredSize;
     - (NSLayoutConstraint *)metadataHeight;
     - (UIStackView *)metadataStack;
@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)prepareForReuse;
     - (void)prewarmDetailForMessage:(id)arg1 completion:(id)arg2;
     - (void)refreshDuration;
-    - (unsigned __int64)renderRevision;
+    - (unsigned long long)renderRevision;
     - (NSDictionary *)renderSignature;
     - (NSAttributedString *)renderedDetail;
     - (id)renderedDetailForText:(id)arg1 kind:(id)arg2 baseColor:(id)arg3;

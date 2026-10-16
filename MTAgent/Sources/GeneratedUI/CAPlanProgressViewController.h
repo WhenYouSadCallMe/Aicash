@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)close;
     - (bool)executionActive;
     - (CAPlanProgressViewController *)initWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (id)onCloseTodo;
     - (bool)pendingSync;
     - (void)setExecutionActive:(id)arg1;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UILabel *)subtitle;
     - (UITableView *)table;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (void)updateSummary;
     - (void)updateWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3;
     - (void)viewDidLoad;

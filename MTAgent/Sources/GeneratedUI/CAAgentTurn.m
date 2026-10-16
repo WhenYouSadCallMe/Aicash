@@ -7,7 +7,7 @@
 
 @implementation CAAgentTurn
 
-- (signed __int64)blockTypeForMessage:(id)arg1
+- (signed long long)blockTypeForMessage:(id)arg1
 {
     // TODO(parity)
     return 0;
@@ -25,7 +25,7 @@
     return NO;
 }
 
-- (signed __int64)role
+- (signed long long)role
 {
     // TODO(parity)
     return 0;
@@ -63,7 +63,7 @@
     return nil;
 }
 
-- (signed __int64)turnRoleForMessage:(id)arg1
+- (signed long long)turnRoleForMessage:(id)arg1
 {
     // TODO(parity)
     return 0;

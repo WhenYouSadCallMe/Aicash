@@ -7,7 +7,7 @@
 
 @implementation CATodoProgressButton
 
-- (signed __int64)activeIndex
+- (signed long long)activeIndex
 {
     // TODO(parity)
     return 0;
@@ -31,7 +31,7 @@
     return nil;
 }
 
-- (unsigned __int64)completedSteps
+- (unsigned long long)completedSteps
 {
     // TODO(parity)
     return 0;
@@ -174,7 +174,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)totalSteps
+- (unsigned long long)totalSteps
 {
     // TODO(parity)
     return 0;

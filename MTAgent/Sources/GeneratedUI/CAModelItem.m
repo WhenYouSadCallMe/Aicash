@@ -7,7 +7,7 @@
 
 @implementation CAModelItem
 
-- (unsigned __int64)contextWindowTokens
+- (unsigned long long)contextWindowTokens
 {
     // TODO(parity)
     return 0;
@@ -31,13 +31,13 @@
     return nil;
 }
 
-- (unsigned __int64)effectiveContextWindowPercent
+- (unsigned long long)effectiveContextWindowPercent
 {
     // TODO(parity)
     return 0;
 }
 
-- (unsigned __int64)maxContextWindowTokens
+- (unsigned long long)maxContextWindowTokens
 {
     // TODO(parity)
     return 0;

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSDictionary *)instructionStatus;
     - (id)legacyGlobalInstructionTemplate;
     - (void)loadInstructionStatus;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (void)openInstructionAtPath:(id)arg1 title:(id)arg2 note:(id)arg3 template:(id)arg4;
     - (void)pullToRefresh;
     - (void)refreshForce:(id)arg1;
@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setSeedingGlobalInstruction:(id)arg1;
     - (void)setStatusGeneration:(id)arg1;
     - (void)setTableView:(id)arg1;
-    - (unsigned __int64)statusGeneration;
+    - (unsigned long long)statusGeneration;
     - (UITableView *)tableView;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2;
     - (void)themeDidChange;

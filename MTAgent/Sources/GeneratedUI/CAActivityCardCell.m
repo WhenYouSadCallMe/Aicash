@@ -169,7 +169,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)measuredRevision
+- (unsigned long long)measuredRevision
 {
     // TODO(parity)
     return 0;
@@ -250,7 +250,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)renderRevision
+- (unsigned long long)renderRevision
 {
     // TODO(parity)
     return 0;

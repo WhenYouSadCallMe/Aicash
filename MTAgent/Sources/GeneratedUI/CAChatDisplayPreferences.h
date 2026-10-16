@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAChatDisplayPreferences : NSObject
-    - (signed __int64)mode;
+    - (signed long long)mode;
     - (void)setMode:(id)arg1;
 
 @end

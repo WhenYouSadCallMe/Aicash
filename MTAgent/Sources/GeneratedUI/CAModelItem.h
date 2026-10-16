@@ -9,12 +9,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAModelItem : NSObject
-    - (unsigned __int64)contextWindowTokens;
+    - (unsigned long long)contextWindowTokens;
     - (NSString *)defaultLevel;
     - (NSString *)desc;
     - (NSString *)displayName;
-    - (unsigned __int64)effectiveContextWindowPercent;
-    - (unsigned __int64)maxContextWindowTokens;
+    - (unsigned long long)effectiveContextWindowPercent;
+    - (unsigned long long)maxContextWindowTokens;
     - (void)setContextWindowTokens:(id)arg1;
     - (void)setDefaultLevel:(id)arg1;
     - (void)setDesc:(id)arg1;

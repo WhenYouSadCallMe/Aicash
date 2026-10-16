@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (unsigned __int64)activityDetailBytes
+- (unsigned long long)activityDetailBytes
 {
     // TODO(parity)
     return 0;
@@ -49,7 +49,7 @@
     return NO;
 }
 
-- (signed __int64)activityKind
+- (signed long long)activityKind
 {
     // TODO(parity)
     return 0;
@@ -151,7 +151,7 @@
     return nil;
 }
 
-- (signed __int64)role
+- (signed long long)role
 {
     // TODO(parity)
     return 0;

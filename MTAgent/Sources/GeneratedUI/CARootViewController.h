@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (CARootViewController *)initWithContentViewController:(id)arg1;
     - (void)setContentViewController:(id)arg1;
     - (bool)shouldAutorotate;
-    - (unsigned __int64)supportedInterfaceOrientations;
+    - (unsigned long long)supportedInterfaceOrientations;
     - (void)viewDidLoad;
 
 @end

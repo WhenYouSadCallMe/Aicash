@@ -30,7 +30,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)collectionView:(id)arg1 numberOfItemsInSection:(id)arg2
+- (signed long long)collectionView:(id)arg1 numberOfItemsInSection:(id)arg2
 {
     // TODO(parity)
     return 0;

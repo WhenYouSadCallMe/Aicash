@@ -45,7 +45,7 @@
     // TODO(parity)
 }
 
-- (signed __int64)shape
+- (signed long long)shape
 {
     // TODO(parity)
     return 0;

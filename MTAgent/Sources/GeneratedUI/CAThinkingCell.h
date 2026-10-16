@@ -30,12 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIImageView *)iconView;
     - (CAThinkingCell *)initWithFrame:(id)arg1;
     - (CAMessageItem *)message;
-    - (unsigned __int64)musingGeneration;
+    - (unsigned long long)musingGeneration;
     - (NSString *)musingMessageID;
     - (NSString *)musingPhaseKey;
-    - (signed __int64)musingPhraseIndex;
+    - (signed long long)musingPhraseIndex;
     - (id)musingsForCurrentMessage;
-    - (signed __int64)nextMusingIndex;
+    - (signed long long)nextMusingIndex;
     - (id)onToggle;
     - (void)pauseVisualActivityForInactivity;
     - (id)preferredLayoutAttributesFittingAttributes:(id)arg1;

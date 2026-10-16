@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setLabel:(id)arg1;
     - (void)setNodeId:(id)arg1;
     - (void)setShape:(id)arg1;
-    - (signed __int64)shape;
+    - (signed long long)shape;
 
 @end
 

@@ -26,11 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)configureWithMessage:(id)arg1;
     - (bool)configuredQueued;
     - (id)contextMenuInteraction:(id)arg1 configurationForMenuAtLocation:(id)arg2;
-    - (unsigned __int64)deferredBlockIndex;
+    - (unsigned long long)deferredBlockIndex;
     - (NSArray *)deferredBlocks;
     - (UIStackView *)deferredBodyStack;
     - (NSString *)deferredMessageID;
-    - (unsigned __int64)deferredRenderGeneration;
+    - (unsigned long long)deferredRenderGeneration;
     - (void)handleSteerQueuedButton;
     - (CAMessageCell *)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setStreamingCommittedLength:(id)arg1;
     - (void)setStreamingTextLabel:(id)arg1;
     - (void)setTrailingConstraint:(id)arg1;
-    - (unsigned __int64)streamingCommittedLength;
+    - (unsigned long long)streamingCommittedLength;
     - (CAStreamingTextView *)streamingTextLabel;
     - (NSLayoutConstraint *)trailingConstraint;
     - (void)updateStreamingText:(id)arg1;

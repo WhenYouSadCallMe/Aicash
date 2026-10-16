@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)copyDiff;
     - (UILabel *)countsLabel;
     - (CAGitDiffResult *)diff;
-    - (unsigned __int64)generation;
+    - (unsigned long long)generation;
     - (CAGitRepository *)git;
     - (void)loadDiff;
     - (UILabel *)noticeLabel;

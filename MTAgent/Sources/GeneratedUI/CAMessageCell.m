@@ -106,7 +106,7 @@
     return nil;
 }
 
-- (unsigned __int64)deferredBlockIndex
+- (unsigned long long)deferredBlockIndex
 {
     // TODO(parity)
     return 0;
@@ -130,7 +130,7 @@
     return nil;
 }
 
-- (unsigned __int64)deferredRenderGeneration
+- (unsigned long long)deferredRenderGeneration
 {
     // TODO(parity)
     return 0;
@@ -429,7 +429,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)streamingCommittedLength
+- (unsigned long long)streamingCommittedLength
 {
     // TODO(parity)
     return 0;

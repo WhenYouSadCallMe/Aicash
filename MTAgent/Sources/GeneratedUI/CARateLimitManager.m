@@ -70,7 +70,7 @@
     // TODO(parity)
 }
 
-- (unsigned __int64)sessionTotalTokens
+- (unsigned long long)sessionTotalTokens
 {
     // TODO(parity)
     return 0;

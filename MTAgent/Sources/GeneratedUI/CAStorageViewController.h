@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)deleteRuntimeAtRow:(id)arg1;
     - (void)finishOperationWithMessage:(id)arg1;
     - (id)formattedBytes:(id)arg1;
-    - (signed __int64)numberOfSectionsInTableView:(id)arg1;
+    - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (NSString *)operationStatus;
     - (NSMutableSet *)pendingScanKeys;
     - (void)performFactoryReset;
     - (bool)resetting;
     - (void)scan;
-    - (unsigned __int64)scanGeneration;
+    - (unsigned long long)scanGeneration;
     - (void)setOperationStatus:(id)arg1;
     - (void)setPendingScanKeys:(id)arg1;
     - (void)setResetting:(id)arg1;
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
     - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2;
-    - (signed __int64)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
+    - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;
     - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2;
     - (void)viewDidLoad;
     - (bool)working;
