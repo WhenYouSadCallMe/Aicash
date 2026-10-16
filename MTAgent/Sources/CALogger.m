@@ -6,6 +6,7 @@
 
 #import "CACommon.h"
 #import "CARuntimePaths.h"
+#import "CALogger.h"
 
 static NSString * const kLogFileName       = @"CodexApp.log";
 static NSString * const kLogRotatedName    = @"CodexApp.log.1";
