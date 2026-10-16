@@ -96,3 +96,7 @@ def main():
 
     size = os.path.getsize(args.output)
     print("生成 %s (%d 字节)，写入条目 %d，缺失 %d" % (args.output, size, written, missing))
+
+if __name__ == "__main__":
+    main()
+
