@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)configureWithCode:(id)arg1 language:(id)arg2;
     - (void)handleCopy;
     - (UIView *)headerView;
-    - (CACodeBlockView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (UILabel *)langLabel;
     - (NSString *)language;
     - (void)setActionCopyButton:(id)arg1;

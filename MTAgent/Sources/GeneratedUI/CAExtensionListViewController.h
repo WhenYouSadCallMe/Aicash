@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleAddPrompt;
     - (void)handleAddSkill;
     - (bool)includesItem:(id)arg1;
-    - (CAExtensionListViewController *)initWithKind:(id)arg1;
+    - (id)initWithKind:(id)arg1;
     - (bool)isLocallyManagedMCP:(id)arg1;
     - (bool)isLocallyManagedSkill:(id)arg1;
     - (signed long long)kind;

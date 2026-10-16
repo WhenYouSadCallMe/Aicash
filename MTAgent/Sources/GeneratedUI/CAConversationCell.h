@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIView *)activeBar;
     - (void)configureWithRecord:(id)arg1 active:(id)arg2 running:(id)arg3;
     - (UIImageView *)conversationIcon;
-    - (CAConversationCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (void)setActiveBar:(id)arg1;
     - (void)setConversationIcon:(id)arg1;
     - (void)setSubtitleLabel:(id)arg1;

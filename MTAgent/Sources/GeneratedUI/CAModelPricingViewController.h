@@ -34,10 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setThirdPartyDisplaySnapshot:(id)arg1;
     - (void)setThirdPartyModels:(id)arg1;
     - (unsigned long long)snapshotGeneration;
-    - (UIBarButtonItem *)syncItem;
+    - (id)syncItem;
     - (void)syncPricing;
-    - (UIActivityIndicatorView *)syncSpinner;
-    - (UIBarButtonItem *)syncSpinnerItem;
+    - (id)syncSpinner;
+    - (id)syncSpinnerItem;
     - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
     - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
     - (signed long long)tableView:(id)arg1 numberOfRowsInSection:(id)arg2;

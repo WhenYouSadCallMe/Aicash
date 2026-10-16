@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)URLSession:(id)arg1 downloadTask:(id)arg2 didWriteData:(id)arg3 totalBytesWritten:(id)arg4 totalBytesExpectedToWrite:(id)arg5;
     - (void)URLSession:(id)arg1 task:(id)arg2 didCompleteWithError:(id)arg3;
     - (NSString *)destination;
-    - (OS_dispatch_semaphore *)done;
+    - (id)done;
     - (NSError *)error;
     - (id)progress;
     - (void)setDestination:(id)arg1;

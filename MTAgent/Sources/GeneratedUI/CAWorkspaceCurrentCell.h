@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAWorkspaceCurrentCell;
 
 @interface CAWorkspaceCurrentCell : UITableViewCell
-    - (CAWorkspaceBadgeView *)badge;
+    - (id)badge;
     - (UILabel *)captionLabel;
     - (void)configureWithName:(id)arg1 path:(id)arg2 meta:(id)arg3 symbol:(id)arg4 tint:(id)arg5;
     - (void)copyPathTapped;
     - (UIButton *)filzaButton;
     - (void)filzaTapped;
-    - (CAWorkspaceCurrentCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (UILabel *)metaLabel;
     - (UILabel *)nameLabel;
     - (id)onCopyPath;

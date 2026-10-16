@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)createProjectNamed:(id)arg1 inDirectory:(id)arg2 error:(id)arg3;
     - (NSString *)documentsDirectory;
     - (id)filzaURLForPath:(id)arg1;
-    - (CAWorkspaceManager *)initWithDefaults:(id)arg1 documentsDirectory:(id)arg2;
+    - (id)initWithDefaults:(id)arg1 documentsDirectory:(id)arg2;
     - (NSMutableArray *)internalWorkspaces;
     - (void)loadWorkspaces;
     - (id)normalizedDirectory:(id)arg1 error:(id)arg2;

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSUserDefaults *)defaults;
     - (id)effortOverrideForThirdParty:(id)arg1;
     - (id)explicitOverridesForThirdParty:(id)arg1;
-    - (CASubagentPreferences *)initWithDefaults:(id)arg1;
+    - (id)initWithDefaults:(id)arg1;
     - (id)key:(id)arg1 thirdParty:(id)arg2;
     - (id)modelOverrideForThirdParty:(id)arg1;
     - (id)resolvedWithMainModel:(id)arg1 effort:(id)arg2 thirdParty:(id)arg3;

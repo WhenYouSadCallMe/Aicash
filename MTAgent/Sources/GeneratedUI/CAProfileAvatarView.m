@@ -19,7 +19,7 @@
     return nil;
 }
 
-- (NSURLSessionDataTask *)imageTask
+- (id)imageTask
 {
     // TODO(parity)
     return nil;
@@ -37,7 +37,7 @@
     return nil;
 }
 
-- (CAProfileAvatarView *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

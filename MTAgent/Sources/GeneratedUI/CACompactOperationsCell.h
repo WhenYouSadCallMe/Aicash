@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIButton *)headerButton;
     - (UIImageView *)headerIcon;
     - (id)imageForMessage:(id)arg1;
-    - (CACompactOperationsCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (bool)isFailed:(id)arg1;
     - (bool)isRunning:(id)arg1;
     - (double)maximumRowsViewportHeight;

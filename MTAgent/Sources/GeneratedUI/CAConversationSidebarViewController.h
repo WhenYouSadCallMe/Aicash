@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class UIControl;
 
 @interface CAConversationSidebarViewController : UIViewController
-    - (CAProfileAvatarView *)accountAvatar;
-    - (UIControl *)accountControl;
+    - (id)accountAvatar;
+    - (id)accountControl;
     - (UILabel *)accountEmailLabel;
     - (UIView *)accountFooter;
     - (NSLayoutConstraint *)accountHeight;
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)costSummaryDidChange:(id)arg1;
     - (NSDictionary *)countsByWorkspace;
     - (void)createConversation;
-    - (CAConversationSidebarDelegate *)delegate;
+    - (id)delegate;
     - (UILabel *)emptyLabel;
     - (void)expandWorkspaceAtPath:(id)arg1;
     - (NSMutableSet *)expandedWorkspacePaths;
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)profileRefreshID;
     - (UILabel *)providerHintLabel;
     - (UIImageView *)quotaChevron;
-    - (UIControl *)quotaControl;
+    - (id)quotaControl;
     - (UIStackView *)quotaHeading;
     - (NSString *)quotaRefreshError;
     - (unsigned long long)quotaRefreshGeneration;

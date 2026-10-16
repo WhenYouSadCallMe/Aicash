@@ -28,7 +28,7 @@
     return nil;
 }
 
-- (OS_dispatch_semaphore *)done
+- (id)done
 {
     // TODO(parity)
     return nil;

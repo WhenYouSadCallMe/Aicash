@@ -28,7 +28,7 @@
     // TODO(parity)
 }
 
-- (CAPlanReviewViewController *)initWithPlan:(id)arg1 onEdit:(id)arg2 onApprove:(id)arg3
+- (id)initWithPlan:(id)arg1 onEdit:(id)arg2 onApprove:(id)arg3
 {
     // TODO(parity)
     return nil;

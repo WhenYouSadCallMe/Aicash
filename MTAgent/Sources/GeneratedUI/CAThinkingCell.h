@@ -32,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
     - (bool)gestureRecognizer:(id)arg1 shouldReceiveTouch:(id)arg2;
     - (void)handleTap;
     - (UIImageView *)iconView;
-    - (CAThinkingCell *)initWithFrame:(id)arg1;
-    - (CAMessageItem *)message;
+    - (id)initWithFrame:(id)arg1;
+    - (id)message;
     - (unsigned long long)musingGeneration;
     - (NSString *)musingMessageID;
     - (NSString *)musingPhaseKey;
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (bool)shouldUseAmbientMusingForMessage:(id)arg1;
     - (void)showMusingDotsForPhrase:(id)arg1 round:(id)arg2 dot:(id)arg3 generation:(id)arg4;
     - (void)showMusingPhraseAtIndex:(id)arg1 generation:(id)arg2;
-    - (UIActivityIndicatorView *)spinner;
+    - (id)spinner;
     - (void)startAmbientMusingForMessage:(id)arg1;
     - (UILabel *)statusLabel;
     - (void)thinkingAppDidBecomeActive:(id)arg1;

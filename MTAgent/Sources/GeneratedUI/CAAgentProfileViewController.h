@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (UILabel *)profileName;
     - (UILabel *)profileSubtitle;
-    - (UIBarButtonItem *)saveItem;
+    - (id)saveItem;
     - (void)saveName;
     - (void)setNameField:(id)arg1;
     - (void)setNameFieldCell:(id)arg1;

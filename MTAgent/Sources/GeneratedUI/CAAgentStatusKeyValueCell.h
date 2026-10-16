@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAgentStatusKeyValueCell : UITableViewCell
     - (void)configureTitle:(id)arg1 value:(id)arg2 error:(id)arg3;
-    - (CAAgentStatusKeyValueCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (UILabel *)keyLabel;
     - (void)setKeyLabel:(id)arg1;
     - (void)setValueLabel:(id)arg1;

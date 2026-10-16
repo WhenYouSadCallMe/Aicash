@@ -7,7 +7,7 @@
 
 @implementation CAPlanStatusRing
 
-- (CAShapeLayer *)arcLayer
+- (id)arcLayer
 {
     // TODO(parity)
     return nil;
@@ -24,7 +24,7 @@
     // TODO(parity)
 }
 
-- (CAPlanStatusRing *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -66,7 +66,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)trackLayer
+- (id)trackLayer
 {
     // TODO(parity)
     return nil;

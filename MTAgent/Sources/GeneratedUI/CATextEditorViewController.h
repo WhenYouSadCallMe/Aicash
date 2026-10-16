@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleCopy;
     - (void)handleSave;
     - (UIView *)infoBar;
-    - (CATextEditorViewController *)initWithTitle:(id)arg1 path:(id)arg2 template:(id)arg3 editable:(id)arg4;
+    - (id)initWithTitle:(id)arg1 path:(id)arg2 template:(id)arg3 editable:(id)arg4;
     - (bool)isDirty;
     - (void)loadFile;
     - (bool)loaded;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)path;
     - (UILabel *)pathLabel;
     - (bool)prefillTemplateWhenEmpty;
-    - (UIBarButtonItem *)saveItem;
+    - (id)saveItem;
     - (bool)saving;
     - (void)setEditable:(id)arg1;
     - (void)setFileExists:(id)arg1;
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setStatusLabel:(id)arg1;
     - (void)setTemplateText:(id)arg1;
     - (void)setTextView:(id)arg1;
-    - (UIActivityIndicatorView *)spinner;
+    - (id)spinner;
     - (UILabel *)statusLabel;
     - (NSString *)templateText;
     - (UITextView *)textView;

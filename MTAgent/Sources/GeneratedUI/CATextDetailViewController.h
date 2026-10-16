@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleCopyText;
     - (void)handleShareText;
     - (id)initForTextSelection:(id)arg1;
-    - (CATextDetailViewController *)initWithTitle:(id)arg1 text:(id)arg2;
+    - (id)initWithTitle:(id)arg1 text:(id)arg2;
     - (void)setShareItem:(id)arg1;
     - (void)setText:(id)arg1;
     - (void)setTextSelectionMode:(id)arg1;
     - (void)setTextView:(id)arg1;
-    - (UIBarButtonItem *)shareItem;
+    - (id)shareItem;
     - (NSString *)text;
     - (bool)textSelectionMode;
     - (UITextView *)textView;

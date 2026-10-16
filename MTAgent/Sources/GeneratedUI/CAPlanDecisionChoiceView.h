@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UILabel *)choiceDescription;
     - (UILabel *)choiceTitle;
     - (NSString *)choiceValue;
-    - (CAPlanDecisionChoiceView *)initWithTitle:(id)arg1 detail:(id)arg2;
+    - (id)initWithTitle:(id)arg1 detail:(id)arg2;
     - (unsigned long long)questionIndex;
     - (UIImageView *)selectionIcon;
     - (void)setChoiceDescription:(id)arg1;

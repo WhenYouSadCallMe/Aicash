@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (UIProgressView *)cacheProgress
+- (id)cacheProgress
 {
     // TODO(parity)
     return nil;
@@ -48,7 +48,7 @@
     return nil;
 }
 
-- (UIProgressView *)contextProgress
+- (id)contextProgress
 {
     // TODO(parity)
     return nil;
@@ -66,7 +66,7 @@
     return nil;
 }
 
-- (CACodexEngine *)engine
+- (id)engine
 {
     // TODO(parity)
     return nil;

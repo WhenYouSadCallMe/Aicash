@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (bool)fitWidthOnly;
     - (double)fittedPageScale;
     - (void)handlePreviewPinch:(id)arg1;
-    - (CAMTArtifactWebView *)initWithFrame:(id)arg1 configuration:(id)arg2;
+    - (id)initWithFrame:(id)arg1 configuration:(id)arg2;
     - (CGSize)lastFitBoundsSize;
     - (void)layoutSubviews;
     - (CGSize)naturalContentSize;

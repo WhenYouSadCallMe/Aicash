@@ -13,17 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAPathPickerViewController : UIViewController
     - (void)cancel;
     - (void)createFolder;
-    - (UIBarButtonItem *)createItem;
+    - (id)createItem;
     - (NSString *)currentPath;
     - (NSArray *)entries;
-    - (CAPathPickerViewController *)initWithPath:(id)arg1;
+    - (id)initWithPath:(id)arg1;
     - (id)onDirectorySelected;
     - (UIView *)pathBar;
     - (UILabel *)pathLabel;
     - (NSString *)readGeneration;
     - (void)reloadDirectory;
     - (void)selectCurrentDirectory;
-    - (UIBarButtonItem *)selectItem;
+    - (id)selectItem;
     - (void)setCreateItem:(id)arg1;
     - (void)setCurrentPath:(id)arg1;
     - (void)setEntries:(id)arg1;

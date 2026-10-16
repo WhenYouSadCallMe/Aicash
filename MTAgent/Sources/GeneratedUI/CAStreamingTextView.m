@@ -40,7 +40,7 @@
     return NO;
 }
 
-- (CAStreamingTextView *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -79,13 +79,13 @@
     // TODO(parity)
 }
 
-- (CADisplayLink *)revealDisplayLink
+- (id)revealDisplayLink
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAStreamRevealTarget *)revealTarget
+- (id)revealTarget
 {
     // TODO(parity)
     return nil;
@@ -162,7 +162,7 @@
     // TODO(parity)
 }
 
-- (NSParagraphStyle *)streamingParagraph
+- (id)streamingParagraph
 {
     // TODO(parity)
     return nil;

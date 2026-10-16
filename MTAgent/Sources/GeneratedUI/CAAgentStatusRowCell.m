@@ -18,7 +18,7 @@
     return nil;
 }
 
-- (CAAgentStatusRowCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
+- (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
 {
     // TODO(parity)
     return nil;
@@ -29,7 +29,7 @@
     // TODO(parity)
 }
 
-- (CAAgentProgressRingView *)progressRing
+- (id)progressRing
 {
     // TODO(parity)
     return nil;

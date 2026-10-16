@@ -19,15 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)didMoveToWindow;
     - (void)finishStreamingReveal;
     - (bool)hasCachedTextSize;
-    - (CAStreamingTextView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (CGSize)intrinsicContentSize;
     - (bool)intrinsicInvalidationPending;
     - (void)invalidateIntrinsicContentSize;
     - (void)layoutSubviews;
     - (double)measuredWidth;
     - (void)requestIntrinsicSizeInvalidation;
-    - (CADisplayLink *)revealDisplayLink;
-    - (CAStreamRevealTarget *)revealTarget;
+    - (id)revealDisplayLink;
+    - (id)revealTarget;
     - (NSMutableArray *)revealUnits;
     - (void)setCachedTextHeight:(id)arg1;
     - (void)setCachedTextWidth:(id)arg1;
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setSuppressSizeInvalidation:(id)arg1;
     - (void)setTextColor:(id)arg1;
     - (void)setTextSizeDirty:(id)arg1;
-    - (NSParagraphStyle *)streamingParagraph;
+    - (id)streamingParagraph;
     - (bool)suppressSizeInvalidation;
     - (void)textGeometryDidChange;
     - (double)textHeightForWidth:(id)arg1;

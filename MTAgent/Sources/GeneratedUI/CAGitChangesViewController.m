@@ -87,7 +87,7 @@
     // TODO(parity)
 }
 
-- (CAGitCommitBar *)commitBar
+- (id)commitBar
 {
     // TODO(parity)
     return nil;
@@ -130,7 +130,7 @@
     // TODO(parity)
 }
 
-- (CAGitEmptyStateView *)emptyView
+- (id)emptyView
 {
     // TODO(parity)
     return nil;
@@ -156,7 +156,7 @@
     // TODO(parity)
 }
 
-- (CAGitRepository *)git
+- (id)git
 {
     // TODO(parity)
     return nil;
@@ -167,7 +167,7 @@
     // TODO(parity)
 }
 
-- (CAGitChangesViewController *)initWithWorkspacePath:(id)arg1
+- (id)initWithWorkspacePath:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -190,7 +190,7 @@
     return NO;
 }
 
-- (UIBarButtonItem *)moreItem
+- (id)moreItem
 {
     // TODO(parity)
     return nil;
@@ -291,7 +291,7 @@
     // TODO(parity)
 }
 
-- (UIRefreshControl *)refreshControl
+- (id)refreshControl
 {
     // TODO(parity)
     return nil;
@@ -303,7 +303,7 @@
     return 0;
 }
 
-- (UIBarButtonItem *)refreshItem
+- (id)refreshItem
 {
     // TODO(parity)
     return nil;
@@ -503,7 +503,7 @@
     return 0;
 }
 
-- (CAGitSnapshot *)snapshot
+- (id)snapshot
 {
     // TODO(parity)
     return nil;

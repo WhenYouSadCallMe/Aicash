@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAGitSummaryCell : UITableViewCell
     - (void)applyModel:(id)arg1;
-    - (CAGitPill *)branchPill;
+    - (id)branchPill;
     - (void)branchTapped;
     - (void)fetchTapped;
-    - (CAGitSummaryCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (id)onBranch;
     - (id)onFetch;
     - (id)onPull;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)prepareForReuse;
     - (void)pullTapped;
     - (void)pushTapped;
-    - (CAGitPill *)remotePill;
+    - (id)remotePill;
     - (void)remoteTapped;
     - (void)setOnBranch:(id)arg1;
     - (void)setOnFetch:(id)arg1;

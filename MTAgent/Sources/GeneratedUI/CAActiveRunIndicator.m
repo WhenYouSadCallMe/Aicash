@@ -7,13 +7,13 @@
 
 @implementation CAActiveRunIndicator
 
-- (CAShapeLayer *)arcLayer
+- (id)arcLayer
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAActiveRunIndicator *)initWithDiameter:(id)arg1
+- (id)initWithDiameter:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -34,7 +34,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)trackLayer
+- (id)trackLayer
 {
     // TODO(parity)
     return nil;

@@ -28,7 +28,7 @@
     return nil;
 }
 
-- (CATextDetailViewController *)initWithTitle:(id)arg1 text:(id)arg2
+- (id)initWithTitle:(id)arg1 text:(id)arg2
 {
     // TODO(parity)
     return nil;
@@ -54,7 +54,7 @@
     // TODO(parity)
 }
 
-- (UIBarButtonItem *)shareItem
+- (id)shareItem
 {
     // TODO(parity)
     return nil;

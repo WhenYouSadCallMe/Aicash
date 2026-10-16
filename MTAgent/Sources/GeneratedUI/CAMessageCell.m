@@ -141,7 +141,7 @@
     // TODO(parity)
 }
 
-- (CAMessageCell *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -250,7 +250,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)queuedBorderLayer
+- (id)queuedBorderLayer
 {
     // TODO(parity)
     return nil;
@@ -435,7 +435,7 @@
     return 0;
 }
 
-- (CAStreamingTextView *)streamingTextLabel
+- (id)streamingTextLabel
 {
     // TODO(parity)
     return nil;

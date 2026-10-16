@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIView *)headerView;
     - (NSIndexPath *)highlightedIndexPath;
     - (id)indexPathForIdentifier:(id)arg1;
-    - (CAComposerPopupView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (id)itemAtIndexPath:(id)arg1;
     - (void)layoutSubviews;
     - (bool)moveHighlightBy:(id)arg1;

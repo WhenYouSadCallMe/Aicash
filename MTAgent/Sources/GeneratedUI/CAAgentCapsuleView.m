@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (CAAgentCapsuleView *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -40,7 +40,7 @@
     return NO;
 }
 
-- (CAGradientLayer *)runningSheenLayer
+- (id)runningSheenLayer
 {
     // TODO(parity)
     return nil;

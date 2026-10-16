@@ -7,7 +7,7 @@
 
 @implementation CAAgentStatusDetailViewController
 
-- (CAAgentStatusDetailViewController *)initWithSnapshot:(id)arg1
+- (id)initWithSnapshot:(id)arg1
 {
     // TODO(parity)
     return nil;

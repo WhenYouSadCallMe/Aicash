@@ -13,7 +13,7 @@
     return 0;
 }
 
-- (UIImagePickerController *)cameraPicker
+- (id)cameraPicker
 {
     // TODO(parity)
     return nil;

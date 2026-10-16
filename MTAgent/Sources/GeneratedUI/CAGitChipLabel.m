@@ -23,7 +23,7 @@
     // TODO(parity)
 }
 
-- (CAGitChipLabel *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

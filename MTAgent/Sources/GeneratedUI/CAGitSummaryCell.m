@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (CAGitPill *)branchPill
+- (id)branchPill
 {
     // TODO(parity)
     return nil;
@@ -28,7 +28,7 @@
     // TODO(parity)
 }
 
-- (CAGitSummaryCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
+- (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
 {
     // TODO(parity)
     return nil;
@@ -79,7 +79,7 @@
     // TODO(parity)
 }
 
-- (CAGitPill *)remotePill
+- (id)remotePill
 {
     // TODO(parity)
     return nil;

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)deferQuestions;
     - (void)finishAllowingUnknown:(id)arg1;
     - (NSMutableDictionary *)freeformEditors;
-    - (CAPlanDecisionViewController *)initWithQuestions:(id)arg1 completion:(id)arg2;
+    - (id)initWithQuestions:(id)arg1 completion:(id)arg2;
     - (id)label:(id)arg1 font:(id)arg2 color:(id)arg3;
     - (NSMutableDictionary *)privateEditors;
     - (NSArray *)questions;

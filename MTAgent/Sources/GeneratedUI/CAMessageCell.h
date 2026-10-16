@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)deferredMessageID;
     - (unsigned long long)deferredRenderGeneration;
     - (void)handleSteerQueuedButton;
-    - (CAMessageCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
     - (NSLayoutConstraint *)leadingConstraint;
     - (void)loadThumbnailAtPath:(id)arg1 pixelSize:(id)arg2 intoButton:(id)arg3;
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)prepareForReuse;
     - (void)preparseMarkdownForMessage:(id)arg1 completion:(id)arg2;
     - (void)prewarmRichPreviewsForMessage:(id)arg1 completion:(id)arg2;
-    - (CAShapeLayer *)queuedBorderLayer;
+    - (id)queuedBorderLayer;
     - (id)queuedGuideViewWithTheme:(id)arg1;
     - (NSString *)rawCopyText;
     - (void)renderDeferredMarkdownBatchForGeneration:(id)arg1 isUser:(id)arg2;
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setStreamingTextLabel:(id)arg1;
     - (void)setTrailingConstraint:(id)arg1;
     - (unsigned long long)streamingCommittedLength;
-    - (CAStreamingTextView *)streamingTextLabel;
+    - (id)streamingTextLabel;
     - (NSLayoutConstraint *)trailingConstraint;
     - (void)updateStreamingText:(id)arg1;
 

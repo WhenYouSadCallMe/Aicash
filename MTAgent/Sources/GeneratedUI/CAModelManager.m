@@ -7,7 +7,7 @@
 
 @implementation CAModelManager
 
-- (CAModelItem *)activeModel
+- (id)activeModel
 {
     // TODO(parity)
     return nil;

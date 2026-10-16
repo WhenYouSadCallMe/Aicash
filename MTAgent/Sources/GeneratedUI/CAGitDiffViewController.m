@@ -24,7 +24,7 @@
     return nil;
 }
 
-- (CAGitDiffResult *)diff
+- (id)diff
 {
     // TODO(parity)
     return nil;
@@ -36,7 +36,7 @@
     return 0;
 }
 
-- (CAGitRepository *)git
+- (id)git
 {
     // TODO(parity)
     return nil;
@@ -59,7 +59,7 @@
     return NO;
 }
 
-- (UISegmentedControl *)scopeControl
+- (id)scopeControl
 {
     // TODO(parity)
     return nil;
@@ -141,7 +141,7 @@
     return nil;
 }
 
-- (CAGitChipLabel *)statusChip
+- (id)statusChip
 {
     // TODO(parity)
     return nil;

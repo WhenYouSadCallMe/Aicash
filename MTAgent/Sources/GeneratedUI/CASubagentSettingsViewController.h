@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CACodexEngine;
 
 @interface CASubagentSettingsViewController : UIViewController
-    - (CACodexEngine *)contextEngine;
+    - (id)contextEngine;
     - (id)effectiveContextEngine;
     - (id)effortTitle:(id)arg1;
     - (id)efforts;

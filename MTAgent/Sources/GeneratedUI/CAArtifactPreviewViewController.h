@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAArtifactPreviewViewController : UIViewController
     - (void)close;
-    - (CAArtifactPreviewViewController *)initWithPath:(id)arg1;
+    - (id)initWithPath:(id)arg1;
     - (signed long long)numberOfPreviewItemsInPreviewController:(id)arg1;
     - (NSString *)path;
-    - (AVPlayerViewController *)playerController;
+    - (id)playerController;
     - (id)previewController:(id)arg1 previewItemAtIndex:(id)arg2;
     - (QLPreviewController *)quickLookController;
     - (void)setPath:(id)arg1;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setShareItem:(id)arg1;
     - (void)setWebView:(id)arg1;
     - (void)shareFile;
-    - (UIBarButtonItem *)shareItem;
+    - (id)shareItem;
     - (void)viewDidAppear:(id)arg1;
     - (void)viewDidLoad;
     - (void)viewWillDisappear:(id)arg1;

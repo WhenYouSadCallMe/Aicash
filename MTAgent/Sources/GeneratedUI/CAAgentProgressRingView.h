@@ -12,14 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAShapeLayer;
 
 @interface CAAgentProgressRingView : UIView
-    - (CAAgentProgressRingView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
-    - (CAShapeLayer *)progressLayer;
+    - (id)progressLayer;
     - (void)setProgressLayer:(id)arg1;
     - (void)setStatus:(id)arg1;
     - (void)setTrackLayer:(id)arg1;
     - (NSString *)status;
-    - (CAShapeLayer *)trackLayer;
+    - (id)trackLayer;
 
 @end
 

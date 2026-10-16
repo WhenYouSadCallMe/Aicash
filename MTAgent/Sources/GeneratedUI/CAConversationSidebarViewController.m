@@ -7,13 +7,13 @@
 
 @implementation CAConversationSidebarViewController
 
-- (CAProfileAvatarView *)accountAvatar
+- (id)accountAvatar
 {
     // TODO(parity)
     return nil;
 }
 
-- (UIControl *)accountControl
+- (id)accountControl
 {
     // TODO(parity)
     return nil;
@@ -141,7 +141,7 @@
     // TODO(parity)
 }
 
-- (CAConversationSidebarDelegate *)delegate
+- (id)delegate
 {
     // TODO(parity)
     return nil;
@@ -270,7 +270,7 @@
     return nil;
 }
 
-- (UIControl *)quotaControl
+- (id)quotaControl
 {
     // TODO(parity)
     return nil;

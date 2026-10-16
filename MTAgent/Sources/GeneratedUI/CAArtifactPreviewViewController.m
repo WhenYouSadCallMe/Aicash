@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (CAArtifactPreviewViewController *)initWithPath:(id)arg1
+- (id)initWithPath:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -30,7 +30,7 @@
     return nil;
 }
 
-- (AVPlayerViewController *)playerController
+- (id)playerController
 {
     // TODO(parity)
     return nil;
@@ -78,7 +78,7 @@
     // TODO(parity)
 }
 
-- (UIBarButtonItem *)shareItem
+- (id)shareItem
 {
     // TODO(parity)
     return nil;

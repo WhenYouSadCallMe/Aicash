@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)configureWithText:(id)arg1 color:(id)arg2;
     - (UIEdgeInsets)contentInsets;
     - (void)drawTextInRect:(id)arg1;
-    - (CAGitChipLabel *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (CGSize)intrinsicContentSize;
     - (void)setContentInsets:(id)arg1;
 

@@ -64,25 +64,25 @@
     return NO;
 }
 
-- (CAUpdateViewController *)initWithPythonVersion:(id)arg1
+- (id)initWithPythonVersion:(id)arg1
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAUpdateViewController *)initWithReverseToolsVersion:(id)arg1
+- (id)initWithReverseToolsVersion:(id)arg1
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAUpdateViewController *)initWithTheosVersion:(id)arg1
+- (id)initWithTheosVersion:(id)arg1
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAUpdateViewController *)initWithVersion:(id)arg1
+- (id)initWithVersion:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -94,7 +94,7 @@
     return nil;
 }
 
-- (UIProgressView *)progressBar
+- (id)progressBar
 {
     // TODO(parity)
     return nil;
@@ -228,7 +228,7 @@
     // TODO(parity)
 }
 
-- (UIActivityIndicatorView *)spinner
+- (id)spinner
 {
     // TODO(parity)
     return nil;

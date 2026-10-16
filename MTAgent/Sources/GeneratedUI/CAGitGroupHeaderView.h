@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAGitGroupHeaderView : UIView
     - (void)actionTapped;
     - (void)configureWithTitle:(id)arg1 count:(id)arg2 symbol:(id)arg3 tint:(id)arg4 expanded:(id)arg5 actionTitle:(id)arg6 actionEnabled:(id)arg7;
-    - (CAGitGroupHeaderView *)initWithReuseIdentifier:(id)arg1;
+    - (id)initWithReuseIdentifier:(id)arg1;
     - (id)onAction;
     - (id)onToggle;
     - (void)prepareForReuse;

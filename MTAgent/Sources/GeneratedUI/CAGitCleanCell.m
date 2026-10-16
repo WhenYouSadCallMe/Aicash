@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (CAGitCleanCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
+- (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
 {
     // TODO(parity)
     return nil;

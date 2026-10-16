@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)configureWithStageAll:(id)arg1 allCount:(id)arg2 stagedCount:(id)arg3 canEdit:(id)arg4 canCommit:(id)arg5 hint:(id)arg6;
     - (void)doneTapped;
     - (void)focusMessage;
-    - (CAGitCommitBar *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
     - (NSString *)message;
     - (id)onBeginEditing;

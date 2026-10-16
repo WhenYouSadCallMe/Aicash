@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (CAComposerAttachmentCell *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

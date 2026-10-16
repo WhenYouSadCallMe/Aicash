@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAGitCleanCell : UITableViewCell
     - (void)configureWithTitle:(id)arg1 detail:(id)arg2;
-    - (CAGitCleanCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
 
 @end
 

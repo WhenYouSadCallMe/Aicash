@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAProfileAvatarView : UIView
     - (NSString *)identity;
     - (id)imageCache;
-    - (NSURLSessionDataTask *)imageTask;
+    - (id)imageTask;
     - (NSString *)imageURL;
     - (UIImageView *)imageView;
-    - (CAProfileAvatarView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (UILabel *)initialLabel;
     - (void)layoutSubviews;
     - (NSString *)requestID;

@@ -31,7 +31,7 @@
     return nil;
 }
 
-- (CARootViewController *)initWithContentViewController:(id)arg1
+- (id)initWithContentViewController:(id)arg1
 {
     // TODO(parity)
     return nil;

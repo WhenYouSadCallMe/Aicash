@@ -38,7 +38,7 @@
     // TODO(parity)
 }
 
-- (CAGitCommitBar *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

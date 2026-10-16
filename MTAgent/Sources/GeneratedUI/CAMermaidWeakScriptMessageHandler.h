@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAMermaidWeakScriptMessageHandler : NSObject
     - (void)setTarget:(id)arg1;
-    - (WKScriptMessageHandler *)target;
+    - (id)target;
     - (void)userContentController:(id)arg1 didReceiveScriptMessage:(id)arg2;
 
 @end

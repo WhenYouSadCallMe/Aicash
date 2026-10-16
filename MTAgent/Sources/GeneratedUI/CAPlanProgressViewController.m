@@ -18,7 +18,7 @@
     return NO;
 }
 
-- (CAPlanProgressViewController *)initWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3
+- (id)initWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3
 {
     // TODO(parity)
     return nil;

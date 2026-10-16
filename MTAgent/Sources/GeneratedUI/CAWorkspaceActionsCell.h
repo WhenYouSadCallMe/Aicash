@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)browseTapped;
     - (UIButton *)createButton;
     - (void)createTapped;
-    - (CAWorkspaceActionsCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (id)onBrowse;
     - (id)onCreate;
     - (void)setBrowseButton:(id)arg1;

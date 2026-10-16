@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAStreamRevealTarget : NSObject
     - (void)setView:(id)arg1;
     - (void)tick:(id)arg1;
-    - (CAStreamingTextView *)view;
+    - (id)view;
 
 @end
 

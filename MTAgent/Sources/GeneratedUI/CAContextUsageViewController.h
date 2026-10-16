@@ -13,16 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAContextUsageViewController : UIViewController
     - (UILabel *)cacheHint;
-    - (UIProgressView *)cacheProgress;
+    - (id)cacheProgress;
     - (UILabel *)cacheTokens;
     - (UILabel *)cacheValue;
     - (NSMutableArray *)cards;
     - (void)closeSheet;
     - (UILabel *)contextHint;
-    - (UIProgressView *)contextProgress;
+    - (id)contextProgress;
     - (UILabel *)contextTokens;
     - (UILabel *)contextValue;
-    - (CACodexEngine *)engine;
+    - (id)engine;
     - (id)labelWithSize:(id)arg1 weight:(id)arg2 secondary:(id)arg3;
     - (id)metricCardWithTitle:(id)arg1 value:(id)arg2 tokens:(id)arg3 hint:(id)arg4 progress:(id)arg5;
     - (UILabel *)modelLabel;

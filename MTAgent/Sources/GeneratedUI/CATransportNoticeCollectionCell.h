@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CATransportNoticeCollectionCell : UITableViewCell
     - (void)configureNotice:(id)arg1;
-    - (CATransportNoticeCollectionCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (UILabel *)label;
     - (void)setLabel:(id)arg1;
 

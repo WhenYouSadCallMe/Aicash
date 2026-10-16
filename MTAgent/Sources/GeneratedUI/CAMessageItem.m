@@ -321,7 +321,7 @@
     return nil;
 }
 
-- (CAToolItem *)toolItem
+- (id)toolItem
 {
     // TODO(parity)
     return nil;

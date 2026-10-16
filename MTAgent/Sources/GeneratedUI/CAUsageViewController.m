@@ -49,7 +49,7 @@
     // TODO(parity)
 }
 
-- (CACodexEngine *)engine
+- (id)engine
 {
     // TODO(parity)
     return nil;
@@ -85,7 +85,7 @@
     return 0;
 }
 
-- (CAConversationRecord *)record
+- (id)record
 {
     // TODO(parity)
     return nil;
@@ -179,7 +179,7 @@
     // TODO(parity)
 }
 
-- (UIActivityIndicatorView *)spinner
+- (id)spinner
 {
     // TODO(parity)
     return nil;

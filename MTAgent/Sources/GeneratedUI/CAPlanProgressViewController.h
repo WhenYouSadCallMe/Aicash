@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAPlanProgressViewController : UIViewController
     - (void)close;
     - (bool)executionActive;
-    - (CAPlanProgressViewController *)initWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3;
+    - (id)initWithPlanDetail:(id)arg1 pendingSync:(id)arg2 executionActive:(id)arg3;
     - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (id)onCloseTodo;
     - (bool)pendingSync;

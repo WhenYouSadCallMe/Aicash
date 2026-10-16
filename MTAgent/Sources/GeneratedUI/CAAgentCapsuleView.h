@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAgentCapsuleView : UIView
     - (void)didMoveToWindow;
-    - (CAAgentCapsuleView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (double)lastSheenWidth;
     - (void)layoutSubviews;
     - (void)refreshColors;
     - (bool)running;
-    - (CAGradientLayer *)runningSheenLayer;
+    - (id)runningSheenLayer;
     - (void)setLastSheenWidth:(id)arg1;
     - (void)setRunning:(id)arg1;
     - (void)setRunning:(id)arg1 animated:(id)arg2;

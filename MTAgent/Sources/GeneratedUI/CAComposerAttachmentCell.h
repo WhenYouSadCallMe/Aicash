@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAComposerAttachmentCell : UITableViewCell
     - (void)configure:(id)arg1;
-    - (CAComposerAttachmentCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (UILabel *)nameLabel;
     - (id)onRemove;
     - (void)prepareForReuse;

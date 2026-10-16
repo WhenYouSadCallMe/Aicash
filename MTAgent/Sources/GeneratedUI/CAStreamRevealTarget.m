@@ -17,7 +17,7 @@
     // TODO(parity)
 }
 
-- (CAStreamingTextView *)view
+- (id)view
 {
     // TODO(parity)
     return nil;

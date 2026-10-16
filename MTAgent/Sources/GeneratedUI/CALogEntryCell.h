@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CALogEntryCell : UITableViewCell
     - (void)configureWithEntry:(id)arg1;
-    - (CALogEntryCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (UIView *)levelBar;
     - (UILabel *)messageLabel;
     - (UILabel *)metaLabel;

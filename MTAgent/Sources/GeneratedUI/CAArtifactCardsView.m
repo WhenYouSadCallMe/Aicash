@@ -7,7 +7,7 @@
 
 @implementation CAArtifactCardsView
 
-- (CAArtifactCardsView *)initWithArtifacts:(id)arg1 onOpen:(id)arg2
+- (id)initWithArtifacts:(id)arg1 onOpen:(id)arg2
 {
     // TODO(parity)
     return nil;

@@ -19,7 +19,7 @@
     return nil;
 }
 
-- (CAMessageItem *)message
+- (id)message
 {
     // TODO(parity)
     return nil;

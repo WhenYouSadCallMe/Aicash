@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAAgentStatusRowCell : UITableViewCell
     - (void)configureWithSnapshot:(id)arg1 mainRunning:(id)arg2;
     - (UILabel *)detailLabelView;
-    - (CAAgentStatusRowCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (void)prepareForReuse;
-    - (CAAgentProgressRingView *)progressRing;
+    - (id)progressRing;
     - (void)setDetailLabelView:(id)arg1;
     - (void)setProgressRing:(id)arg1;
     - (void)setTitleLabelView:(id)arg1;

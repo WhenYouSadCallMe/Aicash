@@ -117,13 +117,13 @@
     return nil;
 }
 
-- (CAThinkingCell *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAMessageItem *)message
+- (id)message
 {
     // TODO(parity)
     return nil;
@@ -308,7 +308,7 @@
     // TODO(parity)
 }
 
-- (UIActivityIndicatorView *)spinner
+- (id)spinner
 {
     // TODO(parity)
     return nil;

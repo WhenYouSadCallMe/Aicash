@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAToolCardCell : UITableViewCell
     - (UIButton *)actionCopyButton;
-    - (CAAgentCapsuleView *)capsuleView;
+    - (id)capsuleView;
     - (UIButton *)collapseButton;
     - (UILabel *)commandLabel;
     - (id)compactCommand:(id)arg1;
     - (void)configureWithToolItem:(id)arg1;
-    - (CAToolItem *)configuredTool;
+    - (id)configuredTool;
     - (CGRect)expandedBodyRectForCollapseSnapshot;
     - (UIButton *)fullOutputButton;
     - (NSLayoutConstraint *)fullOutputHeight;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleTap;
     - (bool)hasRenderedState;
     - (UIImageView *)iconView;
-    - (CAToolCardCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (NSString *)lastItemID;
     - (signed long long)lastStatus;
     - (void)loadCompleteOutput:(id)arg1;

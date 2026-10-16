@@ -41,7 +41,7 @@
     return nil;
 }
 
-- (CAPlanDecisionViewController *)initWithQuestions:(id)arg1 completion:(id)arg2
+- (id)initWithQuestions:(id)arg1 completion:(id)arg2
 {
     // TODO(parity)
     return nil;

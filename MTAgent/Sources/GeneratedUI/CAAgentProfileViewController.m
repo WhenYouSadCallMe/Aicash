@@ -53,7 +53,7 @@
     return nil;
 }
 
-- (UIBarButtonItem *)saveItem
+- (id)saveItem
 {
     // TODO(parity)
     return nil;

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)collectionView:(id)arg1 cellForItemAtIndexPath:(id)arg2;
     - (void)collectionView:(id)arg1 didSelectItemAtIndexPath:(id)arg2;
     - (signed long long)collectionView:(id)arg1 numberOfItemsInSection:(id)arg2;
-    - (CAComposerAttachmentGridView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (NSArray *)items;
     - (id)onOpenIndex;
     - (id)onOpenPastedID;

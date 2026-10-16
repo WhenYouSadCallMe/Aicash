@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAAgentTurnHeaderView : UIView
     - (void)configureAssistantHeader;
     - (UIImageView *)iconView;
-    - (CAAgentTurnHeaderView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)setIconView:(id)arg1;
     - (void)setTitleLabel:(id)arg1;
     - (UILabel *)titleLabel;

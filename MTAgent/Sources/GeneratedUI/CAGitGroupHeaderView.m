@@ -17,7 +17,7 @@
     // TODO(parity)
 }
 
-- (CAGitGroupHeaderView *)initWithReuseIdentifier:(id)arg1
+- (id)initWithReuseIdentifier:(id)arg1
 {
     // TODO(parity)
     return nil;

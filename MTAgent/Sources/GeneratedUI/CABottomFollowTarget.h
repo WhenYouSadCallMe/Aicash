@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CABottomFollowTarget : NSObject
     - (void)setView:(id)arg1;
     - (void)tick:(id)arg1;
-    - (CAChatCollectionView *)view;
+    - (id)view;
 
 @end
 

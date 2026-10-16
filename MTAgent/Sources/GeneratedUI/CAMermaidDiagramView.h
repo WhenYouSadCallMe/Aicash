@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
     - (bool)configureWithSource:(id)arg1;
     - (void)copySource;
     - (bool)didApplyInitialFit;
-    - (CAMermaidWeakScriptMessageHandler *)fallbackMessageHandler;
+    - (id)fallbackMessageHandler;
     - (NSString *)fallbackResourceDirectory;
     - (id)fallbackTitleForHeader:(id)arg1;
     - (WKWebView *)fallbackWebView;
     - (void)handleDiagramDoubleTap:(id)arg1;
     - (NSLayoutConstraint *)heightConstraint;
-    - (CAMermaidDiagramView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
     - (NSString *)previewCacheKey;
     - (UIScrollView *)scrollView;

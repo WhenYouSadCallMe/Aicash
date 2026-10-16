@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)childViewControllerForStatusBarHidden;
     - (id)childViewControllerForStatusBarStyle;
     - (UIViewController *)contentViewController;
-    - (CARootViewController *)initWithContentViewController:(id)arg1;
+    - (id)initWithContentViewController:(id)arg1;
     - (void)setContentViewController:(id)arg1;
     - (bool)shouldAutorotate;
     - (unsigned long long)supportedInterfaceOrientations;

@@ -131,7 +131,7 @@
     return 0;
 }
 
-- (UIBarButtonItem *)syncItem
+- (id)syncItem
 {
     // TODO(parity)
     return nil;
@@ -142,13 +142,13 @@
     // TODO(parity)
 }
 
-- (UIActivityIndicatorView *)syncSpinner
+- (id)syncSpinner
 {
     // TODO(parity)
     return nil;
 }
 
-- (UIBarButtonItem *)syncSpinnerItem
+- (id)syncSpinnerItem
 {
     // TODO(parity)
     return nil;

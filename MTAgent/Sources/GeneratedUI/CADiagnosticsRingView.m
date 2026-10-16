@@ -24,7 +24,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)progressLayer
+- (id)progressLayer
 {
     // TODO(parity)
     return nil;
@@ -50,7 +50,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)trackLayer
+- (id)trackLayer
 {
     // TODO(parity)
     return nil;

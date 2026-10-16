@@ -12,7 +12,7 @@
     // TODO(parity)
 }
 
-- (WKScriptMessageHandler *)target
+- (id)target
 {
     // TODO(parity)
     return nil;

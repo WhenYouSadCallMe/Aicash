@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CASwitchButton : NSObject
     - (void)commonInit;
     - (void)handleTap;
-    - (CASwitchButton *)initWithCoder:(id)arg1;
-    - (CASwitchButton *)initWithFrame:(id)arg1;
+    - (id)initWithCoder:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (bool)isOn;
     - (CGRect)knobFrameForOn:(id)arg1;
     - (UIView *)knobView;

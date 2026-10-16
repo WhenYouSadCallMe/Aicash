@@ -23,12 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
     - (UILabel *)detailLabel;
     - (void)finishUpdate:(id)arg1 message:(id)arg2;
     - (bool)finished;
-    - (CAUpdateViewController *)initWithPythonVersion:(id)arg1;
-    - (CAUpdateViewController *)initWithReverseToolsVersion:(id)arg1;
-    - (CAUpdateViewController *)initWithTheosVersion:(id)arg1;
-    - (CAUpdateViewController *)initWithVersion:(id)arg1;
+    - (id)initWithPythonVersion:(id)arg1;
+    - (id)initWithReverseToolsVersion:(id)arg1;
+    - (id)initWithTheosVersion:(id)arg1;
+    - (id)initWithVersion:(id)arg1;
     - (id)labelWithSize:(id)arg1 weight:(id)arg2;
-    - (UIProgressView *)progressBar;
+    - (id)progressBar;
     - (void)pythonEnvironmentChanged;
     - (bool)pythonRuntime;
     - (void)renderProgress:(id)arg1;
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setTheosRuntime:(id)arg1;
     - (void)setTitleLabel:(id)arg1;
     - (void)setVersion:(id)arg1;
-    - (UIActivityIndicatorView *)spinner;
+    - (id)spinner;
     - (NSArray *)stageIcons;
     - (NSArray *)stageLabels;
     - (void)startUpdate;

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAAgentStatusTextCell : UITableViewCell
     - (UILabel *)bodyLabel;
     - (void)configureText:(id)arg1 error:(id)arg2 monospace:(id)arg3;
-    - (CAAgentStatusTextCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (void)setBodyLabel:(id)arg1;
 
 @end

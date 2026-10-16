@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (CAAgentCapsuleView *)capsuleView
+- (id)capsuleView
 {
     // TODO(parity)
     return nil;
@@ -42,7 +42,7 @@
     // TODO(parity)
 }
 
-- (CAToolItem *)configuredTool
+- (id)configuredTool
 {
     // TODO(parity)
     return nil;
@@ -104,7 +104,7 @@
     return nil;
 }
 
-- (CAToolCardCell *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

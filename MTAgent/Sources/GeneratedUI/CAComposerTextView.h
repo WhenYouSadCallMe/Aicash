@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAComposerTextView : UIView
     - (bool)becomeFirstResponder;
     - (bool)composerDropInstalled;
-    - (UIDropInteraction *)composerDropInteraction;
+    - (id)composerDropInteraction;
     - (void)didMoveToWindow;
     - (bool)dropInteraction:(id)arg1 canHandleSession:(id)arg2;
     - (void)dropInteraction:(id)arg1 performDrop:(id)arg2;

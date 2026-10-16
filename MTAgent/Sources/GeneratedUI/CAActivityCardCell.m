@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (CAAgentCapsuleView *)capsuleView
+- (id)capsuleView
 {
     // TODO(parity)
     return nil;
@@ -30,7 +30,7 @@
     // TODO(parity)
 }
 
-- (CAMessageItem *)configuredMessage
+- (id)configuredMessage
 {
     // TODO(parity)
     return nil;
@@ -141,7 +141,7 @@
     return nil;
 }
 
-- (CAActivityCardCell *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

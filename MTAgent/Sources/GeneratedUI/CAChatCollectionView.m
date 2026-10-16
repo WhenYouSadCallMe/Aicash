@@ -17,13 +17,13 @@
     // TODO(parity)
 }
 
-- (CADisplayLink *)bottomFollowLink
+- (id)bottomFollowLink
 {
     // TODO(parity)
     return nil;
 }
 
-- (CABottomFollowTarget *)bottomFollowTarget
+- (id)bottomFollowTarget
 {
     // TODO(parity)
     return nil;

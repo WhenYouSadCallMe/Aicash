@@ -87,7 +87,7 @@
     return NO;
 }
 
-- (CAExtensionListViewController *)initWithKind:(id)arg1
+- (id)initWithKind:(id)arg1
 {
     // TODO(parity)
     return nil;

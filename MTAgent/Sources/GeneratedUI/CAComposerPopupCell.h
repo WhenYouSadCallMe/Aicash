@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (UIView *)highlightView;
     - (UIView *)iconTile;
     - (UIImageView *)iconView;
-    - (CAComposerPopupCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (bool)keyboardHighlighted;
     - (void)setBadgeLabel:(id)arg1;
     - (void)setHighlightView:(id)arg1;

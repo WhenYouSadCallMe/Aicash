@@ -60,7 +60,7 @@
     return nil;
 }
 
-- (CAGitRepository *)initWithWorkspacePath:(id)arg1
+- (id)initWithWorkspacePath:(id)arg1
 {
     // TODO(parity)
     return nil;

@@ -21,13 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)buttonWithSymbol:(id)arg1 label:(id)arg2 action:(id)arg3;
     - (UIButton *)closeButton;
     - (void)closePage;
-    - (CACodexEngine *)engine;
+    - (id)engine;
     - (id)friendlyWindowName:(id)arg1 fallback:(id)arg2;
     - (UIView *)header;
     - (id)labelWithSize:(id)arg1 weight:(id)arg2 secondary:(id)arg3;
     - (UILabel *)planLabel;
     - (unsigned long long)quotaRefreshGeneration;
-    - (CAConversationRecord *)record;
+    - (id)record;
     - (UIButton *)refreshButton;
     - (void)refreshQuota;
     - (bool)refreshing;
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setStackView:(id)arg1;
     - (void)setStatusLabel:(id)arg1;
     - (void)setTitleLabel:(id)arg1;
-    - (UIActivityIndicatorView *)spinner;
+    - (id)spinner;
     - (UIStackView *)stackView;
     - (UILabel *)statusLabel;
     - (void)themeDidChange;

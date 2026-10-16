@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAChatCollectionView : UIView
     - (void)adjustedContentInsetDidChange;
     - (void)advanceBottomFollow:(id)arg1;
-    - (CADisplayLink *)bottomFollowLink;
-    - (CABottomFollowTarget *)bottomFollowTarget;
+    - (id)bottomFollowLink;
+    - (id)bottomFollowTarget;
     - (double)bottomFollowY;
     - (bool)bottomPinSuspended;
     - (void)cancelBottomFollow;

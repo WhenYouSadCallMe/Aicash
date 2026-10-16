@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAModelItem;
 
 @interface CAModelManager : NSObject
-    - (CAModelItem *)activeModel;
+    - (id)activeModel;
     - (NSString *)activeReasoningEffort;
     - (void)applyAppServerModelCatalog:(id)arg1;
     - (NSArray *)availableModels;

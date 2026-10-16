@@ -94,7 +94,7 @@
     return nil;
 }
 
-- (CACodexEngine *)engine
+- (id)engine
 {
     // TODO(parity)
     return nil;
@@ -111,13 +111,13 @@
     return NO;
 }
 
-- (CAMessageItem *)generatedArtifactMessage
+- (id)generatedArtifactMessage
 {
     // TODO(parity)
     return nil;
 }
 
-- (NSMutableOrderedSet *)generatedArtifactPaths
+- (id)generatedArtifactPaths
 {
     // TODO(parity)
     return nil;
@@ -129,13 +129,13 @@
     return nil;
 }
 
-- (CAConversationBackgroundRun *)initWithEngine:(id)arg1 record:(id)arg2 inFlightAttachments:(id)arg3 generatedArtifactPaths:(id)arg4 generatedArtifactMessage:(id)arg5
+- (id)initWithEngine:(id)arg1 record:(id)arg2 inFlightAttachments:(id)arg3 generatedArtifactPaths:(id)arg4 generatedArtifactMessage:(id)arg5
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAConversationRecord *)record
+- (id)record
 {
     // TODO(parity)
     return nil;

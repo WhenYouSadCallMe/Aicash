@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAChatTextLabel : NSObject
     - (void)handleLinkTap:(id)arg1;
     - (bool)hasMeasuredText;
-    - (CAChatTextLabel *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (CGSize)intrinsicContentSize;
     - (CGSize)measuredTextSize;
     - (id)onOpenLink;

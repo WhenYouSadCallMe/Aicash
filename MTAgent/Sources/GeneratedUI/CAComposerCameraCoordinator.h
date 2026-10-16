@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAComposerCameraCoordinator : NSObject
     - (signed long long)cameraAuthorizationStatus;
-    - (UIImagePickerController *)cameraPicker;
+    - (id)cameraPicker;
     - (void)configureCameraPicker:(id)arg1;
     - (void)dismissCameraPicker:(id)arg1 completion:(id)arg2;
     - (void)finishWithFailure:(id)arg1;

@@ -257,8 +257,6 @@
   "MTAgent\\Sources\\GeneratedUI\\CARootViewController.m",
   "MTAgent\\Sources\\GeneratedUI\\CARuntimeCompatibilityProbe.h",
   "MTAgent\\Sources\\GeneratedUI\\CARuntimeCompatibilityProbe.m",
-  "MTAgent\\Sources\\GeneratedUI\\CAShapeLayer.h",
-  "MTAgent\\Sources\\GeneratedUI\\CAShapeLayer.m",
   "MTAgent\\Sources\\GeneratedUI\\CAShareInbox.h",
   "MTAgent\\Sources\\GeneratedUI\\CAShareInbox.m",
   "MTAgent\\Sources\\GeneratedUI\\CAShellEnvironment.h",
@@ -295,8 +293,6 @@
   "MTAgent\\Sources\\GeneratedUI\\CAToolCardCell.m",
   "MTAgent\\Sources\\GeneratedUI\\CAToolItem.h",
   "MTAgent\\Sources\\GeneratedUI\\CAToolItem.m",
-  "MTAgent\\Sources\\GeneratedUI\\CATransition.h",
-  "MTAgent\\Sources\\GeneratedUI\\CATransition.m",
   "MTAgent\\Sources\\GeneratedUI\\CATransportNoticeCollectionCell.h",
   "MTAgent\\Sources\\GeneratedUI\\CATransportNoticeCollectionCell.m",
   "MTAgent\\Sources\\GeneratedUI\\CAUIStyle.h",
@@ -764,9 +760,6 @@
   "CARuntimeCompatibilityProbe": [
    "CARuntimeCompatibilityProbe.h"
   ],
-  "CAShapeLayer": [
-   "CAShapeLayer.h"
-  ],
   "CAShareInbox": [
    "CAShareInbox.h"
   ],
@@ -820,9 +813,6 @@
   ],
   "CAToolItem": [
    "CAToolItem.h"
-  ],
-  "CATransition": [
-   "CATransition.h"
   ],
   "CATransportNoticeCollectionCell": [
    "CATransportNoticeCollectionCell.h"
@@ -1300,9 +1290,6 @@
   "CARuntimeCompatibilityProbe": [
    "CARuntimeCompatibilityProbe.m"
   ],
-  "CAShapeLayer": [
-   "CAShapeLayer.m"
-  ],
   "CAShareInbox": [
    "CAShareInbox.m"
   ],
@@ -1356,9 +1343,6 @@
   ],
   "CAToolItem": [
    "CAToolItem.m"
-  ],
-  "CATransition": [
-   "CATransition.m"
   ],
   "CATransportNoticeCollectionCell": [
    "CATransportNoticeCollectionCell.m"

@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAShapeLayer;
 
 @interface CAPlanStatusRing : NSObject
-    - (CAShapeLayer *)arcLayer;
+    - (id)arcLayer;
     - (UIImageView *)checkView;
     - (void)didMoveToWindow;
-    - (CAPlanStatusRing *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (void)layoutSubviews;
     - (void)setArcLayer:(id)arg1;
     - (void)setCheckView:(id)arg1;
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setTrackLayer:(id)arg1;
     - (NSString *)state;
     - (void)syncAnimation;
-    - (CAShapeLayer *)trackLayer;
+    - (id)trackLayer;
     - (void)traitCollectionDidChange:(id)arg1;
     - (void)updateForState:(id)arg1;
 

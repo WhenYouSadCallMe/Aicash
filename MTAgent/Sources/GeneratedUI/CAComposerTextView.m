@@ -19,7 +19,7 @@
     return NO;
 }
 
-- (UIDropInteraction *)composerDropInteraction
+- (id)composerDropInteraction
 {
     // TODO(parity)
     return nil;

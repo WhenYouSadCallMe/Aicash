@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (CAGitChangeStyle *)initWithLabel:(id)arg1 symbol:(id)arg2 color:(id)arg3
+- (id)initWithLabel:(id)arg1 symbol:(id)arg2 color:(id)arg3
 {
     // TODO(parity)
     return nil;

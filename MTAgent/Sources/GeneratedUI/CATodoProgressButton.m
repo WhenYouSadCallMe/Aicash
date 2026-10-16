@@ -13,7 +13,7 @@
     return 0;
 }
 
-- (CAGradientLayer *)activeSegmentLayer
+- (id)activeSegmentLayer
 {
     // TODO(parity)
     return nil;
@@ -25,7 +25,7 @@
     return 0;
 }
 
-- (CAGradientLayer *)completedLayer
+- (id)completedLayer
 {
     // TODO(parity)
     return nil;
@@ -37,7 +37,7 @@
     return 0;
 }
 
-- (CAGradientLayer *)completionSheenLayer
+- (id)completionSheenLayer
 {
     // TODO(parity)
     return nil;
@@ -54,19 +54,19 @@
     return NO;
 }
 
-- (CALayer *)headCoreLayer
+- (id)headCoreLayer
 {
     // TODO(parity)
     return nil;
 }
 
-- (CALayer *)headGlowLayer
+- (id)headGlowLayer
 {
     // TODO(parity)
     return nil;
 }
 
-- (CATodoProgressButton *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -180,13 +180,13 @@
     return 0;
 }
 
-- (CALayer *)trackLayer
+- (id)trackLayer
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAGradientLayer *)trailLayer
+- (id)trailLayer
 {
     // TODO(parity)
     return nil;

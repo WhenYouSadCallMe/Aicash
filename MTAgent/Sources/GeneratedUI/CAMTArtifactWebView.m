@@ -58,7 +58,7 @@
     // TODO(parity)
 }
 
-- (CAMTArtifactWebView *)initWithFrame:(id)arg1 configuration:(id)arg2
+- (id)initWithFrame:(id)arg1 configuration:(id)arg2
 {
     // TODO(parity)
     return nil;

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)fetchFromRemote:(id)arg1 username:(id)arg2 token:(id)arg3 completion:(id)arg4;
     - (id)gitEnvironment;
     - (id)gitExecutableForEnvironment:(id)arg1;
-    - (CAGitRepository *)initWithWorkspacePath:(id)arg1;
+    - (id)initWithWorkspacePath:(id)arg1;
     - (id)matchingChange:(id)arg1 snapshot:(id)arg2;
     - (double)operationTimeout;
     - (void)pullFromRemote:(id)arg1 branch:(id)arg2 username:(id)arg3 token:(id)arg4 completion:(id)arg5;

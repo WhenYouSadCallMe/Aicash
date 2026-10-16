@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAAgentBlock : NSObject
     - (NSString *)blockId;
     - (NSArray *)groupedMessages;
-    - (CAMessageItem *)message;
+    - (id)message;
     - (void)setBlockId:(id)arg1;
     - (void)setGroupedMessages:(id)arg1;
     - (void)setMessage:(id)arg1;

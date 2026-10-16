@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAGitEmptyStateView : UIView
     - (void)actionTapped;
     - (void)applyTheme;
-    - (CAGitEmptyStateView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (id)onAction;
     - (void)setOnAction:(id)arg1;
     - (void)showLoadingWithTitle:(id)arg1;

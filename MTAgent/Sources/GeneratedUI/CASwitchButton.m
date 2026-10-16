@@ -17,13 +17,13 @@
     // TODO(parity)
 }
 
-- (CASwitchButton *)initWithCoder:(id)arg1
+- (id)initWithCoder:(id)arg1
 {
     // TODO(parity)
     return nil;
 }
 
-- (CASwitchButton *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

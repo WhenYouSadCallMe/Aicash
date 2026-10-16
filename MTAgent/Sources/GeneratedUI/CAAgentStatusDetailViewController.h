@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAAgentStatusDetailViewController;
 
 @interface CAAgentStatusDetailViewController : UIViewController
-    - (CAAgentStatusDetailViewController *)initWithSnapshot:(id)arg1;
+    - (id)initWithSnapshot:(id)arg1;
     - (signed long long)numberOfSectionsInTableView:(id)arg1;
     - (void)refreshTitle;
     - (id)sections;

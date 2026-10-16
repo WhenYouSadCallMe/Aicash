@@ -41,7 +41,7 @@
     return NO;
 }
 
-- (CAMermaidWeakScriptMessageHandler *)fallbackMessageHandler
+- (id)fallbackMessageHandler
 {
     // TODO(parity)
     return nil;
@@ -76,7 +76,7 @@
     return nil;
 }
 
-- (CAMermaidDiagramView *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;

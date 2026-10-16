@@ -13,19 +13,19 @@
     return NO;
 }
 
-- (OS_dispatch_source *)errorSource
+- (id)errorSource
 {
     // TODO(parity)
     return nil;
 }
 
-- (CAAgentRuntimeProcess *)initWithPID:(id)arg1 inputHandle:(id)arg2 outputHandle:(id)arg3 errorHandle:(id)arg4 usedPersona:(id)arg5 outputHandler:(id)arg6 errorHandler:(id)arg7 terminationHandler:(id)arg8
+- (id)initWithPID:(id)arg1 inputHandle:(id)arg2 outputHandle:(id)arg3 errorHandle:(id)arg4 usedPersona:(id)arg5 outputHandler:(id)arg6 errorHandler:(id)arg7 terminationHandler:(id)arg8
 {
     // TODO(parity)
     return nil;
 }
 
-- (OS_dispatch_queue *)ioQueue
+- (id)ioQueue
 {
     // TODO(parity)
     return nil;
@@ -49,7 +49,7 @@
     return nil;
 }
 
-- (OS_dispatch_source *)outputSource
+- (id)outputSource
 {
     // TODO(parity)
     return nil;
@@ -121,19 +121,19 @@
     // TODO(parity)
 }
 
-- (NSFileHandle *)standardError
+- (id)standardError
 {
     // TODO(parity)
     return nil;
 }
 
-- (NSFileHandle *)standardInput
+- (id)standardInput
 {
     // TODO(parity)
     return nil;
 }
 
-- (NSFileHandle *)standardOutput
+- (id)standardOutput
 {
     // TODO(parity)
     return nil;

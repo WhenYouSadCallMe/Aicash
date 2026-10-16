@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)text;
     - (NSDate *)timestamp;
     - (NSString *)tokenUsage;
-    - (CAToolItem *)toolItem;
+    - (id)toolItem;
     - (id)toolMessageWithItem:(id)arg1;
     - (id)userMessageWithText:(id)arg1;
 

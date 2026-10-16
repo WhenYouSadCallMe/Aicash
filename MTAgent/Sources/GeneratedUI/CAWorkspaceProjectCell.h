@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAWorkspaceProjectCell;
 
 @interface CAWorkspaceProjectCell : UITableViewCell
-    - (CAWorkspaceBadgeView *)badge;
+    - (id)badge;
     - (UIImageView *)checkView;
     - (void)configureWithName:(id)arg1 path:(id)arg2 meta:(id)arg3 metaWarning:(id)arg4 symbol:(id)arg5 tint:(id)arg6 active:(id)arg7;
-    - (CAWorkspaceProjectCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
+    - (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;
     - (UILabel *)metaLabel;
     - (UILabel *)nameLabel;
     - (UILabel *)pathLabel;

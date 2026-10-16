@@ -42,7 +42,7 @@
     return nil;
 }
 
-- (CAWorkspaceManager *)initWithDefaults:(id)arg1 documentsDirectory:(id)arg2
+- (id)initWithDefaults:(id)arg1 documentsDirectory:(id)arg2
 {
     // TODO(parity)
     return nil;

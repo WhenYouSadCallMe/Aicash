@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSDictionary *)change;
     - (void)copyDiff;
     - (UILabel *)countsLabel;
-    - (CAGitDiffResult *)diff;
+    - (id)diff;
     - (unsigned long long)generation;
-    - (CAGitRepository *)git;
+    - (id)git;
     - (void)loadDiff;
     - (UILabel *)noticeLabel;
     - (bool)prefersStaged;
-    - (UISegmentedControl *)scopeControl;
+    - (id)scopeControl;
     - (void)setChange:(id)arg1;
     - (void)setCountsLabel:(id)arg1;
     - (void)setDiff:(id)arg1;
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setTile:(id)arg1;
     - (void)shareDiff;
     - (NSDictionary *)stats;
-    - (CAGitChipLabel *)statusChip;
+    - (id)statusChip;
     - (UIImageView *)symbolView;
     - (UITextView *)textView;
     - (UIView *)tile;

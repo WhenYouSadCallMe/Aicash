@@ -7,7 +7,7 @@
 
 @implementation CAAgentProgressRingView
 
-- (CAAgentProgressRingView *)initWithFrame:(id)arg1
+- (id)initWithFrame:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -18,7 +18,7 @@
     // TODO(parity)
 }
 
-- (CAShapeLayer *)progressLayer
+- (id)progressLayer
 {
     // TODO(parity)
     return nil;
@@ -45,7 +45,7 @@
     return nil;
 }
 
-- (CAShapeLayer *)trackLayer
+- (id)trackLayer
 {
     // TODO(parity)
     return nil;

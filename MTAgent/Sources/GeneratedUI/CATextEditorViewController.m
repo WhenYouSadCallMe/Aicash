@@ -51,7 +51,7 @@
     return nil;
 }
 
-- (CATextEditorViewController *)initWithTitle:(id)arg1 path:(id)arg2 template:(id)arg3 editable:(id)arg4
+- (id)initWithTitle:(id)arg1 path:(id)arg2 template:(id)arg3 editable:(id)arg4
 {
     // TODO(parity)
     return nil;
@@ -110,7 +110,7 @@
     return NO;
 }
 
-- (UIBarButtonItem *)saveItem
+- (id)saveItem
 {
     // TODO(parity)
     return nil;
@@ -202,7 +202,7 @@
     // TODO(parity)
 }
 
-- (UIActivityIndicatorView *)spinner
+- (id)spinner
 {
     // TODO(parity)
     return nil;

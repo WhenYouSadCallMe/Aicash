@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAActivityCardCell : UITableViewCell
     - (UIButton *)actionCopyButton;
-    - (CAAgentCapsuleView *)capsuleView;
+    - (id)capsuleView;
     - (UIButton *)collapseButton;
     - (void)configure:(id)arg1;
-    - (CAMessageItem *)configuredMessage;
+    - (id)configuredMessage;
     - (UIView *)detailContainer;
     - (NSLayoutConstraint *)detailContainerHeight;
     - (NSLayoutConstraint *)detailContentsBottom;
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)handleStop;
     - (bool)hasRenderedState;
     - (UIImageView *)iconView;
-    - (CAActivityCardCell *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (bool)lastRunningState;
     - (NSString *)lastStateTitle;
     - (void)loadCompleteDetail:(id)arg1;

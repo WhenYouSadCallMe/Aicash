@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)approvePlan;
     - (void)close;
     - (void)editPlan;
-    - (CAPlanReviewViewController *)initWithPlan:(id)arg1 onEdit:(id)arg2 onApprove:(id)arg3;
+    - (id)initWithPlan:(id)arg1 onEdit:(id)arg2 onApprove:(id)arg3;
     - (id)onApprove;
     - (id)onEdit;
     - (NSString *)plan;

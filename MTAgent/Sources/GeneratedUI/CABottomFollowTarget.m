@@ -17,7 +17,7 @@
     // TODO(parity)
 }
 
-- (CAChatCollectionView *)view
+- (id)view
 {
     // TODO(parity)
     return nil;

@@ -7,7 +7,7 @@
 
 @implementation CASubagentSettingsViewController
 
-- (CACodexEngine *)contextEngine
+- (id)contextEngine
 {
     // TODO(parity)
     return nil;

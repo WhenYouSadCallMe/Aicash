@@ -31,7 +31,7 @@
     return nil;
 }
 
-- (CASubagentPreferences *)initWithDefaults:(id)arg1
+- (id)initWithDefaults:(id)arg1
 {
     // TODO(parity)
     return nil;

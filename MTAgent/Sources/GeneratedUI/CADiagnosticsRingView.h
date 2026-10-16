@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
     - (CGSize)intrinsicContentSize;
     - (UILabel *)label;
     - (void)layoutSubviews;
-    - (CAShapeLayer *)progressLayer;
+    - (id)progressLayer;
     - (void)setLabel:(id)arg1;
     - (void)setPending:(id)arg1 state:(id)arg2;
     - (void)setProgressLayer:(id)arg1;
     - (void)setTrackLayer:(id)arg1;
-    - (CAShapeLayer *)trackLayer;
+    - (id)trackLayer;
 
 @end
 

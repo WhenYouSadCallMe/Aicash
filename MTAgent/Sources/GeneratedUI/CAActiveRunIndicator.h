@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAShapeLayer;
 
 @interface CAActiveRunIndicator : NSObject
-    - (CAShapeLayer *)arcLayer;
-    - (CAActiveRunIndicator *)initWithDiameter:(id)arg1;
+    - (id)arcLayer;
+    - (id)initWithDiameter:(id)arg1;
     - (void)layoutSubviews;
     - (void)setArcLayer:(id)arg1;
     - (void)setTrackLayer:(id)arg1;
-    - (CAShapeLayer *)trackLayer;
+    - (id)trackLayer;
 
 @end
 

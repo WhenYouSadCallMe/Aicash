@@ -17,7 +17,7 @@
     // TODO(parity)
 }
 
-- (UIBarButtonItem *)createItem
+- (id)createItem
 {
     // TODO(parity)
     return nil;
@@ -35,7 +35,7 @@
     return nil;
 }
 
-- (CAPathPickerViewController *)initWithPath:(id)arg1
+- (id)initWithPath:(id)arg1
 {
     // TODO(parity)
     return nil;
@@ -75,7 +75,7 @@
     // TODO(parity)
 }
 
-- (UIBarButtonItem *)selectItem
+- (id)selectItem
 {
     // TODO(parity)
     return nil;

@@ -13,7 +13,7 @@
     return nil;
 }
 
-- (CAInlineMediaPreview *)initWithPath:(id)arg1 video:(id)arg2
+- (id)initWithPath:(id)arg1 video:(id)arg2
 {
     // TODO(parity)
     return nil;
@@ -42,7 +42,7 @@
     return nil;
 }
 
-- (AVPlayerLayer *)playerLayer
+- (id)playerLayer
 {
     // TODO(parity)
     return nil;

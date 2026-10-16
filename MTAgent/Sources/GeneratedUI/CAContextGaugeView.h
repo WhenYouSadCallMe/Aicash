@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAContextGaugeView : UIView
     - (NSString *)centerText;
     - (void)drawRect:(id)arg1;
-    - (CAContextGaugeView *)initWithFrame:(id)arg1;
+    - (id)initWithFrame:(id)arg1;
     - (signed long long)percent;
     - (void)setCenterText:(id)arg1;
     - (void)setPercent:(id)arg1;

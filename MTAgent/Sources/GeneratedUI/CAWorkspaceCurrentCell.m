@@ -7,7 +7,7 @@
 
 @implementation CAWorkspaceCurrentCell
 
-- (CAWorkspaceBadgeView *)badge
+- (id)badge
 {
     // TODO(parity)
     return nil;
@@ -40,7 +40,7 @@
     // TODO(parity)
 }
 
-- (CAWorkspaceCurrentCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
+- (id)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2
 {
     // TODO(parity)
     return nil;
