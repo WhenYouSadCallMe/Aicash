@@ -13,6 +13,10 @@
 
 ROOT           := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 
+# 瘦身：默认排除 Mermaid 离线包（原生渲染器覆盖常用图族；WebView 回退可运行时补齐）
+EXCLUDE_PREFIX ?= Mermaid/
+EXCLUDE_ARGS   := $(foreach p,$(EXCLUDE_PREFIX),--exclude-prefix $(p))
+
 SDK            ?= $(shell xcrun --sdk iphoneos --show-sdk-path)
 MIN_IOS        ?= 15.0
 ARCH           ?= arm64
@@ -75,7 +79,7 @@ $(BUNDLE)/PlugIns/MTShareExtension.appex/MTShareExtension: $(wildcard $(EXT_SRC)
 bundle: app extension filetool
 	@echo "== 装配 bundle（依据 build/bundle_manifest.json 还原顺序/权限/符号链接）=="
 	python3 $(ROOT)/build/assemble_bundle.py --bundle "$(BUNDLE)" \
-	        --manifest "$(MANIFEST)" --assets "$(ASSETS)" --keep-original-binaries
+	        --manifest "$(MANIFEST)" --assets "$(ASSETS)" --keep-original-binaries $(EXCLUDE_ARGS)
 
 sign: bundle
 	@echo "== 签名（ldid -S<entitlements>；缺失则回退 codesign adhoc）=="

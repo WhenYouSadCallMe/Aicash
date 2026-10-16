@@ -28,6 +28,8 @@ def main():
     ap.add_argument("--manifest", required=True)
     ap.add_argument("--assets", required=True)
     ap.add_argument("--keep-original-binaries", action="store_true")
+    ap.add_argument("--exclude-prefix", action="append", default=[],
+                    help="排除的前缀（如 Mermaid/），对应条目跳过装配与打包")
     args = ap.parse_args()
 
     manifest = json.load(open(args.manifest, encoding="utf-8"))
@@ -40,6 +42,9 @@ def main():
     for entry in manifest["entries"]:
         rel, kind, mode = entry["path"], entry["kind"], int(entry["mode"], 8)
         target = os.path.join(bundle, rel)
+        if any(rel.startswith(px) for px in args.exclude_prefix):
+            continue
+
         if rel.startswith("../"):
             continue  # 交给 package_tipa.py 处理（PlugIns 之外的条目）
 
