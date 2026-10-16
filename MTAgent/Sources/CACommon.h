@@ -39,7 +39,7 @@ static NSString *const CAGitHubTagAPIFormat    = @"https://api.github.com/repos/
 static NSString *const CAGitHubReleasesFormat  = @"https://api.github.com/repos/%@/%@/releases?per_page=50";
 static NSString *const CAGitHubAssetFormat     = @"https://github.com/%@/%@/releases/download/%@/%@";
 static NSString *const CAGitHubSumsFormat      = @"https://github.com/%@/%@/releases/download/%@/SHA256SUMS";
-static NSArray<NSString *> *CADownloadProxyPrefixes(void); // @[ @"https://gh-proxy.org/", @"https://ghproxy.net/" ]
+NSArray<NSString *> *CADownloadProxyPrefixes(void); // @[ @"https://gh-proxy.org/", @"https://ghproxy.net/" ]
 
 #pragma mark - 本机内部 MCP 桥（原包观测：127.0.0.1:27018/mcp）
 
