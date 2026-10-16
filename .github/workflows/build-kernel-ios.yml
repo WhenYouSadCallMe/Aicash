@@ -1,0 +1,145 @@
+name: build-kernel-ios
+
+# 编译 openai/codex 内核到 aarch64-apple-ios（iOS arm64）。
+# 产物: artifact codex-ios-arm64（含 codex 可执行文件 + sha256），并回传到 dist 分支 Kernel/dist/。
+# 触发: 手动（Actions → build-kernel-ios → Run workflow，填 codex_ref）或 Kernel/** 变更。
+
+on:
+  workflow_dispatch:
+    inputs:
+      codex_ref:
+        description: "openai/codex 的 tag 或 commit"
+        required: true
+        default: "rust-v0.162.1"
+      profile:
+        description: "cargo profile"
+        required: true
+        default: "release"
+        type: choice
+        options: ["release", "dev"]
+  push:
+    paths:
+      - "Kernel/**"
+      - ".github/workflows/build-kernel-ios.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+  TARGET: aarch64-apple-ios
+  RUST_BACKTRACE: "1"
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 工具链信息
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-path
+          uname -a
+
+      - name: 安装 Rust
+        run: |
+          curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init.sh
+          sh rustup-init.sh -y --profile minimal --default-toolchain stable
+          . "$HOME/.cargo/env"
+          rustup target add aarch64-apple-ios
+          rustc --version && cargo --version
+
+      - name: 安装 ldid
+        run: |
+          brew install ldid || \
+          (git clone --depth 1 https://github.com/ProcursusTeam/ldid.git /tmp/ldid && \
+           cd /tmp/ldid && make -j4 && sudo cp ldid /usr/local/bin/ldid)
+
+      - name: 克隆 openai/codex
+        run: |
+          git clone --filter=blob:none https://github.com/openai/codex.git upstream
+          cd upstream
+          git checkout "${{ github.event.inputs.codex_ref || 'rust-v0.162.1' }}"
+          git log -1 --format="%H %s"
+
+      - name: 应用 iOS 补丁
+        run: |
+          set -e
+          cd upstream
+          for p in ../Kernel/patches/*.patch; do
+            [ -e "$p" ] || continue
+            echo "applying $p"
+            git apply --index "$p" || { echo "PATCH FAILED: $p"; exit 1; }
+          done
+          git diff --stat || true
+
+      - name: 缓存 cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            upstream/target
+          key: cargo-${{ runner.os }}-${{ hashFiles('upstream/Cargo.lock', 'Kernel/patches/**') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-
+
+      - name: 编译内核
+        run: |
+          . "$HOME/.cargo/env"
+          cd upstream
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+          export SDKROOT="$SDK"
+          export IPHONEOS_DEPLOYMENT_TARGET=15.0
+          export CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS="-C link-arg=-mios-version-min=15.0 -C link-arg=-isysroot -C link-arg=$SDK -C link-arg=-framework -C link-arg=Security -C link-arg=-framework -C link-arg=CoreFoundation"
+          cargo build --profile ${{ github.event.inputs.profile || 'release' }} --target aarch64-apple-ios --bin codex
+
+      - name: strip + ldid 签名
+        run: |
+          set -e
+          BIN=upstream/target/aarch64-apple-ios/release/codex
+          if [ ! -f "$BIN" ]; then BIN=upstream/target/aarch64-apple-ios/debug/codex; fi
+          ls -l "$BIN"
+          xcrun --sdk iphoneos strip -x "$BIN" || true
+          ldid -S"../Kernel/entitlements-kernel.plist" "$BIN" || ldid -S "$BIN"
+          ldid -e "$BIN" | head -40 || true
+          chmod +x "$BIN"
+          file "$BIN"
+
+      - name: 校验 Mach-O
+        run: |
+          BIN=upstream/target/aarch64-apple-ios/release/codex
+          [ -f "$BIN" ] || BIN=upstream/target/aarch64-apple-ios/debug/codex
+          xcrun --sdk iphoneos otool -hv "$BIN"
+          xcrun --sdk iphoneos otool -l "$BIN" | grep -A4 LC_BUILD_VERSION || true
+
+      - name: 收集产物
+        run: |
+          set -e
+          mkdir -p Kernel/dist
+          BIN=upstream/target/aarch64-apple-ios/release/codex
+          [ -f "$BIN" ] || BIN=upstream/target/aarch64-apple-ios/debug/codex
+          cp "$BIN" Kernel/dist/codex
+          shasum -a 256 Kernel/dist/codex | tee Kernel/dist/codex.sha256
+          ls -l Kernel/dist
+
+      - name: 上传 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-ios-arm64
+          path: Kernel/dist/
+          retention-days: 30
+
+      # 回传内核到 dist 分支（单提交孤分支），方便无 token 环境用 git 直接取
+      - name: 回传内核到 dist 分支
+        if: always()
+        run: |
+          set -x
+          [ -f Kernel/dist/codex ] || { echo "没有产物，跳过"; exit 0; }
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan dist-kernel-publish
+          git reset
+          git add -f Kernel/dist/
+          git commit -m "codex kernel run #${{ github.run_number }} ref=${{ github.event.inputs.codex_ref || 'rust-v0.162.1' }}"
+          git push -f origin dist-kernel-publish:dist-kernel

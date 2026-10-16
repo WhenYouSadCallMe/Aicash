@@ -94,3 +94,16 @@ python verify/verify_package.py     # ④ 产物 vs 原包：条目顺序/种类
 
 * `OriginalAssets/` 内的二进制与资源来自原包本身，仅用于复刻装配与一致性校验；第三方组件的许可文本随包保留在 `ThirdPartyNotices/`。
 * `SPEC/assets/` 是从原包提取的静态分析产物（字符串、符号、契约），供对齐与审计使用。
+
+## 内核（Helpers/codex）
+
+复刻包当前不含 245MB 的 codex 内核二进制。用 uild-kernel-ios 工作流
+（Actions → Run workflow，codex_ref 如 ust-v0.162.1）交叉编译
+openai/codex 到 aarch64-apple-ios，产物回传到 dist-kernel 分支 Kernel/dist/codex：
+
+```bash
+git fetch origin dist-kernel
+git show dist-kernel:Kernel/dist/codex > codex
+```
+
+补丁放 Kernel/patches/*.patch，详见该目录 README。
