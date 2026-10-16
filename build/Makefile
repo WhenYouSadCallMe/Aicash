@@ -68,7 +68,7 @@ extension: $(BUNDLE)/PlugIns/MTShareExtension.appex/MTShareExtension
 
 $(BUNDLE)/PlugIns/MTShareExtension.appex/MTShareExtension: $(wildcard $(EXT_SRC)/*.m) $(wildcard $(EXT_SRC)/*.h)
 	@mkdir -p $(BUNDLE)/PlugIns/MTShareExtension.appex
-	$(CLANG) $(COMMON_FLAGS) -fapplication-extension -I$(EXT_SRC) $(EXT_SRC)/MTShareExtension.m \
+	$(CLANG) $(COMMON_FLAGS) -fapplication-extension -bundle -I$(EXT_SRC) $(EXT_SRC)/MTShareExtension.m \
 	         -framework UIKit -framework Foundation -framework UniformTypeIdentifiers -o $@
 
 # ------------------------------------------ 装配 bundle（资源 + Helpers 符号链接，按原包清单）
