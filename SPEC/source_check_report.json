@@ -25,6 +25,8 @@
   "MTAgent\\Sources\\CAConversationStore.m",
   "MTAgent\\Sources\\CADiagnosticsViewController.h",
   "MTAgent\\Sources\\CADiagnosticsViewController.m",
+  "MTAgent\\Sources\\CAEmbeddedResignEntitlements.h",
+  "MTAgent\\Sources\\CAEmbeddedResignEntitlements.m",
   "MTAgent\\Sources\\CAEntryPoint.m",
   "MTAgent\\Sources\\CAExecutionEnvironment.h",
   "MTAgent\\Sources\\CAExecutionEnvironment.m",
@@ -345,14 +347,9 @@
    "CAChatViewController.h",
    "CAChatViewController.m"
   ],
-  "CAChatShellMessage": [
-   "CAChatViewController.m"
-  ],
-  "CAChatShellCell": [
-   "CAChatViewController.m"
-  ],
   "CACodexEngine": [
-   "CACodexEngine.h"
+   "CACodexEngine.h",
+   "CACodexEngine.m"
   ],
   "CACodexMetadataReader": [
    "CACodexMetadataReader.h"
@@ -540,7 +537,8 @@
    "CAChatTextLabel.h"
   ],
   "CACodeBlockView": [
-   "CACodeBlockView.h"
+   "CACodeBlockView.h",
+   "CACodeBlockView.m"
   ],
   "CACommandSemantic": [
    "CACommandSemantic.h"
@@ -558,16 +556,20 @@
    "CAComposerCameraCoordinator.h"
   ],
   "CAComposerPopupCell": [
-   "CAComposerPopupCell.h"
+   "CAComposerPopupCell.h",
+   "CAComposerPopupCell.m"
   ],
   "CAComposerPopupItem": [
-   "CAComposerPopupItem.h"
+   "CAComposerPopupItem.h",
+   "CAComposerPopupItem.m"
   ],
   "CAComposerPopupSection": [
-   "CAComposerPopupSection.h"
+   "CAComposerPopupSection.h",
+   "CAComposerPopupSection.m"
   ],
   "CAComposerPopupView": [
-   "CAComposerPopupView.h"
+   "CAComposerPopupView.h",
+   "CAComposerPopupView.m"
   ],
   "CAComposerTextView": [
    "CAComposerTextView.h"
@@ -582,10 +584,12 @@
    "CAConversationBackgroundRun.h"
   ],
   "CAConversationCell": [
-   "CAConversationCell.h"
+   "CAConversationCell.h",
+   "CAConversationCell.m"
   ],
   "CAConversationSidebarViewController": [
-   "CAConversationSidebarViewController.h"
+   "CAConversationSidebarViewController.h",
+   "CAConversationSidebarViewController.m"
   ],
   "CADiagnosticsRingView": [
    "CADiagnosticsRingView.h"
@@ -663,7 +667,8 @@
    "CAMTBadgeLabel.h"
   ],
   "CAManagedRuntimeDownload": [
-   "CAManagedRuntimeDownload.h"
+   "CAManagedRuntimeDownload.h",
+   "CAManagedRuntimeDownload.m"
   ],
   "CAMarkdownBlock": [
    "CAMarkdownBlock.h"
@@ -696,10 +701,12 @@
    "CAMermaidWeakScriptMessageHandler.h"
   ],
   "CAMessageCell": [
-   "CAMessageCell.h"
+   "CAMessageCell.h",
+   "CAMessageCell.m"
   ],
   "CAMessageItem": [
-   "CAMessageItem.h"
+   "CAMessageItem.h",
+   "CAMessageItem.m"
   ],
   "CAModelItem": [
    "CAModelItem.h"
@@ -756,7 +763,8 @@
    "CAReverseToolsDownload.h"
   ],
   "CARootViewController": [
-   "CARootViewController.h"
+   "CARootViewController.h",
+   "CARootViewController.m"
   ],
   "CARuntimeCompatibilityProbe": [
    "CARuntimeCompatibilityProbe.h"
@@ -774,13 +782,15 @@
    "CAStorageViewController.h"
   ],
   "CAStreamRevealTarget": [
-   "CAStreamRevealTarget.h"
+   "CAStreamRevealTarget.h",
+   "CAStreamRevealTarget.m"
   ],
   "CAStreamRevealUnit": [
    "CAStreamRevealUnit.h"
   ],
   "CAStreamingTextView": [
-   "CAStreamingTextView.h"
+   "CAStreamingTextView.h",
+   "CAStreamingTextView.m"
   ],
   "CASubagentPreferences": [
    "CASubagentPreferences.h"
@@ -804,16 +814,19 @@
    "CATheosRuntimeDownload.h"
   ],
   "CAThinkingCell": [
-   "CAThinkingCell.h"
+   "CAThinkingCell.h",
+   "CAThinkingCell.m"
   ],
   "CATodoProgressButton": [
    "CATodoProgressButton.h"
   ],
   "CAToolCardCell": [
-   "CAToolCardCell.h"
+   "CAToolCardCell.h",
+   "CAToolCardCell.m"
   ],
   "CAToolItem": [
-   "CAToolItem.h"
+   "CAToolItem.h",
+   "CAToolItem.m"
   ],
   "CATransportNoticeCollectionCell": [
    "CATransportNoticeCollectionCell.h"
@@ -822,13 +835,15 @@
    "CAUIStyle.h"
   ],
   "CAUpdateDownload": [
-   "CAUpdateDownload.h"
+   "CAUpdateDownload.h",
+   "CAUpdateDownload.m"
   ],
   "CAUpdateProgress": [
    "CAUpdateProgress.h"
   ],
   "CAUpdateViewController": [
-   "CAUpdateViewController.h"
+   "CAUpdateViewController.h",
+   "CAUpdateViewController.m"
   ],
   "CAUsageViewController": [
    "CAUsageViewController.h"
@@ -879,12 +894,6 @@
   ],
   "CABackgroundKeepAlive": [
    "CABackgroundKeepAlive.m"
-  ],
-  "CAChatShellMessage": [
-   "CAChatViewController.m"
-  ],
-  "CAChatShellCell": [
-   "CAChatViewController.m"
   ],
   "CAChatViewController": [
    "CAChatViewController.m"

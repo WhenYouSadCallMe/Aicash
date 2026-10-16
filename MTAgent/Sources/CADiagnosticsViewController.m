@@ -16,9 +16,15 @@
 #import "CARuntimeCatalog.h"
 #import "CAMCPBridge.h"
 #import "CAProviderConfiguration.h"
+#import "CAUpdateViewController.h"
+#import "CAUpdateProgress.h"
 #import "CALogViewerViewController.h"
 
 static NSString * const kDiagnosticsCellReuseIdentifier = @"CADiagnosticsCell";
+/// 「安装」分区标题（行含义：0 一键安装 / 1 状态 / 2 当前阶段 / 3 失败项 / 4 最近日志 / 5 签名模板 / 6… 各必需运行时）
+static NSString * const kDiagnosticsInstallSectionTitle = @"安装";
+/// 安装分区里“逐运行时”行的起始下标
+static const NSInteger kDiagnosticsInstallRuntimeRowStart = 6;
 
 /// CARootMode → 字符串（CAExecutionEnvironmentProfile 只提供 rootModeString）
 static NSString *CADiagnosticsRootModeString(CARootMode mode)
@@ -125,16 +131,34 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
 
 #pragma mark - 诊断页
 
+/// 「安装」分区固定行（6 起为该分区内各必需运行时的安装行）
+typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
+    CADiagnosticsInstallRowOneTap = 0,
+    CADiagnosticsInstallRowStatus,
+    CADiagnosticsInstallRowStage,
+    CADiagnosticsInstallRowFailures,
+    CADiagnosticsInstallRowLogs,
+    CADiagnosticsInstallRowEntitlements,
+};
+
 @interface CADiagnosticsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong, nullable) NSTimer *elapsedRefreshTimer;
 @property (nonatomic, assign) NSUInteger probeGeneration;
 
+/// 安装分区状态
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *installFailures;
+@property (nonatomic, copy, nullable) NSString *installStageText;
+@property (nonatomic, assign) double installFraction;
+@property (nonatomic, strong, nullable) UIProgressView *installProgressView;
+@property (nonatomic, strong, nullable) NSTimer *installRefreshTimer;
+
 - (void)startProbe;
 - (void)finishProbeWithResult:(NSDictionary *)result;
 - (NSArray<CADiagnosticsSection *> *)pendingUserSections;
 - (NSArray<CADiagnosticsSection *> *)userSectionsForResult:(NSDictionary *)result;
+- (CADiagnosticsSection *)installSection;
 - (CADiagnosticsItem *)itemAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)itemHasExpandableDetail:(CADiagnosticsItem *)item;
 - (NSString *)textForItem:(CADiagnosticsItem *)item;
@@ -149,6 +173,18 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
 - (void)close;
 - (void)moreMenu;
 
+#pragma mark - 安装 / 修复运行时
+- (void)handleInstallSectionSelectionAtIndexPath:(NSIndexPath *)indexPath item:(CADiagnosticsItem *)item;
+- (void)startInstallRefreshTimer;
+- (void)stopInstallRefreshTimer;
+- (void)installRefreshTimerTick:(NSTimer *)timer;
+- (void)reloadInstallRows;
+- (void)updateInstallProgress:(CAUpdateProgress *)progress runtimeID:(NSString *)runtimeID;
+- (nullable NSString *)recentLogTail;
+- (nullable NSString *)signingTemplatePath;
+- (void)presentUpdateSheetForRuntimeID:(NSString *)runtimeID;
+- (void)showMessage:(NSString *)message title:(NSString *)title;
+
 @end
 
 @implementation CADiagnosticsViewController
@@ -162,6 +198,9 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     self.title = @"诊断";
     self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
     self.installStatus = @"待检查";
+    self.installFailures = [NSMutableArray array];
+    self.installFraction = 0.0;
+    self.installStageText = @"";
 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -210,6 +249,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
 - (void)dealloc
 {
     [self.elapsedRefreshTimer invalidate];
+    [self stopInstallRefreshTimer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -292,9 +332,11 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     NSInteger missing = [runtime[@"requiredMissingCount"] integerValue];
     self.installTotalCount = total;
     self.installCompletedCount = installed;
-    self.installStatus = missing > 0
-        ? [NSString stringWithFormat:@"缺失 %ld 个必需运行时", (long)missing]
-        : [NSString stringWithFormat:@"必需运行时已就绪（%ld/%ld）", (long)installed, (long)MAX(total, (NSInteger)0)];
+    if (!self.installingRuntime) {
+        self.installStatus = missing > 0
+            ? [NSString stringWithFormat:@"缺失 %ld 个必需运行时", (long)missing]
+            : [NSString stringWithFormat:@"必需运行时已就绪（%ld/%ld）", (long)installed, (long)MAX(total, (NSInteger)0)];
+    }
 
     [self updateActionState];
     [self.tableView reloadData];
@@ -319,7 +361,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     for (CARuntimeCatalogEntry *entry in catalog.entries) {
         if (entry.runtimeID.length == 0) continue;
         NSString *root = [CARuntimePaths runtimeRootForID:entry.runtimeID];
-        BOOL installed = [NSFileManager.defaultManager fileExistsAtPath:root];
+        BOOL installed = [CAUpdateViewController isRuntimeInstalled:entry.runtimeID];
         runtimeVersions[entry.runtimeID] = @{ @"version": entry.version ?: @"?",
                                               @"installed": @(installed),
                                               @"optional": @(entry.optional),
@@ -437,6 +479,11 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
         [section.items addObject:[CADiagnosticsItem pendingItem:title detail:@"探测中…"]];
         [sections addObject:section];
     }
+    if (sections.count > 4) {
+        [sections insertObject:[self installSection] atIndex:4];
+    } else {
+        [sections addObject:[self installSection]];
+    }
     return sections;
 }
 
@@ -535,6 +582,9 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     }
     [sections addObject:runtimeSection];
 
+    // 安装 / 修复
+    [sections addObject:[self installSection]];
+
     // 环境
     CADiagnosticsSection *environmentSection = [CADiagnosticsSection sectionWithTitle:@"环境"];
     [environmentSection.items addObject:[CADiagnosticsItem friendlyItem:@"环境类型" ok:YES optional:NO detail:environment[@"kind"] ?: @"unknown"]];
@@ -618,6 +668,513 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     return sections;
 }
 
+#pragma mark - 安装 / 修复运行时
+
+- (CADiagnosticsSection *)installSection
+{
+    CADiagnosticsSection *section = [CADiagnosticsSection sectionWithTitle:kDiagnosticsInstallSectionTitle];
+
+    CADiagnosticsItem *oneTap = [CADiagnosticsItem friendlyItem:@"一键安装 / 修复必需运行时"
+                                                            ok:YES
+                                                      optional:YES
+                                                        detail:@"按清单安装缺失项：下载 → 校验 → 解包 → 签名 → 安装"];
+    [section.items addObject:oneTap];
+
+    NSArray<NSString *> *missing = (NSArray<NSString *> *)[self requiredRuntimeIDsNeedingInstall];
+    BOOL busy = self.installingRuntime;
+    CADiagnosticsItem *status = [CADiagnosticsItem friendlyItem:@"安装状态"
+                                                           ok:(missing.count == 0 && !busy)
+                                                     optional:YES
+                                                       detail:self.installStatus ?: @"待检查"];
+    [section.items addObject:status];
+
+    CADiagnosticsItem *stage = [CADiagnosticsItem friendlyItem:@"当前阶段"
+                                                          ok:!busy
+                                                    optional:YES
+                                                      detail:self.installStageText.length ? self.installStageText : @"(空闲)"];
+    [section.items addObject:stage];
+
+    NSArray<NSString *> *failures = self.installFailures ?: @[];
+    CADiagnosticsItem *failureItem = [CADiagnosticsItem friendlyItem:[NSString stringWithFormat:@"失败项（%lu）", (unsigned long)failures.count]
+                                                                 ok:(failures.count == 0)
+                                                           optional:YES
+                                                             detail:failures.count ? [failures componentsJoinedByString:@"\n"] : @"无"];
+    failureItem.expandable = failures.count > 0;
+    [section.items addObject:failureItem];
+
+    NSString *logTail = [self recentLogTail];
+    CADiagnosticsItem *logItem = [CADiagnosticsItem friendlyItem:@"最近日志（CALogger）"
+                                                            ok:(logTail.length > 0)
+                                                      optional:YES
+                                                        detail:logTail.length ? logTail : @"(暂无日志)"];
+    logItem.expandable = logTail.length > 0;
+    [section.items addObject:logItem];
+
+    NSString *template = [self signingTemplatePath];
+    CADiagnosticsItem *entitlements = [CADiagnosticsItem friendlyItem:@"签名模板"
+                                                                  ok:(template.length > 0)
+                                                            optional:YES
+                                                              detail:template.length ? template : @"未找到 ResignEntitlements/*.plist，签名步骤会失败"];
+    [section.items addObject:entitlements];
+
+    for (CARuntimeCatalogEntry *entry in [CARuntimeCatalog sharedCatalog].entries) {
+        if (entry.optional || !entry.runtimeID.length) continue;
+        BOOL installed = [CAUpdateViewController isRuntimeInstalled:entry.runtimeID];
+        CADiagnosticsItem *item = [CADiagnosticsItem friendlyItem:[NSString stringWithFormat:@"%@ · %@", entry.runtimeID, installed ? @"已安装" : @"未安装"]
+                                                               ok:installed
+                                                         optional:NO
+                                                           detail:@"点击安装 / 修复该运行时（带阶段进度）"];
+        item.runtimeID = entry.runtimeID;
+        [section.items addObject:item];
+    }
+
+    return section;
+}
+
+- (void)reloadInstallRows
+{
+    NSUInteger index = NSNotFound;
+    for (NSUInteger cursor = 0; cursor < self.sections.count; cursor++) {
+        CADiagnosticsSection *section = self.sections[cursor];
+        if ([section.title isEqualToString:kDiagnosticsInstallSectionTitle]) { index = cursor; break; }
+    }
+    if (index == NSNotFound) return;
+
+    NSMutableArray *mutable = [self.sections mutableCopy];
+    mutable[index] = [self installSection];
+    self.sections = mutable;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (NSString *)recentLogTail
+{
+    NSString *text = [[CALogger sharedLogger] currentLogText] ?: @"";
+    if (text.length <= 1200) return text;
+    return [NSString stringWithFormat:@"…%@", [text substringFromIndex:text.length - 1200]];
+}
+
+- (NSString *)signingTemplatePath
+{
+    NSString *bundlePath = NSBundle.mainBundle.bundlePath ?: @"";
+    NSArray<NSString *> *candidates = @[
+        [bundlePath stringByAppendingPathComponent:@"ResignEntitlements/runtime.entitlements.plist"],
+        [bundlePath stringByAppendingPathComponent:@"ResignEntitlements/helper.entitlements.plist"],
+        [bundlePath stringByAppendingPathComponent:@"entitlements.plist"],
+    ];
+    for (NSString *candidate in candidates) {
+        if ([NSFileManager.defaultManager fileExistsAtPath:candidate]) return candidate;
+    }
+    return nil;
+}
+
+- (void)startInstallRefreshTimer
+{
+    if (self.installRefreshTimer) return;
+    self.installRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                               target:self
+                                                             selector:@selector(installRefreshTimerTick:)
+                                                             userInfo:nil
+                                                              repeats:YES];
+}
+
+- (void)stopInstallRefreshTimer
+{
+    [self.installRefreshTimer invalidate];
+    self.installRefreshTimer = nil;
+    [self reloadInstallRows];
+}
+
+- (void)installRefreshTimerTick:(NSTimer *)timer
+{
+    if (!self.installingRuntime) {
+        [timer invalidate];
+        self.installRefreshTimer = nil;
+        [self reloadInstallRows];
+        return;
+    }
+    [self reloadInstallRows];
+}
+
+- (void)updateInstallProgress:(CAUpdateProgress *)progress runtimeID:(NSString *)runtimeID
+{
+    if (!progress) return;
+    double perRuntime = MAX(0.0, MIN(1.0, progress.fraction));
+    NSInteger total = MAX(self.installTotalCount, (NSInteger)1);
+    double base = (double)self.installCompletedCount / (double)total;
+    self.installFraction = MIN(1.0, base + perRuntime / (double)total);
+    self.activeInstallRuntimeID = runtimeID;
+    self.installStageText = [NSString stringWithFormat:@"%@ · %@ · %@（%d%%）",
+                             runtimeID,
+                             [progress stageTitle],
+                             progress.status ?: @"",
+                             (int)(perRuntime * 100.0)];
+    self.installProgressView.progress = (float)self.installFraction;
+}
+
+#pragma mark 安装流程（选择器与 SPEC/method_types.json 对齐）
+
+- (id)installRequiredRuntimes
+{
+    if (self.installingRuntime) {
+        [self showMessage:@"已有安装任务在进行中" title:@"安装"];
+        return nil;
+    }
+    NSArray<NSString *> *ids = (NSArray<NSString *> *)[self requiredRuntimeIDsNeedingInstall];
+    if (!ids.count) {
+        self.installStatus = @"必需运行时已就绪";
+        self.installStageText = @"无需安装";
+        [self reloadInstallRows];
+        [self showMessage:@"必需运行时均已安装" title:@"安装"];
+        return nil;
+    }
+
+    self.installingRuntime = YES;
+    self.installFailures = [NSMutableArray array];
+    self.installTotalCount = (NSInteger)ids.count;
+    self.installCompletedCount = 0;
+    self.installFraction = 0.0;
+    self.installStageText = @"准备安装…";
+    self.installStatus = [NSString stringWithFormat:@"安装中：0/%ld", (long)ids.count];
+    [self startInstallRefreshTimer];
+    [self reloadInstallRows];
+
+    CALog(CALogLevelInfo, @"RUNTIME", @"diagnostics one-tap install runtimes=%@", [ids componentsJoinedByString:@","]);
+    [self installRuntimeIDs:ids index:@(0) failures:self.installFailures];
+    return nil;
+}
+
+- (id)requiredRuntimeIDsNeedingInstall
+{
+    NSMutableArray<NSString *> *ids = [NSMutableArray array];
+    for (CARuntimeCatalogEntry *entry in [CARuntimeCatalog sharedCatalog].entries) {
+        if (entry.optional || !entry.runtimeID.length) continue;
+        if (![CAUpdateViewController isRuntimeInstalled:entry.runtimeID]) [ids addObject:entry.runtimeID];
+    }
+    return ids;
+}
+
+- (id)requiredRuntimeInstallDetail
+{
+    NSArray<NSString *> *ids = (NSArray<NSString *> *)[self requiredRuntimeIDsNeedingInstall];
+    if (!ids.count) return @"必需运行时均已安装";
+    NSMutableString *text = [NSMutableString string];
+    for (NSString *runtimeID in ids) {
+        CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:runtimeID];
+        NSString *size = entry.expandedSize > 0
+            ? [NSByteCountFormatter stringFromByteCount:(long long)entry.expandedSize countStyle:NSByteCountFormatterCountStyleFile]
+            : @"(未知大小)";
+        [text appendFormat:@"%@ · 清单 %@ · %@\n", runtimeID, entry.version ?: @"?", size];
+    }
+    return text;
+}
+
+- (id)installRuntimeID:(id)arg1 completion:(id)arg2
+{
+    NSString *runtimeID = [arg1 isKindOfClass:NSString.class] ? (NSString *)arg1 : [arg1 description];
+    void (^completion)(BOOL, NSString *) = arg2 ? (void (^)(BOOL, NSString *))arg2 : nil;
+
+    if (!runtimeID.length) {
+        if (completion) completion(NO, @"运行时 ID 为空");
+        return nil;
+    }
+
+    CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:runtimeID];
+    if (!entry || !entry.archiveURL.length) {
+        if (completion) completion(NO, [NSString stringWithFormat:@"运行时清单缺少 %@（请先刷新清单）", runtimeID]);
+        return nil;
+    }
+
+    if (!self.installingRuntime) {
+        self.installingRuntime = YES;
+        [self startInstallRefreshTimer];
+    }
+    self.activeInstallRuntimeID = runtimeID;
+    self.installStageText = [NSString stringWithFormat:@"%@ · 准备中…", runtimeID];
+    [self reloadInstallRows];
+
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSError *error = nil;
+        BOOL ok = [CAUpdateViewController installRuntimeEntry:entry progress:^(CAUpdateProgress *progress) {
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf updateInstallProgress:progress runtimeID:runtimeID];
+            });
+        } error:&error];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            NSString *message = ok ? @"安装完成" : (error.localizedDescription ?: @"安装失败");
+            CALog(ok ? CALogLevelInfo : CALogLevelError, @"RUNTIME", @"diagnostics install runtime=%@ ok=%d message=%@",
+                  runtimeID, ok, message);
+            if (completion) completion(ok, message);
+        });
+    });
+    return nil;
+}
+
+- (id)installRuntimeIDs:(id)arg1 index:(id)arg2 failures:(id)arg3
+{
+    NSArray<NSString *> *ids = [arg1 isKindOfClass:NSArray.class] ? (NSArray<NSString *> *)arg1 : @[];
+    NSInteger index = [arg2 respondsToSelector:@selector(integerValue)] ? [arg2 integerValue] : 0;
+    NSMutableArray<NSString *> *failures = [arg3 isKindOfClass:NSMutableArray.class] ? (NSMutableArray<NSString *> *)arg3 : [NSMutableArray array];
+
+    if (index >= (NSInteger)ids.count) {
+        [self finishRuntimeInstallBatchWithFailures:failures];
+        return nil;
+    }
+
+    NSString *runtimeID = ids[(NSUInteger)index];
+    __weak typeof(self) weakSelf = self;
+    [self installRuntimeID:runtimeID completion:^(BOOL ok, NSString *message) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            if (!ok) {
+                [failures addObject:[NSString stringWithFormat:@"%@：%@", runtimeID, message.length ? message : @"安装失败"]];
+                CALog(CALogLevelError, @"RUNTIME", @"diagnostics install failed runtime=%@ message=%@", runtimeID, message ?: @"");
+            }
+            strongSelf.installCompletedCount = index + 1;
+            strongSelf.installStatus = [NSString stringWithFormat:@"安装中：%ld/%ld",
+                                        (long)strongSelf.installCompletedCount, (long)strongSelf.installTotalCount];
+            [strongSelf reloadInstallRows];
+            [strongSelf installRuntimeIDs:ids index:@(index + 1) failures:failures];
+        });
+    }];
+    return nil;
+}
+
+- (id)installSingleRuntimeID:(id)arg1
+{
+    NSString *runtimeID = [arg1 isKindOfClass:NSString.class] ? (NSString *)arg1 : [arg1 description];
+    if (!runtimeID.length) return nil;
+    if (self.installingRuntime) {
+        [self showMessage:@"已有安装任务在进行中" title:@"安装"];
+        return nil;
+    }
+
+    self.installingRuntime = YES;
+    self.installFailures = [NSMutableArray array];
+    self.installTotalCount = 1;
+    self.installCompletedCount = 0;
+    self.installFraction = 0.0;
+    self.installStatus = [NSString stringWithFormat:@"安装中：0/1（%@）", runtimeID];
+    self.installStageText = @"准备中…";
+    [self startInstallRefreshTimer];
+    [self reloadInstallRows];
+
+    __weak typeof(self) weakSelf = self;
+    [self installRuntimeID:runtimeID completion:^(BOOL ok, NSString *message) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            strongSelf.installCompletedCount = 1;
+            NSMutableArray<NSString *> *failures = [NSMutableArray array];
+            if (!ok) [failures addObject:[NSString stringWithFormat:@"%@：%@", runtimeID, message ?: @"安装失败"]];
+            [strongSelf finishRuntimeInstallBatchWithFailures:failures];
+        });
+    }];
+    return nil;
+}
+
+- (id)finishRuntimeInstallBatchWithFailures:(id)arg1
+{
+    NSArray<NSString *> *failures = [arg1 isKindOfClass:NSArray.class] ? (NSArray<NSString *> *)arg1 : @[];
+    self.installFailures = [NSMutableArray arrayWithArray:failures];
+    self.installingRuntime = NO;
+    self.activeInstallRuntimeID = nil;
+    [self stopInstallRefreshTimer];
+
+    NSArray<NSString *> *missing = (NSArray<NSString *> *)[self requiredRuntimeIDsNeedingInstall];
+    self.installStatus = failures.count
+        ? [NSString stringWithFormat:@"失败 %lu 个 · 仍需安装 %lu 个", (unsigned long)failures.count, (unsigned long)missing.count]
+        : (missing.count ? [NSString stringWithFormat:@"仍需安装 %lu 个", (unsigned long)missing.count] : @"必需运行时已就绪");
+    self.installStageText = failures.count ? @"安装结束（存在失败项）" : @"安装完成";
+    if (!failures.count) self.installFraction = 1.0;
+    [self reloadInstallRows];
+    [self run];
+
+    if (failures.count) {
+        NSString *message = [NSString stringWithFormat:@"%@\n\n最近日志：\n%@",
+                             [failures componentsJoinedByString:@"\n"],
+                             [self recentLogTail] ?: @"(无)"];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"安装失败"
+                                                                      message:message
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"查看完整日志" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CALogViewerViewController alloc] init]];
+            [self presentViewController:navigation animated:YES completion:nil];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self showMessage:@"必需运行时均已安装" title:@"安装完成"];
+    }
+    return nil;
+}
+
+- (id)setRuntimeInstallStatus:(id)arg1 runtimeID:(id)arg2
+{
+    NSString *status = [arg1 isKindOfClass:NSString.class] ? (NSString *)arg1 : [arg1 description];
+    NSString *runtimeID = [arg2 isKindOfClass:NSString.class] ? (NSString *)arg2 : [arg2 description];
+    self.installStatus = status ?: @"";
+    if (runtimeID.length) self.activeInstallRuntimeID = runtimeID;
+    [self reloadInstallRows];
+    return nil;
+}
+
+- (id)hasRuntimeActivity
+{
+    return @(self.installingRuntime);
+}
+
+- (id)kickAutomaticRuntimeRecovery
+{
+    // 打开诊断页不自动发起大体积下载：只刷新清单并记录缺口，等待用户点“一键安装”
+    NSArray<NSString *> *missing = (NSArray<NSString *> *)[self requiredRuntimeIDsNeedingInstall];
+    CALog(CALogLevelInfo, @"RUNTIME", @"diagnostics automatic recovery probe missing=%lu（等待用户确认后再下载）",
+          (unsigned long)missing.count);
+    [[CARuntimeCatalog sharedCatalog] refreshIfStale];
+    [self reloadInstallRows];
+    return nil;
+}
+
+- (id)liveRuntimeActivityForID:(id)arg1
+{
+    NSString *runtimeID = [arg1 isKindOfClass:NSString.class] ? (NSString *)arg1 : [arg1 description];
+    if (self.installingRuntime && [runtimeID isEqualToString:self.activeInstallRuntimeID ?: @""]) {
+        return [NSString stringWithFormat:@"%@（%d%%）", self.installStageText ?: @"安装中", (int)(self.installFraction * 100.0)];
+    }
+    return @"(空闲)";
+}
+
+- (id)runtimeCheckForID:(id)arg1
+{
+    NSString *runtimeID = [arg1 isKindOfClass:NSString.class] ? (NSString *)arg1 : [arg1 description];
+    if (!runtimeID.length) return @{};
+    CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:runtimeID];
+    NSString *root = [CARuntimePaths runtimeRootForID:runtimeID];
+    BOOL installed = [CAUpdateViewController isRuntimeInstalled:runtimeID];
+    return @{
+        @"runtime_id": runtimeID,
+        @"version": entry.version ?: @"",
+        @"revision": @(entry.revision),
+        @"installed": @(installed),
+        @"root": root ?: @"",
+        @"expanded_size": @(entry.expandedSize),
+        @"detail": installed ? @"已安装" : @"未安装",
+    };
+}
+
+- (id)runtimeItemFromCheck:(id)arg1
+{
+    NSDictionary *check = [arg1 isKindOfClass:NSDictionary.class] ? (NSDictionary *)arg1 : @{};
+    NSString *runtimeID = [check[@"runtime_id"] isKindOfClass:NSString.class] ? check[@"runtime_id"] : @"?";
+    BOOL installed = [check[@"installed"] boolValue];
+    CADiagnosticsItem *item = [CADiagnosticsItem friendlyItem:[NSString stringWithFormat:@"%@ · %@", runtimeID, check[@"version"] ?: @"?"]
+                                                          ok:installed
+                                                    optional:NO
+                                                      detail:check[@"detail"] ?: @""];
+    item.runtimeID = runtimeID;
+    return item;
+}
+
+- (id)runtimeStateDidChange:(id)arg1
+{
+    [self reloadInstallRows];
+    return nil;
+}
+
+- (void)presentUpdateSheetForRuntimeID:(NSString *)runtimeID
+{
+    if (!runtimeID.length) return;
+    CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:runtimeID];
+    if (!entry || !entry.archiveURL.length) {
+        [self showMessage:[NSString stringWithFormat:@"运行时清单里没有 %@（可重新检查刷新清单）", runtimeID] title:@"运行时"];
+        return;
+    }
+
+    CAUpdateViewController *controller = [[CAUpdateViewController alloc] initWithRuntimeID:runtimeID version:entry.version];
+    __weak typeof(self) weakSelf = self;
+    controller.finishHandler = ^(BOOL success, NSString *message) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            if (!success && message.length) {
+                [strongSelf.installFailures addObject:[NSString stringWithFormat:@"%@：%@", runtimeID, message]];
+            }
+            strongSelf.installStatus = success
+                ? [NSString stringWithFormat:@"%@ 安装完成", runtimeID]
+                : [NSString stringWithFormat:@"%@ 安装失败", runtimeID];
+            [strongSelf run];
+        });
+    };
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+    navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navigation animated:YES completion:nil];
+}
+
+- (void)handleInstallSectionSelectionAtIndexPath:(NSIndexPath *)indexPath item:(CADiagnosticsItem *)item
+{
+    switch ((CADiagnosticsInstallRow)indexPath.row) {
+        case CADiagnosticsInstallRowOneTap:
+            [self installRequiredRuntimes];
+            return;
+        case CADiagnosticsInstallRowStatus:
+        case CADiagnosticsInstallRowStage:
+            [self showMessage:[NSString stringWithFormat:@"%@\n%@",
+                               self.installStatus ?: @"",
+                               self.installStageText ?: @""]
+                        title:@"安装状态"];
+            return;
+        case CADiagnosticsInstallRowFailures: {
+            NSArray<NSString *> *failures = self.installFailures ?: @[];
+            if (!failures.count) {
+                [self showMessage:@"暂无失败项" title:@"安装失败项"];
+                return;
+            }
+            [self showMessage:[failures componentsJoinedByString:@"\n"] title:@"安装失败项"];
+            return;
+        }
+        case CADiagnosticsInstallRowLogs: {
+            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CALogViewerViewController alloc] init]];
+            [self presentViewController:navigation animated:YES completion:nil];
+            return;
+        }
+        case CADiagnosticsInstallRowEntitlements: {
+            NSString *path = [self signingTemplatePath];
+            NSString *message = path.length
+                ? [NSString stringWithFormat:@"签名模板：%@", path]
+                : [NSString stringWithFormat:@"bundle 内未找到 ResignEntitlements/*.plist\nbundle：%@\n签名步骤会以 CAUpdateManager 默认路径执行，缺失即签名失败。",
+                   NSBundle.mainBundle.bundlePath ?: @"(unknown)"];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签名模板" message:message preferredStyle:UIAlertControllerStyleAlert];
+            if (path.length) {
+                [alert addAction:[UIAlertAction actionWithTitle:@"复制路径" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    UIPasteboard.generalPasteboard.string = path;
+                }]];
+            }
+            [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        default:
+            break;
+    }
+
+    if (indexPath.row >= kDiagnosticsInstallRuntimeRowStart && item.runtimeID.length) {
+        [self presentUpdateSheetForRuntimeID:item.runtimeID];
+    }
+}
+
+- (void)showMessage:(NSString *)message title:(NSString *)title
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - 报告
 
 - (NSString *)durationText
@@ -694,6 +1251,9 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [sheet addAction:[UIAlertAction actionWithTitle:@"重新检查" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self run];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:@"一键安装/修复运行时" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self installRequiredRuntimes];
     }]];
     [sheet addAction:[UIAlertAction actionWithTitle:@"复制报告" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self handleCopyReport];
@@ -807,6 +1367,26 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
             cell.textLabel.textColor = UIColor.secondaryLabelColor;
             break;
     }
+
+    if ((NSUInteger)indexPath.section < self.sections.count) {
+        CADiagnosticsSection *section = self.sections[(NSUInteger)indexPath.section];
+        if ([section.title isEqualToString:kDiagnosticsInstallSectionTitle]) {
+            if (indexPath.row == CADiagnosticsInstallRowOneTap) {
+                cell.textLabel.textColor = self.view.tintColor;
+                cell.accessoryView = nil;
+            } else if (indexPath.row == CADiagnosticsInstallRowStage) {
+                UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+                progressView.frame = CGRectMake(0.0, 0.0, 120.0, 4.0);
+                progressView.progress = (float)self.installFraction;
+                cell.accessoryView = progressView;
+                self.installProgressView = progressView;
+            } else if (cell.accessoryView) {
+                cell.accessoryView = nil;
+            }
+        } else if (cell.accessoryView) {
+            cell.accessoryView = nil;
+        }
+    }
     return cell;
 }
 
@@ -814,6 +1394,15 @@ typedef NS_ENUM(NSInteger, CADiagnosticsItemStatus) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CADiagnosticsItem *item = [self itemAtIndexPath:indexPath];
+
+    if ((NSUInteger)indexPath.section < self.sections.count) {
+        CADiagnosticsSection *section = self.sections[(NSUInteger)indexPath.section];
+        if ([section.title isEqualToString:kDiagnosticsInstallSectionTitle]) {
+            [self handleInstallSectionSelectionAtIndexPath:indexPath item:item];
+            return;
+        }
+    }
+
     if (![self itemHasExpandableDetail:item]) return;
     item.expanded = !item.expanded;
     [tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];

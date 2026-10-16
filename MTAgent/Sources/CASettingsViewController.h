@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // ==PARITY-SELECTOR-PLACEHOLDER-BEGIN==
     - (id)applyCurrentTheme;
-    - (id)applyThirdPartyModelSelection:(id)arg1;
+    - (bool)applyThirdPartyModelSelection:(id)arg1;
     - (id)attachThirdPartyField:(id)arg1 toCell:(id)arg2;
     - (id)avatarTask;
     - (id)buildProfileHeader;
@@ -103,18 +103,18 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)checkCLIUpdateSilently;
     - (id)checkingReverseToolsUpdate;
     - (id)checkingTheosUpdate;
-    - (id)clearThirdPartyConfiguration;
+    - (void)clearThirdPartyConfiguration;
     - (id)codexRuntimeEnvironmentChanged;
     - (id)effectiveThirdPartyKeyDraft;
-    - (id)fetchThirdPartyModels:(id)arg1;
-    - (id)formattedByteCount:(id)arg1;
+    - (void)fetchThirdPartyModels:(id)arg1;
+    - (id)formattedByteCount:(unsigned long long)arg1;
     - (id)handleEditAPIBaseURL;
-    - (id)handleSelectReasoningEffort;
+    - (void)handleSelectReasoningEffort;
     - (id)handleSelectSandboxMode;
     - (id)loadProfileImageURL:(id)arg1;
     - (id)managedRuntimeEnvironmentChanged:(id)arg1;
     - (id)persistThirdPartyCredentials;
-    - (id)presentThirdPartyModelPicker:(id)arg1;
+    - (void)presentThirdPartyModelPicker:(id)arg1;
     - (id)profileAvatarCache;
     - (id)profileHeader;
     - (id)refreshLoginStatusReloadTable:(id)arg1;
@@ -133,11 +133,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)setCheckingReverseToolsUpdate:(id)arg1;
     - (id)setCheckingTheosUpdate:(id)arg1;
     - (id)setProfileHeader:(id)arg1;
-    - (id)showInstalledCLIVersion;
-    - (id)showPythonEnvironment;
+    - (void)showInstalledCLIVersion;
+    - (void)showPythonEnvironment;
     - (id)showReverseToolsEnvironment;
-    - (id)showTheosEnvironment;
-    - (id)testThirdPartyConnection;
+    - (void)showTheosEnvironment;
+    - (void)testThirdPartyConnection;
     - (id)themeChanged;
     - (id)themeModeChanged:(id)arg1;
     - (id)theosRuntimeStatusText;
