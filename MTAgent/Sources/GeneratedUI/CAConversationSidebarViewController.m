@@ -77,6 +77,7 @@
 @property (nonatomic, strong) UIView *sidebarHeader;
 @property (nonatomic, strong) UIStackView *headerStack;
 @property (nonatomic, strong) UILabel *emptyLabel;
+@property (nonatomic, strong) UIButton *workspaceButton;
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *settingsButton;
 @property (nonatomic, strong) NSLayoutConstraint *headerHeight;
@@ -119,8 +120,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"会话";
-    self.view.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    // 截图 02：抽屉标题「MT 智能体」居中（导航栏标题），关闭钮在导航栏右侧
+    self.title = @"MT 智能体";
+    self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
     [self buildHeader];
     // 底部账号卡先建：表格底边贴在卡的顶部（原包 footerTop 约束）
     [self buildAccountFooter];
@@ -153,14 +155,22 @@
 {
     _sidebarHeader = [[UIView alloc] init];
     _sidebarHeader.translatesAutoresizingMaskIntoConstraints = NO;
-    _sidebarHeader.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _sidebarHeader.backgroundColor = UIColor.systemGroupedBackgroundColor;
     [self.view addSubview:_sidebarHeader];
 
-    UILabel *title = [[UILabel alloc] init];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.text = @"会话";
-    title.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    [_sidebarHeader addSubview:title];
+    // 截图 02：标题「MT 智能体」是**导航栏**标题（居中，见 viewDidLoad 的 self.title），
+    // 这一行只放两个入口：左小方钮（folder.badge.plus，进工作区）+ 右「新对话」药丸。
+    _workspaceButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _workspaceButton.translatesAutoresizingMaskIntoConstraints = NO;
+    UIButtonConfiguration *workspaceConfiguration = [UIButtonConfiguration plainButtonConfiguration];
+    workspaceConfiguration.image = [UIImage systemImageNamed:@"folder.badge.plus"];
+    workspaceConfiguration.baseForegroundColor = UIColor.labelColor;
+    workspaceConfiguration.background.backgroundColor = UIColor.tertiarySystemFillColor;
+    workspaceConfiguration.background.cornerRadius = 12.0;
+    _workspaceButton.configuration = workspaceConfiguration;
+    [_workspaceButton addTarget:self action:@selector(openWorkspaces) forControlEvents:UIControlEventTouchUpInside];
+    _workspaceButton.accessibilityLabel = @"工作区";
+    [_sidebarHeader addSubview:_workspaceButton];
 
     _composeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _composeButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -170,16 +180,20 @@
     composeConfiguration.title = @"新对话";
     composeConfiguration.imagePadding = 6.0;
     composeConfiguration.baseForegroundColor = UIColor.labelColor;
-    composeConfiguration.contentInsets = NSDirectionalEdgeInsetsMake(6.0, 10.0, 6.0, 12.0);
+    composeConfiguration.contentInsets = NSDirectionalEdgeInsetsMake(6.0, 14.0, 6.0, 12.0);
+    composeConfiguration.background.backgroundColor = UIColor.tertiarySystemFillColor;
+    composeConfiguration.background.cornerRadius = 12.0;
     _composeButton.configuration = composeConfiguration;
+    _composeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_composeButton addTarget:self action:@selector(createConversation) forControlEvents:UIControlEventTouchUpInside];
     [_sidebarHeader addSubview:_composeButton];
 
+    // 齿轮（设置）入口按截图保留对象但不进任何视图层级：截图 02 的顶栏没有它，
+    // 设置入口仍在底部账号卡的齿轮上（buildAccountRowInPanel）。
     _settingsButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_settingsButton setImage:[UIImage systemImageNamed:@"gearshape"] forState:UIControlStateNormal];
     [_settingsButton addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
-    [_sidebarHeader addSubview:_settingsButton];
 
     _emptyLabel = [[UILabel alloc] init];
     _emptyLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -198,18 +212,16 @@
         [_sidebarHeader.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         _headerHeight,
 
-        [title.leadingAnchor constraintEqualToAnchor:_sidebarHeader.leadingAnchor constant:16.0],
-        [title.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
+        // 截图 02 实测：左内缩 14pt、两个按钮间距 9pt、右内缩 12pt、按钮高 46pt
+        [_workspaceButton.leadingAnchor constraintEqualToAnchor:_sidebarHeader.leadingAnchor constant:14.0],
+        [_workspaceButton.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
+        [_workspaceButton.widthAnchor constraintEqualToConstant:45.0],
+        [_workspaceButton.heightAnchor constraintEqualToConstant:46.0],
 
-        [_composeButton.trailingAnchor constraintEqualToAnchor:_sidebarHeader.trailingAnchor constant:-12.0],
+        [_composeButton.leadingAnchor constraintEqualToAnchor:_workspaceButton.trailingAnchor constant:9.0],
         [_composeButton.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
-        [_composeButton.widthAnchor constraintGreaterThanOrEqualToConstant:88.0],
-        [_composeButton.heightAnchor constraintGreaterThanOrEqualToConstant:32.0],
-
-        [_settingsButton.trailingAnchor constraintEqualToAnchor:_composeButton.leadingAnchor constant:-6.0],
-        [_settingsButton.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
-        [_settingsButton.widthAnchor constraintEqualToConstant:32.0],
-        [_settingsButton.heightAnchor constraintEqualToConstant:32.0],
+        [_composeButton.trailingAnchor constraintEqualToAnchor:_sidebarHeader.trailingAnchor constant:-12.0],
+        [_composeButton.heightAnchor constraintEqualToConstant:46.0],
     ]];
 }
 
@@ -217,7 +229,7 @@
 {
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _tableView.backgroundColor = UIColor.clearColor;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = UITableViewAutomaticDimension;
@@ -230,14 +242,24 @@
     CGFloat footerSpacing = _accountFooter ? -8.0 : 0.0;
     _footerTop = [_tableView.bottomAnchor constraintEqualToAnchor:footerAnchorView.topAnchor constant:footerSpacing];
 
+    // 截图 02 实测：两行灰字的中心在 y ≈ 312pt（不是整屏正中 426pt），
+    // 也就是「抽屉顶部 → 底部白卡上沿」这段区域的中心。
+    UILayoutGuide *emptyGuide = [[UILayoutGuide alloc] init];
+    [self.view addLayoutGuide:emptyGuide];
+
     [NSLayoutConstraint activateConstraints:@[
         [_tableView.topAnchor constraintEqualToAnchor:_sidebarHeader.bottomAnchor],
         [_tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [_tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         _footerTop,
 
-        [_emptyLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [_emptyLabel.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        [emptyGuide.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [emptyGuide.bottomAnchor constraintEqualToAnchor:footerAnchorView.topAnchor],
+        [emptyGuide.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [emptyGuide.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+
+        [_emptyLabel.centerXAnchor constraintEqualToAnchor:emptyGuide.centerXAnchor],
+        [_emptyLabel.centerYAnchor constraintEqualToAnchor:emptyGuide.centerYAnchor],
         [_emptyLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:24.0],
         [_emptyLabel.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-24.0],
     ]];
@@ -630,7 +652,8 @@
 
 - (double)tableView:(id)arg1 heightForHeaderInSection:(id)arg2
 {
-    return 28.0;
+    // 截图 02 的空态里，入口行之下直接是居中的两行灰字：没有「工作区 · xxx」分组标题
+    return (_records.count > 0) ? 28.0 : 0.0;
 }
 
 - (double)tableView:(id)arg1 heightForFooterInSection:(id)arg2
@@ -640,6 +663,7 @@
 
 - (id)tableView:(id)arg1 viewForHeaderInSection:(id)arg2
 {
+    if (_records.count == 0) return nil;
     UIView *header = [[UIView alloc] init];
     header.backgroundColor = UIColor.clearColor;
     UILabel *label = [[UILabel alloc] init];
@@ -940,9 +964,9 @@
 
 - (void)themeDidChange
 {
-    self.view.backgroundColor = UIColor.secondarySystemBackgroundColor;
-    _sidebarHeader.backgroundColor = UIColor.secondarySystemBackgroundColor;
-    _tableView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    _sidebarHeader.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    _tableView.backgroundColor = UIColor.clearColor;
     _emptyLabel.textColor = UIColor.secondaryLabelColor;
     [self recolorAccountFooter];
 }

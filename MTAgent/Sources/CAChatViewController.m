@@ -336,7 +336,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 {
     [super viewDidLoad];
 
-    self.title = CABundleDisplayName;
+    // 截图 01 顶栏中间没有标题：这里不设 self.title，导航栏保持空白
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 
     [self applyOpaqueNavigationBarAppearance];
@@ -729,18 +729,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [container addSubview:badge];
     UIBarButtonItem *branchItem = [[UIBarButtonItem alloc] initWithCustomView:container];
 
-    // ⋯ 入口菜单（放在 git 图标左侧；git 分支图标 + 红角标的位置和样式保持截图不变）
-    UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle"
-                                 withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:21.0 weight:UIImageSymbolWeightRegular]]
-                forState:UIControlStateNormal];
-    moreButton.tintColor = UIColor.labelColor;
-    moreButton.frame = CGRectMake(0.0, 0.0, 32.0, 32.0);
-    moreButton.accessibilityLabel = @"更多入口";
-    [moreButton addTarget:self action:@selector(handleComposerMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithCustomView:moreButton];
-
-    self.navigationItem.rightBarButtonItems = @[ moreItem, branchItem ];
+    // 截图 01：顶栏右侧只有 git 分支图标 + 红角标，没有 ⋯ 按钮。
+    // 「更多入口…」菜单仍从 git 图标长按菜单与「/」长按两处进入（handleComposerMenu 未变）。
+    self.navigationItem.rightBarButtonItems = @[ branchItem ];
 }
 
 /// git 图标长按菜单：把工作区/价格/Agent 状态等入口也接上（点按仍然是 Git 变更）
@@ -1041,19 +1032,17 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     BOOL providerOK = [self chatProviderConfigured];
     BOOL needsAttention = (!runtimeOK || !providerOK);
 
-    NSString *text = nil;
-    if (!runtimeOK) {
-        text = @"还没装 Codex 运行时，聊天发不出去。点「安装运行时」跳到诊断页安装，或先去设置里检查。";
-    } else if (!providerOK) {
-        BOOL thirdParty = [NSUserDefaults.standardUserDefaults boolForKey:CADefaultsUseThirdPartyProvider];
-        text = thirdParty ? @"还没填第三方供应商的 API Key：去设置 → Provider 里填完再发。"
-                          : @"还没登录官方账号：去设置里登录，或改用第三方供应商 + API Key。";
-    }
+    // 截图 01 底部那条只有「闪电圆钮 + Agent 协作就绪 药丸 + 垃圾桶」：
+    // 运行时 / 凭据缺失不再往这条上堆文字与按钮（原包只用设置页里的状态文字表达，安装也由设置页的行触发），
+    // 提示条恒为 0 高 + 空文案，状态交给既有的闪电圆钮（蓝=就绪，橙=待处理）。
+    self.runtimeBannerLabel.text = @"";
+    self.runtimeInstallButton.hidden = YES;
+    self.runtimeSettingsButton.hidden = YES;
+    self.runtimeBanner.hidden = YES;
+    self.runtimeBannerHeightConstraint.constant = 0.0;
+    self.agentStatusIcon.tintColor = needsAttention ? UIColor.systemOrangeColor : UIColor.systemBlueColor;
 
-    self.runtimeBannerLabel.text = text ?: @"";
-    self.runtimeInstallButton.hidden = runtimeOK;
-    self.runtimeBanner.hidden = !needsAttention;
-    self.runtimeBannerHeightConstraint.constant = needsAttention ? 46.0 : 0.0;
+    CALog(CALogLevelDebug, @"RUNTIME", @"bottom bar state runtime=%d provider=%d", runtimeOK, providerOK);
 }
 
 - (void)presentRuntimeGuidanceForRuntime:(BOOL)missingRuntime detail:(NSString *)detail
@@ -1148,15 +1137,11 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
 - (void)applyComposerPlaceholder
 {
-    NSArray<NSString *> *pool = [self composerPlaceholderPool];
-    if (pool.count == 0) {
-        self.composerPlaceholderText = @"";
-    } else {
-        NSUInteger index = self.composerPlaceholderIndex % pool.count;
-        self.composerPlaceholderText = pool[index];
-    }
-    self.inputPlaceholderLabel.text = self.composerPlaceholderText;
-    self.inputPlaceholderLabel.hidden = self.composerField.text.length > 0;
+    // 截图 01 的输入卡里只有「上下文 0% · 缓存 —」一行，卡内没有占位文案：
+    // 占位池仍然保留（composerPlaceholderPool 供后续使用），但不再往输入卡上贴字。
+    self.composerPlaceholderText = @"";
+    self.inputPlaceholderLabel.text = @"";
+    self.inputPlaceholderLabel.hidden = YES;
 }
 
 - (void)rotateComposerPlaceholderIfNeeded
@@ -1775,7 +1760,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     BOOL hasText = [self trimmedText:self.composerField.text].length > 0 || self.pendingAttachments.count > 0;
     self.sendButton.enabled = hasText;
     self.sendButton.alpha = hasText ? 1.0 : 0.4;
-    self.inputPlaceholderLabel.hidden = self.composerField.text.length > 0;
+    self.inputPlaceholderLabel.hidden = YES;
 }
 
 - (void)updateInputHeight
@@ -2342,11 +2327,27 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     CAConversationSidebarViewController *sidebar = [[CAConversationSidebarViewController alloc] init];
     sidebar.delegate = self;
     [sidebar setWorkspacePath:self.workspacePath];
-    sidebar.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark"]
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(closeHistoryDrawer)];
+    // 截图 02：顶栏右侧是灰色圆形 ×（标题「MT 智能体」由侧栏自己的 title 居中显示）
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    closeButton.frame = CGRectMake(0.0, 0.0, 30.0, 30.0);
+    closeButton.backgroundColor = UIColor.systemGrayColor;
+    closeButton.layer.cornerRadius = 15.0;
+    [closeButton setImage:[UIImage systemImageNamed:@"xmark"] forState:UIControlStateNormal];
+    closeButton.tintColor = UIColor.whiteColor;
+    [closeButton addTarget:self action:@selector(closeHistoryDrawer) forControlEvents:UIControlEventTouchUpInside];
+    closeButton.accessibilityLabel = @"关闭";
+    sidebar.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
     UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:sidebar];
+    // 抽屉顶栏与内容同为分组灰底、无分割线（截图 02 顶栏看不到白色条与 hairline）
+    UINavigationBarAppearance *drawerAppearance = [[UINavigationBarAppearance alloc] init];
+    [drawerAppearance configureWithTransparentBackground];
+    drawerAppearance.backgroundColor = UIColor.clearColor;
+    drawerAppearance.shadowColor = UIColor.clearColor;
+    drawerAppearance.titleTextAttributes = @{ NSForegroundColorAttributeName: UIColor.labelColor };
+    navigation.navigationBar.standardAppearance = drawerAppearance;
+    navigation.navigationBar.scrollEdgeAppearance = drawerAppearance;
+    navigation.navigationBar.compactAppearance = drawerAppearance;
+    navigation.navigationBar.tintColor = UIColor.labelColor;
     [self addChildViewController:navigation];
     navigation.view.translatesAutoresizingMaskIntoConstraints = NO;
     [navigation didMoveToParentViewController:self];
@@ -2355,7 +2356,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
     UIView *drawer = [[UIView alloc] init];
     drawer.translatesAutoresizingMaskIntoConstraints = NO;
-    drawer.backgroundColor = UIColor.systemBackgroundColor;
+    drawer.backgroundColor = UIColor.systemGroupedBackgroundColor;
     drawer.layer.shadowColor = UIColor.blackColor.CGColor;
     drawer.layer.shadowOpacity = 0.18;
     drawer.layer.shadowRadius = 8.0;
@@ -2363,7 +2364,8 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [self.view addSubview:drawer];
     self.historyDrawer = drawer;
 
-    CGFloat width = MIN(320.0, MAX(260.0, self.view.bounds.size.width * 0.78));
+    // 截图 02 实测抽屉宽度 329pt / 屏宽 393pt ≈ 0.84
+    CGFloat width = MIN(340.0, MAX(260.0, self.view.bounds.size.width * 0.84));
     self.historyDrawerWidthConstraint = [drawer.widthAnchor constraintEqualToConstant:width];
     self.historyDrawerLeading = [drawer.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:-width];
 

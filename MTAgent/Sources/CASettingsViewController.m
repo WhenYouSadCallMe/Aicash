@@ -31,7 +31,6 @@
 #import "CAExecutionEnvironment.h"
 #import "CAUpdateViewController.h"
 #import "CALogViewerViewController.h"
-#import "CAControlCenterPanels.h"
 #import "CADiagnosticsViewController.h"
 #import "CAModelPricingViewController.h"
 #import "CAAgentProfileViewController.h"
@@ -107,23 +106,35 @@ static const NSUInteger kSettingsToolEntryLimit       = 12;
 
 @end
 
-/// 分区顺序严格照 04/05 截图：官方账户 / AI 服务 / 应用 / 开发环境与诊断，
-/// 其后接原有附加分区（Provider 细节 / 模型目录 / Runtime 管理 / MCP / 诊断 / 环境 / 关于）。
+/// 分区顺序严格照 04/05 截图：官方账户 / AI 服务 / 应用 / 开发环境与诊断。
+/// 后面的 Provider / 模型目录 / Runtime / MCP / 诊断 / 环境 / 关于是复刻补全分区，
+/// **默认不显示**（截图里没有这些段），只有把 defaults 键
+/// `CodexSettingsShowReplicaExtraSections` 置 YES 时才出现。
 typedef NS_ENUM(NSInteger, CASettingsSection) {
     CASettingsSectionAccount = 0,       // 官方账户
     CASettingsSectionAIService,         // AI 服务
     CASettingsSectionApplication,       // 应用
     CASettingsSectionDevelopment,       // 开发环境与诊断
-    CASettingsSectionProvider,          // 附加：Provider 细节
-    CASettingsSectionModel,             // 附加：模型目录
-    CASettingsSectionRuntime,           // 附加：Runtime 管理
-    CASettingsSectionMCP,               // 附加：MCP 桥
-    CASettingsSectionDiagnostics,       // 附加：日志与诊断
-    CASettingsSectionEnvironment,       // 附加：环境
-    CASettingsSectionAbout,             // 附加：关于
-    CASettingsSectionPanelCenter,       // 附加：面板中心（复刻补全面板统一入口）
+    CASettingsSectionProvider,          // 复刻补全：Provider 细节
+    CASettingsSectionModel,             // 复刻补全：模型目录
+    CASettingsSectionRuntime,           // 复刻补全：Runtime 管理
+    CASettingsSectionMCP,               // 复刻补全：MCP 桥
+    CASettingsSectionDiagnostics,       // 复刻补全：日志与诊断
+    CASettingsSectionEnvironment,       // 复刻补全：环境
+    CASettingsSectionAbout,             // 复刻补全：关于
     CASettingsSectionCount,
 };
+
+/// 截图 04/05 里的分区数：官方账户 / AI 服务 / 应用 / 开发环境与诊断（四段，行序照截图）
+static const NSInteger kSettingsScreenshotSectionCount = 4;
+/// 复刻补全分区的调试开关（默认关）：置 YES 才显示四段之后的附加分区
+static NSString * const kSettingsExtraSectionsDefaultsKey = @"CodexSettingsShowReplicaExtraSections";
+
+/// 设置页是否显示复刻补全的附加分区（默认 NO）
+static BOOL CASettingsShowsReplicaExtraSections(void)
+{
+    return [NSUserDefaults.standardUserDefaults boolForKey:kSettingsExtraSectionsDefaultsKey];
+}
 
 typedef NS_ENUM(NSInteger, CASettingsAccountRow) {
     CASettingsAccountRowStatus = 0,
@@ -1525,13 +1536,13 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
 - (void)installCloseBarButtonItem
 {
-    // 截图：顶栏右侧灰色圆形 ×，点击仍是原有 handleDone
+    // 截图 04/05：顶栏右侧灰底白叉圆钮（实测圆底 #8E8E93），点击仍是原有 handleDone
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.frame = CGRectMake(0.0, 0.0, 30.0, 30.0);
-    button.backgroundColor = UIColor.tertiarySystemFillColor;
+    button.backgroundColor = UIColor.systemGrayColor;
     button.layer.cornerRadius = 15.0;
     [button setImage:[UIImage systemImageNamed:@"xmark"] forState:UIControlStateNormal];
-    button.tintColor = UIColor.secondaryLabelColor;
+    button.tintColor = UIColor.whiteColor;
     [button addTarget:self action:@selector(handleDone) forControlEvents:UIControlEventTouchUpInside];
     button.accessibilityLabel = @"关闭";
 
@@ -1780,7 +1791,8 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return CASettingsSectionCount;
+    // 截图 04/05 只有四段；复刻补全分区默认不显示（调试开关打开才追加）
+    return CASettingsShowsReplicaExtraSections() ? CASettingsSectionCount : kSettingsScreenshotSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -1810,8 +1822,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             return CASettingsEnvironmentRowCount;
         case CASettingsSectionAbout:
             return 4;
-        case CASettingsSectionPanelCenter:
-            return 1;
         default:
             return 4;
     }
@@ -2297,18 +2307,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             return cell;
         }
 
-        case CASettingsSectionPanelCenter: {
-            // 复刻补全：18 个面板的统一入口（原包这些面板分散在会话页/设置页/侧栏，这里集中可达）
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.imageView.image = [UIImage systemImageNamed:@"square.grid.2x2"];
-            cell.imageView.tintColor = UIColor.systemBlueColor;
-            cell.textLabel.text = @"全部面板";
-            cell.detailTextLabel.text = @"Git、模型、扩展、审批、存储…";
-            return cell;
-        }
-
         case CASettingsSectionAbout:
         default: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
@@ -2355,7 +2353,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
         case CASettingsSectionMCP:         return @"MCP 桥";
         case CASettingsSectionDiagnostics: return @"日志与诊断";
         case CASettingsSectionEnvironment: return @"环境";
-        case CASettingsSectionPanelCenter: return @"面板中心";
         case CASettingsSectionAbout:
         default:                           return @"关于";
     }
@@ -2389,15 +2386,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    if ((CASettingsSection)indexPath.section == CASettingsSectionPanelCenter) {
-        // 复刻补全面板统一入口：面板中心（列出全部 18 个面板）
-        UIViewController *center = [CAControlCenterPanels panelCenterViewControllerForWorkspace:[NSUserDefaults.standardUserDefaults stringForKey:CADefaultsActiveWorkspace]];
-        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:center];
-        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:navigation animated:YES completion:nil];
-        return;
-    }
 
     switch ((CASettingsSection)indexPath.section) {
         case CASettingsSectionAccount: {

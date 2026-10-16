@@ -289,20 +289,9 @@ static NSString * const kAPNSDeviceTokenDefaultsKey = @"CodexAPNSDeviceToken";
     for (CARuntimeCatalogEntry *entry in missing) {
         [names appendFormat:@"%@ ", entry.displayName ?: entry.runtimeID ?: @"?"];
     }
-    CALog(CALogLevelWarn, @"RUNTIME", @"missing required runtimes=%@", names);
-
-    UIViewController *presenter = self.rootNavigationController.topViewController ?: self.chatViewController;
-    if (!presenter) return;
-
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"运行时缺失"
-                                                                  message:[NSString stringWithFormat:@"以下运行时尚未安装：%@", names]
-                                                           preferredStyle:UIAlertControllerStyleAlert];
-    __weak typeof(self) weakSelf = self;
-    [alert addAction:[UIAlertAction actionWithTitle:@"查看诊断" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [weakSelf presentController:[[CADiagnosticsViewController alloc] init]];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"稍后" style:UIAlertActionStyleCancel handler:nil]];
-    [presenter presentViewController:alert animated:YES completion:nil];
+    // 截图里没有「运行时缺失」弹窗：原包只把状态写在设置页的行文字上，
+    // 安装同样由用户点设置页的行触发。这里不再弹 UIAlertController，也不发起下载。
+    CALog(CALogLevelWarn, @"RUNTIME", @"missing required runtimes=%@ (no prompt; install from settings rows)", names);
 }
 
 #pragma mark - URL scheme（mtagent）

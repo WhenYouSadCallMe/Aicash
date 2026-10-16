@@ -9,8 +9,11 @@
 //    · 各 +xxxViewControllerWith…               构造单个面板（带默认数据源/回调）
 //    · +presentPanel:from:                      统一 present（自动包 UINavigationController）
 //
-//  入口位置：设置页末尾「面板中心」一行（CASettingsViewController）以及各面板的自然入口
-//  （会话页顶栏 Git、输入框模型胶囊、设置页模型价格/Agent 身份/子代理设置/存储管理/Skills 与扩展）。
+//  入口位置：各面板的自然入口（会话页顶栏 Git、输入框模型胶囊、设置页的
+//  模型价格 / Agent 身份 / 子代理设置 / 存储管理 / Skills 与扩展）。
+//  注：`+panelCenterViewControllerForWorkspace:` 这个聚合列表**不再从设置页暴露**
+//  （截图 04/05 里设置页只有官方账户 / AI 服务 / 应用 / 开发环境与诊断四段），
+//  工厂方法本身保留，给需要的调用方直接用。
 //
 
 #import <UIKit/UIKit.h>

@@ -250,8 +250,9 @@
     self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
     _grabberView.backgroundColor = UIColor.systemGray4Color;
     _titleLabel.textColor = UIColor.labelColor;
-    _closeButton.tintColor = UIColor.secondaryLabelColor;
-    _closeButton.backgroundColor = UIColor.tertiarySystemFillColor;
+    // 截图 03：灰底白叉圆钮（与设置页 / Git / 抽屉一致）
+    _closeButton.tintColor = UIColor.whiteColor;
+    _closeButton.backgroundColor = UIColor.systemGrayColor;
     _tableView.backgroundColor = UIColor.clearColor;
     _tableView.separatorColor = UIColor.separatorColor;
     for (UIControl *card in @[ _openFolderCard, _createProjectCard ]) {

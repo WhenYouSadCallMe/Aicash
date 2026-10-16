@@ -135,18 +135,20 @@ static NSString * const kCAGitCleanCellID = @"CAGitClean";
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(close)];
-    close.tintColor = UIColor.tertiaryLabelColor;
+    // 截图 06/07：左侧灰底白叉圆钮（实测圆底 #8E8E93）
+    close.tintColor = UIColor.systemGrayColor;
 
     _refreshItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.clockwise"]
                                                     style:UIBarButtonItemStylePlain
                                                    target:self
                                                    action:@selector(refresh)];
 
-    UIBarButtonItem *more = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"ellipsis.circle.fill"]
+    // 截图 06/07：⋯ 是**空心**圆 + 三个黑点（ellipsis.circle），不是实心圆
+    UIBarButtonItem *more = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"ellipsis.circle"]
                                                              style:UIBarButtonItemStylePlain
                                                             target:nil
                                                             action:nil];
-    more.tintColor = UIColor.tertiaryLabelColor;
+    more.tintColor = UIColor.labelColor;
     _moreItem = more;
 
     self.navigationItem.leftBarButtonItem = close;
