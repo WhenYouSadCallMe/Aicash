@@ -85,6 +85,14 @@ sign: bundle
 	  codesign --force --sign - --entitlements $(ROOT)/MTShareExtension/entitlements.plist "$(BUNDLE)/PlugIns/MTShareExtension.appex/MTShareExtension"
 	-ldid -S$(ROOT)/MTAgent/entitlements.plist "$(BUNDLE)/Helpers/ca-filetool" || \
 	  codesign --force --sign - "$(BUNDLE)/Helpers/ca-filetool"
+	@if [ -f "$(BUNDLE)/Helpers/codex" ]; then \
+	  echo "== 签名 codex 内核 =="; \
+	  ldid -S$(ROOT)/Kernel/entitlements-kernel.plist "$(BUNDLE)/Helpers/codex" || \
+	    ldid -S "$(BUNDLE)/Helpers/codex" || true; \
+	  ldid -e "$(BUNDLE)/Helpers/codex" | head -20 || true; \
+	else \
+	  echo "::warning::Helpers/codex 缺失（先跑 build-kernel-ios 工作流）"; \
+	fi
 
 package: sign
 	python3 $(ROOT)/build/package_tipa.py --bundle "$(BUILD)/Payload" \

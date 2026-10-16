@@ -78,6 +78,19 @@ def main():
         os.chmod(target, mode or 0o644)
         copied += 1
 
+    # 可选：接入交叉编译的 codex 内核（Kernel/dist/codex，由 build-kernel-ios 工作流产出）
+    kernel_src = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                              "Kernel", "dist", "codex")
+    kernel_dst = os.path.join(bundle, "Helpers", "codex")
+    if os.path.isfile(kernel_src) and not os.path.exists(kernel_dst):
+        ensure_dir(os.path.dirname(kernel_dst), 0o755)
+        shutil.copy2(kernel_src, kernel_dst)
+        os.chmod(kernel_dst, 0o755)
+        print("  + 已接入 codex 内核: Helpers/codex (%d 字节)" % os.path.getsize(kernel_dst))
+    elif not os.path.isfile(kernel_src):
+        print("  ! Kernel/dist/codex 不存在，产物不含智能内核"
+              "（先跑 build-kernel-ios 工作流或 git fetch origin dist-kernel）")
+
     # 目录权限统一
     for root, dirs, _files in os.walk(bundle):
         for d in dirs:
