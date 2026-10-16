@@ -27,6 +27,9 @@ env:
   TARGET: aarch64-apple-ios
   RUST_BACKTRACE: "1"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-14
@@ -61,6 +64,11 @@ jobs:
           cd upstream
           git checkout "${{ github.event.inputs.codex_ref || 'rust-v0.162.1' }}"
           git log -1 --format="%H %s"
+          # Rust 工作区位于 codex-rs/ 子目录（老版本布局），新版本在仓库根
+          if [ -f codex-rs/Cargo.toml ]; then echo "CODEX_RS_DIR=codex-rs" >> "$GITHUB_ENV"
+          elif [ -f Cargo.toml ]; then echo "CODEX_RS_DIR=." >> "$GITHUB_ENV"
+          else echo "CODEX_RS_DIR=codex-rs" >> "$GITHUB_ENV"; fi
+          echo "workspace dir: $CODEX_RS_DIR"
 
       - name: 应用 iOS 补丁
         run: |
@@ -80,14 +88,15 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             upstream/target
-          key: cargo-${{ runner.os }}-${{ hashFiles('upstream/Cargo.lock', 'Kernel/patches/**') }}
+          key: cargo-${{ runner.os }}-v2-${{ hashFiles('upstream/codex-rs/Cargo.lock', 'upstream/Cargo.lock', 'Kernel/patches/**') }}
           restore-keys: |
-            cargo-${{ runner.os }}-
+            cargo-${{ runner.os }}-v2-
 
       - name: 编译内核
         run: |
           . "$HOME/.cargo/env"
           cd upstream
+          cd "$CODEX_RS_DIR"
           SDK=$(xcrun --sdk iphoneos --show-sdk-path)
           export SDKROOT="$SDK"
           export IPHONEOS_DEPLOYMENT_TARGET=15.0
@@ -97,19 +106,19 @@ jobs:
       - name: strip + ldid 签名
         run: |
           set -e
-          BIN=upstream/target/aarch64-apple-ios/release/codex
-          if [ ! -f "$BIN" ]; then BIN=upstream/target/aarch64-apple-ios/debug/codex; fi
+          BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/release/codex"
+          if [ ! -f "$BIN" ]; then BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/debug/codex"; fi
           ls -l "$BIN"
           xcrun --sdk iphoneos strip -x "$BIN" || true
-          ldid -S"../Kernel/entitlements-kernel.plist" "$BIN" || ldid -S "$BIN"
+          ldid -SKernel/entitlements-kernel.plist "$BIN" || ldid -S "$BIN"
           ldid -e "$BIN" | head -40 || true
           chmod +x "$BIN"
           file "$BIN"
 
       - name: 校验 Mach-O
         run: |
-          BIN=upstream/target/aarch64-apple-ios/release/codex
-          [ -f "$BIN" ] || BIN=upstream/target/aarch64-apple-ios/debug/codex
+          BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/release/codex"
+          [ -f "$BIN" ] || BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/debug/codex"
           xcrun --sdk iphoneos otool -hv "$BIN"
           xcrun --sdk iphoneos otool -l "$BIN" | grep -A4 LC_BUILD_VERSION || true
 
@@ -117,8 +126,8 @@ jobs:
         run: |
           set -e
           mkdir -p Kernel/dist
-          BIN=upstream/target/aarch64-apple-ios/release/codex
-          [ -f "$BIN" ] || BIN=upstream/target/aarch64-apple-ios/debug/codex
+          BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/release/codex"
+          [ -f "$BIN" ] || BIN="upstream/$CODEX_RS_DIR/target/aarch64-apple-ios/debug/codex"
           cp "$BIN" Kernel/dist/codex
           shasum -a 256 Kernel/dist/codex | tee Kernel/dist/codex.sha256
           ls -l Kernel/dist
@@ -129,11 +138,11 @@ jobs:
         run: |
           set -x
           mkdir -p kernel-logs
-          # cargo 详细日志（重新编译一次拿完整错误，命中缓存时秒回）
           . "$HOME/.cargo/env"
           cd upstream
-          cargo build --target aarch64-apple-ios --bin codex 2>&1 | tail -n 500 > ../kernel-logs/cargo-errors.log || true
-          cd ..
+          cd "$CODEX_RS_DIR"
+          cargo build --target aarch64-apple-ios --bin codex 2>&1 | tail -n 500 > "$GITHUB_WORKSPACE/kernel-logs/cargo-errors.log" || true
+          cd "$GITHUB_WORKSPACE"
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout --orphan kernel-logs-publish
