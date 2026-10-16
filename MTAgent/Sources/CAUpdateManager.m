@@ -131,7 +131,7 @@
 - (BOOL)cachedPackageAtPath:(NSString *)path matchesSHA256:(NSString *)sha256
 {
     if (!sha256.length) return NO;
-    NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe];
+    NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
     if (!data) return NO;
     unsigned char digest[CC_SHA256_DIGEST_LENGTH] = {0};
     CC_SHA256(data.bytes, (CC_LONG)data.length, digest);

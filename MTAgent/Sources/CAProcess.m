@@ -97,11 +97,8 @@ extern char **environ;
     if (stdinPipe)  posix_spawn_file_actions_adddup2(&actions, stdinPipe.fileHandleForReading.fileDescriptor, STDIN_FILENO);
     if (stdoutPipe) posix_spawn_file_actions_adddup2(&actions, stdoutPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO);
     if (stderrPipe) posix_spawn_file_actions_adddup2(&actions, stderrPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO);
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
-    if (!useShellWrapper && self.currentDirectoryURL.path.length && @available(iOS 16.0, *)) {
-        posix_spawn_file_actions_addchdir_np(&actions, self.currentDirectoryURL.path.fileSystemRepresentation);
-    }
-#endif
+    // 说明：posix_spawn_file_actions_addchdir_np 在 iOS SDK 中不可用（macOS 专属），
+    // 需要 chdir 的场景统一由上面的 /bin/sh 包装实现（useShellWrapper 分支）。
 
     pid_t pid = -1;
     int rc = posix_spawn(&pid, executable.fileSystemRepresentation, &actions, NULL, argv, envp);
