@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
     CAModelPickerValueCell *cell = [tableView dequeueReusableCellWithIdentifier:kModelPickerCellReuseIdentifier
                                                                  forIndexPath:indexPath];
     if (!cell) {
-        cell = [[CAModelPickerValueCell alloc] initWithStyle:UITableViewCellStyleValue1
+        cell = [[CAModelPickerValueCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                              reuseIdentifier:kModelPickerCellReuseIdentifier];
     }
 
@@ -132,9 +132,11 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.minimumScaleFactor = 0.75;
 
+    // 副标题：仅显示推理档位（短格式），换行交给 Subtitle 样式的多行 detailTextLabel
     cell.detailTextLabel.text = [self reasoningSummaryForSlug:slug thirdParty:thirdParty];
     cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
     cell.detailTextLabel.textColor = UIColor.secondaryLabelColor;
+    cell.detailTextLabel.numberOfLines = 1;
 
     NSString *current = thirdParty ? [self selectedThirdPartySlug] : [self selectedOfficialSlug];
     BOOL selected = slug.length > 0 && [slug isEqualToString:current];
@@ -398,25 +400,18 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 
     NSArray<NSString *> *levels = [[CAModelPricingManager sharedManager] supportedReasoningEffortsForModel:slug
                                                                                              providerHint:[self providerHintForSlug:slug]];
-    if (levels.count > 0) {
-        NSMutableArray<NSString *> *shown = [NSMutableArray array];
-        for (NSString *level in levels) {
-            if (![level isKindOfClass:NSString.class] || level.length == 0) continue;
-            [shown addObject:level];
-            if (shown.count >= 4) break;
-        }
-        NSString *text = [shown componentsJoinedByString:@"/"];
-        if (text.length > 0) {
-            return levels.count > shown.count ? [text stringByAppendingString:@"/…"] : text;
-        }
+    if (levels.count == 0) {
+        // 目录查不到：不显示长兜底串，保持行内干净（默认档位在强度面板里可选）
+        return nil;
     }
-
-    // 目录查不到档位时退回 defaults 里的当前强度
-    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    NSString *fallback = thirdParty
-        ? ([defaults stringForKey:CADefaultsThirdPartyReasoning] ?: [defaults stringForKey:CADefaultsReasoningEffort])
-        : ([defaults stringForKey:CADefaultsActiveEffort] ?: [defaults stringForKey:CADefaultsReasoningEffort]);
-    return fallback.length > 0 ? fallback : @"medium";
+    NSMutableArray<NSString *> *shown = [NSMutableArray array];
+    for (NSString *level in levels) {
+        if (![level isKindOfClass:NSString.class] || level.length == 0) continue;
+        [shown addObject:level];
+        if (shown.count >= 3) break;
+    }
+    NSString *text = [shown componentsJoinedByString:@" / "];
+    return levels.count > shown.count ? [text stringByAppendingString:@" …"] : text;
 }
 
 - (void)applySelectionAtIndexPath:(NSIndexPath *)indexPath
