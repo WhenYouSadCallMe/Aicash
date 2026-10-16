@@ -42,6 +42,19 @@
 #import "CAComposerPopupSection.h"
 #import "CAComposerPopupItem.h"
 #import "CAConversationSidebarViewController.h"
+#import "CAGitChangesViewController.h"
+#import "CAGitRepository.h"
+#import "CAGitSnapshot.h"
+#import "CAWorkspaceViewController.h"
+#import "CAModelPickerViewController.h"
+#import "CAModelPricingViewController.h"
+#import "CAModelPricingManager.h"
+#import "CAAgentStatusDetailViewController.h"
+#import "CAExtensionListViewController.h"
+#import "CAExtensionsViewController.h"
+#import "CATextDetailViewController.h"
+#import "CAArtifactPreviewViewController.h"
+#import "CAControlCenterPanels.h"
 #import <AVFoundation/AVFoundation.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
@@ -56,6 +69,41 @@ static const NSTimeInterval kChatPlaceholderRotateInterval = 12.0;
 static const NSTimeInterval kChatSilentAudioSeconds        = 3.0;
 static const NSUInteger kChatRawTailLimit                  = 40;
 static const NSUInteger kChatStderrTailLimit               = 6;
+
+#pragma mark 空态字面量（01 主会话页·空态，逐字对齐真机截图，别动半角/全角与间隔）
+
+static NSString * const kChatWelcomeTitleText        = @"今天想完成什么?";
+static NSString * const kChatWelcomeSubtitleLine1    = @"从理解项目到交付代码";
+static NSString * const kChatWelcomeSubtitleLine2    = @"在当前工作区开始一个任务";
+static NSString * const kChatWelcomeCardProjectTitle = @"了解这个项目";
+static NSString * const kChatWelcomeCardInspectTitle = @"检查代码问题";
+static NSString * const kChatWelcomeCardFeatureTitle = @"实现一个功能";
+static NSString * const kChatCollaborationReadyText  = @"Agent 协作就绪";
+static NSString * const kChatContextCaptionText      = @"上下文 0% · 缓存 —";
+static NSString * const kChatDefaultModelChipTitle   = @"6.1-Sol";
+static NSString * const kChatDefaultEffortChipTitle  = @"High";
+
+/// 点按建议卡后填进输入框的提示词（只填不发）
+static NSString * const kChatWelcomePromptProject   = @"先带我过一遍这个项目：读主要目录和关键文件，说明它是做什么的、怎么跑起来、关键代码在哪。";
+static NSString * const kChatWelcomePromptInspect   = @"帮我检查这个项目的代码问题：先跑构建和测试，把报错、告警和明显隐患列出来，并给出修复建议。";
+static NSString * const kChatWelcomePromptFeature   = @"我想实现一个新功能：请先给实现方案，确认后再改代码。";
+
+#pragma mark 空态 / 底部条尺寸（SPEC/UI_还原基准.md §3 实测值，单位 pt）
+
+static const CGFloat kChatWelcomeCardHeight      = 46.0;   // 建议卡高（截图实测 46）
+static const CGFloat kChatWelcomeCardSpacing     = 8.0;    // 卡间距（46 + 8 = 行距 54）
+static const CGFloat kChatWelcomeCardSideInset   = 31.0;   // 建议卡左右内缩（截图实测 31.3）
+static const CGFloat kChatBottomBarSideInset     = 12.0;   // 协作条 / 输入卡左右内缩
+static const CGFloat kChatBottomCircleSize       = 32.0;   // 圆形按钮直径（+ / 发送 / 垃圾桶 / 电闪）
+static const CGFloat kChatBottomChipHeight       = 30.0;   // 胶囊高（6.1-Sol / High / 协作药丸）
+static const CGFloat kChatBottomBarHeight        = 42.0;   // 协作条整条高
+static const CGFloat kChatComposerCardRadius     = 16.0;   // 输入卡圆角
+
+#pragma mark Git 角标轮询
+
+static const NSTimeInterval kChatGitBadgePollInterval = 5.0;
+/// 读不到 git（没有 git 可执行文件 / 非仓库）时给真机截图同款的角标文案
+static NSString * const kChatGitBadgeFallbackText = @"99+";
 
 #pragma mark - 会话页
 
@@ -123,6 +171,42 @@ static const NSUInteger kChatStderrTailLimit               = 6;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *inputHeightConstraint;
 @property (nonatomic, assign) NSUInteger streamGeneration;
 @property (nonatomic, copy, nullable) NSString *lastUsageSummary;
+
+#pragma mark 空态 / 底部固定条（01 主会话页·空态）
+
+@property (nonatomic, strong, nullable) NSLayoutConstraint *statusStripHeightConstraint;
+@property (nonatomic, strong, nullable) NSLayoutConstraint *attachmentHintHeightConstraint;
+@property (nonatomic, strong, nullable) UILabel *welcomeTitleLabel;
+@property (nonatomic, strong, nullable) UIView *collaborationBoltCircle;
+@property (nonatomic, strong, nullable) UIView *collaborationPill;
+@property (nonatomic, strong, nullable) UIImageView *collaborationPillIcon;
+@property (nonatomic, strong, nullable) UILabel *collaborationPillLabel;
+@property (nonatomic, strong, nullable) UIView *composerActionRow;
+@property (nonatomic, strong, nullable) UIButton *slashButton;
+@property (nonatomic, strong, nullable) NSTimer *gitBadgeTimer;
+/// “/”插入后抑制再次弹出菜单的那段文本（原包 ivar 语义；访问器在 .h 里是 id 签名，这里用别名属性实现）
+@property (nonatomic, copy, nullable) NSString *composerSuppressedToken;
+
+- (void)setupQuickActionBar;
+- (void)applyOpaqueNavigationBarAppearance;
+- (UIButton *)welcomeCardWithTitle:(NSString *)title symbol:(NSString *)symbol prompt:(NSString *)prompt;
+- (UIButton *)circularBarButtonWithSymbol:(NSString *)symbol pointSize:(CGFloat)pointSize;
+- (void)applyChipTitle:(NSString *)title toButton:(UIButton *)button;
+- (void)fillComposerWithPrompt:(NSString *)prompt;
+- (id)handleSlashMenuButton;
+- (void)handleComposerMenuLongPress:(UILongPressGestureRecognizer *)gesture;
+- (void)updateConversationBottomInset;
+- (void)stopGitBadgePolling;
+- (void)gitBadgeTimerTick:(NSTimer *)timer;
+- (void)applyGitBadgeChangeCount:(NSUInteger)count available:(BOOL)available;
+- (NSString *)currentModelChipTitle;
+- (NSString *)currentEffortChipTitle;
+- (NSString *)effortDisplayTitleForLevel:(NSString *)level;
+- (id)presentPanelInNavigationController:(nullable UIViewController *)controller;
+- (id)presentPanelPlaceholderNoticeWithTitle:(NSString *)title detail:(nullable NSString *)detail;
+- (nullable NSString *)textForSelectionArgument:(id)arg1;
+
+#pragma mark 空态 / 底部条 / 面板入口
 
 - (void)setupUI;
 - (void)setupNavigationItems;
@@ -255,7 +339,10 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     self.title = CABundleDisplayName;
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 
+    [self applyOpaqueNavigationBarAppearance];
     [self setupUI];
+    [self setupQuickActionBar];
+    [self setupWelcomeView];
     [self setupNavigationItems];
     [self setupKeyboardNotifications];
     [self installAudioObserversIfNeeded];
@@ -270,6 +357,9 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [self refreshAttachmentPlaceholder];
     [self refreshRuntimeBanner];
     [self renderStatusStrip];
+    [self refreshBottomSelectors];
+    [self refreshWelcomeState];
+    [self refreshGitBadge];
 
     [[CARuntimeCatalog sharedCatalog] startAutoRefresh];
     [CAComposerCatalog.sharedCatalog restorePersistentCacheForWorkspace:self.workspacePath];
@@ -291,6 +381,8 @@ static const NSUInteger kChatStderrTailLimit               = 6;
                                              selector:@selector(workspaceDidChange:)
                                                  name:@"CAWorkspaceDidChangeNotification"
                                                object:nil];
+    [self refreshWelcomeState];
+    [self updateGitBadgePolling];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -301,16 +393,25 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CAWorkspaceDidChangeNotification" object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    // 离开会话页就停掉 git 角标轮询，回来（viewWillAppear）再起
+    [self stopGitBadgePolling];
+}
+
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
     [self updateInputHeight];
+    [self updateConversationBottomInset];
 }
 
 - (void)dealloc
 {
     [self stopPulseTimer];
     [self stopRotationTimer];
+    [self stopGitBadgePolling];
     _silentPlayer = nil;
     [self endBackgroundTaskIfNeeded];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -362,13 +463,29 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     self.inputBar = [[UIView alloc] init];
     self.inputBar.translatesAutoresizingMaskIntoConstraints = NO;
     self.inputBar.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    // 输入卡：白底 + 1px 描边 + 大圆角（截图里是白卡叠在白页上，靠细描边分界）
+    self.inputBar.layer.cornerRadius = kChatComposerCardRadius;
+    self.inputBar.layer.borderWidth = 1.0 / UIScreen.mainScreen.scale;
+    self.inputBar.layer.borderColor = UIColor.systemGray5Color.CGColor;
+    self.inputBar.layer.masksToBounds = YES;
     [self.view addSubview:self.inputBar];
+
+    // 卡内首行：上下文 0% · 缓存 —（灰色小字）
+    self.contextCaption = [[UILabel alloc] init];
+    self.contextCaption.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contextCaption.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    self.contextCaption.textColor = UIColor.secondaryLabelColor;
+    self.contextCaption.text = kChatContextCaptionText;
+    [self.inputBar addSubview:self.contextCaption];
 
     self.attachmentHintLabel = [[UILabel alloc] init];
     self.attachmentHintLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.attachmentHintLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     self.attachmentHintLabel.textColor = UIColor.secondaryLabelColor;
+    self.attachmentHintLabel.hidden = YES;
     [self.inputBar addSubview:self.attachmentHintLabel];
+
+    self.attachmentHintHeightConstraint = [self.attachmentHintLabel.heightAnchor constraintEqualToConstant:0.0];
 
     self.inputPlaceholderLabel = [[UILabel alloc] init];
     self.inputPlaceholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -384,19 +501,41 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     self.composerField.scrollsToTop = NO;
     [self.inputBar addSubview:self.composerField];
 
-    self.attachButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.attachButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.attachButton setTitle:@"＋" forState:UIControlStateNormal];
-    self.attachButton.titleLabel.font = [UIFont systemFontOfSize:22.0 weight:UIFontWeightMedium];
-    [self.attachButton addTarget:self action:@selector(handleAttach) forControlEvents:UIControlEventTouchUpInside];
-    [self.inputBar addSubview:self.attachButton];
+    // 卡内按钮行：+ / 6.1-Sol / High / ↑
+    self.composerActionRow = [[UIView alloc] init];
+    self.composerActionRow.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.inputBar addSubview:self.composerActionRow];
 
-    self.sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.sendButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    self.sendButton.titleLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightSemibold];
+    self.attachButton = [self circularBarButtonWithSymbol:@"plus" pointSize:17.0];
+    [self.attachButton addTarget:self action:@selector(handleAttach) forControlEvents:UIControlEventTouchUpInside];
+    self.attachButton.accessibilityLabel = @"添加附件";
+    [self.composerActionRow addSubview:self.attachButton];
+
+    // “/”：斜杠菜单（走已有的 “/” 弹出逻辑）；长按是 ⋯ 入口菜单
+    self.composerMenuButton = [self circularBarButtonWithSymbol:@"slash" pointSize:17.0];
+    [self.composerMenuButton addTarget:self action:@selector(handleSlashMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.composerMenuButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleComposerMenuLongPress:)]];
+    self.composerMenuButton.accessibilityLabel = @"斜杠菜单";
+    [self.composerActionRow addSubview:self.composerMenuButton];
+
+    self.bottomModelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.bottomModelBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [self applyChipTitle:kChatDefaultModelChipTitle toButton:self.bottomModelBtn];
+    [self.bottomModelBtn addTarget:self action:@selector(handleBottomModelBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.composerActionRow addSubview:self.bottomModelBtn];
+
+    self.bottomEffortBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.bottomEffortBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [self applyChipTitle:kChatDefaultEffortChipTitle toButton:self.bottomEffortBtn];
+    [self.bottomEffortBtn addTarget:self action:@selector(handleBottomEffortBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.composerActionRow addSubview:self.bottomEffortBtn];
+
+    self.sendButton = [self circularBarButtonWithSymbol:@"arrow.up" pointSize:17.0];
+    self.sendButton.backgroundColor = UIColor.secondarySystemFillColor;
+    [self.sendButton setTintColor:UIColor.whiteColor];
     [self.sendButton addTarget:self action:@selector(handleSend) forControlEvents:UIControlEventTouchUpInside];
-    [self.inputBar addSubview:self.sendButton];
+    self.sendButton.accessibilityLabel = @"发送";
+    [self.composerActionRow addSubview:self.sendButton];
 
     self.stopButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.stopButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -405,19 +544,21 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [self.stopButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
     [self.stopButton addTarget:self action:@selector(handleStop) forControlEvents:UIControlEventTouchUpInside];
     self.stopButton.hidden = YES;
-    [self.inputBar addSubview:self.stopButton];
+    [self.composerActionRow addSubview:self.stopButton];
 
     [self setupRuntimeBanner];
     [self setupComposerPopup];
 
     self.inputHeightConstraint = [self.composerField.heightAnchor constraintEqualToConstant:36.0];
     self.inputBottomConstraint = [self.inputBar.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
+    // 空态时把顶部的运行状态条让开（截图里导航栏下是空的），靠高度约束折叠
+    self.statusStripHeightConstraint = [self.statusStrip.heightAnchor constraintEqualToConstant:30.0];
 
     [NSLayoutConstraint activateConstraints:@[
         [self.statusStrip.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
         [self.statusStrip.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.statusStrip.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.statusStrip.heightAnchor constraintEqualToConstant:30.0],
+        self.statusStripHeightConstraint,
 
         [self.statusDot.leadingAnchor constraintEqualToAnchor:self.statusStrip.leadingAnchor constant:12.0],
         [self.statusDot.centerYAnchor constraintEqualToAnchor:self.statusStrip.centerYAnchor],
@@ -431,40 +572,69 @@ static const NSUInteger kChatStderrTailLimit               = 6;
         [self.statusDetailLabel.trailingAnchor constraintEqualToAnchor:self.statusStrip.trailingAnchor constant:-12.0],
         [self.statusDetailLabel.centerYAnchor constraintEqualToAnchor:self.statusStrip.centerYAnchor],
 
-        [self.inputBar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [self.inputBar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [self.inputBar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:kChatBottomBarSideInset],
+        [self.inputBar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-kChatBottomBarSideInset],
         self.inputBottomConstraint,
 
-        [self.attachmentHintLabel.topAnchor constraintEqualToAnchor:self.inputBar.topAnchor constant:6.0],
-        [self.attachmentHintLabel.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:12.0],
-        [self.attachmentHintLabel.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-12.0],
+        // 卡内首行：上下文 0% · 缓存 —
+        [self.contextCaption.topAnchor constraintEqualToAnchor:self.inputBar.topAnchor constant:14.0],
+        [self.contextCaption.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:16.0],
+        [self.contextCaption.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-16.0],
+
+        [self.attachmentHintLabel.topAnchor constraintEqualToAnchor:self.contextCaption.bottomAnchor constant:2.0],
+        [self.attachmentHintLabel.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:16.0],
+        [self.attachmentHintLabel.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-16.0],
+        self.attachmentHintHeightConstraint,
 
         [self.composerField.topAnchor constraintEqualToAnchor:self.attachmentHintLabel.bottomAnchor constant:4.0],
-        [self.composerField.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:34.0],
-        [self.composerField.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-78.0],
+        [self.composerField.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:16.0],
+        [self.composerField.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-16.0],
         self.inputHeightConstraint,
 
         [self.inputPlaceholderLabel.topAnchor constraintEqualToAnchor:self.composerField.topAnchor constant:8.0],
         [self.inputPlaceholderLabel.leadingAnchor constraintEqualToAnchor:self.composerField.leadingAnchor constant:5.0],
         [self.inputPlaceholderLabel.trailingAnchor constraintEqualToAnchor:self.composerField.trailingAnchor],
 
-        [self.attachButton.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:4.0],
-        [self.attachButton.topAnchor constraintEqualToAnchor:self.composerField.topAnchor],
-        [self.attachButton.widthAnchor constraintEqualToConstant:30.0],
-        [self.attachButton.heightAnchor constraintEqualToConstant:30.0],
+        // 卡内按钮行
+        [self.composerActionRow.topAnchor constraintEqualToAnchor:self.composerField.bottomAnchor constant:8.0],
+        [self.composerActionRow.leadingAnchor constraintEqualToAnchor:self.inputBar.leadingAnchor constant:14.0],
+        [self.composerActionRow.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-12.0],
+        [self.composerActionRow.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
 
-        [self.stopButton.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-12.0],
-        [self.stopButton.topAnchor constraintEqualToAnchor:self.composerField.topAnchor constant:4.0],
+        [self.attachButton.leadingAnchor constraintEqualToAnchor:self.composerActionRow.leadingAnchor],
+        [self.attachButton.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.attachButton.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
+        [self.attachButton.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
 
-        [self.sendButton.trailingAnchor constraintEqualToAnchor:self.inputBar.trailingAnchor constant:-12.0],
-        [self.sendButton.topAnchor constraintEqualToAnchor:self.composerField.topAnchor constant:4.0],
+        [self.composerMenuButton.leadingAnchor constraintEqualToAnchor:self.attachButton.trailingAnchor constant:10.0],
+        [self.composerMenuButton.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.composerMenuButton.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
+        [self.composerMenuButton.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
 
-        [self.inputBar.bottomAnchor constraintEqualToAnchor:self.composerField.bottomAnchor constant:10.0],
+        [self.bottomModelBtn.leadingAnchor constraintEqualToAnchor:self.composerMenuButton.trailingAnchor constant:11.0],
+        [self.bottomModelBtn.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.bottomModelBtn.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
+
+        [self.bottomEffortBtn.leadingAnchor constraintEqualToAnchor:self.bottomModelBtn.trailingAnchor constant:9.0],
+        [self.bottomEffortBtn.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.bottomEffortBtn.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
+        [self.bottomEffortBtn.trailingAnchor constraintLessThanOrEqualToAnchor:self.sendButton.leadingAnchor constant:-8.0],
+
+        [self.stopButton.trailingAnchor constraintEqualToAnchor:self.composerActionRow.trailingAnchor],
+        [self.stopButton.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+
+        [self.sendButton.trailingAnchor constraintEqualToAnchor:self.composerActionRow.trailingAnchor],
+        [self.sendButton.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.sendButton.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
+        [self.sendButton.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
+
+        [self.inputBar.bottomAnchor constraintEqualToAnchor:self.composerActionRow.bottomAnchor constant:13.0],
 
         [self.tableView.topAnchor constraintEqualToAnchor:self.statusStrip.bottomAnchor],
         [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.runtimeBanner.topAnchor],
+        // 列表铺满整屏，底部固定条（协作条 + 输入卡）用 contentInset.bottom 让位
+        [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 }
 
@@ -500,7 +670,6 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [NSLayoutConstraint activateConstraints:@[
         [self.runtimeBanner.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.runtimeBanner.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.runtimeBanner.bottomAnchor constraintEqualToAnchor:self.inputBar.topAnchor],
         self.runtimeBannerHeightConstraint,
 
         [self.runtimeBannerLabel.leadingAnchor constraintEqualToAnchor:self.runtimeBanner.leadingAnchor constant:12.0],
@@ -518,22 +687,97 @@ static const NSUInteger kChatStderrTailLimit               = 6;
 
 - (void)setupNavigationItems
 {
-    UIBarButtonItem *history = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.bullet"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(handleShowHistory)];
-    UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"square.and.pencil"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(handleNewChat)];
-    UIBarButtonItem *settings = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gearshape"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(handleOpenSettings)];
-    compose.image = [UIImage systemImageNamed:@"square.and.pencil"];
-    settings.image = [UIImage systemImageNamed:@"gearshape"];
-    self.navigationItem.leftBarButtonItem = history;
-    self.navigationItem.rightBarButtonItems = @[ settings, compose ];
+    // 左：侧栏切换（打开历史抽屉，走已有的 handleShowHistory）
+    UIButton *sidebarButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [sidebarButton setImage:[UIImage systemImageNamed:@"sidebar.left"
+                                     withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:21.0 weight:UIImageSymbolWeightRegular]]
+                   forState:UIControlStateNormal];
+    sidebarButton.tintColor = UIColor.labelColor;
+    sidebarButton.frame = CGRectMake(0.0, 0.0, 32.0, 32.0);
+    sidebarButton.accessibilityLabel = @"历史会话";
+    [sidebarButton addTarget:self action:@selector(handleShowHistory) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sidebarButton];
+
+    // 右：git 分支图标 + 红色角标 99+（角标文案见 refreshGitBadge）
+    UIButton *branchButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [branchButton setImage:[UIImage systemImageNamed:@"arrow.triangle.branch"
+                                    withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:21.0 weight:UIImageSymbolWeightRegular]]
+                  forState:UIControlStateNormal];
+    branchButton.tintColor = UIColor.labelColor;
+    branchButton.accessibilityLabel = @"Git 变更";
+    [branchButton addTarget:self action:@selector(handleOpenGitChanges) forControlEvents:UIControlEventTouchUpInside];
+    branchButton.showsMenuAsPrimaryAction = NO;
+    branchButton.menu = [self sourceControlMenu];
+    self.sourceControlButton = branchButton;
+
+    UILabel *badge = [[UILabel alloc] init];
+    badge.font = [UIFont systemFontOfSize:11.0 weight:UIFontWeightSemibold];
+    badge.textColor = UIColor.whiteColor;
+    badge.backgroundColor = UIColor.systemRedColor;
+    badge.textAlignment = NSTextAlignmentCenter;
+    badge.text = kChatGitBadgeFallbackText;
+    badge.hidden = YES;
+    badge.layer.cornerRadius = 9.0;
+    badge.layer.masksToBounds = YES;
+    self.gitBadgeLabel = badge;
+
+    // 分支图标 + 右上角角标装进同一个 bar button item
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 52.0, 34.0)];
+    branchButton.frame = CGRectMake(4.0, 4.0, 28.0, 26.0);
+    badge.frame = CGRectMake(24.0, 0.0, 28.0, 18.0);
+    [container addSubview:branchButton];
+    [container addSubview:badge];
+    UIBarButtonItem *branchItem = [[UIBarButtonItem alloc] initWithCustomView:container];
+
+    // ⋯ 入口菜单（放在 git 图标左侧；git 分支图标 + 红角标的位置和样式保持截图不变）
+    UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle"
+                                 withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:21.0 weight:UIImageSymbolWeightRegular]]
+                forState:UIControlStateNormal];
+    moreButton.tintColor = UIColor.labelColor;
+    moreButton.frame = CGRectMake(0.0, 0.0, 32.0, 32.0);
+    moreButton.accessibilityLabel = @"更多入口";
+    [moreButton addTarget:self action:@selector(handleComposerMenu) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithCustomView:moreButton];
+
+    self.navigationItem.rightBarButtonItems = @[ moreItem, branchItem ];
+}
+
+/// git 图标长按菜单：把工作区/价格/Agent 状态等入口也接上（点按仍然是 Git 变更）
+- (UIMenu *)sourceControlMenu
+{
+    __weak typeof(self) weakSelf = self;
+    UIAction *workspace = [UIAction actionWithTitle:@"工作区…"
+                                              image:[UIImage systemImageNamed:@"folder"]
+                                         identifier:nil
+                                            handler:^(UIAction *action) {
+        [weakSelf handleOpenWorkspaceManager];
+    }];
+    UIAction *pricing = [UIAction actionWithTitle:@"模型价格…"
+                                            image:[UIImage systemImageNamed:@"tag"]
+                                       identifier:nil
+                                          handler:^(UIAction *action) {
+        [weakSelf handleShowUsageDetails];
+    }];
+    UIAction *agent = [UIAction actionWithTitle:@"Agent 状态"
+                                          image:[UIImage systemImageNamed:@"bolt.fill"]
+                                     identifier:nil
+                                        handler:^(UIAction *action) {
+        [weakSelf handleAgentStatusInfo];
+    }];
+    UIAction *settings = [UIAction actionWithTitle:@"设置…"
+                                             image:[UIImage systemImageNamed:@"gearshape"]
+                                        identifier:nil
+                                           handler:^(UIAction *action) {
+        [weakSelf handleOpenSettings];
+    }];
+    UIAction *more = [UIAction actionWithTitle:@"更多入口…"
+                                         image:[UIImage systemImageNamed:@"ellipsis.circle"]
+                                    identifier:nil
+                                       handler:^(UIAction *action) {
+        [weakSelf handleComposerMenu];
+    }];
+    return [UIMenu menuWithTitle:@"" children:@[ workspace, pricing, agent, settings, more ]];
 }
 
 - (void)setupKeyboardNotifications
@@ -895,6 +1139,9 @@ static const NSUInteger kChatStderrTailLimit               = 6;
                                          (unsigned long)self.pendingAttachments.count,
                                          [names componentsJoinedByString:@"、"]];
     }
+    // 没有附件时不占位（截图空态输入卡里只有 上下文 0% · 缓存 — 这一行）
+    self.attachmentHintLabel.hidden = (self.pendingAttachments.count == 0);
+    self.attachmentHintHeightConstraint.constant = self.attachmentHintLabel.hidden ? 0.0 : 15.0;
     [self applyComposerPlaceholder];
     [self updateSendButtonState];
 }
@@ -1024,6 +1271,7 @@ static const NSUInteger kChatStderrTailLimit               = 6;
 - (void)conversationDidChange
 {
     [self.tableView reloadData];
+    [self refreshWelcomeState];
     if (self.autoFollowLatest) {
         [self scrollToBottomAnimated:YES];
     }
@@ -1056,6 +1304,7 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [self startPulseTimer];
     [self renderStatusStrip];
     [self.tableView reloadData];
+    [self refreshWelcomeState];
 }
 
 - (void)finishTurnWithStatus:(NSInteger)status message:(NSString *)message
@@ -1101,6 +1350,7 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     [self renderStatusStrip];
     [self persistConversation];
     [self.conversationSidebar reloadConversations];
+    [self refreshWelcomeState];
     if (self.autoFollowLatest) [self scrollToBottomAnimated:YES];
 }
 
@@ -2015,6 +2265,7 @@ static const NSUInteger kChatStderrTailLimit               = 6;
         [self.messages addObject:message];
     }
     [self.tableView reloadData];
+    [self refreshWelcomeState];
 }
 
 - (void)loadActiveConversation
@@ -2340,9 +2591,39 @@ static const NSUInteger kChatStderrTailLimit               = 6;
 - (id)conversationSidebarDidRequestWorkspaces:(id)arg1
 {
     [self closeHistoryDrawer];
-    [self appendNoticeText:@"工作区管理页还没接入（CAWorkspaceViewController 仍是骨架）。"];
-    [self conversationDidChange];
+    CAWorkspaceViewController *workspace = [[CAWorkspaceViewController alloc] init];
+    if (!workspace) {
+        [self appendNoticeText:@"工作区面板还没接入（CAWorkspaceViewController 仍是骨架）。"];
+        [self conversationDidChange];
+        return nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    // 激活工作区后切过去
+    workspace.onActiveWorkspaceChanged = ^(NSString *path) {
+        typeof(self) strongSelf = weakSelf;
+        if (strongSelf && path.length > 0) [strongSelf switchWorkspaceToPath:path];
+    };
+    // 有会话在跑的工作区禁止删除
+    workspace.workspaceBusyProvider = ^BOOL(NSString *path) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return NO;
+        id busy = [strongSelf workspaceHasRunningConversation:path];
+        return [busy respondsToSelector:@selector(boolValue)] ? [busy boolValue] : NO;
+    };
+    [self presentPanelInNavigationController:workspace];
     return nil;
+}
+
+/// 这个工作区里还有没有在跑的会话（工作区面板的删除守卫用）
+- (id)workspaceHasRunningConversation:(id)arg1
+{
+    NSString *path = [arg1 isKindOfClass:NSString.class] ? arg1 : nil;
+    if (path.length == 0) return @NO;
+    if (self.chatTurnActive && [self.workspacePath isEqualToString:path]) return @YES;
+    for (NSString *key in self.backgroundRuns.allKeys) {
+        if ([key isKindOfClass:NSString.class] && [key containsString:path]) return @YES;
+    }
+    return @NO;
 }
 
 - (id)switchToWorkspacePath:(id)arg1
@@ -2566,6 +2847,796 @@ static const NSUInteger kChatStderrTailLimit               = 6;
     _historySidebar = historySidebar;
     if (!historySidebar) return;
     historySidebar.hidden = YES;
+}
+
+#pragma mark - 空态 hero（01 主会话页·空态）
+
+/// 顶部导航栏固定不透明（内容从导航栏下方滚过，截图里导航栏下没有分割线）
+- (void)applyOpaqueNavigationBarAppearance
+{
+    UINavigationController *navigation = self.navigationController;
+    if (!navigation) return;
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = UIColor.systemBackgroundColor;
+    appearance.shadowColor = UIColor.clearColor;
+    appearance.titleTextAttributes = @{ NSForegroundColorAttributeName: UIColor.labelColor };
+    navigation.navigationBar.standardAppearance = appearance;
+    navigation.navigationBar.scrollEdgeAppearance = appearance;
+    navigation.navigationBar.compactAppearance = appearance;
+    navigation.navigationBar.tintColor = UIColor.labelColor;
+}
+
+/// 建空态视图：终端图标 → 标题 → 两行副标题 → 三张建议卡（版式取自 SPEC/UI_还原基准.md §3）
+- (id)setupWelcomeView
+{
+    UIView *welcome = [[UIView alloc] init];
+    welcome.translatesAutoresizingMaskIntoConstraints = NO;
+    welcome.backgroundColor = UIColor.clearColor;
+    welcome.hidden = YES;
+    // 插在消息列表之上、底部固定条之下
+    [self.view insertSubview:welcome aboveSubview:self.tableView];
+    self.welcomeView = welcome;
+
+    // 终端图标：SF Symbol terminal（regular，约 34pt，截图 y 238–272）
+    UIImageView *icon = [[UIImageView alloc] init];
+    icon.translatesAutoresizingMaskIntoConstraints = NO;
+    icon.image = [UIImage systemImageNamed:@"terminal"
+                         withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:34.0 weight:UIImageSymbolWeightRegular]];
+    icon.tintColor = UIColor.labelColor;
+    icon.contentMode = UIViewContentModeScaleAspectFit;
+    icon.hidden = NO;
+    [welcome addSubview:icon];
+    self.welcomeIcon = icon;
+
+    // 标题：今天想完成什么?（约 28pt bold）
+    UILabel *title = [[UILabel alloc] init];
+    title.translatesAutoresizingMaskIntoConstraints = NO;
+    title.text = kChatWelcomeTitleText;
+    title.font = [UIFont systemFontOfSize:28.0 weight:UIFontWeightBold];
+    title.textColor = UIColor.labelColor;
+    title.textAlignment = NSTextAlignmentCenter;
+    title.numberOfLines = 1;
+    [welcome addSubview:title];
+    self.welcomeTitleLabel = title;
+
+    // 副标题两行：从理解项目到交付代码 / 在当前工作区开始一个任务（.subheadline，灰色，居中）
+    UILabel *subtitle = [[UILabel alloc] init];
+    subtitle.translatesAutoresizingMaskIntoConstraints = NO;
+    subtitle.numberOfLines = 2;
+    subtitle.textAlignment = NSTextAlignmentCenter;
+    subtitle.textColor = UIColor.secondaryLabelColor;
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.alignment = NSTextAlignmentCenter;
+    paragraph.lineSpacing = 2.0;
+    NSString *subtitleText = [NSString stringWithFormat:@"%@\n%@", kChatWelcomeSubtitleLine1, kChatWelcomeSubtitleLine2];
+    subtitle.attributedText = [[NSAttributedString alloc] initWithString:subtitleText
+                                                             attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline],
+                                                                           NSForegroundColorAttributeName: UIColor.secondaryLabelColor,
+                                                                           NSParagraphStyleAttributeName: paragraph }];
+    [welcome addSubview:subtitle];
+    self.welcomeSubtitle = subtitle;
+
+    // 三张等高白圆角建议卡：了解这个项目 / 检查代码问题 / 实现一个功能
+    UIButton *projectCard = [self welcomeCardWithTitle:kChatWelcomeCardProjectTitle symbol:@"folder" prompt:kChatWelcomePromptProject];
+    UIButton *inspectCard = [self welcomeCardWithTitle:kChatWelcomeCardInspectTitle symbol:@"checkmark.circle" prompt:kChatWelcomePromptInspect];
+    UIButton *featureCard = [self welcomeCardWithTitle:kChatWelcomeCardFeatureTitle symbol:@"square.and.pencil" prompt:kChatWelcomePromptFeature];
+
+    UIStackView *cards = [[UIStackView alloc] initWithArrangedSubviews:@[ projectCard, inspectCard, featureCard ]];
+    cards.translatesAutoresizingMaskIntoConstraints = NO;
+    cards.axis = UILayoutConstraintAxisVertical;
+    cards.spacing = kChatWelcomeCardSpacing;   // 卡高 46 + 间距 8 = 行距 54pt
+    cards.distribution = UIStackViewDistributionFillEqually;
+    [welcome addSubview:cards];
+    self.welcomeActions = cards;
+
+    UIStackView *hero = [[UIStackView alloc] initWithArrangedSubviews:@[ icon, title, subtitle, cards ]];
+    hero.translatesAutoresizingMaskIntoConstraints = NO;
+    hero.axis = UILayoutConstraintAxisVertical;
+    hero.alignment = UIStackViewAlignmentCenter;
+    hero.spacing = 10.0;
+    [hero setCustomSpacing:16.0 afterView:icon];
+    [hero setCustomSpacing:10.0 afterView:title];
+    [hero setCustomSpacing:12.0 afterView:subtitle];
+    [welcome addSubview:hero];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [welcome.topAnchor constraintEqualToAnchor:self.statusStrip.bottomAnchor],
+        [welcome.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [welcome.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [welcome.bottomAnchor constraintEqualToAnchor:self.quickActionBar.topAnchor],
+
+        // 建议卡左右内缩 31pt（截图实测 31.3），整块内容在空态区里居中
+        [hero.leadingAnchor constraintEqualToAnchor:welcome.leadingAnchor constant:kChatWelcomeCardSideInset],
+        [hero.trailingAnchor constraintEqualToAnchor:welcome.trailingAnchor constant:-kChatWelcomeCardSideInset],
+        [hero.centerYAnchor constraintEqualToAnchor:welcome.centerYAnchor constant:4.0],
+
+        [icon.widthAnchor constraintEqualToConstant:34.0],
+        [icon.heightAnchor constraintEqualToConstant:34.0],
+        // 三张卡撑满 hero 宽度（= welcome 左右各内缩 31pt），图标/标题/副标题仍居中
+        [cards.leadingAnchor constraintEqualToAnchor:hero.leadingAnchor],
+        [cards.trailingAnchor constraintEqualToAnchor:hero.trailingAnchor],
+        [cards.heightAnchor constraintEqualToConstant:kChatWelcomeCardHeight * 3.0 + kChatWelcomeCardSpacing * 2.0],
+    ]];
+    return nil;
+}
+
+/// 单张建议卡：浅灰底 + 12pt 圆角 + 左图标 + 左对齐文案；点按只填输入框，不直接发送
+- (UIButton *)welcomeCardWithTitle:(NSString *)title symbol:(NSString *)symbol prompt:(NSString *)prompt
+{
+    UIButton *card = [UIButton buttonWithType:UIButtonTypeSystem];
+    card.translatesAutoresizingMaskIntoConstraints = NO;
+    card.backgroundColor = UIColor.systemGray6Color;
+    card.layer.cornerRadius = 12.0;
+    card.layer.masksToBounds = YES;
+    card.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    card.contentEdgeInsets = UIEdgeInsetsMake(0.0, 18.0, 0.0, 16.0);
+    card.titleEdgeInsets = UIEdgeInsetsMake(0.0, 16.0, 0.0, -16.0);
+    card.tintColor = UIColor.labelColor;
+    [card setImage:[UIImage systemImageNamed:symbol
+                           withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:20.0 weight:UIImageSymbolWeightRegular]]
+          forState:UIControlStateNormal];
+    [card setTitle:title forState:UIControlStateNormal];
+    [card setTitleColor:UIColor.labelColor forState:UIControlStateNormal];
+    card.titleLabel.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular];
+    card.accessibilityHint = prompt;
+    [card addTarget:self action:@selector(handleWelcomeAction:) forControlEvents:UIControlEventTouchUpInside];
+    return card;
+}
+
+/// 圆形底部按钮（+ / 发送 / 垃圾桶）：浅灰底圆形，图标居中
+- (UIButton *)circularBarButtonWithSymbol:(NSString *)symbol pointSize:(CGFloat)pointSize
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    [button setImage:[UIImage systemImageNamed:symbol
+                             withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:pointSize weight:UIImageSymbolWeightRegular]]
+            forState:UIControlStateNormal];
+    button.tintColor = UIColor.labelColor;
+    button.backgroundColor = UIColor.tertiarySystemFillColor;
+    button.layer.cornerRadius = kChatBottomCircleSize / 2.0;
+    button.layer.masksToBounds = YES;
+    return button;
+}
+
+/// 选择器胶囊（6.1-Sol / High）：浅灰胶囊 + 右侧 chevron
+- (void)applyChipTitle:(NSString *)title toButton:(UIButton *)button
+{
+    if (!button) return;
+    NSString *text = title.length > 0 ? title : kChatDefaultModelChipTitle;
+    UIButtonConfiguration *configuration = [UIButtonConfiguration plainButtonConfiguration];
+    configuration.attributedTitle = [[NSAttributedString alloc] initWithString:text
+                                                                    attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular] }];
+    configuration.image = [UIImage systemImageNamed:@"chevron.down"
+                                   withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:10.0 weight:UIImageSymbolWeightSemibold]];
+    configuration.imagePlacement = NSDirectionalRectEdgeTrailing;
+    configuration.imagePadding = 5.0;
+    configuration.contentInsets = NSDirectionalEdgeInsetsMake(0.0, 13.0, 0.0, 12.0);
+    configuration.baseForegroundColor = UIColor.labelColor;
+    configuration.background.backgroundColor = UIColor.tertiarySystemFillColor;
+    configuration.background.cornerRadius = kChatBottomChipHeight / 2.0;
+    button.configuration = configuration;
+    button.tintColor = UIColor.labelColor;
+}
+
+/// 底部协作条：蓝色电闪 + Agent 协作就绪 药丸 + 垃圾桶（截图 y 778–790 那一行）
+- (void)setupQuickActionBar
+{
+    UIView *bar = [[UIView alloc] init];
+    bar.translatesAutoresizingMaskIntoConstraints = NO;
+    bar.backgroundColor = UIColor.clearColor;
+    [self.view addSubview:bar];
+    self.quickActionBar = bar;
+
+    // 左：圆形底 + 蓝色电闪（点按看 Agent 状态详情）
+    UIView *boltCircle = [[UIView alloc] init];
+    boltCircle.translatesAutoresizingMaskIntoConstraints = NO;
+    boltCircle.backgroundColor = UIColor.tertiarySystemFillColor;
+    boltCircle.layer.cornerRadius = kChatBottomCircleSize / 2.0;
+    boltCircle.layer.masksToBounds = YES;
+    [bar addSubview:boltCircle];
+    self.collaborationBoltCircle = boltCircle;
+
+    UIImageView *boltIcon = [[UIImageView alloc] init];
+    boltIcon.translatesAutoresizingMaskIntoConstraints = NO;
+    boltIcon.image = [UIImage systemImageNamed:@"bolt.fill"
+                             withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:16.0 weight:UIImageSymbolWeightSemibold]];
+    boltIcon.tintColor = UIColor.systemBlueColor;
+    boltIcon.contentMode = UIViewContentModeScaleAspectFit;
+    [boltCircle addSubview:boltIcon];
+    self.agentStatusIcon = boltIcon;
+
+    UIButton *boltButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    boltButton.translatesAutoresizingMaskIntoConstraints = NO;
+    boltButton.backgroundColor = UIColor.clearColor;
+    boltButton.accessibilityLabel = @"Agent 状态";
+    [boltButton addTarget:self action:@selector(handleAgentStatusInfo) forControlEvents:UIControlEventTouchUpInside];
+    [boltCircle addSubview:boltButton];
+
+    // 中：药丸（person.2.fill + Agent 协作就绪）
+    UIView *pill = [[UIView alloc] init];
+    pill.translatesAutoresizingMaskIntoConstraints = NO;
+    pill.backgroundColor = UIColor.tertiarySystemFillColor;
+    pill.layer.cornerRadius = kChatBottomChipHeight / 2.0;
+    pill.layer.masksToBounds = YES;
+    [bar addSubview:pill];
+    self.collaborationPill = pill;
+
+    UIImageView *pillIcon = [[UIImageView alloc] init];
+    pillIcon.translatesAutoresizingMaskIntoConstraints = NO;
+    pillIcon.image = [UIImage systemImageNamed:@"person.2.fill"
+                             withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:14.0 weight:UIImageSymbolWeightRegular]];
+    pillIcon.tintColor = UIColor.labelColor;
+    pillIcon.contentMode = UIViewContentModeScaleAspectFit;
+    [pill addSubview:pillIcon];
+    self.collaborationPillIcon = pillIcon;
+
+    UILabel *pillLabel = [[UILabel alloc] init];
+    pillLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    pillLabel.text = kChatCollaborationReadyText;
+    pillLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    pillLabel.textColor = UIColor.labelColor;
+    [pill addSubview:pillLabel];
+    self.collaborationPillLabel = pillLabel;
+
+    UIButton *pillButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    pillButton.translatesAutoresizingMaskIntoConstraints = NO;
+    pillButton.backgroundColor = UIColor.clearColor;
+    pillButton.accessibilityLabel = kChatCollaborationReadyText;
+    [pillButton addTarget:self action:@selector(handleAgentStatusInfo) forControlEvents:UIControlEventTouchUpInside];
+    [pill addSubview:pillButton];
+
+    // 右：垃圾桶（清空当前会话）
+    UIButton *trashButton = [self circularBarButtonWithSymbol:@"trash" pointSize:16.0];
+    trashButton.accessibilityLabel = @"清空当前会话";
+    [trashButton addTarget:self action:@selector(handleClearCurrentConversation) forControlEvents:UIControlEventTouchUpInside];
+    [bar addSubview:trashButton];
+    self.clearChatButton = trashButton;
+
+    [NSLayoutConstraint activateConstraints:@[
+        [bar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [bar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [bar.bottomAnchor constraintEqualToAnchor:self.inputBar.topAnchor],
+        [bar.heightAnchor constraintEqualToConstant:kChatBottomBarHeight],
+
+        [boltCircle.leadingAnchor constraintEqualToAnchor:bar.leadingAnchor constant:kChatBottomBarSideInset],
+        [boltCircle.centerYAnchor constraintEqualToAnchor:bar.centerYAnchor],
+        [boltCircle.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
+        [boltCircle.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
+
+        [boltIcon.centerXAnchor constraintEqualToAnchor:boltCircle.centerXAnchor],
+        [boltIcon.centerYAnchor constraintEqualToAnchor:boltCircle.centerYAnchor],
+        [boltIcon.widthAnchor constraintEqualToConstant:20.0],
+        [boltIcon.heightAnchor constraintEqualToConstant:20.0],
+
+        [boltButton.leadingAnchor constraintEqualToAnchor:boltCircle.leadingAnchor],
+        [boltButton.trailingAnchor constraintEqualToAnchor:boltCircle.trailingAnchor],
+        [boltButton.topAnchor constraintEqualToAnchor:boltCircle.topAnchor],
+        [boltButton.bottomAnchor constraintEqualToAnchor:boltCircle.bottomAnchor],
+
+        [pill.leadingAnchor constraintEqualToAnchor:boltCircle.trailingAnchor constant:6.0],
+        [pill.trailingAnchor constraintEqualToAnchor:trashButton.leadingAnchor constant:-5.0],
+        [pill.centerYAnchor constraintEqualToAnchor:bar.centerYAnchor],
+        [pill.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
+
+        [pillIcon.leadingAnchor constraintEqualToAnchor:pill.leadingAnchor constant:12.0],
+        [pillIcon.centerYAnchor constraintEqualToAnchor:pill.centerYAnchor],
+        [pillIcon.widthAnchor constraintEqualToConstant:20.0],
+        [pillIcon.heightAnchor constraintEqualToConstant:18.0],
+
+        [pillLabel.leadingAnchor constraintEqualToAnchor:pillIcon.trailingAnchor constant:7.0],
+        [pillLabel.trailingAnchor constraintLessThanOrEqualToAnchor:pill.trailingAnchor constant:-12.0],
+        [pillLabel.centerYAnchor constraintEqualToAnchor:pill.centerYAnchor],
+
+        [pillButton.leadingAnchor constraintEqualToAnchor:pill.leadingAnchor],
+        [pillButton.trailingAnchor constraintEqualToAnchor:pill.trailingAnchor],
+        [pillButton.topAnchor constraintEqualToAnchor:pill.topAnchor],
+        [pillButton.bottomAnchor constraintEqualToAnchor:pill.bottomAnchor],
+
+        [trashButton.trailingAnchor constraintEqualToAnchor:bar.trailingAnchor constant:-kChatBottomBarSideInset + 1.0],
+        [trashButton.centerYAnchor constraintEqualToAnchor:bar.centerYAnchor],
+        [trashButton.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
+        [trashButton.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
+
+        // 运行时提示条压在协作条上面（提示条本身在 setupUI 里建）
+        [self.runtimeBanner.bottomAnchor constraintEqualToAnchor:bar.topAnchor],
+    ]];
+}
+
+/// 空态显隐：没有消息（也不在跑）时显示 hero + 三张卡，有消息就收起
+- (id)refreshWelcomeState
+{
+    BOOL empty = (self.messages.count == 0) && !self.thinking;
+    self.welcomeView.hidden = !empty;
+    // 截图里导航栏下面没有运行状态条：空态折叠掉，有消息再让出来
+    self.statusStrip.hidden = empty;
+    self.statusStripHeightConstraint.constant = empty ? 0.0 : 30.0;
+    [self updateConversationBottomInset];
+    return @(empty);
+}
+
+/// 消息列表底部让位给固定条（协作条 + 输入卡）
+- (void)updateConversationBottomInset
+{
+    UIView *topBar = (self.runtimeBannerHeightConstraint.constant > 0.5) ? self.runtimeBanner : self.quickActionBar;
+    if (!topBar || !self.tableView) return;
+    // 固定条钉在 safe area 上，这里只补“条本身”的高度（安全区那截交给系统的自动 inset）
+    CGFloat inset = MAX(0.0, CGRectGetHeight(self.view.bounds) - CGRectGetMinY(topBar.frame) - self.view.safeAreaInsets.bottom);
+    if (fabs(self.tableView.contentInset.bottom - inset) < 0.5) return;
+    UIEdgeInsets contentInsets = self.tableView.contentInset;
+    contentInsets.bottom = inset;
+    self.tableView.contentInset = contentInsets;
+    UIEdgeInsets indicatorInsets = self.tableView.verticalScrollIndicatorInsets;
+    indicatorInsets.bottom = inset;
+    self.tableView.verticalScrollIndicatorInsets = indicatorInsets;
+}
+
+/// 建议卡点按：把提示词填进输入框（不发）
+- (id)handleWelcomeAction:(id)arg1
+{
+    NSString *prompt = nil;
+    if ([arg1 isKindOfClass:UIButton.class]) {
+        UIButton *card = (UIButton *)arg1;
+        prompt = card.accessibilityHint;
+        if (prompt.length == 0) prompt = [card titleForState:UIControlStateNormal];
+    } else if ([arg1 isKindOfClass:NSString.class]) {
+        prompt = arg1;
+    }
+    [self fillComposerWithPrompt:prompt];
+    return nil;
+}
+
+/// 填输入框：走已有字段 + 高度/发送态刷新，不触发发送
+- (void)fillComposerWithPrompt:(NSString *)prompt
+{
+    if (prompt.length == 0) return;
+    self.composerField.text = prompt;
+    self.composerField.selectedRange = NSMakeRange(prompt.length, 0);
+    [self setComposerSlashSuppressedText:prompt];
+    [self updateInputHeight];
+    [self updateSendButtonState];
+    self.inputPlaceholderLabel.hidden = YES;
+    CALog(CALogLevelDebug, @"CHAT", @"welcome prompt filled length=%lu", (unsigned long)prompt.length);
+}
+
+#pragma mark - 底部选择器（6.1-Sol / High）
+
+- (id)refreshBottomSelectors
+{
+    NSString *model = [self currentModelChipTitle];
+    NSString *effort = [self currentEffortChipTitle];
+    [self applyChipTitle:model toButton:self.bottomModelBtn];
+    [self applyChipTitle:effort toButton:self.bottomEffortBtn];
+    self.bottomModelBtn.accessibilityValue = model;
+    self.bottomEffortBtn.accessibilityValue = effort;
+    return @{ @"model": model, @"effort": effort };
+}
+
+- (NSString *)currentModelChipTitle
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    for (NSString *key in @[ CADefaultsActiveModelSlug, CADefaultsSelectedModel, CADefaultsThirdPartyModel ]) {
+        NSString *value = [defaults stringForKey:key];
+        if (value.length > 0) return value;
+    }
+    return kChatDefaultModelChipTitle;
+}
+
+- (NSString *)currentEffortChipTitle
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSString *level = [defaults stringForKey:CADefaultsReasoningEffort];
+    if (level.length == 0) level = [defaults stringForKey:CADefaultsActiveEffort];
+    if (level.length == 0) return kChatDefaultEffortChipTitle;
+    return [self effortDisplayTitleForLevel:level];
+}
+
+- (NSString *)effortDisplayTitleForLevel:(NSString *)level
+{
+    if (level.length == 0) return kChatDefaultEffortChipTitle;
+    NSString *title = [CAThirdPartyModelCatalog reasoningLevelTitle:level];
+    if (title.length > 0) return title;
+    if ([level isEqualToString:@"minimal"]) return @"Minimal";
+    if ([level isEqualToString:@"low"]) return @"Low";
+    if ([level isEqualToString:@"medium"]) return @"Medium";
+    if ([level isEqualToString:@"high"]) return kChatDefaultEffortChipTitle;
+    if ([level isEqualToString:@"xhigh"]) return @"XHigh";
+    if ([level isEqualToString:@"max"]) return @"Max";
+    return level.capitalizedString;
+}
+
+#pragma mark - 会话清理 / “/” 菜单
+
+/// 垃圾桶：清空当前会话（用户消息 + 助手消息 + thread 绑定一起清）
+- (id)handleClearCurrentConversation
+{
+    if (self.thinking || self.chatTurnActive) {
+        [self appendNoticeText:@"这一轮还在跑：先点「停止」，再清空会话。"];
+        [self conversationDidChange];
+        return @NO;
+    }
+    [self.messages removeAllObjects];
+    self.streamingAssistantMessage = nil;
+    self.thinkingMessage = nil;
+    self.lastUsageSummary = nil;
+    self.threadId = nil;
+    [self.rawTailLines removeAllObjects];
+    [self.stderrTailLines removeAllObjects];
+    [self.streamingMessagesByItemId removeAllObjects];
+    [self.toolMessagesByItemId removeAllObjects];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kChatActiveThreadDefaultsKey];
+
+    // 落盘空消息（会话记录本身保留，标题清空）
+    if (self.activeRecord) self.activeRecord.title = @"";
+    [self saveActiveConversation];
+
+    [self refreshWelcomeState];
+    [self refreshAttachmentPlaceholder];
+    [self renderStatusStrip];
+    [self conversationDidChange];
+    CALog(CALogLevelInfo, @"CHAT", @"cleared current conversation id=%@", self.activeRecord.conversationId ?: @"(none)");
+    return @YES;
+}
+
+/// 圆形 “/” 按钮：走已有的斜杠弹出逻辑；弹不出来时至少把 “/” 落进输入框
+- (id)handleSlashMenuButton
+{
+    NSString *before = self.composerField.text ?: @"";
+    id inserted = [self insertComposerText:@"/"];
+    if (![inserted respondsToSelector:@selector(boolValue)] || ![inserted boolValue]) {
+        NSString *fallback = [before stringByAppendingString:@"/"];
+        self.composerField.text = fallback;
+        self.composerField.selectedRange = NSMakeRange(fallback.length, 0);
+        [self updateInputHeight];
+        [self updateSendButtonState];
+    }
+    // insertComposerText: 会抑制紧接着的一次菜单判断，这里放开让 “/” 菜单正常弹出
+    [self setComposerSlashSuppressedText:nil];
+    [self.composerField becomeFirstResponder];
+    [self updateComposerSlashMenuState];
+    return @YES;
+}
+
+- (void)handleComposerMenuLongPress:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state != UIGestureRecognizerStateBegan) return;
+    [self handleComposerMenu];
+}
+
+/// ⋯ 菜单：二级入口集合（计划审阅 / 审批对话框 / Git / 价格 / 扩展 / 工作区 / Agent 状态）
+- (id)handleComposerMenu
+{
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"更多入口"
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof(self) weakSelf = self;
+    void (^appendEntry)(NSString *, void (^)(void)) = ^(NSString *title, void (^action)(void)) {
+        [sheet addAction:[UIAlertAction actionWithTitle:title
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction *selected) {
+            if (action) action();
+        }]];
+    };
+    appendEntry(@"计划审阅", ^{ [weakSelf presentPendingPlanReview]; });
+    appendEntry(@"审批对话框", ^{ [weakSelf presentPendingPlanDecisionIfPossible]; });
+    appendEntry(@"Git 变更", ^{ [weakSelf handleOpenGitChanges]; });
+    appendEntry(@"模型价格", ^{ [weakSelf handleShowUsageDetails]; });
+    appendEntry(@"扩展与指令", ^{ [weakSelf presentComposerCatalogDetail:nil]; });
+    appendEntry(@"工作区", ^{ [weakSelf handleOpenWorkspaceManager]; });
+    appendEntry(@"Agent 状态", ^{ [weakSelf handleAgentStatusInfo]; });
+    [sheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
+    UIView *anchor = self.sourceControlButton ?: self.view;
+    sheet.popoverPresentationController.sourceView = anchor;
+    sheet.popoverPresentationController.sourceRect = anchor.bounds;
+    [self presentViewController:sheet animated:YES completion:nil];
+    return sheet;
+}
+
+#pragma mark - 计划审阅 / 审批对话框
+
+- (id)presentPendingPlanReview
+{
+    UIViewController *panel = [CAControlCenterPanels planReviewDemoViewController];
+    if (!panel) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"计划审阅" detail:@"计划面板还在补全中。"];
+    }
+    return [self presentPanelInNavigationController:panel];
+}
+
+- (id)presentPendingPlanDecisionIfPossible
+{
+    UIViewController *panel = [CAControlCenterPanels planDecisionDemoViewController];
+    if (!panel) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"审批对话框" detail:@"审批面板还在补全中。"];
+    }
+    return [self presentPanelInNavigationController:panel];
+}
+
+#pragma mark - Git 角标 / 工作区
+
+- (id)handleOpenGitChanges
+{
+    UIViewController *changes = [[CAGitChangesViewController alloc] initWithWorkspacePath:self.workspacePath];
+    if (!changes) {
+        // 面板仍在补全（-initWithWorkspacePath: 返回 nil）：给可返回的提示，别让入口点了没反应
+        return [self presentPanelPlaceholderNoticeWithTitle:@"Git 变更"
+                                                     detail:[NSString stringWithFormat:@"工作区：%@", self.workspacePath ?: @"(未设置)"]];
+    }
+    return [self presentPanelInNavigationController:changes];
+}
+
+/// 读真实变更数刷新右上角红角标（没有 git 可执行文件时按截图显示 99+）
+- (id)refreshGitBadge
+{
+    NSString *workspace = self.workspacePath ?: @"";
+    if (!self.badgeRepository || ![self.badgeWorkspace isEqualToString:workspace]) {
+        self.badgeRepository = [[CAGitRepository alloc] initWithWorkspacePath:workspace];
+        self.badgeWorkspace = workspace;
+    }
+    CAGitRepository *repository = self.badgeRepository;
+    if (!repository) {
+        // 仓库对象都建不出来：直接按截图给 99+
+        [self applyGitBadgeChangeCount:0 available:NO];
+        return nil;
+    }
+    self.gitBadgeGeneration += 1;
+    unsigned long long generation = self.gitBadgeGeneration;
+    __weak typeof(self) weakSelf = self;
+    [repository readChangeCount:^(NSUInteger count, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (generation != strongSelf.gitBadgeGeneration) return;   // 过期结果丢掉
+        [strongSelf applyGitBadgeChangeCount:count available:(error == nil)];
+    }];
+    return nil;
+}
+
+- (void)applyGitBadgeChangeCount:(NSUInteger)count available:(BOOL)available
+{
+    UILabel *badge = self.gitBadgeLabel;
+    if (!badge) return;
+
+    NSString *text = nil;
+    if (!available) {
+        text = kChatGitBadgeFallbackText;          // 截图同款：无 git 可执行文件时显示 99+
+    } else if (count == 0) {
+        badge.hidden = YES;                        // 干净仓库不亮角标
+        return;
+    } else {
+        text = (count > 99) ? kChatGitBadgeFallbackText : [NSString stringWithFormat:@"%lu", (unsigned long)count];
+    }
+
+    badge.text = text;
+    badge.hidden = NO;
+    CGSize fitted = [badge sizeThatFits:CGSizeMake(80.0, 18.0)];
+    CGFloat width = MAX(28.0, ceil(fitted.width) + 12.0);
+    badge.frame = CGRectMake(52.0 - width, 0.0, width, 18.0);   // 角标贴着图标右上角，右对齐
+}
+
+/// 5 秒轮询一次变更数（viewDidDisappear / dealloc 里停）
+- (id)updateGitBadgePolling
+{
+    [self stopGitBadgePolling];
+    [self refreshGitBadge];
+    self.gitBadgePollTimer = 1;
+    self.gitBadgeTimer = [NSTimer scheduledTimerWithTimeInterval:kChatGitBadgePollInterval
+                                                          target:self
+                                                        selector:@selector(gitBadgeTimerTick:)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    return nil;
+}
+
+- (void)stopGitBadgePolling
+{
+    if (self.gitBadgeTimer) {
+        [self.gitBadgeTimer invalidate];
+        self.gitBadgeTimer = nil;
+    }
+    self.gitBadgePollTimer = 0;
+}
+
+- (void)gitBadgeTimerTick:(NSTimer *)timer
+{
+    [self refreshGitBadge];
+}
+
+- (id)handleOpenWorkspaceManager
+{
+    CAWorkspaceViewController *workspace = [[CAWorkspaceViewController alloc] init];
+    if (!workspace) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"工作区"
+                                                     detail:[NSString stringWithFormat:@"当前工作区：%@", self.workspacePath ?: @"(未设置)"]];
+    }
+    return [self presentPanelInNavigationController:workspace];
+}
+
+#pragma mark - 底部胶囊 / Agent 状态
+
+- (id)handleBottomModelBtnTapped
+{
+    CAModelPickerViewController *picker = [[CAModelPickerViewController alloc] init];
+    __weak typeof(self) weakSelf = self;
+    void (^handler)(NSString *, BOOL) = ^(NSString *slug, BOOL thirdParty) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf || slug.length == 0) return;
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        [defaults setObject:slug forKey:CADefaultsActiveModelSlug];
+        [defaults setObject:slug forKey:(thirdParty ? CADefaultsThirdPartyModel : CADefaultsSelectedModel)];
+        [strongSelf refreshBottomSelectors];
+        CALog(CALogLevelInfo, @"CHAT", @"bottom model chip selected slug=%@ thirdParty=%@", slug, thirdParty ? @"YES" : @"NO");
+    };
+    [picker setOnModelSelected:[handler copy]];
+    return [self presentPanelInNavigationController:picker];
+}
+
+- (id)handleBottomEffortBtnTapped
+{
+    NSString *model = [self currentModelChipTitle];
+    NSString *providerHint = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsThirdPartyProviderName];
+    NSArray<NSString *> *levels = [CAModelPricingManager.sharedManager supportedReasoningEffortsForModel:model providerHint:providerHint];
+    if (levels.count == 0) levels = [CAThirdPartyModelCatalog reasoningLevels];
+    if (levels.count == 0) levels = @[ @"minimal", @"low", @"medium", @"high" ];
+
+    NSString *current = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsReasoningEffort];
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"推理强度" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof(self) weakSelf = self;
+    for (NSString *level in levels) {
+        NSString *title = [self effortDisplayTitleForLevel:level];
+        BOOL selectedLevel = (current.length > 0 && [level isEqualToString:current]);
+        if (selectedLevel) title = [NSString stringWithFormat:@"✓ %@", title];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+            [defaults setObject:level forKey:CADefaultsReasoningEffort];   // CodexReasoningEffort
+            [defaults setObject:level forKey:CADefaultsActiveEffort];
+            [strongSelf refreshBottomSelectors];
+            CALog(CALogLevelInfo, @"CHAT", @"bottom effort chip selected level=%@", level);
+        }];
+        [sheet addAction:action];
+    }
+    [sheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    sheet.popoverPresentationController.sourceView = self.bottomEffortBtn ?: self.view;
+    sheet.popoverPresentationController.sourceRect = self.bottomEffortBtn.bounds;
+    [self presentViewController:sheet animated:YES completion:nil];
+    return sheet;
+}
+
+/// 蓝色电闪 / 协作药丸：Agent 运行状态详情
+- (id)handleAgentStatusInfo
+{
+    NSDictionary *snapshot = @{ @"state": (self.thinking ? @"running" : @"idle"),
+                                @"model": [self currentModelChipTitle],
+                                @"effort": [self currentEffortChipTitle],
+                                @"workspace": self.workspacePath ?: @"",
+                                @"thread": self.threadId ?: @"",
+                                @"contextPercent": @"0%" };
+    CAAgentStatusDetailViewController *detail = [[CAAgentStatusDetailViewController alloc] initWithSnapshot:snapshot];
+    return [self presentPanelInNavigationController:detail];
+}
+
+#pragma mark - 目录 / 文本 / 附件 / 价格入口
+
+/// “/” 面板里的目录条目：按类型选 Skills/MCP/提示词列表页或扩展总览页
+- (id)presentComposerCatalogDetail:(id)arg1
+{
+    NSInteger kind = (NSInteger)CAComposerCatalogKindUnknown;
+    if ([arg1 isKindOfClass:CAComposerCatalogItem.class]) {
+        kind = (NSInteger)((CAComposerCatalogItem *)arg1).kind;
+    } else if ([arg1 respondsToSelector:@selector(integerValue)]) {
+        kind = (NSInteger)[arg1 integerValue];
+    }
+
+    UIViewController *detail = nil;
+    if (kind == (NSInteger)CAComposerCatalogKindSkill
+        || kind == (NSInteger)CAComposerCatalogKindPlugin
+        || kind == (NSInteger)CAComposerCatalogKindPrompt) {
+        detail = [[CAExtensionListViewController alloc] initWithKind:@(kind)];
+    } else {
+        detail = [[CAExtensionsViewController alloc] init];
+    }
+    if (!detail) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"扩展与技能" detail:@"列表页还在补全中。"];
+    }
+    return [self presentPanelInNavigationController:detail];
+}
+
+/// 长按/选中消息 → 全文面板（选中即复制的那类入口）
+- (id)presentMessageTextSelection:(id)arg1
+{
+    NSString *text = [self textForSelectionArgument:arg1];
+    if (text.length == 0) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"消息正文" detail:@"这条消息没有可展示的文本。"];
+    }
+    UIViewController *detail = [[CATextDetailViewController alloc] initWithTitle:@"消息正文" text:text];
+    if (!detail) {
+        // 面板仍在补全（-initWithTitle:text: 现在返回 nil）：退化成弹窗，保证入口可用可返回
+        return [self presentPanelPlaceholderNoticeWithTitle:@"消息正文" detail:text];
+    }
+    return [self presentPanelInNavigationController:detail];
+}
+
+- (id)previewAttachmentAtPath:(id)arg1
+{
+    NSString *path = [arg1 isKindOfClass:NSString.class] ? arg1 : ([arg1 isKindOfClass:NSURL.class] ? [(NSURL *)arg1 path] : nil);
+    if (path.length == 0) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"附件预览" detail:@"没有拿到附件路径。"];
+    }
+    UIViewController *detail = [[CAArtifactPreviewViewController alloc] initWithPath:path];
+    if (!detail) {
+        return [self presentPanelPlaceholderNoticeWithTitle:@"附件预览" detail:path];
+    }
+    return [self presentPanelInNavigationController:detail];
+}
+
+- (id)handleShowUsageDetails
+{
+    CAModelPricingViewController *pricing = [[CAModelPricingViewController alloc] init];
+    return [self presentPanelInNavigationController:pricing];
+}
+
+/// 统一 present：包一层 UINavigationController（照抄 presentSettingsForRequiredRuntimes 的写法）
+- (id)presentPanelInNavigationController:(UIViewController *)controller
+{
+    if (!controller) return nil;
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+    __weak typeof(self) weakSelf = self;
+    // 面板可能是从 actionSheet 的 action 里点出来的：等这一刻的 dismiss 落定再 present，
+    // 并挂到当前最上层的页面（避免“present 被吃掉”）
+    dispatch_async(dispatch_get_main_queue(), ^{
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        UIViewController *presenter = strongSelf;
+        while (presenter.presentedViewController && !presenter.presentedViewController.isBeingDismissed) {
+            presenter = presenter.presentedViewController;
+        }
+        if (presenter.isBeingDismissed || presenter.view.window == nil) return;
+        [presenter presentViewController:navigation animated:YES completion:nil];
+    });
+    return controller;
+}
+
+/// 面板还没实装完时的可返回提示（保持入口“能点开、能返回”）
+- (id)presentPanelPlaceholderNoticeWithTitle:(NSString *)title detail:(NSString *)detail
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                  message:detail
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    return alert;
+}
+
+/// 从消息条目参数里取正文（支持 CAMessageItem / NSDictionary / NSString）
+- (NSString *)textForSelectionArgument:(id)arg1
+{
+    if ([arg1 isKindOfClass:NSString.class]) return arg1;
+    if ([arg1 isKindOfClass:CAMessageItem.class]) return ((CAMessageItem *)arg1).text;
+    if ([arg1 isKindOfClass:NSDictionary.class]) return [arg1[@"text"] isKindOfClass:NSString.class] ? arg1[@"text"] : nil;
+    if ([arg1 isKindOfClass:NSIndexPath.class]) {
+        NSInteger row = ((NSIndexPath *)arg1).row;
+        if (row >= 0 && (NSUInteger)row < self.messages.count) {
+            return ((CAMessageItem *)self.messages[(NSUInteger)row]).text;
+        }
+    }
+    return nil;
+}
+
+#pragma mark - “/” 抑制态（原包 ivar 语义：insertComposerText: / updateComposerSlashMenuState 依赖）
+
+- (id)composerSlashSuppressedText
+{
+    return self.composerSuppressedToken;
+}
+
+- (id)setComposerSlashSuppressedText:(id)arg1
+{
+    self.composerSuppressedToken = [arg1 isKindOfClass:NSString.class] ? [(NSString *)arg1 copy] : nil;
+    return nil;
 }
 
 @end

@@ -1,6 +1,10 @@
 //
-//  CAGitCommitBar — AUTO-GENERATED（选择器与返回值取自 SPEC/method_types.json，参数类型统一占位 id）
-//  TODO(parity): 行为按原包实现补全（SPEC/复刻规格书.md）
+//  CAGitCommitBar.h — 提交栏（分段「全部更改 / 仅已暂存」 + 提交信息输入 + 提交按钮）
+//
+//  选择器原型取自 SPEC/method_types.json（逐字保留）：原包 13 个 ivar
+//  （_commitButton/_hintLabel/_lastTextWidth/_on*/_placeholder/_scopeControl/_textHeight/_textView/_topLine）。
+//  原包该类拥有 initWithFrame: / layoutSubviews / applyTheme，是 UIView 派生：
+//  基类由生成时的 NSObject 修正为 UIView，导出的选择器集合完全不变。
 //
 
 #import <Foundation/Foundation.h>
@@ -12,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class NSString;
 
-@interface CAGitCommitBar : NSObject
+@interface CAGitCommitBar : UIView
     - (void)applyTheme;
     - (id)buildAccessoryView;
     - (void)commitTapped;
@@ -41,6 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
     - (NSString *)trimmedMessage;
     - (void)updatePlaceholder;
     - (void)updateTextHeightAnimated:(id)arg1;
+
+#pragma mark - 使用面（复刻补全）
+
+/// 当前分段：NO = 全部更改，YES = 仅已暂存
+- (BOOL)scopeIsStagedOnly;
 
 @end
 

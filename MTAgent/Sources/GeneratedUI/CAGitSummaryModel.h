@@ -9,6 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class NSString;
+@class CAGitSnapshot;
 
 @interface CAGitSummaryModel : NSObject
     - (unsigned long long)ahead;
@@ -45,6 +46,20 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setRemoteURL:(id)arg1;
     - (void)setTitle:(id)arg1;
     - (NSString *)title;
+
+#pragma mark - 使用面（复刻补全）
+
+/// 由快照派生仓库卡片状态；activity 非空时 detail 用来显示进行中的动作文案
++ (instancetype)modelWithSnapshot:(CAGitSnapshot *)snapshot
+                    workspaceName:(nullable NSString *)name
+                             busy:(BOOL)busy
+                         activity:(nullable NSString *)activity;
+
+/// 卡片副标题（无提交 / 未设置上游 / 领先落后）
++ (NSString *)detailForSnapshot:(CAGitSnapshot *)snapshot;
+
+/// 卡片底部提示文案（有远程时）
++ (NSString *)hintForSnapshot:(CAGitSnapshot *)snapshot;
 
 @end
 

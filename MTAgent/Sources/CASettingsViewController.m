@@ -1,7 +1,11 @@
 //
 //  CASettingsViewController.m
 //
-//  分区：账号 / Provider / 模型 / Codex Runtime / MCP / 日志与诊断 / 环境 / 关于。
+//  分区顺序（严格照 04/05 真机截图）：
+//    官方账户（登录方式）/ AI 服务（第三方 AI 服务、模型价格 + 脚注）
+//    / 应用（主题、对话显示、Agent 身份、子代理设置、存储管理）
+//    / 开发环境与诊断（Codex、Theos、Tools、Skills 与扩展、运行诊断、日志）
+//  其后接原有附加分区：Provider 细节 / 模型目录 / Runtime 管理 / MCP 桥 / 日志与诊断 / 环境 / 关于。
 //  行为对齐原包：
 //    · 默认键 CodexUseThirdPartyProvider / CodexThirdPartyProviderName / CodexAPIBaseURL /
 //      CodexSelectedModel / CodexThirdPartyContextWindowTokens / CodexThirdPartyReasoningEffort
@@ -27,13 +31,68 @@
 #import "CAExecutionEnvironment.h"
 #import "CAUpdateViewController.h"
 #import "CALogViewerViewController.h"
+#import "CAControlCenterPanels.h"
 #import "CADiagnosticsViewController.h"
+#import "CAModelPricingViewController.h"
+#import "CAAgentProfileViewController.h"
+#import "CASubagentSettingsViewController.h"
+#import "CAStorageViewController.h"
+#import "CAExtensionsViewController.h"
+#import "CATextDetailViewController.h"
+#import "CAAgentIdentity.h"
 
 static NSString * const kSettingsCellReuseIdentifier = @"CASettingsCell";
 static NSString * const kSettingsFieldCellReuseIdentifier = @"CASettingsFieldCell";
 
+/// 截图分区专用复用标识：这些行统一走 UIListContentConfiguration（valueCell），
+/// 与旧式 textLabel / detailTextLabel 行分开取用，避免复用串味。
+static NSString * const kSettingsContentCellReuseIdentifier = @"CASettingsContentCell";
+
 /// 本机内部 MCP 桥在 config.toml 里的服务名（CAComposerCatalog +isInternalMCPName: 认可的名字）
 static NSString * const kSettingsInternalMCPName = @"codexapp";
+
+#pragma mark - 截图分区文案（原包真机截图逐字，勿改半角/全角与 `·`）
+
+/// 「模型价格」右值兜底（官方 / 第三方计数取不到时）
+static NSString * const kSettingsModelPricingFallbackText  = @"官方 8 · API 0";
+/// 「Codex」右值兜底（运行时清单不可用时）
+static NSString * const kSettingsRuntimeLatestFallbackText = @"当前已是最新 · 295.9 MB";
+/// 「Codex / Theos」未安装时右值
+static NSString * const kSettingsRuntimeInstallText        = @"未安装 · 点击安装 · 224.4 MB";
+/// 「Tools」右值兜底
+static NSString * const kSettingsToolsFallbackText         = @"3 个工具包 · 点击展开";
+
+/// 截图里固定不变的右侧详情文案
+static NSString * const kSettingsLoginMethodValueText  = @"选择登录方式";
+static NSString * const kSettingsThirdPartyUnsetText   = @"未配置";
+static NSString * const kSettingsAgentDefaultName      = @"MT";
+static NSString * const kSettingsSubagentValueText     = @"模型与思考强度";
+static NSString * const kSettingsStorageValueText      = @"安全清理缓存";
+static NSString * const kSettingsSkillsValueText       = @"指令、Skills、提示词与插件";
+static NSString * const kSettingsDiagnosticsValueText  = @"核心组件与工具链";
+static NSString * const kSettingsLogsValueText         = @"查看、筛选与复制";
+
+#pragma mark - 截图分区的 defaults 取值
+
+/// 主题模式（CodexThemeMode）：system / light / dark
+static NSString * const kSettingsThemeModeSystem = @"system";
+static NSString * const kSettingsThemeModeLight  = @"light";
+static NSString * const kSettingsThemeModeDark   = @"dark";
+/// 对话显示（CodexChatDisplayMode）：detailed / compact
+static NSString * const kSettingsChatDisplayDetailed = @"detailed";
+static NSString * const kSettingsChatDisplayCompact  = @"compact";
+/// Agent 身份显示名键（与 CAAgentIdentity 内部键一致）
+static NSString * const kSettingsAgentDisplayNameKey = @"CAAgentDisplayName";
+/// 主题 / 对话显示变更通知（其它面板按同名监听）
+static NSString * const kSettingsThemeDidChangeNotificationName       = @"CAThemeDidChangeNotification";
+static NSString * const kSettingsChatDisplayDidChangeNotificationName = @"CAChatDisplayModeDidChangeNotification";
+
+/// 截图里官方档位是 8 条 → 官方模型计数上限
+static const NSUInteger kSettingsOfficialModelLimit   = 8;
+/// 第三方（API）模型计数上限
+static const NSUInteger kSettingsThirdPartyModelLimit = 20;
+/// Tools actionSheet 一次最多列出的工具包条数
+static const NSUInteger kSettingsToolEntryLimit       = 12;
 
 /// 统一使用 UITableViewCellStyleValue1（左侧标题 + 右侧详情）
 @interface CASettingsValueCell : UITableViewCell
@@ -48,15 +107,21 @@ static NSString * const kSettingsInternalMCPName = @"codexapp";
 
 @end
 
+/// 分区顺序严格照 04/05 截图：官方账户 / AI 服务 / 应用 / 开发环境与诊断，
+/// 其后接原有附加分区（Provider 细节 / 模型目录 / Runtime 管理 / MCP / 诊断 / 环境 / 关于）。
 typedef NS_ENUM(NSInteger, CASettingsSection) {
-    CASettingsSectionAccount = 0,
-    CASettingsSectionProvider,
-    CASettingsSectionModel,
-    CASettingsSectionRuntime,
-    CASettingsSectionMCP,
-    CASettingsSectionDiagnostics,
-    CASettingsSectionEnvironment,
-    CASettingsSectionAbout,
+    CASettingsSectionAccount = 0,       // 官方账户
+    CASettingsSectionAIService,         // AI 服务
+    CASettingsSectionApplication,       // 应用
+    CASettingsSectionDevelopment,       // 开发环境与诊断
+    CASettingsSectionProvider,          // 附加：Provider 细节
+    CASettingsSectionModel,             // 附加：模型目录
+    CASettingsSectionRuntime,           // 附加：Runtime 管理
+    CASettingsSectionMCP,               // 附加：MCP 桥
+    CASettingsSectionDiagnostics,       // 附加：日志与诊断
+    CASettingsSectionEnvironment,       // 附加：环境
+    CASettingsSectionAbout,             // 附加：关于
+    CASettingsSectionPanelCenter,       // 附加：面板中心（复刻补全面板统一入口）
     CASettingsSectionCount,
 };
 
@@ -69,6 +134,46 @@ typedef NS_ENUM(NSInteger, CASettingsAccountRow) {
     CASettingsAccountRowBrowserOAuth,
     CASettingsAccountRowLogout,
     CASettingsAccountRowCount,
+};
+
+/// 官方账户分区的行：截图只有一行「登录方式」，点开后接原有四种登录方式 + 退出登录 + 登录态。
+typedef NS_ENUM(NSInteger, CASettingsOfficialAccountRow) {
+    CASettingsOfficialAccountRowLoginMethod = 0,
+    CASettingsOfficialAccountRowAPIKey,
+    CASettingsOfficialAccountRowAccessToken,
+    CASettingsOfficialAccountRowDeviceAuth,
+    CASettingsOfficialAccountRowBrowserOAuth,
+    CASettingsOfficialAccountRowLogout,
+    CASettingsOfficialAccountRowStatus,
+    CASettingsOfficialAccountRowCount,
+};
+
+/// AI 服务分区的行（截图两行：第三方 AI 服务、模型价格）
+typedef NS_ENUM(NSInteger, CASettingsAIServiceRow) {
+    CASettingsAIServiceRowThirdParty = 0,
+    CASettingsAIServiceRowModelPricing,
+    CASettingsAIServiceRowCount,
+};
+
+/// 应用分区的行（截图五行：主题、对话显示、Agent 身份、子代理设置、存储管理）
+typedef NS_ENUM(NSInteger, CASettingsApplicationRow) {
+    CASettingsApplicationRowTheme = 0,
+    CASettingsApplicationRowChatDisplay,
+    CASettingsApplicationRowAgentIdentity,
+    CASettingsApplicationRowSubagent,
+    CASettingsApplicationRowStorage,
+    CASettingsApplicationRowCount,
+};
+
+/// 开发环境与诊断分区的行（截图六行）
+typedef NS_ENUM(NSInteger, CASettingsDevelopmentRow) {
+    CASettingsDevelopmentRowCodex = 0,
+    CASettingsDevelopmentRowTheos,
+    CASettingsDevelopmentRowTools,
+    CASettingsDevelopmentRowSkills,
+    CASettingsDevelopmentRowDiagnostics,
+    CASettingsDevelopmentRowLogs,
+    CASettingsDevelopmentRowCount,
 };
 
 typedef NS_ENUM(NSInteger, CASettingsProviderRow) {
@@ -159,6 +264,49 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)showMessage:(NSString *)message title:(NSString *)title;
 - (void)handleDone;
 
+#pragma mark - 截图分区（官方账户 / AI 服务 / 应用 / 开发环境与诊断）
+
+/// 顶栏不透明外观（截图：内容从导航栏下方穿过，无分隔线）
+- (void)applyOpaqueNavigationBarAppearance;
+/// 顶栏右侧灰色圆形关闭按钮（截图：灰圆 + 浅叉，点击仍是原有 handleDone）
+- (void)installCloseBarButtonItem;
+
+/// 统一的 UIListContentConfiguration 行（图标 + 主文案 + 右侧详情）
+- (void)configureContentCell:(UITableViewCell *)cell
+                        text:(NSString *)text
+                        icon:(nullable NSString *)iconName
+                      detail:(nullable NSString *)detailText
+                   tintColor:(nullable UIColor *)tintColor;
+/// 分段控件行（主题 / 对话显示）
+- (void)configureContentCell:(UITableViewCell *)cell
+                        text:(NSString *)text
+                        icon:(nullable NSString *)iconName
+            accessoryControl:(nullable UIView *)accessoryControl;
+- (UISegmentedControl *)themeModeSegmentedControl;
+- (UISegmentedControl *)chatDisplaySegmentedControl;
+- (NSString *)currentThemeMode;
+- (NSString *)currentChatDisplayMode;
+- (NSString *)modelPricingCountText;
+- (NSArray<NSString *> *)officialPricingModelSlugs;
+- (NSArray<NSString *> *)thirdPartyPricingModelSlugs;
+- (NSString *)thirdPartyProviderDisplayName;
+- (NSString *)agentIdentityValueText;
+- (NSString *)codexRuntimeValueText;
+- (NSString *)settingsTheosValueText;
+- (NSString *)settingsToolsValueText;
+- (nullable NSString *)megabytesTextForByteCount:(unsigned long long)byteCount;
+- (NSArray<CARuntimeCatalogEntry *> *)settingsToolPackageEntries;
+- (void)presentToolsPackagesSheet:(nullable NSIndexPath *)indexPath;
+- (void)presentToolEntryDetail:(CARuntimeCatalogEntry *)entry;
+- (void)presentTextDetailWithTitle:(NSString *)title text:(NSString *)text;
+/// 新面板统一入口：包一层 UINavigationController 后 present（照抄本文件既有 present 范式）
+- (void)presentSettingsPanel:(UIViewController *)panel;
+- (void)openModelPricingPanel;
+- (void)openAgentProfilePanel;
+- (void)openSubagentSettingsPanel;
+- (void)openStoragePanel;
+- (void)openExtensionsPanel;
+
 #pragma mark - 模型
 - (NSString *)currentModelSlug;
 - (NSArray<NSString *> *)catalogModelSlugs;
@@ -211,6 +359,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     self.tableView.delegate = self;
     [self.tableView registerClass:CASettingsValueCell.class forCellReuseIdentifier:kSettingsCellReuseIdentifier];
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kSettingsFieldCellReuseIdentifier];
+    [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kSettingsContentCellReuseIdentifier];
     [self.view addSubview:self.tableView];
     [NSLayoutConstraint activateConstraints:@[
         [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -219,13 +368,14 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
         [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                          target:self
-                                                                                          action:@selector(handleDone)];
+    // 顶栏固定不透明：截图 05 里「主题」整行从导航栏下方滚过（卡片上边缘被裁切）
+    [self applyOpaqueNavigationBarAppearance];
+    [self installCloseBarButtonItem];
 
     [self prepareThirdPartyDrafts];
     [self refreshLoginStatus];
     [self refreshRuntimeStatus];
+    [self applyCurrentTheme];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(runtimeCatalogChanged:)
@@ -252,6 +402,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     [super viewWillAppear:animated];
     [self refreshLoginStatus];
     [self refreshRuntimeStatus];
+    [self applyCurrentTheme];
     [self.tableView reloadData];
 }
 
@@ -1250,6 +1401,381 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+#pragma mark - 截图分区实现（官方账户 / AI 服务 / 应用 / 开发环境与诊断）
+
+- (void)configureContentCell:(UITableViewCell *)cell
+                        text:(NSString *)text
+                        icon:(NSString *)iconName
+                      detail:(NSString *)detailText
+                   tintColor:(UIColor *)tintColor
+{
+    if (!cell) return;
+
+    UIListContentConfiguration *content = [UIListContentConfiguration valueCellConfiguration];
+    content.text = text;
+    content.secondaryText = detailText;
+    if (iconName.length > 0) {
+        content.image = [UIImage systemImageNamed:iconName];
+        content.imageProperties.tintColor = tintColor ?: UIColor.secondaryLabelColor;
+        content.imageProperties.maximumSize = CGSizeMake(22.0, 22.0);
+    }
+    cell.contentConfiguration = content;
+}
+
+- (void)configureContentCell:(UITableViewCell *)cell
+                        text:(NSString *)text
+                        icon:(NSString *)iconName
+            accessoryControl:(UIView *)accessoryControl
+{
+    [self configureContentCell:cell text:text icon:iconName detail:nil tintColor:nil];
+    cell.accessoryView = accessoryControl;
+}
+
+- (UISegmentedControl *)themeModeSegmentedControl
+{
+    UISegmentedControl *control = [[UISegmentedControl alloc] initWithItems:@[ @"系统", @"浅色", @"深色" ]];
+    NSString *mode = [self currentThemeMode];
+    control.selectedSegmentIndex = [mode isEqualToString:kSettingsThemeModeLight] ? 1
+        : ([mode isEqualToString:kSettingsThemeModeDark] ? 2 : 0);
+    [control addTarget:self action:@selector(themeModeChanged:) forControlEvents:UIControlEventValueChanged];
+    return control;
+}
+
+- (UISegmentedControl *)chatDisplaySegmentedControl
+{
+    UISegmentedControl *control = [[UISegmentedControl alloc] initWithItems:@[ @"详细", @"简洁" ]];
+    control.selectedSegmentIndex = [[self currentChatDisplayMode] isEqualToString:kSettingsChatDisplayCompact] ? 1 : 0;
+    [control addTarget:self action:@selector(chatDisplayModeChanged:) forControlEvents:UIControlEventValueChanged];
+    return control;
+}
+
+- (NSString *)currentThemeMode
+{
+    NSString *mode = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsThemeMode];
+    if ([mode isEqualToString:kSettingsThemeModeLight] || [mode isEqualToString:kSettingsThemeModeDark]) return mode;
+    return kSettingsThemeModeSystem;
+}
+
+- (NSString *)currentChatDisplayMode
+{
+    NSString *mode = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsChatDisplayMode];
+    return [mode isEqualToString:kSettingsChatDisplayCompact] ? kSettingsChatDisplayCompact : kSettingsChatDisplayDetailed;
+}
+
+- (id)themeModeChanged:(id)arg1
+{
+    UISegmentedControl *control = [arg1 isKindOfClass:UISegmentedControl.class] ? (UISegmentedControl *)arg1 : nil;
+    NSString *mode = kSettingsThemeModeSystem;
+    if (control.selectedSegmentIndex == 1) mode = kSettingsThemeModeLight;
+    else if (control.selectedSegmentIndex == 2) mode = kSettingsThemeModeDark;
+
+    [NSUserDefaults.standardUserDefaults setObject:mode forKey:CADefaultsThemeMode];
+    [self applyCurrentTheme];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSettingsThemeDidChangeNotificationName
+                                                        object:self
+                                                      userInfo:@{ CADefaultsThemeMode: mode }];
+    CALog(CALogLevelInfo, @"GENERAL", @"settings theme mode=%@", mode);
+    return mode;
+}
+
+- (id)chatDisplayModeChanged:(id)arg1
+{
+    UISegmentedControl *control = [arg1 isKindOfClass:UISegmentedControl.class] ? (UISegmentedControl *)arg1 : nil;
+    NSString *mode = control.selectedSegmentIndex == 1 ? kSettingsChatDisplayCompact : kSettingsChatDisplayDetailed;
+
+    [NSUserDefaults.standardUserDefaults setObject:mode forKey:CADefaultsChatDisplayMode];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSettingsChatDisplayDidChangeNotificationName
+                                                        object:self
+                                                      userInfo:@{ CADefaultsChatDisplayMode: mode }];
+    if (self.onSettingsChanged) self.onSettingsChanged();
+    CALog(CALogLevelInfo, @"GENERAL", @"settings chat display mode=%@", mode);
+    return mode;
+}
+
+- (id)applyCurrentTheme
+{
+    UIUserInterfaceStyle style = UIUserInterfaceStyleUnspecified;
+    NSString *mode = [self currentThemeMode];
+    if ([mode isEqualToString:kSettingsThemeModeLight]) style = UIUserInterfaceStyleLight;
+    else if ([mode isEqualToString:kSettingsThemeModeDark]) style = UIUserInterfaceStyleDark;
+
+    self.overrideUserInterfaceStyle = style;
+    self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    self.tableView.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    UIWindow *window = self.view.window;
+    if (window) window.overrideUserInterfaceStyle = style;
+    return @((NSInteger)style);
+}
+
+- (void)applyOpaqueNavigationBarAppearance
+{
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    if (!navigationBar) return;
+
+    // 截图：顶栏与页面同底色、无分隔线，内容从下方滚过
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    appearance.shadowColor = UIColor.clearColor;
+    navigationBar.standardAppearance = appearance;
+    navigationBar.scrollEdgeAppearance = appearance;
+    navigationBar.compactAppearance = appearance;
+    navigationBar.compactScrollEdgeAppearance = appearance;
+}
+
+- (void)installCloseBarButtonItem
+{
+    // 截图：顶栏右侧灰色圆形 ×，点击仍是原有 handleDone
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(0.0, 0.0, 30.0, 30.0);
+    button.backgroundColor = UIColor.tertiarySystemFillColor;
+    button.layer.cornerRadius = 15.0;
+    [button setImage:[UIImage systemImageNamed:@"xmark"] forState:UIControlStateNormal];
+    button.tintColor = UIColor.secondaryLabelColor;
+    [button addTarget:self action:@selector(handleDone) forControlEvents:UIControlEventTouchUpInside];
+    button.accessibilityLabel = @"关闭";
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+#pragma mark - 截图分区取值
+
+- (NSString *)modelPricingCountText
+{
+    CAModelPricingManager *manager = [CAModelPricingManager sharedManager];
+    if (manager.modelCount == 0) [manager loadCache];
+
+    NSArray<NSString *> *official = [self officialPricingModelSlugs];
+    NSArray<NSString *> *thirdParty = [self thirdPartyPricingModelSlugs];
+    if (official.count == 0 && thirdParty.count == 0) {
+        // 计数取不到时用截图兜底文案
+        return kSettingsModelPricingFallbackText;
+    }
+    return [NSString stringWithFormat:@"官方 %lu · API %lu", (unsigned long)official.count, (unsigned long)thirdParty.count];
+}
+
+- (NSArray<NSString *> *)officialPricingModelSlugs
+{
+    // 官方档 = 价格目录里非 openrouter 聚合的模型（截图里官方档位是 8 条）
+    NSArray<NSString *> *keys = [[CAModelPricingManager sharedManager].prices.allKeys
+                                 sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    NSMutableArray<NSString *> *official = [NSMutableArray array];
+    for (NSString *slug in keys) {
+        if (![slug isKindOfClass:NSString.class] || slug.length == 0) continue;
+        if ([slug.lowercaseString hasPrefix:@"openrouter/"]) continue;
+        [official addObject:slug];
+        if (official.count >= kSettingsOfficialModelLimit) break;
+    }
+    return official;
+}
+
+- (NSArray<NSString *> *)thirdPartyPricingModelSlugs
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSMutableOrderedSet<NSString *> *slugs = [NSMutableOrderedSet orderedSet];
+
+    id stored = [defaults objectForKey:CADefaultsThirdPartyAvailable];
+    if ([stored isKindOfClass:NSArray.class]) {
+        for (id item in (NSArray *)stored) {
+            if (![item isKindOfClass:NSString.class]) continue;
+            NSString *slug = [(NSString *)item stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+            if (slug.length == 0) continue;
+            [slugs addObject:slug];
+            if (slugs.count >= kSettingsThirdPartyModelLimit) break;
+        }
+    }
+    NSString *current = [defaults stringForKey:CADefaultsThirdPartyModel];
+    if (current.length > 0) [slugs addObject:current];
+    for (NSString *slug in [CACodexEngine sharedEngine].thirdPartyAvailableModels) {
+        if (![slug isKindOfClass:NSString.class] || slug.length == 0) continue;
+        [slugs addObject:slug];
+        if (slugs.count >= kSettingsThirdPartyModelLimit) break;
+    }
+    return slugs.array;
+}
+
+- (NSString *)thirdPartyProviderDisplayName
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSString *name = [self trimmedString:[defaults stringForKey:CADefaultsThirdPartyProviderName]];
+    NSString *baseURL = [self trimmedString:[defaults stringForKey:CADefaultsAPIBaseURL]];
+    BOOL hasKey = [[CACodexEngine sharedEngine] hasThirdPartyAPIKey];
+    BOOL configured = [defaults boolForKey:CADefaultsUseThirdPartyProvider] || name.length > 0 || baseURL.length > 0 || hasKey;
+    if (!configured) return kSettingsThirdPartyUnsetText;
+
+    if (name.length > 0) return name;
+    if (baseURL.length > 0) return baseURL;
+    return hasKey ? @"已配置" : kSettingsThirdPartyUnsetText;
+}
+
+- (NSString *)agentIdentityValueText
+{
+    NSString *name = [[[CAAgentIdentity alloc] init] displayName];
+    if (![name isKindOfClass:NSString.class]) name = nil;
+    if (name.length == 0) name = [NSUserDefaults.standardUserDefaults stringForKey:kSettingsAgentDisplayNameKey];
+    if (name.length == 0) name = kSettingsAgentDefaultName;
+    return name;
+}
+
+- (nullable NSString *)megabytesTextForByteCount:(unsigned long long)byteCount
+{
+    if (byteCount == 0) return nil;
+    double megabytes = (double)byteCount / (1024.0 * 1024.0);
+    return [NSString stringWithFormat:@"%.1f MB", megabytes];
+}
+
+- (NSString *)codexRuntimeValueText
+{
+    CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:@"codex"];
+    unsigned long long byteCount = entry.expandedSize > 0 ? entry.expandedSize : entry.downloadSize;
+    NSString *sizeText = [self megabytesTextForByteCount:byteCount];
+    if (sizeText.length == 0) {
+        // 运行时清单不可用：截图兜底文案
+        return kSettingsRuntimeLatestFallbackText;
+    }
+    if (self.runtimeInstalled) {
+        return [NSString stringWithFormat:@"当前已是最新 · %@", sizeText];
+    }
+    return kSettingsRuntimeInstallText;
+}
+
+- (NSString *)settingsTheosValueText
+{
+    NSString *installedVersion = [CAUpdateViewController installedVersionForRuntimeID:@"theos"];
+    if (installedVersion.length > 0) {
+        return [NSString stringWithFormat:@"已安装 · %@", installedVersion];
+    }
+    return kSettingsRuntimeInstallText;
+}
+
+- (id)theosRuntimeStatusText
+{
+    return [self settingsTheosValueText];
+}
+
+- (NSArray<CARuntimeCatalogEntry *> *)settingsToolPackageEntries
+{
+    NSMutableArray<CARuntimeCatalogEntry *> *tools = [NSMutableArray array];
+    for (CARuntimeCatalogEntry *entry in [CARuntimeCatalog sharedCatalog].entries) {
+        if (![entry isKindOfClass:CARuntimeCatalogEntry.class] || entry.runtimeID.length == 0) continue;
+        NSString *group = entry.group.lowercaseString ?: @"";
+        NSString *handler = entry.handler.lowercaseString ?: @"";
+        BOOL isTool = [group containsString:@"tool"]
+            || [handler containsString:@"tool"]
+            || [entry.runtimeID.lowercaseString containsString:@"tool"];
+        if (isTool) [tools addObject:entry];
+    }
+    return tools;
+}
+
+- (id)runtimeToolEntries
+{
+    return [self settingsToolPackageEntries];
+}
+
+- (NSString *)settingsToolsValueText
+{
+    NSUInteger count = [self settingsToolPackageEntries].count;
+    if (count == 0) return kSettingsToolsFallbackText;
+    return [NSString stringWithFormat:@"%lu 个工具包 · 点击展开", (unsigned long)count];
+}
+
+#pragma mark - Tools / 新面板入口
+
+- (void)presentToolsPackagesSheet:(NSIndexPath *)indexPath
+{
+    NSArray<CARuntimeCatalogEntry *> *entries = [self settingsToolPackageEntries];
+    NSString *message = entries.count > 0
+        ? [NSString stringWithFormat:@"%lu 个工具包 · 选中查看条目摘要", (unsigned long)entries.count]
+        : @"运行时清单里还没有标注工具包，先列出整份清单。";
+
+    if (entries.count == 0) {
+        // 清单没标注分组时兜底：仍然列出全部条目，保证入口可用
+        entries = [CARuntimeCatalog sharedCatalog].entries;
+    }
+
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Tools"
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof(self) weakSelf = self;
+    NSUInteger index = 0;
+    for (CARuntimeCatalogEntry *entry in entries) {
+        if (index >= kSettingsToolEntryLimit) break;
+        index += 1;
+        NSString *title = [NSString stringWithFormat:@"%@ · %@",
+                           entry.displayName ?: entry.runtimeID ?: @"?",
+                           entry.version ?: @"?"];
+        [sheet addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            [strongSelf presentToolEntryDetail:entry];
+        }]];
+    }
+    [sheet addAction:[UIAlertAction actionWithTitle:@"刷新运行时清单" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf refreshRuntimeCatalog];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    sheet.popoverPresentationController.sourceView = self.tableView;
+    sheet.popoverPresentationController.sourceRect = indexPath ? [self.tableView rectForRowAtIndexPath:indexPath] : self.tableView.bounds;
+    [self presentViewController:sheet animated:YES completion:nil];
+}
+
+- (void)presentToolEntryDetail:(CARuntimeCatalogEntry *)entry
+{
+    NSString *title = entry.displayName ?: entry.runtimeID ?: @"工具包";
+    NSMutableString *text = [NSMutableString string];
+    if (entry.summary.length > 0) [text appendFormat:@"%@\n\n", entry.summary];
+    [text appendFormat:@"ID：%@\n版本：%@\n分组：%@\n处理器：%@\n下载体积：%@\n解压体积：%@\n下载地址：%@",
+                       entry.runtimeID ?: @"(无)",
+                       entry.version ?: @"(无)",
+                       entry.group ?: @"(无)",
+                       entry.handler ?: @"(无)",
+                       [self formattedByteCount:entry.downloadSize],
+                       [self formattedByteCount:entry.expandedSize],
+                       entry.archiveURL ?: @"(无)"];
+    [self presentTextDetailWithTitle:title text:text];
+}
+
+- (void)presentTextDetailWithTitle:(NSString *)title text:(NSString *)text
+{
+    CATextDetailViewController *detail = [[CATextDetailViewController alloc] initWithTitle:title text:text];
+    [self presentSettingsPanel:detail];
+}
+
+- (void)presentSettingsPanel:(UIViewController *)panel
+{
+    if (!panel) return;
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:panel];
+    [self presentViewController:navigation animated:YES completion:nil];
+}
+
+- (void)openModelPricingPanel
+{
+    [self presentSettingsPanel:[[CAModelPricingViewController alloc] init]];
+}
+
+- (void)openAgentProfilePanel
+{
+    [self presentSettingsPanel:[[CAAgentProfileViewController alloc] init]];
+}
+
+- (void)openSubagentSettingsPanel
+{
+    [self presentSettingsPanel:[[CASubagentSettingsViewController alloc] init]];
+}
+
+- (void)openStoragePanel
+{
+    [self presentSettingsPanel:[[CAStorageViewController alloc] init]];
+}
+
+- (void)openExtensionsPanel
+{
+    [self presentSettingsPanel:[[CAExtensionsViewController alloc] init]];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -1261,7 +1787,14 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     switch ((CASettingsSection)section) {
         case CASettingsSectionAccount:
-            return self.loginOptionsExpanded ? CASettingsAccountRowCount : 2;
+            // 截图常显一行「登录方式」；点开后接原有四种登录方式 + 退出登录 + 登录态
+            return self.loginOptionsExpanded ? CASettingsOfficialAccountRowCount : 1;
+        case CASettingsSectionAIService:
+            return CASettingsAIServiceRowCount;
+        case CASettingsSectionApplication:
+            return CASettingsApplicationRowCount;
+        case CASettingsSectionDevelopment:
+            return CASettingsDevelopmentRowCount;
         case CASettingsSectionProvider:
             // 外壳实现保留整组 provider 字段（原包在关闭第三方时折叠为开关行）
             return CASettingsProviderRowCount;
@@ -1276,6 +1809,9 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
         case CASettingsSectionEnvironment:
             return CASettingsEnvironmentRowCount;
         case CASettingsSectionAbout:
+            return 4;
+        case CASettingsSectionPanelCenter:
+            return 1;
         default:
             return 4;
     }
@@ -1287,50 +1823,191 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
     switch ((CASettingsSection)indexPath.section) {
         case CASettingsSectionAccount: {
-            if (indexPath.row == CASettingsAccountRowStatus) {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
-                cell.textLabel.text = self.isLoggedIn ? @"已登录" : @"未登录";
-                cell.detailTextLabel.text = self.loginStatusText ?: @"未检查";
-                cell.imageView.image = [UIImage systemImageNamed:self.isLoggedIn ? @"checkmark.seal.fill" : @"person.crop.circle"];
-                cell.imageView.tintColor = self.isLoggedIn ? UIColor.systemGreenColor : UIColor.secondaryLabelColor;
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
-            }
-            if (indexPath.row == CASettingsAccountRowLoginToggle) {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
-                cell.textLabel.text = self.loginOptionsExpanded ? @"收起登录方式" : @"更多登录方式";
-                cell.detailTextLabel.text = self.loginOptionsExpanded ? @"" : @"API Key / Token / 设备码 / 浏览器";
-                cell.accessoryType = self.loginOptionsExpanded ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsContentCellReuseIdentifier forIndexPath:indexPath];
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+            if ((CASettingsOfficialAccountRow)indexPath.row == CASettingsOfficialAccountRowLoginMethod) {
+                // 截图行：登录方式 · 选择登录方式 ›（点开 = 原有四种登录方式行）
+                [self configureContentCell:cell
+                                      text:@"登录方式"
+                                      icon:@"person.crop.circle"
+                                    detail:kSettingsLoginMethodValueText
+                                 tintColor:nil];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 return cell;
             }
 
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            cell.imageView.image = nil;
-            switch ((CASettingsAccountRow)indexPath.row) {
-                case CASettingsAccountRowAPIKey:
-                    cell.textLabel.text = @"API Key 登录";
+            if ((CASettingsOfficialAccountRow)indexPath.row == CASettingsOfficialAccountRowStatus) {
+                [self configureContentCell:cell
+                                      text:self.isLoggedIn ? @"已登录" : @"未登录"
+                                      icon:self.isLoggedIn ? @"checkmark.seal.fill" : @"person.crop.circle.badge.questionmark"
+                                    detail:self.loginStatusText ?: @"未检查"
+                                 tintColor:self.isLoggedIn ? UIColor.systemGreenColor : UIColor.secondaryLabelColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+            }
+
+            switch ((CASettingsOfficialAccountRow)indexPath.row) {
+                case CASettingsOfficialAccountRowAPIKey:
+                    [self configureContentCell:cell text:@"API Key 登录" icon:@"key" detail:nil tintColor:nil];
                     break;
-                case CASettingsAccountRowAccessToken:
-                    cell.textLabel.text = @"Access Token 登录";
+                case CASettingsOfficialAccountRowAccessToken:
+                    [self configureContentCell:cell text:@"Access Token 登录" icon:@"ellipsis.rectangle" detail:nil tintColor:nil];
                     break;
-                case CASettingsAccountRowDeviceAuth:
-                    cell.textLabel.text = @"设备码登录";
+                case CASettingsOfficialAccountRowDeviceAuth:
+                    [self configureContentCell:cell text:@"设备码登录" icon:@"number.square" detail:nil tintColor:nil];
                     break;
-                case CASettingsAccountRowBrowserOAuth:
-                    cell.textLabel.text = @"浏览器 OAuth 登录";
+                case CASettingsOfficialAccountRowBrowserOAuth:
+                    [self configureContentCell:cell text:@"浏览器 OAuth 登录" icon:@"safari" detail:nil tintColor:nil];
                     break;
-                case CASettingsAccountRowLogout:
-                    cell.textLabel.text = @"退出登录";
-                    cell.textLabel.textColor = UIColor.systemRedColor;
+                case CASettingsOfficialAccountRowLogout:
+                    [self configureContentCell:cell text:@"退出登录" icon:@"arrow.right.square" detail:nil tintColor:UIColor.systemRedColor];
                     break;
                 default:
-                    cell.textLabel.text = @"";
                     break;
             }
-            cell.detailTextLabel.text = @"";
+            return cell;
+        }
+
+        case CASettingsSectionAIService: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsContentCellReuseIdentifier forIndexPath:indexPath];
+            cell.accessoryView = nil;
             cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            switch ((CASettingsAIServiceRow)indexPath.row) {
+                case CASettingsAIServiceRowThirdParty: {
+                    [self configureContentCell:cell
+                                          text:@"第三方 AI 服务"
+                                          icon:@"globe"
+                                        detail:[self thirdPartyProviderDisplayName]
+                                     tintColor:nil];
+                    // 沿用现有 thirdPartySourceSwitch 逻辑
+                    UISwitch *toggle = [[UISwitch alloc] init];
+                    toggle.on = [defaults boolForKey:CADefaultsUseThirdPartyProvider];
+                    [toggle addTarget:self action:@selector(thirdPartySourceSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+                    cell.accessoryView = toggle;
+                    self.thirdPartySourceSwitch = toggle;
+                    break;
+                }
+                case CASettingsAIServiceRowModelPricing:
+                default:
+                    [self configureContentCell:cell
+                                          text:@"模型价格"
+                                          icon:@"dollarsign.circle"
+                                        detail:[self modelPricingCountText]
+                                     tintColor:nil];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    break;
+            }
+            return cell;
+        }
+
+        case CASettingsSectionApplication: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsContentCellReuseIdentifier forIndexPath:indexPath];
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            switch ((CASettingsApplicationRow)indexPath.row) {
+                case CASettingsApplicationRowTheme:
+                    [self configureContentCell:cell
+                                          text:@"主题"
+                                          icon:@"circle.lefthalf.filled"
+                              accessoryControl:[self themeModeSegmentedControl]];
+                    break;
+                case CASettingsApplicationRowChatDisplay:
+                    [self configureContentCell:cell
+                                          text:@"对话显示"
+                                          icon:@"arrow.up.arrow.down"
+                              accessoryControl:[self chatDisplaySegmentedControl]];
+                    break;
+                case CASettingsApplicationRowAgentIdentity:
+                    [self configureContentCell:cell
+                                          text:@"Agent 身份"
+                                          icon:@"sparkles"
+                                        detail:[self agentIdentityValueText]
+                                     tintColor:nil];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    break;
+                case CASettingsApplicationRowSubagent:
+                    [self configureContentCell:cell
+                                          text:@"子代理设置"
+                                          icon:@"person.2"
+                                        detail:kSettingsSubagentValueText
+                                     tintColor:nil];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    break;
+                case CASettingsApplicationRowStorage:
+                default:
+                    [self configureContentCell:cell
+                                          text:@"存储管理"
+                                          icon:@"externaldrive"
+                                        detail:kSettingsStorageValueText
+                                     tintColor:nil];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    break;
+            }
+            return cell;
+        }
+
+        case CASettingsSectionDevelopment: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsContentCellReuseIdentifier forIndexPath:indexPath];
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+            switch ((CASettingsDevelopmentRow)indexPath.row) {
+                case CASettingsDevelopmentRowCodex:
+                    [self configureContentCell:cell
+                                          text:@"Codex"
+                                          icon:@"terminal"
+                                        detail:[self codexRuntimeValueText]
+                                     tintColor:nil];
+                    break;
+                case CASettingsDevelopmentRowTheos:
+                    [self configureContentCell:cell
+                                          text:@"Theos"
+                                          icon:@"hammer"
+                                        detail:[self settingsTheosValueText]
+                                     tintColor:nil];
+                    break;
+                case CASettingsDevelopmentRowTools:
+                    [self configureContentCell:cell
+                                          text:@"Tools"
+                                          icon:@"shippingbox"
+                                        detail:[self settingsToolsValueText]
+                                     tintColor:nil];
+                    break;
+                case CASettingsDevelopmentRowSkills:
+                    [self configureContentCell:cell
+                                          text:@"Skills 与扩展"
+                                          icon:@"sparkles"
+                                        detail:kSettingsSkillsValueText
+                                     tintColor:nil];
+                    break;
+                case CASettingsDevelopmentRowDiagnostics:
+                    [self configureContentCell:cell
+                                          text:@"运行诊断"
+                                          icon:@"stethoscope"
+                                        detail:kSettingsDiagnosticsValueText
+                                     tintColor:nil];
+                    break;
+                case CASettingsDevelopmentRowLogs:
+                default:
+                    [self configureContentCell:cell
+                                          text:@"日志"
+                                          icon:@"doc.text.magnifyingglass"
+                                        detail:kSettingsLogsValueText
+                                     tintColor:nil];
+                    break;
+            }
             return cell;
         }
 
@@ -1620,6 +2297,18 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             return cell;
         }
 
+        case CASettingsSectionPanelCenter: {
+            // 复刻补全：18 个面板的统一入口（原包这些面板分散在会话页/设置页/侧栏，这里集中可达）
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.imageView.image = [UIImage systemImageNamed:@"square.grid.2x2"];
+            cell.imageView.tintColor = UIColor.systemBlueColor;
+            cell.textLabel.text = @"全部面板";
+            cell.detailTextLabel.text = @"Git、模型、扩展、审批、存储…";
+            return cell;
+        }
+
         case CASettingsSectionAbout:
         default: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsCellReuseIdentifier forIndexPath:indexPath];
@@ -1656,13 +2345,17 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch ((CASettingsSection)section) {
-        case CASettingsSectionAccount:     return @"账号";
-        case CASettingsSectionProvider:    return @"Provider";
-        case CASettingsSectionModel:       return @"模型";
-        case CASettingsSectionRuntime:     return @"Codex Runtime";
+        case CASettingsSectionAccount:     return @"官方账户";
+        case CASettingsSectionAIService:   return @"AI 服务";
+        case CASettingsSectionApplication: return @"应用";
+        case CASettingsSectionDevelopment: return @"开发环境与诊断";
+        case CASettingsSectionProvider:    return @"第三方 Provider 细节";
+        case CASettingsSectionModel:       return @"模型目录";
+        case CASettingsSectionRuntime:     return @"Runtime 管理";
         case CASettingsSectionMCP:         return @"MCP 桥";
         case CASettingsSectionDiagnostics: return @"日志与诊断";
         case CASettingsSectionEnvironment: return @"环境";
+        case CASettingsSectionPanelCenter: return @"面板中心";
         case CASettingsSectionAbout:
         default:                           return @"关于";
     }
@@ -1670,12 +2363,17 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
+    if ((CASettingsSection)section == CASettingsSectionAIService) {
+        // 截图 04 的「AI 服务」脚注（逐字）
+        return @"地址和 Key 在编辑结束后自动保存。启用第三方服务会保留官方登录，随时可以切回。";
+    }
     if ((CASettingsSection)section == CASettingsSectionProvider) {
         return [NSString stringWithFormat:@"密钥写入 %@；provider 配置随 codex CLI 启动参数下发。",
                 [CAProviderConfiguration sharedConfiguration].keyPath.lastPathComponent ?: @"api-key"];
     }
     if ((CASettingsSection)section == CASettingsSectionAccount) {
-        return self.loginStatusText ?: @"";
+        // 截图里「官方账户」卡片下方没有脚注（登录态在展开后的行里展示）
+        return nil;
     }
     if ((CASettingsSection)section == CASettingsSectionRuntime) {
         return [NSString stringWithFormat:@"安装目录 %@（确认含 bin/codex 才算安装成功）。",
@@ -1692,20 +2390,61 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    if ((CASettingsSection)indexPath.section == CASettingsSectionPanelCenter) {
+        // 复刻补全面板统一入口：面板中心（列出全部 18 个面板）
+        UIViewController *center = [CAControlCenterPanels panelCenterViewControllerForWorkspace:[NSUserDefaults.standardUserDefaults stringForKey:CADefaultsActiveWorkspace]];
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:center];
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:navigation animated:YES completion:nil];
+        return;
+    }
+
     switch ((CASettingsSection)indexPath.section) {
         case CASettingsSectionAccount: {
-            if (indexPath.row == CASettingsAccountRowLoginToggle) {
+            if ((CASettingsOfficialAccountRow)indexPath.row == CASettingsOfficialAccountRowLoginMethod) {
+                // 「登录方式」行点开 = 展开原有四种登录方式 + 退出登录 + 登录态
                 self.loginOptionsExpanded = !self.loginOptionsExpanded;
                 [tableView reloadSections:[NSIndexSet indexSetWithIndex:CASettingsSectionAccount]
                          withRowAnimation:UITableViewRowAnimationAutomatic];
                 return;
             }
-            switch ((CASettingsAccountRow)indexPath.row) {
-                case CASettingsAccountRowAPIKey:       [self handleAPIKeyLogin]; break;
-                case CASettingsAccountRowAccessToken:  [self handleAccessTokenLogin]; break;
-                case CASettingsAccountRowDeviceAuth:   [self handleDeviceAuthLogin]; break;
-                case CASettingsAccountRowBrowserOAuth: [self handleBrowserOAuthLogin]; break;
-                case CASettingsAccountRowLogout:       [self handleLogout]; break;
+            switch ((CASettingsOfficialAccountRow)indexPath.row) {
+                case CASettingsOfficialAccountRowAPIKey:       [self handleAPIKeyLogin]; break;
+                case CASettingsOfficialAccountRowAccessToken:  [self handleAccessTokenLogin]; break;
+                case CASettingsOfficialAccountRowDeviceAuth:   [self handleDeviceAuthLogin]; break;
+                case CASettingsOfficialAccountRowBrowserOAuth: [self handleBrowserOAuthLogin]; break;
+                case CASettingsOfficialAccountRowLogout:       [self handleLogout]; break;
+                default: break;
+            }
+            return;
+        }
+
+        case CASettingsSectionAIService: {
+            if ((CASettingsAIServiceRow)indexPath.row == CASettingsAIServiceRowModelPricing) {
+                [self openModelPricingPanel];
+            }
+            return;
+        }
+
+        case CASettingsSectionApplication: {
+            // 主题 / 对话显示 由分段控件自己处理，行本身不跳转
+            switch ((CASettingsApplicationRow)indexPath.row) {
+                case CASettingsApplicationRowAgentIdentity: [self openAgentProfilePanel]; break;
+                case CASettingsApplicationRowSubagent:      [self openSubagentSettingsPanel]; break;
+                case CASettingsApplicationRowStorage:       [self openStoragePanel]; break;
+                default: break;
+            }
+            return;
+        }
+
+        case CASettingsSectionDevelopment: {
+            switch ((CASettingsDevelopmentRow)indexPath.row) {
+                case CASettingsDevelopmentRowCodex:       [self installOrRepairRuntime]; break;
+                case CASettingsDevelopmentRowTheos:       [self showTheosEnvironment]; break;
+                case CASettingsDevelopmentRowTools:       [self presentToolsPackagesSheet:indexPath]; break;
+                case CASettingsDevelopmentRowSkills:      [self openExtensionsPanel]; break;
+                case CASettingsDevelopmentRowDiagnostics: [self showDiagnostics]; break;
+                case CASettingsDevelopmentRowLogs:        [self showLogViewer]; break;
                 default: break;
             }
             return;

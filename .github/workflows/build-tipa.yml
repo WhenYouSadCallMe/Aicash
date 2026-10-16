@@ -8,6 +8,9 @@ on:
   push:
     branches: [ main, master ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-14
@@ -59,6 +62,7 @@ jobs:
               ["python3", "verify/verify_literals.py"],
               ["python3", "scripts/check_sources.py"],
               ["python3", "scripts/check_conflicts.py"],
+              ["python3", "scripts/check_screenshot_literals.py"],
               ["python3", "scripts/fix_parity_forward_decls.py", "--check"],
               ["python3", "scripts/run_all_checks.py"],
               ["python3", "verify/verify_package.py", "--replica", "build/MT-Agent-replica.tipa"],
@@ -85,6 +89,23 @@ jobs:
             SPEC/*.json
           if-no-files-found: warn
           retention-days: 30
+
+      # 把编译好的 .tipa 回传到 dist 分支（单提交孤分支，force push，不膨胀历史），
+      # 这样在没有 gh/token 的环境里也能用 git 直接取回二进制。
+      - name: 回传 .tipa 到 dist 分支
+        if: always()
+        run: |
+          set -x
+          TIPA=build/MT-Agent-replica.tipa
+          if [ ! -f "$TIPA" ]; then echo "没有产物，跳过"; exit 0; fi
+          mkdir -p dist && cp "$TIPA" dist/
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan dist-publish
+          git reset
+          git add -f dist/MT-Agent-replica.tipa
+          git commit -m "tipa run #${{ github.run_number }} sha=${{ github.sha }} size=$(stat -f%z dist/MT-Agent-replica.tipa)"
+          git push -f origin dist-publish:dist
 
       - name: 摘要
         if: always()

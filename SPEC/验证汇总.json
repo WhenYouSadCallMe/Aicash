@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16 15:38:09",
+ "generated_at": "2026-10-16 17:14:22",
  "rows": [
   {
    "check": "契约·plist/entitlements/布局/资源",
@@ -18,28 +18,28 @@
   {
    "check": "源码·import/括号/声明实现",
    "status": "pass",
-   "seconds": "0.6s",
+   "seconds": "0.9s",
    "detail": "报告: SPEC/source_check_report.json",
    "returncode": 0
   },
   {
    "check": "源码·类型可达性(前向声明)",
    "status": "pass",
-   "seconds": "0.8s",
+   "seconds": "1.2s",
    "detail": "报告: SPEC/forward_decl_report.json",
    "returncode": 0
   },
   {
    "check": "覆盖度·选择器命中",
    "status": "pass",
-   "seconds": "26.3s",
+   "seconds": "39.7s",
    "detail": "明细: SPEC/method_coverage.json",
    "returncode": 0
   },
   {
    "check": "覆盖度·属性类型映射",
    "status": "pass",
-   "seconds": "1.3s",
+   "seconds": "1.5s",
    "detail": "输出: SPEC/property_types.json",
    "returncode": 0
   },

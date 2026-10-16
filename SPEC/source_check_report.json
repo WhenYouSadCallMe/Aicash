@@ -21,6 +21,8 @@
   "MTAgent\\Sources\\CACommon.m",
   "MTAgent\\Sources\\CAComposerCatalog.h",
   "MTAgent\\Sources\\CAComposerCatalog.m",
+  "MTAgent\\Sources\\CAControlCenterPanels.h",
+  "MTAgent\\Sources\\CAControlCenterPanels.m",
   "MTAgent\\Sources\\CAConversationStore.h",
   "MTAgent\\Sources\\CAConversationStore.m",
   "MTAgent\\Sources\\CADiagnosticsViewController.h",
@@ -361,6 +363,15 @@
    "CAComposerCatalog.h",
    "CAComposerCatalog.m"
   ],
+  "CAControlCenterPanels": [
+   "CAControlCenterPanels.h"
+  ],
+  "CAPanelCenterRow": [
+   "CAControlCenterPanels.m"
+  ],
+  "CAControlCenterViewController": [
+   "CAControlCenterPanels.m"
+  ],
   "CAConversationRecord": [
    "CAConversationStore.h"
   ],
@@ -480,7 +491,11 @@
    "CAAgentIdentity.h"
   ],
   "CAAgentProfileViewController": [
-   "CAAgentProfileViewController.h"
+   "CAAgentProfileViewController.h",
+   "CAAgentProfileViewController.m"
+  ],
+  "CAAgentProfileValueCell": [
+   "CAAgentProfileViewController.m"
   ],
   "CAAgentProgressRingView": [
    "CAAgentProgressRingView.h"
@@ -492,7 +507,11 @@
    "CAAgentRuntimeProcess.h"
   ],
   "CAAgentStatusDetailViewController": [
-   "CAAgentStatusDetailViewController.h"
+   "CAAgentStatusDetailViewController.h",
+   "CAAgentStatusDetailViewController.m"
+  ],
+  "CAAgentStatusValueCell": [
+   "CAAgentStatusDetailViewController.m"
   ],
   "CAAgentStatusKeyValueCell": [
    "CAAgentStatusKeyValueCell.h"
@@ -519,7 +538,9 @@
    "CAArtifactPreview.h"
   ],
   "CAArtifactPreviewViewController": [
-   "CAArtifactPreviewViewController.h"
+   "CAArtifactPreviewViewController.h",
+   "CAArtifactPreviewViewController.m",
+   "CAArtifactPreviewViewController.m"
   ],
   "CAArtifactResolver": [
    "CAArtifactResolver.h"
@@ -595,55 +616,78 @@
    "CADiagnosticsRingView.h"
   ],
   "CAExtensionListViewController": [
-   "CAExtensionListViewController.h"
+   "CAExtensionListViewController.h",
+   "CAExtensionListViewController.m"
+  ],
+  "CAExtensionListValueCell": [
+   "CAExtensionListViewController.m"
   ],
   "CAExtensionsViewController": [
-   "CAExtensionsViewController.h"
+   "CAExtensionsViewController.h",
+   "CAExtensionsViewController.m"
+  ],
+  "CAExtensionsValueCell": [
+   "CAExtensionsViewController.m"
   ],
   "CAGitChangeCell": [
-   "CAGitChangeCell.h"
+   "CAGitChangeCell.h",
+   "CAGitChangeCell.m"
   ],
   "CAGitChangeStyle": [
-   "CAGitChangeStyle.h"
+   "CAGitChangeStyle.h",
+   "CAGitChangeStyle.m"
   ],
   "CAGitChangesViewController": [
-   "CAGitChangesViewController.h"
+   "CAGitChangesViewController.h",
+   "CAGitChangesViewController.m"
   ],
   "CAGitChipLabel": [
-   "CAGitChipLabel.h"
+   "CAGitChipLabel.h",
+   "CAGitChipLabel.m"
   ],
   "CAGitCleanCell": [
-   "CAGitCleanCell.h"
+   "CAGitCleanCell.h",
+   "CAGitCleanCell.m"
   ],
   "CAGitCommitBar": [
-   "CAGitCommitBar.h"
+   "CAGitCommitBar.h",
+   "CAGitCommitBar.m"
   ],
   "CAGitDiffResult": [
-   "CAGitDiffResult.h"
+   "CAGitDiffResult.h",
+   "CAGitDiffResult.m"
   ],
   "CAGitDiffViewController": [
-   "CAGitDiffViewController.h"
+   "CAGitDiffViewController.h",
+   "CAGitDiffViewController.m"
   ],
   "CAGitEmptyStateView": [
-   "CAGitEmptyStateView.h"
+   "CAGitEmptyStateView.h",
+   "CAGitEmptyStateView.m"
   ],
   "CAGitGroupHeaderView": [
-   "CAGitGroupHeaderView.h"
+   "CAGitGroupHeaderView.h",
+   "CAGitGroupHeaderView.m"
   ],
   "CAGitPill": [
-   "CAGitPill.h"
+   "CAGitPill.h",
+   "CAGitPill.m"
   ],
   "CAGitRepository": [
-   "CAGitRepository.h"
+   "CAGitRepository.h",
+   "CAGitRepository.m"
   ],
   "CAGitSnapshot": [
-   "CAGitSnapshot.h"
+   "CAGitSnapshot.h",
+   "CAGitSnapshot.m"
   ],
   "CAGitSummaryCell": [
-   "CAGitSummaryCell.h"
+   "CAGitSummaryCell.h",
+   "CAGitSummaryCell.m"
   ],
   "CAGitSummaryModel": [
-   "CAGitSummaryModel.h"
+   "CAGitSummaryModel.h",
+   "CAGitSummaryModel.m"
   ],
   "CAGlobalInstructionDefaults": [
    "CAGlobalInstructionDefaults.h"
@@ -715,25 +759,36 @@
    "CAModelManager.h"
   ],
   "CAModelPickerViewController": [
-   "CAModelPickerViewController.h"
+   "CAModelPickerViewController.h",
+   "CAModelPickerViewController.m"
+  ],
+  "CAModelPickerValueCell": [
+   "CAModelPickerViewController.m"
   ],
   "CAModelPricingViewController": [
-   "CAModelPricingViewController.h"
+   "CAModelPricingViewController.h",
+   "CAModelPricingViewController.m"
+  ],
+  "CAModelPricingValueCell": [
+   "CAModelPricingViewController.m"
   ],
   "CAPathPickerViewController": [
-   "CAPathPickerViewController.h"
+   "CAPathPickerViewController.h",
+   "CAPathPickerViewController.m"
   ],
   "CAPlanDecisionChoiceView": [
    "CAPlanDecisionChoiceView.h"
   ],
   "CAPlanDecisionViewController": [
-   "CAPlanDecisionViewController.h"
+   "CAPlanDecisionViewController.h",
+   "CAPlanDecisionViewController.m"
   ],
   "CAPlanProgressViewController": [
    "CAPlanProgressViewController.h"
   ],
   "CAPlanReviewViewController": [
-   "CAPlanReviewViewController.h"
+   "CAPlanReviewViewController.h",
+   "CAPlanReviewViewController.m"
   ],
   "CAPlanStatusRing": [
    "CAPlanStatusRing.h"
@@ -745,7 +800,8 @@
    "CAProfileAvatarView.h"
   ],
   "CAProjectInstructionsViewController": [
-   "CAProjectInstructionsViewController.h"
+   "CAProjectInstructionsViewController.h",
+   "CAProjectInstructionsViewController.m"
   ],
   "CAProtectedFileWriter": [
    "CAProtectedFileWriter.h"
@@ -779,7 +835,11 @@
    "CAStorageProgressRingView.h"
   ],
   "CAStorageViewController": [
-   "CAStorageViewController.h"
+   "CAStorageViewController.h",
+   "CAStorageViewController.m"
+  ],
+  "CAStorageValueCell": [
+   "CAStorageViewController.m"
   ],
   "CAStreamRevealTarget": [
    "CAStreamRevealTarget.h",
@@ -796,16 +856,22 @@
    "CASubagentPreferences.h"
   ],
   "CASubagentSettingsViewController": [
-   "CASubagentSettingsViewController.h"
+   "CASubagentSettingsViewController.h",
+   "CASubagentSettingsViewController.m"
+  ],
+  "CASubagentValueCell": [
+   "CASubagentSettingsViewController.m"
   ],
   "CASwitchButton": [
    "CASwitchButton.h"
   ],
   "CATextDetailViewController": [
-   "CATextDetailViewController.h"
+   "CATextDetailViewController.h",
+   "CATextDetailViewController.m"
   ],
   "CATextEditorViewController": [
-   "CATextEditorViewController.h"
+   "CATextEditorViewController.h",
+   "CATextEditorViewController.m"
   ],
   "CAThemeManager": [
    "CAThemeManager.h"
@@ -867,7 +933,8 @@
    "CAWorkspaceProjectCell.h"
   ],
   "CAWorkspaceViewController": [
-   "CAWorkspaceViewController.h"
+   "CAWorkspaceViewController.h",
+   "CAWorkspaceViewController.m"
   ],
   "CAMTShareGroup": [
    "MTShareExtension.m"
@@ -909,6 +976,15 @@
   ],
   "CAComposerCatalog": [
    "CAComposerCatalog.m"
+  ],
+  "CAPanelCenterRow": [
+   "CAControlCenterPanels.m"
+  ],
+  "CAControlCenterViewController": [
+   "CAControlCenterPanels.m"
+  ],
+  "CAControlCenterPanels": [
+   "CAControlCenterPanels.m"
   ],
   "CAConversationRecord": [
    "CAConversationStore.m"
@@ -1021,6 +1097,9 @@
   "CAAgentIdentity": [
    "CAAgentIdentity.m"
   ],
+  "CAAgentProfileValueCell": [
+   "CAAgentProfileViewController.m"
+  ],
   "CAAgentProfileViewController": [
    "CAAgentProfileViewController.m"
   ],
@@ -1032,6 +1111,9 @@
   ],
   "CAAgentRuntimeProcess": [
    "CAAgentRuntimeProcess.m"
+  ],
+  "CAAgentStatusValueCell": [
+   "CAAgentStatusDetailViewController.m"
   ],
   "CAAgentStatusDetailViewController": [
    "CAAgentStatusDetailViewController.m"
@@ -1129,8 +1211,14 @@
   "CADiagnosticsRingView": [
    "CADiagnosticsRingView.m"
   ],
+  "CAExtensionListValueCell": [
+   "CAExtensionListViewController.m"
+  ],
   "CAExtensionListViewController": [
    "CAExtensionListViewController.m"
+  ],
+  "CAExtensionsValueCell": [
+   "CAExtensionsViewController.m"
   ],
   "CAExtensionsViewController": [
    "CAExtensionsViewController.m"
@@ -1246,8 +1334,14 @@
   "CAModelManager": [
    "CAModelManager.m"
   ],
+  "CAModelPickerValueCell": [
+   "CAModelPickerViewController.m"
+  ],
   "CAModelPickerViewController": [
    "CAModelPickerViewController.m"
+  ],
+  "CAModelPricingValueCell": [
+   "CAModelPricingViewController.m"
   ],
   "CAModelPricingViewController": [
    "CAModelPricingViewController.m"
@@ -1309,6 +1403,9 @@
   "CAStorageProgressRingView": [
    "CAStorageProgressRingView.m"
   ],
+  "CAStorageValueCell": [
+   "CAStorageViewController.m"
+  ],
   "CAStorageViewController": [
    "CAStorageViewController.m"
   ],
@@ -1323,6 +1420,9 @@
   ],
   "CASubagentPreferences": [
    "CASubagentPreferences.m"
+  ],
+  "CASubagentValueCell": [
+   "CASubagentSettingsViewController.m"
   ],
   "CASubagentSettingsViewController": [
    "CASubagentSettingsViewController.m"

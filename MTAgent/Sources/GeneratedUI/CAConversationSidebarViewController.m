@@ -11,6 +11,7 @@
 #import "CAConversationStore.h"
 #import "CAConversationCell.h"
 #import "CARuntimePaths.h"
+#import "CAAccountInfoBridge.h"
 #import "CACommon.h"
 #import "CALogger.h"
 
@@ -42,6 +43,34 @@
     NSArray *_sectionWorkspaces;
     NSDictionary *_countsByWorkspace;
     NSDictionary *_recordsByWorkspace;
+
+    // 账号页脚（底部白卡）状态：ivar 名与原包 __objc_ivars 对齐
+    UIView *_accountFooter;
+    UIView *_accountPanel;
+    UIControl *_accountControl;
+    UIImageView *_accountAvatar;
+    UILabel *_accountNameLabel;
+    UILabel *_accountStatusLabel;
+    UILabel *_accountEmailLabel;
+    UILabel *_providerHintLabel;
+    UIView *_footerSeparator;
+    NSLayoutConstraint *_accountHeight;
+    NSLayoutConstraint *_footerTop;
+    NSString *_profileHome;
+    NSString *_profileRefreshID;
+
+    // 套餐余量（同一张卡下半段：套餐余量 → 主限额 / 次限额）
+    UIControl *_quotaControl;
+    UIStackView *_quotaHeading;
+    UILabel *_quotaTitle;
+    UILabel *_quotaStatus;
+    UIImageView *_quotaChevron;
+    UIStackView *_quotaWindows;
+    NSLayoutConstraint *_quotaTop;
+    NSArray<UILabel *> *_quotaWindowValueLabels;
+    NSArray<UIProgressView *> *_quotaWindowBars;
+    NSString *_quotaRefreshError;
+    unsigned long long _quotaRefreshGeneration;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -53,6 +82,20 @@
 @property (nonatomic, strong) NSLayoutConstraint *headerHeight;
 @property (nonatomic, strong) NSLayoutConstraint *composeHeight;
 @property (nonatomic, strong) NSLayoutConstraint *workspaceHeight;
+
+#pragma mark 账号页脚私有方法（仅本文件使用）
+
+- (void)buildAccountRowInPanel:(UIView *)panel;
+- (void)buildQuotaSectionInPanel:(UIView *)panel;
+- (UIView *)quotaColumnWithTitle:(NSString *)title valueLabel:(UILabel *)valueLabel bar:(UIProgressView *)bar;
+- (void)recolorAccountFooter;
+- (void)applyQuotaSnapshot:(NSDictionary *)snapshot;
+- (NSDictionary *)quotaSnapshotFromLocalFiles:(NSString **)errorOut;
+- (NSDictionary *)quotaWindowsFromPayload:(NSDictionary *)payload;
+- (NSNumber *)quotaPercentFromValue:(id)value;
+- (NSString *)quotaPercentText:(NSNumber *)percent;
+- (NSDictionary *)profilePayloadFromObject:(id)object;
+
 @end
 
 @implementation CAConversationSidebarViewController
@@ -79,8 +122,12 @@
     self.title = @"会话";
     self.view.backgroundColor = UIColor.secondarySystemBackgroundColor;
     [self buildHeader];
+    // 底部账号卡先建：表格底边贴在卡的顶部（原包 footerTop 约束）
+    [self buildAccountFooter];
     [self buildTable];
     [self reloadConversations];
+    [self reloadAccountProfile];
+    [self refreshQuota];
 }
 
 - (void)viewDidAppear:(id)arg1
@@ -117,7 +164,14 @@
 
     _composeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _composeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_composeButton setImage:[UIImage systemImageNamed:@"square.and.pencil"] forState:UIControlStateNormal];
+    // 截图 02：铅笔图标 + 「新对话」文案（入口仍是既有 createConversation）
+    UIButtonConfiguration *composeConfiguration = [UIButtonConfiguration plainButtonConfiguration];
+    composeConfiguration.image = [UIImage systemImageNamed:@"square.and.pencil"];
+    composeConfiguration.title = @"新对话";
+    composeConfiguration.imagePadding = 6.0;
+    composeConfiguration.baseForegroundColor = UIColor.labelColor;
+    composeConfiguration.contentInsets = NSDirectionalEdgeInsetsMake(6.0, 10.0, 6.0, 12.0);
+    _composeButton.configuration = composeConfiguration;
     [_composeButton addTarget:self action:@selector(createConversation) forControlEvents:UIControlEventTouchUpInside];
     [_sidebarHeader addSubview:_composeButton];
 
@@ -149,8 +203,8 @@
 
         [_composeButton.trailingAnchor constraintEqualToAnchor:_sidebarHeader.trailingAnchor constant:-12.0],
         [_composeButton.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
-        [_composeButton.widthAnchor constraintEqualToConstant:32.0],
-        [_composeButton.heightAnchor constraintEqualToConstant:32.0],
+        [_composeButton.widthAnchor constraintGreaterThanOrEqualToConstant:88.0],
+        [_composeButton.heightAnchor constraintGreaterThanOrEqualToConstant:32.0],
 
         [_settingsButton.trailingAnchor constraintEqualToAnchor:_composeButton.leadingAnchor constant:-6.0],
         [_settingsButton.centerYAnchor constraintEqualToAnchor:_sidebarHeader.centerYAnchor],
@@ -171,11 +225,16 @@
     [_tableView registerClass:CAConversationCell.class forCellReuseIdentifier:@"CAConversationCell"];
     [self.view addSubview:_tableView];
 
+    // 表格底边让位给底部账号卡（账号卡不存在时退回贴 view 底部）
+    UIView *footerAnchorView = _accountFooter ?: self.view;
+    CGFloat footerSpacing = _accountFooter ? -8.0 : 0.0;
+    _footerTop = [_tableView.bottomAnchor constraintEqualToAnchor:footerAnchorView.topAnchor constant:footerSpacing];
+
     [NSLayoutConstraint activateConstraints:@[
         [_tableView.topAnchor constraintEqualToAnchor:_sidebarHeader.bottomAnchor],
         [_tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [_tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [_tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+        _footerTop,
 
         [_emptyLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
         [_emptyLabel.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
@@ -232,6 +291,13 @@
     _sectionWorkspaces = @[ self.workspacePath ?: @"" ];
 
     self.emptyLabel.hidden = (_records.count > 0);
+    if (_records.count == 0) {
+        // 截图 02：连项目工作区都还没有时显示引导文案；已有工作区只是没会话时用旧文案
+        NSArray *savedWorkspaces = [NSUserDefaults.standardUserDefaults arrayForKey:CADefaultsSavedWorkspaces];
+        self.emptyLabel.text = (savedWorkspaces.count > 0)
+            ? @"当前工作区还没有会话\n点右上角新建一个"
+            : @"还没有项目工作区\n点击左上角选择或新建项目";
+    }
     [self.tableView reloadData];
     CALog(CALogLevelDebug, @"CHAT", @"sidebar reloaded workspace=%@ records=%lu",
           self.workspacePath, (unsigned long)_records.count);
@@ -589,23 +655,675 @@
     return header;
 }
 
+#pragma mark - 账号页脚（截图 02 底部白卡：个人中心 / 套餐余量 / 主限额 / 次限额）
+
+/// 底部账号卡结构（ivar 名与原包 __objc_ivars 对齐）：
+///   accountFooter ⊃ accountPanel
+///     ├─ accountControl：accountAvatar（person.crop.circle.fill，灰底圆形）
+///     │                  + accountNameLabel「个人中心」+ accountStatusLabel「登录账户」+ 齿轮（openSettings）
+///     ├─ footerSeparator（卡片内分隔线，quotaTop 约束挂在它上面）
+///     ├─ quotaControl（quotaHeading：quotaTitle「套餐余量」+ quotaStatus 值 + quotaChevron）
+///     └─ quotaWindows（两列：主限额 / 次限额，各带一条细进度条）
+/// 卡片高度由内容撑开（Auto Layout），accountHeight 只做最小值兜底。
+- (void)buildAccountFooter
+{
+    if (_accountFooter) return; // 幂等：viewDidLoad / 主题切换重复调用只建一次
+
+    _accountFooter = [[UIView alloc] initWithFrame:CGRectZero];
+    _accountFooter.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountFooter.backgroundColor = UIColor.clearColor;
+    [self.view addSubview:_accountFooter];
+
+    _accountPanel = [[UIView alloc] initWithFrame:CGRectZero];
+    _accountPanel.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountPanel.layer.cornerRadius = 14.0;
+    _accountPanel.layer.cornerCurve = kCACornerCurveContinuous;
+    _accountPanel.clipsToBounds = YES;
+    [_accountFooter addSubview:_accountPanel];
+
+    [self buildAccountRowInPanel:_accountPanel];
+    [self buildQuotaSectionInPanel:_accountPanel];
+
+    _accountHeight = [_accountFooter.heightAnchor constraintGreaterThanOrEqualToConstant:132.0];
+    [NSLayoutConstraint activateConstraints:@[
+        _accountHeight,
+
+        [_accountFooter.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:12.0],
+        [_accountFooter.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-12.0],
+        [_accountFooter.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10.0],
+
+        [_accountPanel.topAnchor constraintEqualToAnchor:_accountFooter.topAnchor],
+        [_accountPanel.leadingAnchor constraintEqualToAnchor:_accountFooter.leadingAnchor],
+        [_accountPanel.trailingAnchor constraintEqualToAnchor:_accountFooter.trailingAnchor],
+        [_accountPanel.bottomAnchor constraintEqualToAnchor:_accountFooter.bottomAnchor],
+    ]];
+
+    [self recolorAccountFooter];
+    CALog(CALogLevelDebug, @"CHAT", @"sidebar account footer built home=%@", self.accountHome);
+}
+
+/// 卡片第一段：圆形头像 + 个人中心 + 登录账户/账号名 + 齿轮按钮
+- (void)buildAccountRowInPanel:(UIView *)panel
+{
+    _accountControl = [[UIControl alloc] initWithFrame:CGRectZero];
+    _accountControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [_accountControl addTarget:self action:@selector(openUsage) forControlEvents:UIControlEventTouchUpInside];
+    [panel addSubview:_accountControl];
+
+    _accountAvatar = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _accountAvatar.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountAvatar.image = [UIImage systemImageNamed:@"person.crop.circle.fill"];
+    _accountAvatar.contentMode = UIViewContentModeScaleAspectFit;
+    _accountAvatar.layer.cornerRadius = 20.0;
+    _accountAvatar.clipsToBounds = YES;
+    [_accountControl addSubview:_accountAvatar];
+
+    _accountNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _accountNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountNameLabel.text = @"个人中心";
+    _accountNameLabel.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold];
+    _accountNameLabel.textColor = UIColor.labelColor;
+
+    _accountStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _accountStatusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountStatusLabel.text = @"登录账户";
+    _accountStatusLabel.font = [UIFont systemFontOfSize:13.0 weight:UIFontWeightRegular];
+    _accountStatusLabel.textColor = UIColor.secondaryLabelColor;
+    _accountStatusLabel.adjustsFontSizeToFitWidth = YES;
+    _accountStatusLabel.minimumScaleFactor = 0.85;
+
+    _accountEmailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _accountEmailLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _accountEmailLabel.font = [UIFont systemFontOfSize:12.0 weight:UIFontWeightRegular];
+    _accountEmailLabel.textColor = UIColor.tertiaryLabelColor;
+    _accountEmailLabel.hidden = YES;
+
+    _providerHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _providerHintLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _providerHintLabel.font = [UIFont systemFontOfSize:12.0 weight:UIFontWeightRegular];
+    _providerHintLabel.textColor = UIColor.tertiaryLabelColor;
+    _providerHintLabel.hidden = YES;
+
+    // 竖向信息列：hidden 的 label 由 UIStackView 自动折叠（不会留下空白）
+    UIStackView *infoStack = [[UIStackView alloc] initWithArrangedSubviews:@[
+        _accountNameLabel, _accountStatusLabel, _accountEmailLabel, _providerHintLabel
+    ]];
+    infoStack.axis = UILayoutConstraintAxisVertical;
+    infoStack.alignment = UIStackViewAlignmentLeading;
+    infoStack.spacing = 2.0;
+    infoStack.translatesAutoresizingMaskIntoConstraints = NO;
+    [_accountControl addSubview:infoStack];
+
+    UIButton *gear = [UIButton buttonWithType:UIButtonTypeSystem];
+    gear.translatesAutoresizingMaskIntoConstraints = NO;
+    [gear setImage:[UIImage systemImageNamed:@"gearshape"] forState:UIControlStateNormal];
+    [gear addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
+    [_accountControl addSubview:gear];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_accountControl.topAnchor constraintEqualToAnchor:panel.topAnchor],
+        [_accountControl.leadingAnchor constraintEqualToAnchor:panel.leadingAnchor],
+        [_accountControl.trailingAnchor constraintEqualToAnchor:panel.trailingAnchor],
+
+        [_accountAvatar.leadingAnchor constraintEqualToAnchor:_accountControl.leadingAnchor constant:16.0],
+        [_accountAvatar.centerYAnchor constraintEqualToAnchor:_accountControl.centerYAnchor],
+        [_accountAvatar.widthAnchor constraintEqualToConstant:40.0],
+        [_accountAvatar.heightAnchor constraintEqualToConstant:40.0],
+
+        // 信息列高度决定整行高度（>= 40 保证最小行高，卡片高度自适应）
+        [infoStack.heightAnchor constraintGreaterThanOrEqualToConstant:40.0],
+        [infoStack.leadingAnchor constraintEqualToAnchor:_accountAvatar.trailingAnchor constant:12.0],
+        [infoStack.trailingAnchor constraintEqualToAnchor:gear.leadingAnchor constant:-12.0],
+        [infoStack.topAnchor constraintEqualToAnchor:_accountControl.topAnchor constant:14.0],
+        [infoStack.bottomAnchor constraintEqualToAnchor:_accountControl.bottomAnchor constant:-14.0],
+
+        [gear.trailingAnchor constraintEqualToAnchor:_accountControl.trailingAnchor constant:-16.0],
+        [gear.centerYAnchor constraintEqualToAnchor:_accountControl.centerYAnchor],
+        [gear.widthAnchor constraintEqualToConstant:28.0],
+        [gear.heightAnchor constraintEqualToConstant:28.0],
+    ]];
+}
+
+/// 卡片下两段：卡片内分隔线 + 「套餐余量」行 + 「主限额 / 次限额」两列
+- (void)buildQuotaSectionInPanel:(UIView *)panel
+{
+    _footerSeparator = [[UIView alloc] initWithFrame:CGRectZero];
+    _footerSeparator.translatesAutoresizingMaskIntoConstraints = NO;
+    _footerSeparator.backgroundColor = UIColor.separatorColor;
+    [panel addSubview:_footerSeparator];
+
+    // quotaTop：分隔线压在账号行下方（原包同名约束）
+    _quotaTop = [_footerSeparator.topAnchor constraintEqualToAnchor:_accountControl.bottomAnchor];
+    [NSLayoutConstraint activateConstraints:@[
+        _quotaTop,
+        [_footerSeparator.leadingAnchor constraintEqualToAnchor:panel.leadingAnchor constant:16.0],
+        [_footerSeparator.trailingAnchor constraintEqualToAnchor:panel.trailingAnchor constant:-16.0],
+        [_footerSeparator.heightAnchor constraintEqualToConstant:0.5],
+    ]];
+
+    // 套餐余量行（整行可点：打开用量页）
+    _quotaControl = [[UIControl alloc] initWithFrame:CGRectZero];
+    _quotaControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [_quotaControl addTarget:self action:@selector(openUsage) forControlEvents:UIControlEventTouchUpInside];
+    [panel addSubview:_quotaControl];
+
+    _quotaTitle = [[UILabel alloc] initWithFrame:CGRectZero];
+    _quotaTitle.text = @"套餐余量";
+    _quotaTitle.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    _quotaTitle.textColor = UIColor.labelColor;
+    [_quotaTitle setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+
+    _quotaStatus = [[UILabel alloc] initWithFrame:CGRectZero];
+    _quotaStatus.text = @"暂未获取";
+    _quotaStatus.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    _quotaStatus.textColor = UIColor.secondaryLabelColor;
+    _quotaStatus.textAlignment = NSTextAlignmentRight;
+    [_quotaStatus setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [_quotaStatus setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+
+    _quotaChevron = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _quotaChevron.image = [UIImage systemImageNamed:@"chevron.right"];
+    _quotaChevron.tintColor = UIColor.tertiaryLabelColor;
+    _quotaChevron.contentMode = UIViewContentModeCenter;
+
+    _quotaHeading = [[UIStackView alloc] initWithArrangedSubviews:@[ _quotaTitle, _quotaStatus, _quotaChevron ]];
+    _quotaHeading.axis = UILayoutConstraintAxisHorizontal;
+    _quotaHeading.alignment = UIStackViewAlignmentCenter;
+    _quotaHeading.spacing = 6.0;
+    _quotaHeading.translatesAutoresizingMaskIntoConstraints = NO;
+    [_quotaControl addSubview:_quotaHeading];
+
+    // 两列：主限额 / 次限额（每列 = 标题 + 数值 + 细进度条）
+    NSMutableArray<UIView *> *columns = [NSMutableArray array];
+    NSMutableArray<UILabel *> *valueLabels = [NSMutableArray array];
+    NSMutableArray<UIProgressView *> *bars = [NSMutableArray array];
+    for (NSString *windowTitle in @[ @"主限额", @"次限额" ]) {
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        valueLabel.text = @"—";
+        UIProgressView *bar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        bar.progress = 0.0;
+        [columns addObject:[self quotaColumnWithTitle:windowTitle valueLabel:valueLabel bar:bar]];
+        [valueLabels addObject:valueLabel];
+        [bars addObject:bar];
+    }
+    _quotaWindowValueLabels = [valueLabels copy];
+    _quotaWindowBars = [bars copy];
+
+    _quotaWindows = [[UIStackView alloc] initWithArrangedSubviews:columns];
+    _quotaWindows.axis = UILayoutConstraintAxisHorizontal;
+    _quotaWindows.alignment = UIStackViewAlignmentFill;
+    _quotaWindows.distribution = UIStackViewDistributionFillEqually;
+    _quotaWindows.spacing = 16.0;
+    _quotaWindows.translatesAutoresizingMaskIntoConstraints = NO;
+    [panel addSubview:_quotaWindows];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_quotaControl.topAnchor constraintEqualToAnchor:_footerSeparator.bottomAnchor],
+        [_quotaControl.leadingAnchor constraintEqualToAnchor:panel.leadingAnchor],
+        [_quotaControl.trailingAnchor constraintEqualToAnchor:panel.trailingAnchor],
+        [_quotaControl.heightAnchor constraintEqualToConstant:46.0],
+
+        [_quotaHeading.leadingAnchor constraintEqualToAnchor:_quotaControl.leadingAnchor constant:16.0],
+        [_quotaHeading.trailingAnchor constraintEqualToAnchor:_quotaControl.trailingAnchor constant:-16.0],
+        [_quotaHeading.centerYAnchor constraintEqualToAnchor:_quotaControl.centerYAnchor],
+        [_quotaChevron.widthAnchor constraintEqualToConstant:12.0],
+        [_quotaChevron.heightAnchor constraintEqualToConstant:12.0],
+
+        [_quotaWindows.topAnchor constraintEqualToAnchor:_quotaControl.bottomAnchor],
+        [_quotaWindows.leadingAnchor constraintEqualToAnchor:panel.leadingAnchor constant:16.0],
+        [_quotaWindows.trailingAnchor constraintEqualToAnchor:panel.trailingAnchor constant:-16.0],
+        [_quotaWindows.bottomAnchor constraintEqualToAnchor:panel.bottomAnchor constant:-14.0],
+    ]];
+}
+
+/// 单列：标题 + 右下角数值 + 底部细进度条
+- (UIView *)quotaColumnWithTitle:(NSString *)title valueLabel:(UILabel *)valueLabel bar:(UIProgressView *)bar
+{
+    UIView *column = [[UIView alloc] initWithFrame:CGRectZero];
+    column.translatesAutoresizingMaskIntoConstraints = NO;
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.text = title;
+    titleLabel.font = [UIFont systemFontOfSize:13.0 weight:UIFontWeightRegular];
+    titleLabel.textColor = UIColor.secondaryLabelColor;
+    [column addSubview:titleLabel];
+
+    valueLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    valueLabel.font = [UIFont systemFontOfSize:13.0 weight:UIFontWeightMedium];
+    valueLabel.textColor = UIColor.labelColor;
+    valueLabel.textAlignment = NSTextAlignmentRight;
+    [column addSubview:valueLabel];
+
+    bar.translatesAutoresizingMaskIntoConstraints = NO;
+    bar.progressTintColor = UIColor.systemBlueColor;
+    bar.trackTintColor = UIColor.tertiarySystemFillColor;
+    bar.layer.cornerRadius = 1.5;
+    bar.clipsToBounds = YES;
+    [column addSubview:bar];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [titleLabel.leadingAnchor constraintEqualToAnchor:column.leadingAnchor],
+        [titleLabel.topAnchor constraintEqualToAnchor:column.topAnchor],
+        [valueLabel.trailingAnchor constraintEqualToAnchor:column.trailingAnchor],
+        [valueLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:titleLabel.trailingAnchor constant:8.0],
+        [valueLabel.firstBaselineAnchor constraintEqualToAnchor:titleLabel.firstBaselineAnchor],
+        [bar.leadingAnchor constraintEqualToAnchor:column.leadingAnchor],
+        [bar.trailingAnchor constraintEqualToAnchor:column.trailingAnchor],
+        [bar.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:6.0],
+        [bar.heightAnchor constraintEqualToConstant:3.0],
+        [bar.bottomAnchor constraintEqualToAnchor:column.bottomAnchor],
+    ]];
+    return column;
+}
+
+/// 账号卡上色（系统动态色：浅色 / 深色自动适配；themeDidChange 时重跑）
+- (void)recolorAccountFooter
+{
+    _accountPanel.backgroundColor = UIColor.secondarySystemGroupedBackgroundColor;
+    _accountAvatar.backgroundColor = UIColor.tertiarySystemFillColor;
+    _accountAvatar.tintColor = UIColor.secondaryLabelColor;
+    _accountNameLabel.textColor = UIColor.labelColor;
+    _accountStatusLabel.textColor = UIColor.secondaryLabelColor;
+    _accountEmailLabel.textColor = UIColor.tertiaryLabelColor;
+    _providerHintLabel.textColor = UIColor.tertiaryLabelColor;
+    _footerSeparator.backgroundColor = UIColor.separatorColor;
+    _quotaTitle.textColor = UIColor.labelColor;
+    _quotaStatus.textColor = UIColor.secondaryLabelColor;
+    _quotaChevron.tintColor = UIColor.tertiaryLabelColor;
+    for (UILabel *valueLabel in _quotaWindowValueLabels) valueLabel.textColor = UIColor.labelColor;
+    for (UIProgressView *bar in _quotaWindowBars) {
+        bar.progressTintColor = UIColor.systemBlueColor;
+        bar.trackTintColor = UIColor.tertiarySystemFillColor;
+    }
+}
+
+- (void)themeDidChange
+{
+    self.view.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _sidebarHeader.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _tableView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _emptyLabel.textColor = UIColor.secondaryLabelColor;
+    [self recolorAccountFooter];
+}
+
+#pragma mark - 账号 / 配额数据
+
+/// 账号卡数据源：CAAccountInfoBridge 缓存（defaults 键 CodexAccountProfile.v2.<home>）先出图，再走官方 account/read 刷新
+- (void)reloadAccountProfile
+{
+    NSString *home = CARuntimePaths.codexHome;
+    NSString *token = [NSUUID UUID].UUIDString;
+    _profileHome = home;
+    _profileRefreshID = token; // 代际校验：只接受本轮的异步结果
+
+    CAAccountInfoBridge *bridge = [CAAccountInfoBridge sharedBridge];
+    [self applyAccountProfile:[bridge cachedProfileForHome:home]];
+    [self applyProviderIdentity];
+
+    __weak typeof(self) weakSelf = self;
+    [bridge readOfficialAccountOnMainQueueWithCompletion:^(NSDictionary *profile, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (![strongSelf->_profileRefreshID isEqualToString:token]) return; // 过期结果直接丢
+        if (profile.count > 0) {
+            [strongSelf applyAccountProfile:profile];
+        } else if (error) {
+            CALog(CALogLevelDebug, @"ACCOUNT", @"sidebar account/read failed reason=%@", error.localizedDescription ?: @"unknown");
+        }
+    }];
+}
+
+/// 账号卡文案：主标题固定「个人中心」；副标题登录后显示账号名，拿不到就维持「登录账户」
+- (void)applyAccountProfile:(id)arg1
+{
+    NSDictionary *profile = [self profilePayloadFromObject:arg1];
+    NSString *displayName = [profile[@"displayName"] isKindOfClass:NSString.class] ? profile[@"displayName"] : nil;
+    NSString *email = [profile[@"email"] isKindOfClass:NSString.class] ? profile[@"email"] : nil;
+    id authenticatedValue = profile[@"authenticated"];
+    BOOL authenticated = [authenticatedValue respondsToSelector:@selector(boolValue)] ? [authenticatedValue boolValue] : NO;
+    if (!authenticated && (displayName.length > 0 || email.length > 0)) authenticated = YES;
+
+    _accountNameLabel.text = @"个人中心";
+    NSString *subtitle = nil;
+    if (authenticated) subtitle = (displayName.length > 0) ? displayName : email;
+    _accountStatusLabel.text = (subtitle.length > 0) ? subtitle : @"登录账户";
+
+    _accountEmailLabel.text = email;
+    _accountEmailLabel.hidden = (email.length == 0 || [email isEqualToString:_accountStatusLabel.text ?: @""]);
+
+    [self applyProviderIdentity];
+    [self recolorAccountFooter];
+    CALog(CALogLevelDebug, @"ACCOUNT", @"sidebar account card authenticated=%d name=%@", authenticated, displayName ?: @"(none)");
+}
+
+/// provider 标识：启用第三方 AI 服务时在账号名下方补一行，未启用保持隐藏
+- (void)applyProviderIdentity
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    BOOL thirdParty = [defaults boolForKey:CADefaultsUseThirdPartyProvider];
+    NSString *provider = [defaults stringForKey:CADefaultsThirdPartyProviderName];
+    if (thirdParty && provider.length > 0) {
+        _providerHintLabel.text = [NSString stringWithFormat:@"第三方服务 · %@", provider];
+        _providerHintLabel.hidden = NO;
+    } else {
+        _providerHintLabel.text = nil;
+        _providerHintLabel.hidden = YES;
+    }
+}
+
+/// 配额刷新入口：代际 +1 → refreshQuotaSnapshot 异步回填
+- (void)refreshQuota
+{
+    _quotaRefreshGeneration += 1;
+    _refreshingQuota = YES;
+    _quotaTitle.text = @"套餐余量";
+    if (_quotaStatus.text.length == 0) _quotaStatus.text = @"暂未获取";
+    [self refreshQuotaSnapshot];
+}
+
+/// 读本地配额快照（原包：app-server 的 account/rateLimits/read 落盘 rate-limits.json），回主线程写 UI
+- (void)refreshQuotaSnapshot
+{
+    unsigned long long generation = _quotaRefreshGeneration;
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+        NSString *failure = nil;
+        NSDictionary *snapshot = [weakSelf quotaSnapshotFromLocalFiles:&failure] ?: @{};
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            if (generation != strongSelf->_quotaRefreshGeneration) return; // 代际校验：过期结果丢弃
+            strongSelf->_quotaRefreshError = (snapshot.count > 0) ? nil : (failure ?: @"未找到本地配额快照");
+            [strongSelf applyQuotaSnapshot:snapshot];
+        });
+    });
+}
+
+/// 本地配额快照（只读）：<codex home>/rate-limits.json → Application Support/CodexApp/rate-limits.json
+- (NSDictionary *)quotaSnapshotFromLocalFiles:(NSString **)errorOut
+{
+    NSArray<NSString *> *candidates = @[
+        [CARuntimePaths.codexHome stringByAppendingPathComponent:@"rate-limits.json"],
+        [CARuntimePaths.supportDirectory stringByAppendingPathComponent:@"rate-limits.json"],
+    ];
+    NSFileManager *fileManager = NSFileManager.defaultManager;
+    for (NSString *path in candidates) {
+        if (path.length == 0 || ![fileManager fileExistsAtPath:path]) continue;
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        if (!data) continue;
+        NSError *jsonError = nil;
+        id payload = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        if (![payload isKindOfClass:NSDictionary.class]) continue;
+        NSDictionary *windows = [self quotaWindowsFromPayload:payload];
+        if (windows.count == 0) continue;
+        return @{ @"path": path, @"windows": windows };
+    }
+    if (errorOut) *errorOut = @"未找到本地配额快照";
+    return @{};
+}
+
+/// 取 primary / secondary 两个窗口的 used_percent（兼容 rate_limits 与 rate_limits_by_limit_id 两种嵌套）
+- (NSDictionary *)quotaWindowsFromPayload:(NSDictionary *)payload
+{
+    NSMutableArray<NSDictionary *> *candidates = [NSMutableArray arrayWithObject:payload];
+    for (NSString *key in @[ @"rate_limits", @"rateLimits", @"rate_limits_by_limit_id", @"rateLimitsByLimitId" ]) {
+        id container = payload[key];
+        if (![container isKindOfClass:NSDictionary.class]) continue;
+        [candidates addObject:container];
+        for (id child in [container allValues]) {
+            if ([child isKindOfClass:NSDictionary.class]) [candidates addObject:child];
+        }
+    }
+
+    NSMutableDictionary *windows = [NSMutableDictionary dictionary];
+    for (NSDictionary *candidate in candidates) {
+        for (NSString *windowKey in @[ @"primary", @"secondary" ]) {
+            if (windows[windowKey]) continue;
+            NSNumber *percent = [self quotaPercentFromValue:candidate[windowKey]];
+            if (percent) windows[windowKey] = percent;
+        }
+    }
+    return windows;
+}
+
+/// used_percent / usedPercent 兼容数字与字符串两种写法
+- (NSNumber *)quotaPercentFromValue:(id)value
+{
+    if ([value isKindOfClass:NSNumber.class]) return value;
+    if (![value isKindOfClass:NSDictionary.class]) return nil;
+    NSDictionary *window = value;
+    for (NSString *key in @[ @"used_percent", @"usedPercent" ]) {
+        id raw = window[key];
+        if ([raw isKindOfClass:NSNumber.class]) return raw;
+        if ([raw isKindOfClass:NSString.class] && [raw length] > 0) return @([raw doubleValue]);
+    }
+    return nil;
+}
+
+/// 百分比文本：整数不带小数（62%），否则保留一位（62.5%）
+- (NSString *)quotaPercentText:(NSNumber *)percent
+{
+    NSString *text = [NSString stringWithFormat:@"%.1f", percent.doubleValue];
+    return [text hasSuffix:@".0"] ? [text substringToIndex:text.length - 2] : text;
+}
+
+/// 把快照写进卡片：没数据的窗口显示「—」且进度为 0，整体显示「暂未获取」
+- (void)applyQuotaSnapshot:(NSDictionary *)snapshot
+{
+    NSDictionary *windows = [snapshot[@"windows"] isKindOfClass:NSDictionary.class] ? snapshot[@"windows"] : @{};
+    NSNumber *primary = [windows[@"primary"] isKindOfClass:NSNumber.class] ? windows[@"primary"] : nil;
+    NSNumber *secondary = [windows[@"secondary"] isKindOfClass:NSNumber.class] ? windows[@"secondary"] : nil;
+    NSArray<NSNumber *> *percents = @[ primary ?: @(-1.0), secondary ?: @(-1.0) ];
+
+    NSArray<UILabel *> *valueLabels = _quotaWindowValueLabels ?: @[];
+    NSArray<UIProgressView *> *bars = _quotaWindowBars ?: @[];
+    NSMutableArray<NSString *> *summary = [NSMutableArray array];
+
+    for (NSUInteger index = 0; index < valueLabels.count; index += 1) {
+        NSNumber *percent = (index < percents.count) ? percents[index] : nil;
+        UILabel *valueLabel = valueLabels[index];
+        UIProgressView *bar = (index < bars.count) ? bars[index] : nil;
+        if (percent.doubleValue >= 0.0) {
+            NSString *text = [self quotaPercentText:percent];
+            valueLabel.text = [NSString stringWithFormat:@"%@%%", text];
+            bar.progress = (float)MIN(1.0, MAX(0.0, percent.doubleValue / 100.0));
+            [summary addObject:[NSString stringWithFormat:@"%@ %@%%", (index == 0) ? @"主" : @"次", text]];
+        } else {
+            valueLabel.text = @"—";
+            bar.progress = 0.0;
+        }
+    }
+
+    _quotaTitle.text = @"套餐余量";
+    _quotaStatus.text = (summary.count > 0) ? [summary componentsJoinedByString:@" · "] : @"暂未获取";
+    _refreshingQuota = NO;
+    CALog(CALogLevelDebug, @"USAGE", @"sidebar quota snapshot primary=%@ secondary=%@ error=%@",
+          primary ?: @"(none)", secondary ?: @"(none)", _quotaRefreshError ?: @"(none)");
+}
+
+/// 兼容 NSDictionary（bridge 缓存）与 CAAccountProfile 一类对象
+- (NSDictionary *)profilePayloadFromObject:(id)object
+{
+    if ([object isKindOfClass:NSDictionary.class]) return object;
+    if (!object) return @{};
+
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    for (NSString *key in @[ @"displayName", @"email", @"planType", @"accountType", @"imageURL", @"userId" ]) {
+        SEL selector = NSSelectorFromString(key);
+        if (![object respondsToSelector:selector]) continue;
+        id value = [object valueForKey:key];
+        if ([value isKindOfClass:NSString.class] && [value length] > 0) payload[key] = value;
+    }
+    for (NSString *key in @[ @"authenticated", @"readSucceeded" ]) {
+        SEL selector = NSSelectorFromString(key);
+        if (![object respondsToSelector:selector]) continue;
+        payload[key] = @([[object valueForKey:key] boolValue]);
+    }
+    return payload;
+}
+
+#pragma mark - 账号页脚访问器（对应头文件里 account* / quota* / footer* 选择器）
+
+- (id)accountAvatar { return _accountAvatar; }
+
+- (void)setAccountAvatar:(id)arg1
+{
+    _accountAvatar = [arg1 isKindOfClass:UIImageView.class] ? (UIImageView *)arg1 : nil;
+}
+
+- (id)accountControl { return _accountControl; }
+
+- (void)setAccountControl:(id)arg1
+{
+    _accountControl = [arg1 isKindOfClass:UIControl.class] ? (UIControl *)arg1 : nil;
+}
+
+- (UILabel *)accountEmailLabel { return _accountEmailLabel; }
+
+- (void)setAccountEmailLabel:(id)arg1
+{
+    _accountEmailLabel = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (UIView *)accountFooter { return _accountFooter; }
+
+- (void)setAccountFooter:(id)arg1
+{
+    _accountFooter = [arg1 isKindOfClass:UIView.class] ? (UIView *)arg1 : nil;
+}
+
+- (NSLayoutConstraint *)accountHeight { return _accountHeight; }
+
+- (void)setAccountHeight:(id)arg1
+{
+    _accountHeight = [arg1 isKindOfClass:NSLayoutConstraint.class] ? (NSLayoutConstraint *)arg1 : nil;
+}
+
+- (id)accountHome { return _profileHome.length > 0 ? _profileHome : CARuntimePaths.codexHome; }
+
+- (UILabel *)accountNameLabel { return _accountNameLabel; }
+
+- (void)setAccountNameLabel:(id)arg1
+{
+    _accountNameLabel = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (UIView *)accountPanel { return _accountPanel; }
+
+- (void)setAccountPanel:(id)arg1
+{
+    _accountPanel = [arg1 isKindOfClass:UIView.class] ? (UIView *)arg1 : nil;
+}
+
+- (UILabel *)accountStatusLabel { return _accountStatusLabel; }
+
+- (void)setAccountStatusLabel:(id)arg1
+{
+    _accountStatusLabel = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (UIView *)footerSeparator { return _footerSeparator; }
+
+- (void)setFooterSeparator:(id)arg1
+{
+    _footerSeparator = [arg1 isKindOfClass:UIView.class] ? (UIView *)arg1 : nil;
+}
+
+- (NSLayoutConstraint *)footerTop { return _footerTop; }
+
+- (void)setFooterTop:(id)arg1
+{
+    _footerTop = [arg1 isKindOfClass:NSLayoutConstraint.class] ? (NSLayoutConstraint *)arg1 : nil;
+}
+
+- (NSString *)profileHome { return _profileHome ?: @""; }
+
+- (void)setProfileHome:(id)arg1
+{
+    _profileHome = [arg1 isKindOfClass:NSString.class] ? [arg1 copy] : nil;
+}
+
+- (NSString *)profileRefreshID { return _profileRefreshID ?: @""; }
+
+- (void)setProfileRefreshID:(id)arg1
+{
+    _profileRefreshID = [arg1 isKindOfClass:NSString.class] ? [arg1 copy] : nil;
+}
+
+- (UILabel *)providerHintLabel { return _providerHintLabel; }
+
+- (void)setProviderHintLabel:(id)arg1
+{
+    _providerHintLabel = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (UIImageView *)quotaChevron { return _quotaChevron; }
+
+- (void)setQuotaChevron:(id)arg1
+{
+    _quotaChevron = [arg1 isKindOfClass:UIImageView.class] ? (UIImageView *)arg1 : nil;
+}
+
+- (id)quotaControl { return _quotaControl; }
+
+- (void)setQuotaControl:(id)arg1
+{
+    _quotaControl = [arg1 isKindOfClass:UIControl.class] ? (UIControl *)arg1 : nil;
+}
+
+- (UIStackView *)quotaHeading { return _quotaHeading; }
+
+- (void)setQuotaHeading:(id)arg1
+{
+    _quotaHeading = [arg1 isKindOfClass:UIStackView.class] ? (UIStackView *)arg1 : nil;
+}
+
+- (NSString *)quotaRefreshError { return _quotaRefreshError ?: @""; }
+
+- (void)setQuotaRefreshError:(id)arg1
+{
+    _quotaRefreshError = [arg1 isKindOfClass:NSString.class] ? [arg1 copy] : nil;
+}
+
+- (unsigned long long)quotaRefreshGeneration { return _quotaRefreshGeneration; }
+
+- (void)setQuotaRefreshGeneration:(id)arg1
+{
+    _quotaRefreshGeneration = [arg1 respondsToSelector:@selector(unsignedLongLongValue)] ? [arg1 unsignedLongLongValue] : 0;
+}
+
+- (UILabel *)quotaStatus { return _quotaStatus; }
+
+- (void)setQuotaStatus:(id)arg1
+{
+    _quotaStatus = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (UILabel *)quotaTitle { return _quotaTitle; }
+
+- (void)setQuotaTitle:(id)arg1
+{
+    _quotaTitle = [arg1 isKindOfClass:UILabel.class] ? (UILabel *)arg1 : nil;
+}
+
+- (NSLayoutConstraint *)quotaTop { return _quotaTop; }
+
+- (void)setQuotaTop:(id)arg1
+{
+    _quotaTop = [arg1 isKindOfClass:NSLayoutConstraint.class] ? (NSLayoutConstraint *)arg1 : nil;
+}
+
+- (UIStackView *)quotaWindows { return _quotaWindows; }
+
+- (void)setQuotaWindows:(id)arg1
+{
+    _quotaWindows = [arg1 isKindOfClass:UIStackView.class] ? (UIStackView *)arg1 : nil;
+}
+
 #pragma mark - 未实装（原包选择器保留）
 
-- (void)applyAccountProfile:(id)arg1 { /* TODO(parity): 账号卡片 */ }
-
-- (void)applyProviderIdentity { /* TODO(parity): provider 标识 */ }
-
-- (void)buildAccountFooter { /* TODO(parity): 账号页脚 */ }
-
-- (void)themeDidChange { /* TODO(parity) */ }
-
 - (void)reloadWorkspaceTitle { /* TODO(parity) */ }
-
-- (void)refreshQuota { /* TODO(parity) */ }
-
-- (void)refreshQuotaSnapshot { /* TODO(parity) */ }
-
-- (void)reloadAccountProfile { /* TODO(parity) */ }
 
 - (void)persistExpandedWorkspaces { /* TODO(parity) */ }
 
@@ -637,10 +1355,6 @@
 
 - (unsigned long long)filzaRequestGeneration { return 0; }
 
-- (unsigned long long)quotaRefreshGeneration { return 0; }
-
 - (void)setFilzaRequestGeneration:(id)arg1 { /* no-op */ }
-
-- (void)setQuotaRefreshGeneration:(id)arg1 { /* no-op */ }
 
 @end
