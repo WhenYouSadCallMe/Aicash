@@ -13,6 +13,7 @@
 #import "CAArchiveExtractor.h"
 #import "CAStorageManager.h"
 #import "CALogger.h"
+#import "CAEmbeddedResignEntitlements.h"
 
 @implementation CARuntimeEnvironmentBase
 
@@ -192,7 +193,7 @@
         }
         if (ok) {
             [self publishDownload:@"install" progress:0.7];
-            NSString *entitlements = [[NSBundle.mainBundle.bundlePath stringByAppendingPathComponent:@"ResignEntitlements/runtime.entitlements.plist"] copy];
+            NSString *entitlements = CAResignEntitlementsPathForRuntime();
             ok = [[CAUpdateManager sharedManager] installPackageAtPath:packagePath runtimeID:entry.runtimeID entitlements:entitlements
                                                               progress:^(double f, NSString *stage) { [self publishDownload:stage progress:0.7 + f * 0.25]; }
                                                                  error:&error];

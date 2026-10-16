@@ -16,6 +16,7 @@
 #import "CALogger.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "CAProcess.h"
+#import "CAEmbeddedResignEntitlements.h"
 
 @interface CAUpdateManager ()
 @property (nonatomic, assign) unsigned long long latestDownloadSizeBytes;
@@ -205,7 +206,7 @@
         CALog(CALogLevelError, @"RUNTIME", @"codex-sign exists but is not executable path=%@", signer);
         return NO;
     }
-    NSString *entitlements = [[NSBundle.mainBundle.bundlePath stringByAppendingPathComponent:@"ResignEntitlements/helper.entitlements.plist"] copy];
+    NSString *entitlements = CAResignEntitlementsPathForHelper();
     NSMutableArray<NSString *> *arguments = [NSMutableArray arrayWithArray:@[ @"--adhoc-only", @"--entitlements", entitlements ]];
     [arguments addObjectsFromArray:paths];
 
