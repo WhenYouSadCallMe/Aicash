@@ -16,6 +16,7 @@
 #import <sys/utsname.h>
 #import <dirent.h>
 #import <zlib.h>
+#import "CAProcess.h"
 
 #pragma mark - 小工具
 
@@ -956,7 +957,7 @@ static int CATheosHelperAssembleDeb(NSString *staging, NSString *output, NSStrin
 
     NSString *dataTar = [NSTemporaryDirectory() stringByAppendingPathComponent:@"codex-deb-data.tar"];
     NSString *dataGz = [dataTar stringByAppendingString:@".gz"];
-    NSTask *tarTask = [NSTask new];
+    CAProcess *tarTask = [CAProcess new];
     tarTask.executableURL = [NSURL fileURLWithPath:CARuntimePaths.fileToolPath];
     tarTask.arguments = @[ @"-czf", dataGz, @"-C", staging, @"--exclude=./DEBIAN", @"--exclude=./DEBIAN/*", @"." ];
     NSError *tarError = nil;
@@ -1012,7 +1013,7 @@ static int CATheosHelperMain(NSArray<NSString *> *arguments)
         if (rootPath) env[@"FAKEROOTKEY"] = @"1";
         NSMutableArray<NSString *> *bashArguments = [NSMutableArray arrayWithObject:@"-c"];
         [bashArguments addObject:[command componentsJoinedByString:@" "]];
-        NSTask *task = [NSTask new];
+        CAProcess *task = [CAProcess new];
         task.executableURL = [NSURL fileURLWithPath:CARuntimePaths.bashRealPath];
         task.arguments = bashArguments;
         task.environment = env;

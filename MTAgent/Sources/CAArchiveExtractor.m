@@ -10,6 +10,7 @@
 #import "CALogger.h"
 #import <zlib.h>
 #import <sys/stat.h>
+#import "CAProcess.h"
 
 static const size_t kTarBlock = 512;
 
@@ -123,7 +124,7 @@ static const size_t kTarBlock = 512;
     }
     if (progress) progress(0.3, [NSString stringWithFormat:@"decoding %@ via %@", suffix, tool.lastPathComponent]);
 
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:tool];
     task.arguments = @[ @"-dc", input ];
     NSPipe *pipe = [NSPipe pipe];

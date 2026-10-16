@@ -6,6 +6,7 @@
 #import "CARuntimePaths.h"
 #import <spawn.h>
 #import <sys/wait.h>
+#import "CAProcess.h"
 
 NSString *const CAEnvCodexHome             = @"CODEX_HOME";
 NSString *const CAEnvCustomAPIKey          = @"CODEX_CUSTOM_API_KEY";
@@ -112,7 +113,7 @@ int CASpawnHelper(NSString *executable, NSArray<NSString *> *arguments, NSDictio
         posix_spawn_file_actions_addchdir_np(&actions, workingDirectory.fileSystemRepresentation);
     }
 #endif
-    (void)workingDirectory;   // 说明：本 helper 当前无调用点；调用方请用 NSTask.currentDirectoryURL 指定工作目录
+    (void)workingDirectory;   // 说明：本 helper 当前无调用点；调用方请用 CAProcess.currentDirectoryURL 指定工作目录
 
     pid_t pid = 0;
     int rc = posix_spawn(&pid, path, &actions, NULL, argv, envp);
@@ -153,7 +154,7 @@ int CARunHelperInvocation(int argc, char **argv)
         // 弱符号未链接进本目标（如 ca-filetool）：退化到 bash -lc
         NSMutableArray<NSString *> *bashArgs = [NSMutableArray arrayWithObject:@"-lc"];
         [bashArgs addObject:argc > 1 ? [NSString stringWithUTF8String:argv[1]] : @""];
-        NSTask *task = [NSTask new];
+        CAProcess *task = [CAProcess new];
         task.executableURL = [NSURL fileURLWithPath:CARuntimePaths.bashRealPath];
         task.arguments = bashArgs;
         NSError *error = nil;

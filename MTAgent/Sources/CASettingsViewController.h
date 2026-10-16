@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CAProcess.h"
 
-@class NSTask;
+@class CAProcess;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *loginStatusText;
 @property (nonatomic, assign) BOOL loginOptionsExpanded;
 @property (nonatomic, assign) NSUInteger loginAttemptGeneration;
-@property (nonatomic, strong, nullable) NSTask *loginTask;
+@property (nonatomic, strong, nullable) CAProcess *loginTask;
 
 /// 设置变更回调（原包 ivar: _onSettingsChanged）
 @property (nonatomic, copy, nullable) void (^onSettingsChanged)(void);

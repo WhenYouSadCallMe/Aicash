@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CAAppServerSession.h"
+#import "CAProcess.h"
 
 // ==PARITY-FORWARD-DECLS-BEGIN==
 @class CAMessageItem;
@@ -24,7 +25,7 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
 @property (nonatomic, copy, nullable) NSString *sandboxMode;
 @property (nonatomic, assign) BOOL isLoggedIn;
 @property (nonatomic, copy, nullable) NSString *loginStatusText;
-@property (nonatomic, strong, nullable) NSTask *loginTask;
+@property (nonatomic, strong, nullable) CAProcess *loginTask;
 @property (nonatomic, copy, nullable) NSString *lastReportedExecutionError;
 @property (nonatomic, copy, nullable) NSString *mcpCatalogThreadId;
 

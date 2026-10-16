@@ -10,6 +10,7 @@
 #import "CACodexEngine.h"
 #import <spawn.h>
 #import <sys/wait.h>
+#import "CAProcess.h"
 
 static NSString *CAAgentArgumentValue(NSArray<NSString *> *arguments, NSString *flag)
 {
@@ -32,7 +33,7 @@ int CAAgentRuntimeMain(int argc, char **argv)
     BOOL wantsShell = [CACurrentInvocationName() isEqualToString:@"bash-codex"];
 
     if (wantsShell && codex.length) {
-        NSTask *task = [NSTask new];
+        CAProcess *task = [CAProcess new];
         task.executableURL = [NSURL fileURLWithPath:codex];
         task.arguments = arguments;
         NSMutableDictionary *env = [[[CACodexEngine sharedEngine] environmentForCodexInvocation] mutableCopy];
@@ -50,7 +51,7 @@ int CAAgentRuntimeMain(int argc, char **argv)
         // 无 codex 时退化为 bash -lc
         NSMutableArray<NSString *> *bashArguments = [NSMutableArray arrayWithObject:@"-lc"];
         [bashArguments addObjectsFromArray:arguments.count ? @[[arguments componentsJoinedByString:@" "]] : @[@""]];
-        NSTask *task = [NSTask new];
+        CAProcess *task = [CAProcess new];
         task.executableURL = [NSURL fileURLWithPath:CARuntimePaths.bashRealPath];
         task.arguments = bashArguments;
         NSMutableDictionary *env = [NSProcessInfo.processInfo.environment mutableCopy];

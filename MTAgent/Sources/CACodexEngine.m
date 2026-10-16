@@ -11,6 +11,7 @@
 #import "CAProviderConfiguration.h"
 #import "CAExecutionEnvironment.h"
 #import "CALogger.h"
+#import "CAProcess.h"
 
 static const NSTimeInterval kLoginStatusTimeout = 8.0;
 
@@ -275,7 +276,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
                                         developerInstructions:nil]];
     [args addObject:prompt];
 
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:exe];
     task.arguments = args;
     task.currentDirectoryURL = [NSURL fileURLWithPath:workspace.length ? workspace : CARuntimePaths.documentsDirectory];
@@ -298,7 +299,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
         for (NSString *line in [s componentsSeparatedByString:@"\n"]) if (line.length) output(line, YES);
     };
 
-    task.terminationHandler = ^(NSTask *t) {
+    task.terminationHandler = ^(CAProcess *t) {
         outPipe.fileHandleForReading.readabilityHandler = nil;
         errPipe.fileHandleForReading.readabilityHandler = nil;
         CALog(CALogLevelInfo, @"CHAT-TERMINAL", @"exec exited status=%d execution=%@", t.terminationStatus, executionMode ?: @"agent");
@@ -338,7 +339,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
         return;
     }
     CALog(CALogLevelInfo, @"ACCOUNT", @"starting login status query");
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:exe];
     task.arguments = @[ CACodexSubcommandLogin, @"status" ];
     task.environment = [self environmentForCodexInvocation];
@@ -414,7 +415,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
         if (completion) completion(NO, @"missing codex binary");
         return;
     }
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:exe];
     task.arguments = arguments;
     task.environment = [self environmentForCodexInvocation];
@@ -449,7 +450,7 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
 {
     NSString *exe = [self resolveCodexExecutable];
     if (!exe) { if (completion) completion(NO); return; }
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:exe];
     task.arguments = @[ CACodexSubcommandLogin, @"--logout" ];
     task.environment = [self environmentForCodexInvocation];

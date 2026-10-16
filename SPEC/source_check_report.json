@@ -37,6 +37,8 @@
   "MTAgent\\Sources\\CAMCPBridge.m",
   "MTAgent\\Sources\\CAModelPricingManager.h",
   "MTAgent\\Sources\\CAModelPricingManager.m",
+  "MTAgent\\Sources\\CAProcess.h",
+  "MTAgent\\Sources\\CAProcess.m",
   "MTAgent\\Sources\\CAProviderConfiguration.h",
   "MTAgent\\Sources\\CAProviderConfiguration.m",
   "MTAgent\\Sources\\CARemoteOperations.h",
@@ -410,6 +412,10 @@
   ],
   "CAThirdPartyModelCatalog": [
    "CAModelPricingManager.h"
+  ],
+  "CAProcess": [
+   "CAProcess.h",
+   "CAProcess.m"
   ],
   "CAProviderConfiguration": [
    "CAProviderConfiguration.h"
@@ -945,6 +951,9 @@
   ],
   "CAThirdPartyModelCatalog": [
    "CAModelPricingManager.m"
+  ],
+  "CAProcess": [
+   "CAProcess.m"
   ],
   "CAProviderConfiguration": [
    "CAProviderConfiguration.m"

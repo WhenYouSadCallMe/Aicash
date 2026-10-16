@@ -7,13 +7,14 @@
 #import "CACommon.h"
 #import "CAAppServerSession.h"
 #import "CALogger.h"
+#import "CAProcess.h"
 
 @interface CAAppServerSession ()
 @property (nonatomic, copy) NSString *executable;
 @property (nonatomic, copy) NSArray<NSString *> *arguments;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *environment;
 @property (nonatomic, copy) NSString *workingDirectory;
-@property (nonatomic, strong) NSTask *task;
+@property (nonatomic, strong) CAProcess *task;
 @property (nonatomic, strong) NSPipe *stdinPipe;
 @property (nonatomic, strong) NSPipe *stdoutPipe;
 @property (nonatomic, strong) NSPipe *stderrPipe;
@@ -49,7 +50,7 @@
 {
     if (self.running) { if (completion) completion(YES, nil); return; }
 
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:self.executable];
     task.arguments = self.arguments;
     task.environment = self.environment;
@@ -83,7 +84,7 @@
         }
     };
 
-    task.terminationHandler = ^(NSTask *t) {
+    task.terminationHandler = ^(CAProcess *t) {
         typeof(self) strongSelf = weakSelf;
         strongSelf.running = NO;
         strongSelf.stdoutPipe.fileHandleForReading.readabilityHandler = nil;

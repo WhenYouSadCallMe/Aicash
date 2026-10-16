@@ -8,6 +8,7 @@
 #import "CARuntimePaths.h"
 #import "CAExecutionEnvironment.h"
 #import <sys/stat.h>
+#import "CAProcess.h"
 
 @implementation CAExecutionEnvironmentProfile
 - (id)copyWithZone:(NSZone *)zone { return self; }
@@ -185,7 +186,7 @@
 
 - (NSString *)runShell:(NSString *)script environment:(NSDictionary<NSString *, NSString *> *)environment
 {
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:CARuntimePaths.bashRealPath];
     task.arguments = @[ @"-lc", script ];
     NSMutableDictionary *env = [(environment ?: NSProcessInfo.processInfo.environment) mutableCopy];

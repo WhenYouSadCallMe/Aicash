@@ -15,6 +15,7 @@
 #import "CAExecutionEnvironment.h"
 #import "CALogger.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "CAProcess.h"
 
 @interface CAUpdateManager ()
 @property (nonatomic, assign) unsigned long long latestDownloadSizeBytes;
@@ -208,7 +209,7 @@
     NSMutableArray<NSString *> *arguments = [NSMutableArray arrayWithArray:@[ @"--adhoc-only", @"--entitlements", entitlements ]];
     [arguments addObjectsFromArray:paths];
 
-    NSTask *task = [NSTask new];
+    CAProcess *task = [CAProcess new];
     task.executableURL = [NSURL fileURLWithPath:signer];
     task.arguments = arguments;
     NSMutableDictionary *environment = [NSProcessInfo.processInfo.environment mutableCopy];
