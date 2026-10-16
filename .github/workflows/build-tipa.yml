@@ -5,6 +5,13 @@ name: build-tipa
 
 on:
   workflow_dispatch:
+    inputs:
+      bundled_kernel:
+        description: "是否内置 codex 内核（false = 瘦身包，内核由 App 内运行时下载器按需下载）"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
   push:
     branches: [ main, master ]
 
@@ -21,9 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 若仓库内没有内核（Kernel/dist/codex），用官方 action 从最新成功的 build-kernel-ios 运行拉取 artifact
-      - name: 拉取内核 artifact（存在时）
+      # 默认瘦身：不内置内核（App 首次启动时经 CARuntimeManifestURL 下载）。
+      # 仅当手动触发且 bundled_kernel=true 时才拉取内核 artifact。
+      - name: 拉取内核 artifact（可选）
         id: fetch_kernel
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.bundled_kernel == 'true'
         uses: actions/github-script@v7
         with:
           script: |
