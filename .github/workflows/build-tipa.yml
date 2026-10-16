@@ -137,6 +137,7 @@ jobs:
       # 这样在没有 gh/token 的环境里也能用 git 直接取回二进制。
       - name: 回传 .tipa 到 dist 分支
         if: always()
+        continue-on-error: true
         run: |
           set -x
           TIPA=build/MT-Agent-replica.tipa
@@ -144,9 +145,12 @@ jobs:
           mkdir -p dist && cp "$TIPA" dist/
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # tipa 含 248MB 内核，超 GitHub 100MB 常规文件上限 → 走 Git LFS
+          git lfs install --local || true
+          git lfs track "dist/MT-Agent-replica.tipa" || true
           git checkout --orphan dist-publish
           git reset
-          git add -f dist/MT-Agent-replica.tipa
+          git add -f .gitattributes dist/MT-Agent-replica.tipa
           git commit -m "tipa run #${{ github.run_number }} sha=${{ github.sha }} size=$(stat -f%z dist/MT-Agent-replica.tipa)"
           git push -f origin dist-publish:dist
 
