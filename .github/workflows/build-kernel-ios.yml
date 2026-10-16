@@ -123,6 +123,24 @@ jobs:
           shasum -a 256 Kernel/dist/codex | tee Kernel/dist/codex.sha256
           ls -l Kernel/dist
 
+      # 失败时把完整编译日志落盘到 dist-kernel-logs 分支，便于无 token 环境排查
+      - name: 失败日志落盘
+        if: failure()
+        run: |
+          set -x
+          mkdir -p kernel-logs
+          # cargo 详细日志（重新编译一次拿完整错误，命中缓存时秒回）
+          . "$HOME/.cargo/env"
+          cd upstream
+          cargo build --target aarch64-apple-ios --bin codex 2>&1 | tail -n 500 > ../kernel-logs/cargo-errors.log || true
+          cd ..
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan kernel-logs-publish
+          git reset
+          git add -f kernel-logs/
+          git commit -m "kernel build failure logs run #${{ github.run_number }}" || exit 0
+          git push -f origin kernel-logs-publish:dist-kernel-logs
       - name: 上传 artifact
         uses: actions/upload-artifact@v4
         with:
