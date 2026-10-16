@@ -55,6 +55,7 @@
 #import "CATextDetailViewController.h"
 #import "CAArtifactPreviewViewController.h"
 #import "CAControlCenterPanels.h"
+#import "CAPlanDecisionViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
@@ -154,6 +155,15 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 @property (nonatomic, assign) BOOL chatStreamRefreshScheduled;
 @property (nonatomic, copy, nullable) NSString *chatLastErrorMessage;
 
+#pragma mark 服务端用户输入请求（item/tool/requestUserInput）
+
+/// 待应答的 app-server 请求 id（引擎缓存镜像）
+@property (nonatomic, strong, nullable) NSNumber *pendingUserInputRequestID;
+/// 待应答请求的 params（questions 等）
+@property (nonatomic, strong, nullable) NSDictionary *pendingUserInputParams;
+/// 当前展示中的决策卡（dismiss 未选择时也要回一个取消应答，避免回合挂死）
+@property (nonatomic, strong, nullable) UIViewController *activeDecisionPanel;
+
 #pragma mark 侧栏
 
 @property (nonatomic, strong, nullable) CAConversationSidebarViewController *conversationSidebar;
@@ -171,6 +181,11 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 @property (nonatomic, strong, nullable) NSLayoutConstraint *inputHeightConstraint;
 @property (nonatomic, assign) NSUInteger streamGeneration;
 @property (nonatomic, copy, nullable) NSString *lastUsageSummary;
+
+// P1 补齐（原包方法对齐）：thread/tokenUsage/updated → composer 卡上下文行
+@property (nonatomic, assign) double contextWindowUsedPercent;
+@property (nonatomic, assign) double cacheHitPercent;
+@property (nonatomic, assign) BOOL hasContextUsage;
 
 #pragma mark 空态 / 底部固定条（01 主会话页·空态）
 
@@ -232,6 +247,8 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (NSString *)textFromPayload:(NSDictionary *)payload;
 - (void)rememberThreadIdentifierFromPayload:(NSDictionary *)payload;
 - (void)consumeUsageFromPayload:(NSDictionary *)payload;
+- (void)applyTokenUsagePayload:(NSDictionary *)payload;
+- (void)renderContextCaption;
 - (void)renderStreamTail:(NSString *)line;
 
 - (void)updateSendButtonState;
@@ -280,6 +297,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (void)runtimeCatalogDidChange:(NSNotification *)notification;
 - (void)handleEngineEvent:(NSDictionary *)event source:(NSString *)source;
 - (void)handleEngineItem:(NSDictionary *)item method:(NSString *)method;
+- (void)presentDecisionCardForUserInput:(NSDictionary *)params requestID:(nullable NSNumber *)requestID;
+- (void)respondToPendingUserInputWithAnswers:(NSDictionary *)answers remember:(BOOL)remember requestID:(nullable NSNumber *)requestID;
+- (void)steerActiveTurnWithPrompt:(NSString *)prompt displayText:(NSString *)displayText attachments:(nullable NSArray *)attachments;
 - (CAMessageItem *)assistantMessageForItemId:(NSString *)itemId createIfNeeded:(BOOL)create;
 - (void)updateThinkingDetail:(NSString *)detail running:(BOOL)running;
 - (void)updateToolCardForItem:(NSDictionary *)item itemId:(NSString *)itemId method:(NSString *)method;
@@ -817,9 +837,13 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
     NSArray<NSString *> *attachments = [self.pendingAttachments copy];
     [self.pendingAttachments removeAllObjects];
-    self.composerField.text = @"";
-    [self updateInputHeight];
-    [self refreshAttachmentPlaceholder];
+    BOOL turnActiveNow = (self.chatTurnActive || self.chatEngine.persistentTurnInFlight);
+    // 回合进行中走 turn/steer：accepted 之前不清空输入框（失败保留原文可重试）
+    if (!turnActiveNow) {
+        self.composerField.text = @"";
+        [self updateInputHeight];
+        [self refreshAttachmentPlaceholder];
+    }
     [self setChatComposerPopupVisible:NO animated:NO];
 
     [self dispatchPromptText:text displayText:text attachments:attachments];
@@ -843,9 +867,10 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     NSString *composed = [self composedPromptWithText:prompt attachments:attachments];
     if (composed.length == 0) return;
 
-    if (self.chatTurnActive) {
-        [self appendNoticeText:@"上一轮还在运行：可以先点「停止」，或等它结束后再发。"];
-        [self conversationDidChange];
+    // 回合进行中 → turn/steer 插话（accepted 前不清输入框，失败保留原文）
+    if (self.chatTurnActive || self.chatEngine.persistentTurnInFlight) {
+        [self steerActiveTurnWithPrompt:composed displayText:(displayText.length > 0 ? displayText : composed)
+                            attachments:attachments];
         return;
     }
     if (![self chatRuntimeAvailable] || ![self chatProviderConfigured]) {
@@ -928,6 +953,39 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
         if (!strongSelf) return;
         dispatch_async(dispatch_get_main_queue(), ^{
             [strongSelf finishTurnWithStatus:exitStatus message:errorMessage];
+        });
+    }];
+}
+
+#pragma mark - turn/steer（回合进行中发送 = 插话）
+
+/// 回合进行中点发送：走引擎 steerPrompt:attachments:completion:
+/// accepted 才清输入框；失败保留输入内容，用户可重试。
+- (void)steerActiveTurnWithPrompt:(NSString *)prompt displayText:(NSString *)displayText attachments:(NSArray *)attachments
+{
+    CACodexEngine *engine = self.chatEngine ?: [CACodexEngine sharedEngine];
+    CALog(CALogLevelInfo, @"CHAT", @"steer requested chars=%lu canSteer=%@",
+          (unsigned long)prompt.length, [engine canSteerActiveTurn] ? @"YES" : @"NO");
+
+    __weak typeof(self) weakSelf = self;
+    [engine steerPrompt:prompt attachments:attachments completion:^(BOOL ok, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            if (ok) {
+                // 用户消息上屏 + 清输入框
+                [strongSelf appendMessageWithRole:CAMessageRoleUser text:(displayText.length > 0 ? displayText : prompt) detail:nil];
+                [strongSelf persistConversation];
+                strongSelf.composerField.text = @"";
+                [strongSelf updateInputHeight];
+                [strongSelf refreshAttachmentPlaceholder];
+                [strongSelf conversationDidChange];
+            } else {
+                // 失败：输入框内容保留，提示可重试
+                [strongSelf appendNoticeText:[NSString stringWithFormat:@"插话失败：%@（输入已保留，可重试）",
+                                              error.localizedDescription ?: @"未知原因"]];
+                [strongSelf conversationDidChange];
+            }
         });
     }];
 }
@@ -1434,8 +1492,29 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     NSString *rawName = method ?: type ?: @"";
     NSString *name = rawName.lowercaseString;
 
+    // 服务端用户输入请求（item/tool/requestUserInput）：弹计划/决策卡，点完选项回包给 app-server
+    if (method.length > 0 && [method isEqualToString:CARPCItemRequestUserInput]) {
+        NSNumber *requestID = self.pendingUserInputRequestID ?: self.chatEngine.pendingUserInputRequestID;
+        id rawRID = params[@"id"];
+        if ([rawRID isKindOfClass:NSNumber.class]) requestID = rawRID;
+        else if ([rawRID isKindOfClass:NSString.class]) requestID = @([(NSString *)rawRID integerValue]);
+        self.pendingUserInputRequestID = requestID;
+        self.pendingUserInputParams = params;
+        [self presentDecisionCardForUserInput:params requestID:requestID];
+        return;
+    }
+
     [self rememberThreadIdentifierFromPayload:params];
     [self consumeUsageFromPayload:params];
+
+    // P1 补齐（原包方法对齐）：thread/tokenUsage/updated（及 token_count 变体）→ 上下文百分比实时化
+    {
+        NSString *lowerMethod = name;
+        if ([lowerMethod containsString:@"tokenusage"] || [lowerMethod containsString:@"token_usage"]
+            || [lowerMethod containsString:@"token_count"] || [lowerMethod containsString:@"tokencount"]) {
+            [self applyTokenUsagePayload:params];
+        }
+    }
 
     // 1) 错误事件
     BOOL isError = [name containsString:@"error"] || params[@"error"] != nil;
@@ -1712,6 +1791,94 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     self.lastUsageSummary = [NSString stringWithFormat:@"tokens in=%@ out=%@ total=%@",
                              input ?: @0, output ?: @0, total ?: @"?"];
     [self renderStatusStrip];
+}
+
+// P1 补齐（原包方法对齐）：thread/tokenUsage/updated 宽松解析 → composer 卡上下文行
+- (void)applyTokenUsagePayload:(NSDictionary *)payload
+{
+    if (![payload isKindOfClass:NSDictionary.class]) return;
+
+    // 候选容器：total_token_usage / model_usage / context_window / 顶层
+    NSMutableArray<NSDictionary *> *candidates = [NSMutableArray arrayWithObject:payload];
+    for (NSString *key in @[ @"total_token_usage", @"totalTokenUsage", @"model_usage", @"modelUsage",
+                             @"context_window", @"contextWindow", @"info", @"token_usage", @"tokenUsage" ]) {
+        id container = payload[key];
+        if ([container isKindOfClass:NSDictionary.class]) [candidates addObject:container];
+    }
+    if ([payload[@"model_usage"] isKindOfClass:NSArray.class]) {
+        for (id entry in payload[@"model_usage"]) {
+            if ([entry isKindOfClass:NSDictionary.class]) [candidates addObject:entry];
+        }
+    }
+
+    // 累计窗口优先 total_token_usage（含 cached_input_tokens / input_tokens）
+    unsigned long long input = 0, cached = 0, output = 0, total = 0;
+    BOOL sawAny = NO;
+    unsigned long long contextLimit = 0;
+    for (NSDictionary *candidate in candidates) {
+        NSNumber *value = nil;
+        if ((value = [self p1NumberFrom:candidate[@"input_tokens"]] ?: [self p1NumberFrom:candidate[@"inputTokens"]])) {
+            input = MAX(input, value.unsignedLongLongValue); sawAny = YES;
+        }
+        if ((value = [self p1NumberFrom:candidate[@"cached_input_tokens"]] ?: [self p1NumberFrom:candidate[@"cachedInputTokens"]])) {
+            cached = MAX(cached, value.unsignedLongLongValue); sawAny = YES;
+        }
+        if ((value = [self p1NumberFrom:candidate[@"output_tokens"]] ?: [self p1NumberFrom:candidate[@"outputTokens"]])) {
+            output = MAX(output, value.unsignedLongLongValue); sawAny = YES;
+        }
+        if ((value = [self p1NumberFrom:candidate[@"total_tokens"]] ?: [self p1NumberFrom:candidate[@"totalTokens"]])) {
+            total = MAX(total, value.unsignedLongLongValue); sawAny = YES;
+        }
+        if ((value = [self p1NumberFrom:candidate[@"context_window"]] ?: [self p1NumberFrom:candidate[@"contextWindow"]]
+            ?: [self p1NumberFrom:candidate[@"limit"]])) {
+            contextLimit = MAX(contextLimit, value.unsignedLongLongValue);
+        }
+    }
+    if (!sawAny) return;
+
+    unsigned long long used = total > 0 ? total : (input + output);
+    if (used == 0) return;
+    if (contextLimit == 0) contextLimit = [self p1ContextWindowLimit];
+    if (contextLimit > 0) {
+        self.contextWindowUsedPercent = MIN(100.0, ((double)used / (double)contextLimit) * 100.0);
+        self.hasContextUsage = YES;
+    }
+    if (input > 0) {
+        self.cacheHitPercent = MIN(100.0, ((double)cached / (double)MAX(input, 1)) * 100.0);
+    }
+    [self renderContextCaption];
+}
+
+- (nullable NSNumber *)p1NumberFrom:(id)value
+{
+    if ([value isKindOfClass:NSNumber.class]) return value;
+    if ([value isKindOfClass:NSString.class] && [(NSString *)value length] > 0) return @([(NSString *)value doubleValue]);
+    return nil;
+}
+
+- (unsigned long long)p1ContextWindowLimit
+{
+    // 优先引擎的第三方 context window，其次默认 272k（原包 gpt 系上限观测）
+    if ([self.chatEngine respondsToSelector:@selector(contextWindowLimitTokens)]) {
+        id limit = [self.chatEngine contextWindowLimitTokens];
+        if ([limit respondsToSelector:@selector(unsignedLongLongValue)]) return [limit unsignedLongLongValue];
+    }
+    return 272000ull;
+}
+
+/// composer 卡首行「上下文 N% · 缓存 M」数字实时化（文案结构不动，只改数字）
+- (void)renderContextCaption
+{
+    if (!self.hasContextUsage) {
+        self.contextCaption.text = kChatContextCaptionText;
+        return;
+    }
+    NSInteger percent = (NSInteger)round(self.contextWindowUsedPercent);
+    NSString *cacheText = (self.cacheHitPercent > 0.0)
+        ? [NSString stringWithFormat:@"%d%%", (int)round(self.cacheHitPercent)]
+        : @"—";
+    self.contextCaption.text = [NSString stringWithFormat:@"上下文 %ld%% · 缓存 %@",
+                                (long)percent, cacheText];
 }
 
 - (void)renderStreamTail:(NSString *)line
@@ -3353,6 +3520,61 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
         return [self presentPanelPlaceholderNoticeWithTitle:@"审批对话框" detail:@"审批面板还在补全中。"];
     }
     return [self presentPanelInNavigationController:panel];
+}
+
+#pragma mark - 服务端用户输入请求应答（item/tool/requestUserInput → 决策卡 → sendResult）
+
+/// requestUserInput params 里的 questions 数组（兼容嵌套 item 形态）
+static NSArray *CAChatQuestionsFromUserInputParams(NSDictionary *params)
+{
+    if (![params isKindOfClass:NSDictionary.class]) return @[];
+    id raw = params[@"questions"];
+    if (![raw isKindOfClass:NSArray.class]) {
+        NSDictionary *item = [params[@"item"] isKindOfClass:NSDictionary.class] ? params[@"item"] : @{};
+        raw = item[@"questions"] ?: params[@"inputs"];
+    }
+    return [raw isKindOfClass:NSArray.class] ? raw : @[];
+}
+
+/// 弹决策卡：completion 一定触发一次回包（选完 / 全部允许 / 稍后处理 / dismiss 未选择都算）
+- (void)presentDecisionCardForUserInput:(NSDictionary *)params requestID:(NSNumber *)requestID
+{
+    NSArray *questions = CAChatQuestionsFromUserInputParams(params);
+    CALog(CALogLevelInfo, @"CHAT", @"decision card questions=%lu requestID=%@",
+          (unsigned long)questions.count, requestID ?: @"?");
+
+    __weak typeof(self) weakSelf = self;
+    UIViewController *panel = [[CAPlanDecisionViewController alloc] initWithQuestions:questions
+                                                                           completion:^(BOOL approved, NSDictionary *answers, BOOL rememberChoice) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        strongSelf.activeDecisionPanel = nil;
+        // answers schema（保守包装）：{"answers": {questionId: {...}}, "remember": BOOL}
+        NSDictionary *payload = @{
+            @"answers": answers ?: @{},
+            @"remember": @(rememberChoice),
+        };
+        [strongSelf respondToPendingUserInputWithAnswers:payload remember:rememberChoice requestID:requestID];
+    }];
+    if (!panel) {
+        // 卡弹不出来也必须回包（取消语义），否则回合挂死
+        CALog(CALogLevelWarn, @"CHAT", @"decision card unavailable, answering cancel requestID=%@", requestID ?: @"?");
+        [self respondToPendingUserInputWithAnswers:@{ @"answers": @{} } remember:NO requestID:requestID];
+        return;
+    }
+    self.activeDecisionPanel = panel;
+    [self presentPanelInNavigationController:panel];
+}
+
+/// 把答案送回 app-server：sendResult:forRequestID:，并清 pending 缓存
+- (void)respondToPendingUserInputWithAnswers:(NSDictionary *)answers remember:(BOOL)remember requestID:(NSNumber *)requestID
+{
+    CACodexEngine *engine = self.chatEngine ?: [CACodexEngine sharedEngine];
+    NSNumber *rid = requestID ?: self.pendingUserInputRequestID ?: engine.pendingUserInputRequestID;
+    CALog(CALogLevelInfo, @"CHAT", @"respond user-input requestID=%@ answers=%@", rid ?: @"?", answers ?: @{});
+    [engine respondToUserInputRequest:rid answers:answers];
+    self.pendingUserInputRequestID = nil;
+    self.pendingUserInputParams = nil;
 }
 
 #pragma mark - Git 角标 / 工作区

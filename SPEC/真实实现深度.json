@@ -1,0 +1,980 @@
+[
+ {
+  "class": "CAComposerCatalogItem",
+  "selectors": 24,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAConversationRecord",
+  "selectors": 37,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAExecutionEnvironmentProfile",
+  "selectors": 27,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAManagedRuntimeEnvironment",
+  "selectors": 35,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAPythonEnvironment",
+  "selectors": 61,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAReverseToolsEnvironment",
+  "selectors": 65,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CARuntimeCatalogEntry",
+  "selectors": 31,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CATheosEnvironment",
+  "selectors": 152,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CAThirdPartyModelCatalog",
+  "selectors": 5,
+  "implemented": 0,
+  "pct": 0.0
+ },
+ {
+  "class": "CACodexEngine",
+  "selectors": 380,
+  "implemented": 38,
+  "pct": 10.0
+ },
+ {
+  "class": "CAUpdateManager",
+  "selectors": 65,
+  "implemented": 10,
+  "pct": 15.384615384615385
+ },
+ {
+  "class": "CAStorageManager",
+  "selectors": 36,
+  "implemented": 6,
+  "pct": 16.666666666666668
+ },
+ {
+  "class": "CAAppServerSession",
+  "selectors": 60,
+  "implemented": 12,
+  "pct": 20.0
+ },
+ {
+  "class": "CAChatViewController",
+  "selectors": 585,
+  "implemented": 134,
+  "pct": 22.905982905982906
+ },
+ {
+  "class": "CARuntimePaths",
+  "selectors": 19,
+  "implemented": 6,
+  "pct": 31.57894736842105
+ },
+ {
+  "class": "CAConversationStore",
+  "selectors": 56,
+  "implemented": 18,
+  "pct": 32.142857142857146
+ },
+ {
+  "class": "CASettingsViewController",
+  "selectors": 160,
+  "implemented": 57,
+  "pct": 35.625
+ },
+ {
+  "class": "CAModelPricingManager",
+  "selectors": 65,
+  "implemented": 31,
+  "pct": 47.69230769230769
+ },
+ {
+  "class": "CAStreamRevealTarget",
+  "selectors": 4,
+  "implemented": 2,
+  "pct": 50.0
+ },
+ {
+  "class": "CARemoteOperations",
+  "selectors": 41,
+  "implemented": 21,
+  "pct": 51.21951219512195
+ },
+ {
+  "class": "CAComposerCatalog",
+  "selectors": 67,
+  "implemented": 35,
+  "pct": 52.23880597014925
+ },
+ {
+  "class": "CAConversationCell",
+  "selectors": 13,
+  "implemented": 7,
+  "pct": 53.84615384615385
+ },
+ {
+  "class": "CACodeBlockView",
+  "selectors": 16,
+  "implemented": 9,
+  "pct": 56.25
+ },
+ {
+  "class": "CAComposerPopupItem",
+  "selectors": 19,
+  "implemented": 11,
+  "pct": 57.89473684210526
+ },
+ {
+  "class": "CALogViewerViewController",
+  "selectors": 87,
+  "implemented": 51,
+  "pct": 58.62068965517241
+ },
+ {
+  "class": "CAComposerPopupCell",
+  "selectors": 18,
+  "implemented": 11,
+  "pct": 61.111111111111114
+ },
+ {
+  "class": "CAToolCardCell",
+  "selectors": 62,
+  "implemented": 38,
+  "pct": 61.29032258064516
+ },
+ {
+  "class": "CARuntimeCatalog",
+  "selectors": 33,
+  "implemented": 21,
+  "pct": 63.63636363636363
+ },
+ {
+  "class": "CAAppDelegate",
+  "selectors": 23,
+  "implemented": 15,
+  "pct": 65.21739130434783
+ },
+ {
+  "class": "CAThinkingCell",
+  "selectors": 65,
+  "implemented": 43,
+  "pct": 66.15384615384616
+ },
+ {
+  "class": "CAGitCleanCell",
+  "selectors": 3,
+  "implemented": 2,
+  "pct": 66.66666666666667
+ },
+ {
+  "class": "CAMessageCell",
+  "selectors": 82,
+  "implemented": 57,
+  "pct": 69.51219512195122
+ },
+ {
+  "class": "CAMessageItem",
+  "selectors": 62,
+  "implemented": 44,
+  "pct": 70.96774193548387
+ },
+ {
+  "class": "CALogger",
+  "selectors": 46,
+  "implemented": 33,
+  "pct": 71.73913043478261
+ },
+ {
+  "class": "CADiagnosticsViewController",
+  "selectors": 78,
+  "implemented": 56,
+  "pct": 71.7948717948718
+ },
+ {
+  "class": "CAComposerPopupView",
+  "selectors": 53,
+  "implemented": 39,
+  "pct": 73.58490566037736
+ },
+ {
+  "class": "CABottomFollowTarget",
+  "selectors": 4,
+  "implemented": 3,
+  "pct": 75.0
+ },
+ {
+  "class": "CAMermaidWeakScriptMessageHandler",
+  "selectors": 4,
+  "implemented": 3,
+  "pct": 75.0
+ },
+ {
+  "class": "CAQueuedMessageBubbleView",
+  "selectors": 4,
+  "implemented": 3,
+  "pct": 75.0
+ },
+ {
+  "class": "CAGitDiffResult",
+  "selectors": 13,
+  "implemented": 10,
+  "pct": 76.92307692307692
+ },
+ {
+  "class": "CAProviderConfiguration",
+  "selectors": 13,
+  "implemented": 10,
+  "pct": 76.92307692307692
+ },
+ {
+  "class": "CAContextGaugeView",
+  "selectors": 9,
+  "implemented": 7,
+  "pct": 77.77777777777777
+ },
+ {
+  "class": "CABackgroundKeepAlive",
+  "selectors": 37,
+  "implemented": 29,
+  "pct": 78.37837837837837
+ },
+ {
+  "class": "CAAgentRuntimeManager",
+  "selectors": 10,
+  "implemented": 8,
+  "pct": 80.0
+ },
+ {
+  "class": "CAAgentStatusTextCell",
+  "selectors": 5,
+  "implemented": 4,
+  "pct": 80.0
+ },
+ {
+  "class": "CAGitPill",
+  "selectors": 5,
+  "implemented": 4,
+  "pct": 80.0
+ },
+ {
+  "class": "CATransportNoticeCollectionCell",
+  "selectors": 5,
+  "implemented": 4,
+  "pct": 80.0
+ },
+ {
+  "class": "CADiagnosticsRingView",
+  "selectors": 11,
+  "implemented": 9,
+  "pct": 81.81818181818181
+ },
+ {
+  "class": "CAExecutionEnvironment",
+  "selectors": 11,
+  "implemented": 9,
+  "pct": 81.81818181818181
+ },
+ {
+  "class": "CAStorageProgressRingView",
+  "selectors": 11,
+  "implemented": 9,
+  "pct": 81.81818181818181
+ },
+ {
+  "class": "CAComposerPopupSection",
+  "selectors": 6,
+  "implemented": 5,
+  "pct": 83.33333333333333
+ },
+ {
+  "class": "CAGitChangeStyle",
+  "selectors": 6,
+  "implemented": 5,
+  "pct": 83.33333333333333
+ },
+ {
+  "class": "CAInlineZoomImagePreview",
+  "selectors": 12,
+  "implemented": 10,
+  "pct": 83.33333333333333
+ },
+ {
+  "class": "CAActiveRunIndicator",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAAgentStatusKeyValueCell",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAAgentTurnHeaderView",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAGitChangeCell",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAStreamRevealUnit",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAWorkspaceBadgeView",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAWorkspaceItem",
+  "selectors": 7,
+  "implemented": 6,
+  "pct": 85.71428571428571
+ },
+ {
+  "class": "CAStreamingTextView",
+  "selectors": 37,
+  "implemented": 32,
+  "pct": 86.48648648648648
+ },
+ {
+  "class": "CAModelPickerViewController",
+  "selectors": 15,
+  "implemented": 13,
+  "pct": 86.66666666666667
+ },
+ {
+  "class": "CAGitEmptyStateView",
+  "selectors": 8,
+  "implemented": 7,
+  "pct": 87.5
+ },
+ {
+  "class": "CAInlineMediaPreview",
+  "selectors": 17,
+  "implemented": 15,
+  "pct": 88.23529411764706
+ },
+ {
+  "class": "CATextDetailViewController",
+  "selectors": 17,
+  "implemented": 15,
+  "pct": 88.23529411764706
+ },
+ {
+  "class": "CAConversationSidebarViewController",
+  "selectors": 139,
+  "implemented": 123,
+  "pct": 88.48920863309353
+ },
+ {
+  "class": "CAAgentBlock",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAAgentProgressRingView",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CALogEntryCell",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAMermaidNode",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAMermaidSequenceParticipant",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAModelManager",
+  "selectors": 18,
+  "implemented": 16,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAPlanStepCell",
+  "selectors": 9,
+  "implemented": 8,
+  "pct": 88.88888888888889
+ },
+ {
+  "class": "CAProfileAvatarView",
+  "selectors": 19,
+  "implemented": 17,
+  "pct": 89.47368421052632
+ },
+ {
+  "class": "CAGitGroupHeaderView",
+  "selectors": 10,
+  "implemented": 9,
+  "pct": 90.0
+ },
+ {
+  "class": "CAMermaidCanvasView",
+  "selectors": 10,
+  "implemented": 9,
+  "pct": 90.0
+ },
+ {
+  "class": "CAProjectInstructionsViewController",
+  "selectors": 20,
+  "implemented": 18,
+  "pct": 90.0
+ },
+ {
+  "class": "CARootViewController",
+  "selectors": 10,
+  "implemented": 9,
+  "pct": 90.0
+ },
+ {
+  "class": "CAAgentStatusRowCell",
+  "selectors": 11,
+  "implemented": 10,
+  "pct": 90.9090909090909
+ },
+ {
+  "class": "CAMermaidSequenceCanvasView",
+  "selectors": 11,
+  "implemented": 10,
+  "pct": 90.9090909090909
+ },
+ {
+  "class": "CASubagentSettingsViewController",
+  "selectors": 22,
+  "implemented": 20,
+  "pct": 90.9090909090909
+ },
+ {
+  "class": "CAUpdateProgress",
+  "selectors": 11,
+  "implemented": 10,
+  "pct": 90.9090909090909
+ },
+ {
+  "class": "CAAgentProfileViewController",
+  "selectors": 26,
+  "implemented": 24,
+  "pct": 92.3076923076923
+ },
+ {
+  "class": "CAAgentStatusDetailViewController",
+  "selectors": 13,
+  "implemented": 12,
+  "pct": 92.3076923076923
+ },
+ {
+  "class": "CAAgentTurn",
+  "selectors": 13,
+  "implemented": 12,
+  "pct": 92.3076923076923
+ },
+ {
+  "class": "CAMermaidEdge",
+  "selectors": 13,
+  "implemented": 12,
+  "pct": 92.3076923076923
+ },
+ {
+  "class": "CAWorkspaceProjectCell",
+  "selectors": 13,
+  "implemented": 12,
+  "pct": 92.3076923076923
+ },
+ {
+  "class": "CAAgentCapsuleView",
+  "selectors": 14,
+  "implemented": 13,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAChatTextLabel",
+  "selectors": 14,
+  "implemented": 13,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAManagedRuntimeDownload",
+  "selectors": 14,
+  "implemented": 13,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAPlanDecisionChoiceView",
+  "selectors": 14,
+  "implemented": 13,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAUsageViewController",
+  "selectors": 42,
+  "implemented": 39,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAWorkspaceActionsCell",
+  "selectors": 14,
+  "implemented": 13,
+  "pct": 92.85714285714286
+ },
+ {
+  "class": "CAAgentRuntimeProcess",
+  "selectors": 29,
+  "implemented": 27,
+  "pct": 93.10344827586206
+ },
+ {
+  "class": "CARateLimitManager",
+  "selectors": 29,
+  "implemented": 27,
+  "pct": 93.10344827586206
+ },
+ {
+  "class": "CAComposerAttachmentCell",
+  "selectors": 15,
+  "implemented": 14,
+  "pct": 93.33333333333333
+ },
+ {
+  "class": "CAPlanStatusRing",
+  "selectors": 15,
+  "implemented": 14,
+  "pct": 93.33333333333333
+ },
+ {
+  "class": "CASubagentPreferences",
+  "selectors": 15,
+  "implemented": 14,
+  "pct": 93.33333333333333
+ },
+ {
+  "class": "CAContextUsageViewController",
+  "selectors": 32,
+  "implemented": 30,
+  "pct": 93.75
+ },
+ {
+  "class": "CAPathPickerViewController",
+  "selectors": 32,
+  "implemented": 30,
+  "pct": 93.75
+ },
+ {
+  "class": "CAPlanReviewViewController",
+  "selectors": 16,
+  "implemented": 15,
+  "pct": 93.75
+ },
+ {
+  "class": "CAPythonDownload",
+  "selectors": 16,
+  "implemented": 15,
+  "pct": 93.75
+ },
+ {
+  "class": "CAReverseToolsDownload",
+  "selectors": 16,
+  "implemented": 15,
+  "pct": 93.75
+ },
+ {
+  "class": "CATheosRuntimeDownload",
+  "selectors": 16,
+  "implemented": 15,
+  "pct": 93.75
+ },
+ {
+  "class": "CAChatCollectionView",
+  "selectors": 33,
+  "implemented": 31,
+  "pct": 93.93939393939394
+ },
+ {
+  "class": "CAExtensionsViewController",
+  "selectors": 33,
+  "implemented": 31,
+  "pct": 93.93939393939394
+ },
+ {
+  "class": "CAAccountProfile",
+  "selectors": 17,
+  "implemented": 16,
+  "pct": 94.11764705882354
+ },
+ {
+  "class": "CAAgentStatusViewController",
+  "selectors": 17,
+  "implemented": 16,
+  "pct": 94.11764705882354
+ },
+ {
+  "class": "CAMarkdownBlock",
+  "selectors": 17,
+  "implemented": 16,
+  "pct": 94.11764705882354
+ },
+ {
+  "class": "CAUpdateDownload",
+  "selectors": 17,
+  "implemented": 16,
+  "pct": 94.11764705882354
+ },
+ {
+  "class": "CASwitchButton",
+  "selectors": 19,
+  "implemented": 18,
+  "pct": 94.73684210526316
+ },
+ {
+  "class": "CAModelItem",
+  "selectors": 20,
+  "implemented": 19,
+  "pct": 95.0
+ },
+ {
+  "class": "CAModelPricingViewController",
+  "selectors": 40,
+  "implemented": 38,
+  "pct": 95.0
+ },
+ {
+  "class": "CAToolItem",
+  "selectors": 20,
+  "implemented": 19,
+  "pct": 95.0
+ },
+ {
+  "class": "CAGitSummaryCell",
+  "selectors": 21,
+  "implemented": 20,
+  "pct": 95.23809523809524
+ },
+ {
+  "class": "CAPlanProgressViewController",
+  "selectors": 21,
+  "implemented": 20,
+  "pct": 95.23809523809524
+ },
+ {
+  "class": "CAThemeManager",
+  "selectors": 21,
+  "implemented": 20,
+  "pct": 95.23809523809524
+ },
+ {
+  "class": "CAArtifactPreviewViewController",
+  "selectors": 22,
+  "implemented": 21,
+  "pct": 95.45454545454545
+ },
+ {
+  "class": "CALogEntry",
+  "selectors": 22,
+  "implemented": 21,
+  "pct": 95.45454545454545
+ },
+ {
+  "class": "CAExtensionListViewController",
+  "selectors": 45,
+  "implemented": 43,
+  "pct": 95.55555555555556
+ },
+ {
+  "class": "CAComposerAttachmentGridView",
+  "selectors": 23,
+  "implemented": 22,
+  "pct": 95.65217391304348
+ },
+ {
+  "class": "CAMermaidSequenceItem",
+  "selectors": 23,
+  "implemented": 22,
+  "pct": 95.65217391304348
+ },
+ {
+  "class": "CATextEditorViewController",
+  "selectors": 47,
+  "implemented": 45,
+  "pct": 95.74468085106383
+ },
+ {
+  "class": "CAWorkspaceViewController",
+  "selectors": 47,
+  "implemented": 45,
+  "pct": 95.74468085106383
+ },
+ {
+  "class": "CAWorkspaceCurrentCell",
+  "selectors": 24,
+  "implemented": 23,
+  "pct": 95.83333333333333
+ },
+ {
+  "class": "CAWorkspaceManager",
+  "selectors": 25,
+  "implemented": 24,
+  "pct": 96.0
+ },
+ {
+  "class": "CAMTArtifactWebView",
+  "selectors": 27,
+  "implemented": 26,
+  "pct": 96.29629629629629
+ },
+ {
+  "class": "CAGitCommitBar",
+  "selectors": 29,
+  "implemented": 28,
+  "pct": 96.55172413793103
+ },
+ {
+  "class": "CAComposerCameraCoordinator",
+  "selectors": 31,
+  "implemented": 30,
+  "pct": 96.7741935483871
+ },
+ {
+  "class": "CAStorageViewController",
+  "selectors": 31,
+  "implemented": 30,
+  "pct": 96.7741935483871
+ },
+ {
+  "class": "CAGitDiffViewController",
+  "selectors": 32,
+  "implemented": 31,
+  "pct": 96.875
+ },
+ {
+  "class": "CAPlanDecisionViewController",
+  "selectors": 33,
+  "implemented": 32,
+  "pct": 96.96969696969697
+ },
+ {
+  "class": "CAGitSummaryModel",
+  "selectors": 35,
+  "implemented": 34,
+  "pct": 97.14285714285714
+ },
+ {
+  "class": "CATodoProgressButton",
+  "selectors": 38,
+  "implemented": 37,
+  "pct": 97.36842105263158
+ },
+ {
+  "class": "CAGitRepository",
+  "selectors": 39,
+  "implemented": 38,
+  "pct": 97.43589743589743
+ },
+ {
+  "class": "CAConversationBackgroundRun",
+  "selectors": 40,
+  "implemented": 39,
+  "pct": 97.5
+ },
+ {
+  "class": "CAMermaidDiagramView",
+  "selectors": 41,
+  "implemented": 40,
+  "pct": 97.5609756097561
+ },
+ {
+  "class": "CAGitSnapshot",
+  "selectors": 42,
+  "implemented": 41,
+  "pct": 97.61904761904762
+ },
+ {
+  "class": "CAActivityCardCell",
+  "selectors": 90,
+  "implemented": 88,
+  "pct": 97.77777777777777
+ },
+ {
+  "class": "CAComposerTextView",
+  "selectors": 49,
+  "implemented": 48,
+  "pct": 97.95918367346938
+ },
+ {
+  "class": "CAUpdateViewController",
+  "selectors": 55,
+  "implemented": 54,
+  "pct": 98.18181818181819
+ },
+ {
+  "class": "CACompactOperationsCell",
+  "selectors": 64,
+  "implemented": 63,
+  "pct": 98.4375
+ },
+ {
+  "class": "CAGitChangesViewController",
+  "selectors": 128,
+  "implemented": 126,
+  "pct": 98.4375
+ },
+ {
+  "class": "CAANSIParser",
+  "selectors": 3,
+  "implemented": 3,
+  "pct": 100.0
+ },
+ {
+  "class": "CAAccountInfoBridge",
+  "selectors": 8,
+  "implemented": 8,
+  "pct": 100.0
+ },
+ {
+  "class": "CAAgentIcon",
+  "selectors": 10,
+  "implemented": 10,
+  "pct": 100.0
+ },
+ {
+  "class": "CAAgentIdentity",
+  "selectors": 2,
+  "implemented": 2,
+  "pct": 100.0
+ },
+ {
+  "class": "CAArchiveExtractor",
+  "selectors": 2,
+  "implemented": 2,
+  "pct": 100.0
+ },
+ {
+  "class": "CAArtifactCardsView",
+  "selectors": 1,
+  "implemented": 1,
+  "pct": 100.0
+ },
+ {
+  "class": "CAArtifactPreview",
+  "selectors": 4,
+  "implemented": 4,
+  "pct": 100.0
+ },
+ {
+  "class": "CAArtifactResolver",
+  "selectors": 7,
+  "implemented": 7,
+  "pct": 100.0
+ },
+ {
+  "class": "CAChatDisplayPreferences",
+  "selectors": 2,
+  "implemented": 2,
+  "pct": 100.0
+ },
+ {
+  "class": "CACodexMetadataReader",
+  "selectors": 5,
+  "implemented": 5,
+  "pct": 100.0
+ },
+ {
+  "class": "CACommandSemantic",
+  "selectors": 11,
+  "implemented": 11,
+  "pct": 100.0
+ },
+ {
+  "class": "CAGitChipLabel",
+  "selectors": 6,
+  "implemented": 6,
+  "pct": 100.0
+ },
+ {
+  "class": "CAGlobalInstructionDefaults",
+  "selectors": 8,
+  "implemented": 8,
+  "pct": 100.0
+ },
+ {
+  "class": "CAMTBadgeLabel",
+  "selectors": 2,
+  "implemented": 2,
+  "pct": 100.0
+ },
+ {
+  "class": "CAMarkdownTableView",
+  "selectors": 1,
+  "implemented": 1,
+  "pct": 100.0
+ },
+ {
+  "class": "CAProtectedFileWriter",
+  "selectors": 5,
+  "implemented": 5,
+  "pct": 100.0
+ },
+ {
+  "class": "CARuntimeCompatibilityProbe",
+  "selectors": 5,
+  "implemented": 5,
+  "pct": 100.0
+ },
+ {
+  "class": "CAShareInbox",
+  "selectors": 9,
+  "implemented": 9,
+  "pct": 100.0
+ },
+ {
+  "class": "CAShellEnvironment",
+  "selectors": 2,
+  "implemented": 2,
+  "pct": 100.0
+ },
+ {
+  "class": "CAUIStyle",
+  "selectors": 9,
+  "implemented": 9,
+  "pct": 100.0
+ }
+]

@@ -161,6 +161,35 @@
     }
 }
 
+- (void)sendResult:(id)result forRequestID:(id)requestID
+{
+    if (!self.running) {
+        CALog(CALogLevelWarn, @"APP-SERVER", @"sendResult dropped requestID=%@ server not running", requestID ?: @"?");
+        return;
+    }
+    if (![requestID respondsToSelector:@selector(unsignedIntegerValue)]) return;
+
+    NSMutableDictionary *message = [NSMutableDictionary dictionary];
+    message[@"jsonrpc"] = @"2.0";
+    message[@"id"] = requestID;
+    // codex 协议正常路径：result 为 nil 时回空对象，保证服务端能拿到合法应答解除等待
+    message[@"result"] = (result != nil) ? result : @{};
+    NSData *payload = [NSJSONSerialization dataWithJSONObject:message options:0 error:NULL];
+    if (!payload) {
+        CALog(CALogLevelError, @"APP-SERVER", @"sendResult serialization failed requestID=%@", requestID);
+        return;
+    }
+    NSMutableData *line = [payload mutableCopy];
+    [line appendBytes:"\n" length:1];
+    @try {
+        [self.stdinPipe.fileHandleForWriting writeData:line];
+        CALog(CALogLevelInfo, @"APP-SERVER", @"sendResult requestID=%@ keys=%@", requestID,
+              [result isKindOfClass:NSDictionary.class] ? ((NSDictionary *)result).allKeys ?: @[] : @[]);
+    } @catch (NSException *exception) {
+        CALog(CALogLevelError, @"APP-SERVER", @"sendResult write failed requestID=%@ error=%@", requestID, exception.reason ?: @"");
+    }
+}
+
 - (void)ingestData:(NSData *)data
 {
     NSString *chunk = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] ?: @"";
@@ -198,6 +227,22 @@
     }
     NSString *method = message[@"method"];
     NSDictionary *params = [message[@"params"] isKindOfClass:NSDictionary.class] ? message[@"params"] : @{};
+
+    // 带 id 但不带 result/error 的入站消息是「服务端请求」：客户端必须回 {"id":rid,"result":...}，
+    // 否则服务端回合会一直等待。设置了 serverRequestHandler 就交给它（由调用方决定是否已回包，
+    // 这里不再走通知分发避免重复弹卡）；未设置时维持旧行为（当通知处理）。
+    if (message[@"id"] && !message[@"result"] && !message[@"error"] && method.length > 0) {
+        id rid = message[@"id"];
+        void (^handler)(NSString *, NSDictionary *, NSNumber *) = self.serverRequestHandler;
+        if (handler) {
+            NSNumber *requestID = [rid isKindOfClass:NSNumber.class] ? rid
+                                  : [rid isKindOfClass:NSString.class] ? @([(NSString *)rid integerValue]) : nil;
+            if (requestID) {
+                handler(method, params, requestID);
+                return;
+            }
+        }
+    }
 
     if ([method isEqualToString:CARPCNotificationInvalidated]) {
         if ([self.delegate respondsToSelector:@selector(appServerSession:didInvalidateWithReason:)]) {

@@ -166,3 +166,15 @@ void CALog(CALogLevel level, NSString *category, NSString *format, ...) NS_FORMA
 BOOL CAIsHelperInvocation(void);                 // 当前进程是否是 helper（argv[0] 为 bash/sh/…）
 NSString *CACurrentInvocationName(void);         // argv[0] 的 basename
 int CARunHelperInvocation(int argc, char **argv);// 分发到 bash.real / codex / ca-filetool / code-mode-host
+
+#pragma mark - 原包零提及符号（IDA 字符串表对齐；实现见 CAConstants.m）
+
+extern NSString *const CAMERA;                                    // @"camera"（执行模式相机标记）
+extern NSString *const CAStorageSafety;                           // @"CAStorageSafety"（错误域）
+extern NSString *const CATheosLastBundlePath;                     // defaults 键：最后一次 Theos bundle 路径
+extern NSString *const CATheosLastModuleIdentity;                 // defaults 键：最后一次模块标识
+extern NSString *const CAUpdateManagerDidChangeNotification;      // 通知：更新管理器状态变化
+extern NSString *const CAUseBundledCodexForTest;                  // 测试开关：强制使用内置 codex
+extern NSString *const CAPythonEnvironmentDidChangeNotification;  // 通知：Python 运行时变化
+extern NSString *const CATheosEnvironmentDidChangeNotification;   // 通知：Theos 运行时变化
+extern NSString *const CATheosPreparationProgress;                // 通知：Theos 准备进度（userInfo: stage/fraction/status/error）

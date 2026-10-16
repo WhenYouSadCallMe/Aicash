@@ -20,6 +20,10 @@ NSNotificationName const CACodexEngineAppServerNotification = @"CACodexEngineApp
 NSString *const CACodexEngineNotificationMethodKey = @"method";
 NSString *const CACodexEngineNotificationParamsKey = @"params";
 
+// P1 补齐（原包方法对齐）：常驻 app-server 会话就绪信号
+NSNotificationName const CACodexEnginePersistentSessionReadyNotification = @"CACodexEnginePersistentSessionReadyNotification";
+NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpdateNotification";
+
 @interface CACodexEngine () {
     CACodexTurnCompletion _pendingTurnCompletion;
     NSString *_activeTurnId;
@@ -28,6 +32,12 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
     NSUInteger _turnGeneration;
     BOOL _turnInFlight;
     CAProcess *_activeExecTask;
+    // 任务 A：服务端用户输入请求缓存（原包行为：缓存 requestID，决策卡点完再回包）
+    NSNumber *_pendingUserInputRequestID;
+    NSDictionary *_pendingUserInputParams;
+    // 任务 B：turn/steer（原包同名 ivar：已接受插话的回合 id 集合 + 不可插话时的排队消息）
+    NSMutableSet *_steeringQueuedMessageIDs;
+    NSMutableArray *_pendingSteerMessages;
 }
 @end
 
@@ -48,6 +58,13 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
         _thirdPartyProviderName = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsThirdPartyProviderName];
         _persistsProviderPreferences = YES;
         _sandboxMode = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsSandboxMode] ?: @"workspace-write";
+        _steeringQueuedMessageIDs = [NSMutableSet set];
+        _pendingSteerMessages = [NSMutableArray array];
+        // P1 补齐（原包方法对齐）：常驻会话就绪后主动拉取官方限额与模型列表
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(p1PersistentSessionDidChange:)
+                                                     name:CACodexEnginePersistentSessionReadyNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -213,11 +230,31 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
                                                                      environment:[self environmentForCodexInvocation]
                                                                workingDirectory:CARuntimePaths.codexHome];
     session.delegate = self;
+    // 原包行为：app-server 发来的带 id 请求（如 item/tool/requestUserInput）由这里接住，
+    // 缓存 requestID/params 供决策卡回包；带 id 消息不再走 didEmitNotification，避免重复弹卡。
+    __weak typeof(self) weakSelf2 = self;
+    session.serverRequestHandler = ^(NSString *method, NSDictionary *params, NSNumber *requestID) {
+        typeof(self) strongSelf = weakSelf2;
+        if (!strongSelf) return;
+        if ([method isEqualToString:CARPCItemRequestUserInput]) {
+            [strongSelf handleServerUserInputRequest:params requestID:requestID];
+            return;
+        }
+        // 其他服务端请求：按 codex 协议立即回空 result，避免服务端挂等
+        CALog(CALogLevelDebug, @"APP-SERVER", @"server request answered empty method=%@ id=%@", method ?: @"", requestID ?: @"?");
+        [session sendResult:@{} forRequestID:requestID];
+    };
     _persistentAppServer = session;
     CALog(CALogLevelInfo, @"APP-SERVER", @"command backend runtime=native app-server executable=%@", exe);
     [session startWithCompletion:^(BOOL ok, NSError *error) {
         if (!ok && completion) completion(NO, error);
         else if (completion) completion(YES, nil);
+        if (ok) {
+            // P1 补齐（原包方法对齐）：常驻会话启动成功 → 通知拉取官方限额 / 模型列表
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:CACodexEnginePersistentSessionReadyNotification object:self];
+            });
+        }
     }];
 }
 
@@ -469,6 +506,17 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
     _lastTurnTerminalReason = [reason copy];
     CALog(CALogLevelInfo, @"APP-SERVER", @"turn finished status=%ld reason=%@", (long)status, reason ?: @"(completed)");
     if (completion) completion(status, reason);
+
+    // P1 补齐（原包方法对齐）：回合正常结束后异步刷新官方限额（dispatch_async 防重入）
+    if (status == 0) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf refreshOfficialRateLimitsWithCompletion:nil];
+        });
+    }
+
+    // 排队中的插话：回合结束后作为新 turn/start 自动发出
+    [self deliverPendingSteerMessagesAfterTurnFinish];
 }
 
 - (void)cancelCurrentTurnWithCompletion:(void (^)(BOOL))completion
@@ -640,7 +688,126 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
 {
     CALog(CALogLevelInfo, @"APP-SERVER", @"plan user-input requested id=%@ questions=%lu",
           request[@"id"] ?: @"?", (unsigned long)[request[@"questions"] count]);
+    // 通知路径（params 里的 id 字段）：requestUserInput 也可能以通知形态到达，缓存 requestID
+    id rawID = request[@"id"];
+    if ([rawID isKindOfClass:NSNumber.class]) {
+        _pendingUserInputRequestID = rawID;
+        _pendingUserInputParams = request ?: @{};
+    } else if ([rawID isKindOfClass:NSString.class]) {
+        _pendingUserInputRequestID = @([(NSString *)rawID integerValue]);
+        _pendingUserInputParams = request ?: @{};
+    }
     [self postAppServerNotification:CARPCItemRequestUserInput params:request ?: @{}];
+}
+
+#pragma mark - 服务端请求应答（item/tool/requestUserInput）
+
+- (NSNumber *)pendingUserInputRequestID
+{
+    return _pendingUserInputRequestID;
+}
+
+- (NSDictionary *)pendingUserInputParams
+{
+    return _pendingUserInputParams;
+}
+
+- (void)handleServerUserInputRequest:(NSDictionary *)params requestID:(NSNumber *)requestID
+{
+    _pendingUserInputRequestID = requestID;
+    _pendingUserInputParams = [params isKindOfClass:NSDictionary.class] ? params : @{};
+    CALog(CALogLevelInfo, @"APP-SERVER", @"plan user-input requested id=%@ questions=%lu",
+          params[@"id"] ?: (requestID ?: @"?"), (unsigned long)[_pendingUserInputParams[@"questions"] count]);
+    // 仍向聊天页广播一次（engine notification），由聊天页弹决策卡；回包走 respondToUserInputRequest:
+    [self postAppServerNotification:CARPCItemRequestUserInput params:_pendingUserInputParams];
+}
+
+- (void)respondToUserInputRequest:(NSNumber *)requestID answers:(NSDictionary *)answers
+{
+    NSNumber *rid = requestID ?: _pendingUserInputRequestID;
+    if (!rid) {
+        CALog(CALogLevelWarn, @"APP-SERVER", @"respond user-input skipped reason=no pending request id");
+        return;
+    }
+    [self.persistentAppServer sendResult:answers ?: @{} forRequestID:rid];
+    if (_pendingUserInputRequestID && [rid isEqual:_pendingUserInputRequestID]) {
+        _pendingUserInputRequestID = nil;
+        _pendingUserInputParams = nil;
+    }
+}
+
+#pragma mark - turn/steer（回合插话）
+
+- (BOOL)canSteerActiveTurn
+{
+    return _turnInFlight && _activeTurnId.length > 0 && self.usePersistentAppServerChat;
+}
+
+- (void)steerPrompt:(NSString *)prompt attachments:(NSArray *)attachments completion:(void (^)(BOOL, NSError *))completion
+{
+    attachments = [attachments isKindOfClass:NSArray.class] ? attachments : @[];
+    NSString *messageID = [[NSUUID UUID] UUIDString];
+
+    if (![self canSteerActiveTurn]) {
+        // 无活动回合：入队，finishTurnWithStatus: 完成当前回合后自动作为新 turn/start 发出
+        [_pendingSteerMessages addObject:@{ @"id": messageID,
+                                            @"prompt": prompt ?: @"",
+                                            @"attachments": attachments ?: @[] }];
+        CALog(CALogLevelInfo, @"APP-SERVER", @"queued steer kept for follow-up id=%@ reason=%@",
+              messageID, @"no active turn");
+        if (completion) completion(YES, nil);
+        return;
+    }
+
+    CALog(CALogLevelInfo, @"APP-SERVER", @"turn/steer thread=%@ expectedTurn=%@ attachments=%lu",
+          _activeTurnThreadId ?: @"(none)", _activeTurnId ?: @"?", (unsigned long)attachments.count);
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"thread_id"] = _activeTurnThreadId ?: @"";
+    parameters[@"turn_id"] = _activeTurnId ?: @"";
+    NSMutableArray *items = [NSMutableArray array];
+    if (prompt.length > 0) {
+        [items addObject:@{ @"type": @"text", @"text": prompt }];
+    }
+    for (NSDictionary *attachment in attachments) {
+        if (![attachment isKindOfClass:NSDictionary.class]) continue;
+        NSString *path = attachment[@"path"] ?: attachment[@"localPath"] ?: attachment[@"url"];
+        if (![path isKindOfClass:NSString.class] || path.length == 0) continue;
+        [items addObject:@{ @"type": @"localImage", @"path": path }];
+    }
+    parameters[@"items"] = items;
+
+    __weak typeof(self) weakSelf = self;
+    [self.persistentAppServer callMethod:@"turn/steer"
+                              parameters:parameters
+                              completion:^(id result, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (error) {
+            CALog(CALogLevelWarn, @"APP-SERVER", @"turn/steer failed thread=%@ turn=%@ reason=%@",
+                  strongSelf->_activeTurnThreadId ?: @"(none)", strongSelf->_activeTurnId ?: @"?", error.localizedDescription ?: @"unknown");
+            if (completion) completion(NO, error);
+            return;
+        }
+        [strongSelf->_steeringQueuedMessageIDs addObject:messageID];
+        CALog(CALogLevelInfo, @"APP-SERVER", @"turn/steer accepted thread=%@ turn=%@",
+              strongSelf->_activeTurnThreadId ?: @"(none)", strongSelf->_activeTurnId ?: @"?");
+        if (completion) completion(YES, nil);
+    }];
+}
+
+- (void)deliverPendingSteerMessagesAfterTurnFinish
+{
+    if (_pendingSteerMessages.count == 0) return;
+    NSDictionary *first = [_pendingSteerMessages.firstObject isKindOfClass:NSDictionary.class]
+        ? (NSDictionary *)_pendingSteerMessages.firstObject : @{};
+    [_pendingSteerMessages removeObjectAtIndex:0];
+    NSString *prompt = [first[@"prompt"] isKindOfClass:NSString.class] ? first[@"prompt"] : @"";
+    NSArray *attachments = [first[@"attachments"] isKindOfClass:NSArray.class] ? first[@"attachments"] : @[];
+    CALog(CALogLevelInfo, @"APP-SERVER", @"queued steer delivered id=%@ attachments=%lu",
+          first[@"id"] ?: @"?", (unsigned long)attachments.count);
+    NSString *threadId = _activeTurnThreadId;
+    [self sendPromptViaPersistentAppServer:prompt threadId:threadId completion:nil];
 }
 
 - (void)appServerSession:(CAAppServerSession *)session didReportUsage:(NSDictionary *)usage
@@ -686,6 +853,139 @@ NSString *const CACodexEngineNotificationParamsKey = @"params";
                                                       object:self
                                                     userInfo:@{ CACodexEngineNotificationMethodKey: method,
                                                                 CACodexEngineNotificationParamsKey: params ?: @{} }];
+}
+
+#pragma mark - 账号/限额（P1 补齐）
+
+// 常驻会话就绪：先刷官方限额，再刷官方模型列表（原包客户端主动请求形态）
+- (void)p1PersistentSessionDidChange:(NSNotification *)notification
+{
+    __weak typeof(self) weakSelf = self;
+    [self refreshOfficialRateLimitsOnMainQueueWithCompletion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf refreshOfficialModelListWithCompletion:nil];
+    });
+}
+
+// rate-limits.json 落盘路径：与侧栏读取候选对齐（Application Support/CodexApp/rate-limits.json）
+- (NSString *)p1RateLimitsSnapshotPath
+{
+    return [CARuntimePaths.supportDirectory stringByAppendingPathComponent:@"rate-limits.json"];
+}
+
+- (void)refreshOfficialRateLimitsWithCompletion:(void (^)(NSDictionary *limits, NSError *error))completion
+{
+    if (!self.persistentAppServer.isRunning) {
+        CALog(CALogLevelWarn, @"ACCOUNT", @"official rate limits refresh skipped reason=persistent session not running");
+        if (completion) completion(nil, [NSError errorWithDomain:@"CodexApp.Codex" code:1 userInfo:@{ NSLocalizedDescriptionKey: @"persistent session not running" }]);
+        return;
+    }
+    CALog(CALogLevelInfo, @"ACCOUNT", @"requesting account/rateLimits/read on persistent session");
+    __weak typeof(self) weakSelf = self;
+    [self.persistentAppServer callMethod:@"account/rateLimits/read"
+                              parameters:@{}
+                              completion:^(id result, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (error) {
+            // 失败只打 WARN 日志，不弹 UI
+            CALog(CALogLevelWarn, @"ACCOUNT", @"official rate limits refresh failed error=%@", error.localizedDescription ?: @"unknown");
+            if (completion) completion(nil, error);
+            return;
+        }
+        NSDictionary *limits = [result isKindOfClass:NSDictionary.class] ? result : @{};
+        // 落盘到侧栏读取的快照路径
+        NSData *data = [NSJSONSerialization dataWithJSONObject:limits options:NSJSONWritingPrettyPrinted error:NULL];
+        if (data) {
+            NSString *path = [strongSelf p1RateLimitsSnapshotPath];
+            [CARuntimePaths ensureDirectory:path.stringByDeletingLastPathComponent mode:0755 error:NULL];
+            NSError *writeError = nil;
+            BOOL ok = [CARuntimePaths writeFileAtomically:path contents:data mode:0644 error:&writeError];
+            if (!ok) {
+                CALog(CALogLevelWarn, @"ACCOUNT", @"official rate limits snapshot write failed path=%@ error=%@", path, writeError.localizedDescription ?: @"unknown");
+            }
+        }
+        if (completion) completion(limits, nil);
+    }];
+}
+
+- (void)refreshOfficialRateLimitsOnMainQueueWithCompletion:(void (^)(NSDictionary *limits, NSError *error))completion
+{
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf refreshOfficialRateLimitsWithCompletion:completion];
+    });
+}
+
+#pragma mark - 模型列表（P1 补齐）
+
+- (void)refreshOfficialModelListWithCompletion:(void (^)(NSArray *models, NSError *error))completion
+{
+    if (!self.persistentAppServer.isRunning) {
+        CALog(CALogLevelWarn, @"ACCOUNT", @"official model/list refresh skipped reason=persistent session not running");
+        if (completion) completion(nil, [NSError errorWithDomain:@"CodexApp.Codex" code:1 userInfo:@{ NSLocalizedDescriptionKey: @"persistent session not running" }]);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [self.persistentAppServer callMethod:@"model/list"
+                              parameters:@{}
+                              completion:^(id result, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (error) {
+            CALog(CALogLevelWarn, @"ACCOUNT", @"official model/list refresh failed reason=%@", error.localizedDescription ?: @"unknown");
+            if (completion) completion(nil, error);
+            return;
+        }
+        NSArray *models = nil;
+        if ([result isKindOfClass:NSArray.class]) models = result;
+        else if ([result isKindOfClass:NSDictionary.class]) {
+            id inner = result[@"models"] ?: result[@"data"] ?: result[@"items"];
+            if ([inner isKindOfClass:NSArray.class]) models = inner;
+        }
+        models = models ?: @[];
+        CALog(CALogLevelInfo, @"ACCOUNT", @"official model/list refreshed models=%lu", (unsigned long)models.count);
+
+        // 落盘到 CAModelPricingManager 目录（third-party-models.json 同目录），不改变其公开行为
+        NSString *path = [[CARuntimePaths.thirdPartyCatalogPath stringByDeletingLastPathComponent]
+                          stringByAppendingPathComponent:@"models-official.json"];
+        NSDictionary *payload = @{ @"models": models, @"updated_at": @([[NSDate date] timeIntervalSince1970]) };
+        NSData *data = [NSJSONSerialization dataWithJSONObject:payload options:NSJSONWritingPrettyPrinted error:NULL];
+        if (data) {
+            [CARuntimePaths ensureDirectory:path.stringByDeletingLastPathComponent mode:0755 error:NULL];
+            [CARuntimePaths writeFileAtomically:path contents:data mode:0644 error:NULL];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:CAModelListDidUpdateNotification object:nil];
+        if (completion) completion(models, nil);
+    }];
+}
+
+#pragma mark - thread/turns（P1 补齐）
+
+- (void)requestThreadTurns:(NSString *)threadId completion:(void (^)(NSArray *turns, NSError *error))completion
+{
+    if (threadId.length == 0) {
+        if (completion) completion(nil, [NSError errorWithDomain:@"CodexApp.Codex" code:2 userInfo:@{ NSLocalizedDescriptionKey: @"missing thread id" }]);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [self.persistentAppServer callMethod:@"thread/turns"
+                              parameters:@{ @"thread_id": threadId }
+                              completion:^(id result, NSError *error) {
+        if (error) {
+            CALog(CALogLevelWarn, @"APP-SERVER", @"thread/turns failed thread=%@ error=%@", threadId, error.localizedDescription ?: @"unknown");
+            if (completion) completion(nil, error);
+            return;
+        }
+        NSArray *turns = nil;
+        if ([result isKindOfClass:NSArray.class]) turns = result;
+        else if ([result isKindOfClass:NSDictionary.class]) {
+            id inner = result[@"turns"] ?: result[@"items"];
+            if ([inner isKindOfClass:NSArray.class]) turns = inner;
+        }
+        turns = turns ?: @[];
+        if (completion) completion(turns, nil);
+    }];
 }
 
 @end

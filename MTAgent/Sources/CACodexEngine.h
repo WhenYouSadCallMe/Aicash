@@ -19,6 +19,10 @@ extern NSNotificationName const CACodexEngineAppServerNotification;
 extern NSString *const CACodexEngineNotificationMethodKey;
 extern NSString *const CACodexEngineNotificationParamsKey;
 
+// P1 补齐（原包方法对齐）：官方 model/list 刷新完成信号；常驻会话就绪信号
+extern NSNotificationName const CAModelListDidUpdateNotification;
+extern NSNotificationName const CACodexEnginePersistentSessionReadyNotification;
+
 typedef void (^CACodexTurnOutputHandler)(NSString *line, BOOL isStderr);
 typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable errorMessage);
 
@@ -87,6 +91,28 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
 
 /// 打断当前回合：先尝试 turn/interrupt，失败则重建常驻会话
 - (void)cancelCurrentTurnWithCompletion:(nullable void (^)(BOOL ok))completion;
+
+#pragma mark - 服务端请求应答（item/tool/requestUserInput）
+
+/// app-server 是否有待应答的用户输入请求（已缓存 requestID）
+@property (nonatomic, strong, readonly, nullable) NSNumber *pendingUserInputRequestID;
+/// 当前待应答请求的 params（questions 等）
+@property (nonatomic, strong, readonly, nullable) NSDictionary *pendingUserInputParams;
+
+/// 把用户在计划/决策卡上的答案回传给 app-server（内部 sendResult:forRequestID:）。
+/// answers 为最外层 answers 映射：@{ questionId: @{ @"choice"或@"text": ... } }；
+/// 外层包装见 CAChatViewController 的 respondWithAnswers:remember:（统一 @{ @"answers": ..., @"remember": ... }）。
+- (void)respondToUserInputRequest:(nullable NSNumber *)requestID answers:(nullable NSDictionary *)answers;
+
+#pragma mark - turn/steer（回合插话）
+
+/// 常驻 app-server 上是否有一轮正在跑且可插话
+- (BOOL)canSteerActiveTurn;
+
+/// 回合进行中插话：可 steer 则发 turn/steer；不可（无活动回合）则入队，回合结束后自动作为新 turn/start 发出
+- (void)steerPrompt:(nullable NSString *)prompt
+         attachments:(nullable NSArray *)attachments
+          completion:(nullable void (^)(BOOL ok, NSError *_Nullable error))completion;
 
 #pragma mark - 登录
 
@@ -282,7 +308,6 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
     - (id)associateVerifiedSubagentThreadId:(id)arg1 source:(id)arg2;
     - (id)bindConversationId:(id)arg1;
     - (id)buildEnvironment;
-    - (id)canSteerActiveTurn;
     - (id)cancelExecution;
     - (id)canonicalActivityItemId:(id)arg1;
     - (id)captureFileChangeSnapshotForId:(id)arg1 changes:(id)arg2;
@@ -358,7 +383,6 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
     - (id)skillInputsForText:(id)arg1;
     - (id)startCodeReview;
     - (id)startThinkingActivityWithTitle:(id)arg1 detail:(id)arg2;
-    - (id)steerPrompt:(id)arg1 attachments:(id)arg2 completion:(id)arg3;
     - (id)stopIdleAppServersForStorageMaintenanceWithCompletion:(id)arg1;
     - (id)subagentCardThrottleTimer;
     - (id)subagentConfiguration;
@@ -378,6 +402,11 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
     - (id)usageTurnModel;
     - (id)usageTurnProvider;
 // ==PARITY-SELECTOR-PLACEHOLDER-END==
+
+// P1 补齐（原包方法对齐）：refreshOfficialRateLimits* 已在上方 PARITY 占位块声明（(id) 形态），此处不重复
+- (void)refreshOfficialModelListWithCompletion:(void (^)(NSArray *models, NSError *error))completion;
+- (void)requestThreadTurns:(NSString *)threadId completion:(void (^)(NSArray *turns, NSError *error))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

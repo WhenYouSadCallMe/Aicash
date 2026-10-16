@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16 18:15:35",
+ "generated_at": "2026-10-16 20:19:32",
  "rows": [
   {
    "check": "契约·plist/entitlements/布局/资源",
@@ -32,7 +32,7 @@
   {
    "check": "覆盖度·选择器命中",
    "status": "pass",
-   "seconds": "35.2s",
+   "seconds": "119.5s",
    "detail": "明细: SPEC/method_coverage.json",
    "returncode": 0
   },

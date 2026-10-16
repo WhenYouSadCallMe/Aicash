@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (unsigned long long)directorySizeAtPath:(NSString *)path;
 - (void)clearRuntimeDownloadCaches;
 
-
 // ==PARITY-PROPERTIES-BEGIN== (auto-generated from original __objc_proplist)
     @property (nonatomic, strong, nullable) NSString * caches;
     @property (nonatomic, strong, nullable) NSString * cliLogs;
@@ -28,21 +27,40 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, strong, nullable) NSString * temporary;
 // ==PARITY-PROPERTIES-END==
 
-// ==PARITY-SELECTOR-PLACEHOLDER-BEGIN==
-    - (id)bytesBelow:(id)arg1;
-    - (id)bytesBelow:(id)arg1 excluding:(id)arg2;
-    - (id)cacheRoots;
-    - (id)cleanDirectory:(id)arg1 preservingNames:(id)arg2 bytes:(id)arg3 count:(id)arg4 error:(id)arg5;
-    - (id)cleanExpiredCaches;
-    - (id)initWithSupport:(id)arg1 temporary:(id)arg2 caches:(id)arg3 cliLogs:(id)arg4;
-    - (id)ownedBaseRootForDeletionPath:(id)arg1;
-    - (id)protectedPathsComplete:(id)arg1 conversationBytes:(id)arg2 livePaths:(id)arg3;
-    - (id)regularFilesBelow:(id)arg1 complete:(id)arg2;
-    - (id)removePath:(id)arg1 bytes:(id)arg2 count:(id)arg3 error:(id)arg4;
-    - (id)resetLocalStatePreservingCredentials;
-    - (id)snapshotWithProgress:(id)arg1;
-    - (id)validateDeletionPath:(id)arg1 forTraversal:(id)arg2 error:(id)arg3;
-// ==PARITY-SELECTOR-PLACEHOLDER-END==
+#pragma mark - P2 补齐（原包方法对齐）
+
+// 初始化（原包 initWithSupport:temporary:caches:cliLogs:）
+- (instancetype)initWithSupport:(nullable NSString *)support
+                      temporary:(nullable NSString *)temporary
+                         caches:(nullable NSString *)caches
+                       cliLogs:(nullable NSString *)cliLogs;
+
+// 属性（原包 proplist）
+@property (nonatomic, copy, readonly) NSString *support;
+
+// 体积 / 文件统计
+- (unsigned long long)bytesBelow:(NSString *)path;
+- (unsigned long long)bytesBelow:(NSString *)path excluding:(nullable NSString *)excluding;
+- (NSUInteger)regularFilesBelow:(NSString *)path complete:(NSError *_Nullable * _Nullable)error;
+
+// 清理
+- (nullable NSDictionary *)cleanDirectory:(NSString *)directory
+                          preservingNames:(nullable NSArray<NSString *> *)preservingNames
+                                    bytes:(nullable unsigned long long *)bytes
+                                    count:(nullable NSUInteger *)count
+                                    error:(NSError **)error;
+- (BOOL)cleanExpiredCaches;
+- (nullable NSArray<NSString *> *)cacheRoots;
+- (BOOL)resetLocalStatePreservingCredentials;
+
+// 删除安全校验（路径必须在本管理器管辖的根目录内）
+- (nullable NSString *)ownedBaseRootForDeletionPath:(nullable NSString *)path;
+- (BOOL)validateDeletionPath:(nullable NSString *)path forTraversal:(BOOL)traversal error:(NSError **)error;
+- (BOOL)removePath:(NSString *)path bytes:(nullable unsigned long long *)bytes count:(nullable NSUInteger *)count error:(NSError **)error;
+
+// 快照
+- (nullable NSDictionary *)snapshotWithProgress:(nullable void (^)(double fraction, NSString *_Nullable stage))progress;
+- (nullable NSDictionary *)protectedPathsComplete:(BOOL)complete conversationBytes:(unsigned long long)conversationBytes livePaths:(nullable NSArray<NSString *> *)livePaths;
 @end
 
 NS_ASSUME_NONNULL_END

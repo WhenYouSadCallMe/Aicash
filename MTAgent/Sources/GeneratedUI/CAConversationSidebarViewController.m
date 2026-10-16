@@ -14,6 +14,7 @@
 #import "CAAccountInfoBridge.h"
 #import "CACommon.h"
 #import "CALogger.h"
+#import "CACodexEngine.h"   // P1 补齐（原包方法对齐）：主动刷新官方限额
 
 /// 侧栏 → 宿主（CAChatViewController）的非正式回调协议。
 /// 侧栏不 import 宿主头文件（避免循环依赖），因此这里用 @optional 协议声明回调形状。
@@ -1049,6 +1050,11 @@
 /// 读本地配额快照（原包：app-server 的 account/rateLimits/read 落盘 rate-limits.json），回主线程写 UI
 - (void)refreshQuotaSnapshot
 {
+    // P1 补齐（原包方法对齐）：引擎常驻会话在跑时先主动刷新官方限额再读快照（失败容错，只读不弹 UI）
+    CACodexEngine *engine = CACodexEngine.sharedEngine;
+    if (engine && engine.persistentAppServer.isRunning) {
+        [engine refreshOfficialRateLimitsOnMainQueueWithCompletion:nil];
+    }
     unsigned long long generation = _quotaRefreshGeneration;
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{

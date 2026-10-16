@@ -78,6 +78,10 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)remoteStateDirectory;
     - (id)runtimeConfigurationDirectory;
 // ==PARITY-SELECTOR-PLACEHOLDER-END==
+
+// P2 补齐（原包方法对齐）
++ (NSString *)thirdPartyModelCatalogPath;
++ (NSArray<NSString *> *)helperSearchPathComponents;
 @end
 
 NS_ASSUME_NONNULL_END

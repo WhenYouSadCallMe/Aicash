@@ -11,6 +11,7 @@ typedef void (^CAUpdateProgressHandler)(double fraction, NSString * _Nullable st
 @interface CAUpdateManager : NSObject
 
 @property (nonatomic, assign, readonly) unsigned long long latestDownloadSizeBytes;
+- (void)setLatestDownloadSizeBytes:(unsigned long long)value;
 
 + (instancetype)sharedManager;
 
@@ -40,55 +41,73 @@ typedef void (^CAUpdateProgressHandler)(double fraction, NSString * _Nullable st
 
 
 // ==PARITY-PROPERTIES-BEGIN== (auto-generated from original __objc_proplist)
-    @property (nonatomic, strong, nullable) NSString * cachedInstalledVersion;
-    @property (nonatomic, assign) BOOL isRecoveringRuntime;
-    @property (nonatomic, strong, nullable) NSMutableArray * runtimeRecoveryWaiters;
-    @property (nonatomic, assign) BOOL updateInProgress;
-    @property (nonatomic, strong, nullable) NSObject<OS_dispatch_queue> * workQueue;
 // ==PARITY-PROPERTIES-END==
 
-// ==PARITY-SELECTOR-PLACEHOLDER-BEGIN==
-    - (id)activeCodeModeHostPath;
-    - (id)activeExecutablePath;
-    - (id)atomicSwapStagingCodex:(id)arg1 stagingHost:(id)arg2 version:(id)arg3 error:(id)arg4;
-    - (id)cacheDirectoryForVersion:(id)arg1;
-    - (id)cachedDebPathForVersion:(id)arg1;
-    - (id)checkLatestVersion:(id)arg1;
-    - (id)checkLatestVersionViaGitHubAPI:(id)arg1;
-    - (id)compareVersion:(id)arg1 toVersion:(id)arg2;
-    - (id)executablePathWithFallback;
-    - (id)extractDebPath:(id)arg1 toDirectory:(id)arg2 progress:(id)arg3 error:(id)arg4;
-    - (id)hasActiveHelper;
-    - (id)helperExecutionEnvironmentWithStaging:(id)arg1;
-    - (id)installSignedCodexIntoBundle:(id)arg1 host:(id)arg2 version:(id)arg3 error:(id)arg4;
-    - (id)installedSizeBytes;
-    - (id)installedVersion;
-    - (id)isManagedRuntime;
-    - (id)isManagedRuntimeVersion:(id)arg1;
-    - (id)isUpdating;
-    - (id)isValidVersionTag:(id)arg1;
-    - (id)legacyInstalledVersionRecord;
-    - (id)locateToolNamed:(id)arg1;
-    - (id)logicalVersionForRuntimeReleaseTag:(id)arg1;
-    - (id)numericComponentsForVersion:(id)arg1;
-    - (id)prefersBundledCodexTestRuntime;
-    - (id)privateHelperDirectory;
-    - (id)releaseRepositoryForVersion:(id)arg1 owner:(id)arg2 repo:(id)arg3 releaseTag:(id)arg4;
-    - (id)removeManagedBundleRuntime:(id)arg1;
-    - (id)resolvedBundledSignerPath;
-    - (id)resolvedEntitlementsPathInWorkDir:(id)arg1;
-    - (id)restoreCachedRuntimeIfNeededWithCompletion:(id)arg1;
-    - (id)rollbackToPreviousVersion:(id)arg1;
-    - (id)runRootExecutable:(id)arg1 arguments:(id)arg2 environment:(id)arg3 timeout:(id)arg4 output:(id)arg5 error:(id)arg6;
-    - (id)runtimeReleaseTagForVersion:(id)arg1;
-    - (id)saveLegacyVersionRecord:(id)arg1;
-    - (id)setPrivateHelperDirectory:(id)arg1;
-    - (id)sha256ForFileAtPath:(id)arg1;
-    - (id)signBinary:(id)arg1 withLdid:(id)arg2 entitlementsPath:(id)arg3 error:(id)arg4;
-    - (id)updateToVersion:(id)arg1 progress:(id)arg2 completion:(id)arg3;
-    - (id)validatedCodexEntryFromManifestData:(id)arg1 error:(id)arg2;
-    - (id)verifyBinaryLaunchability:(id)arg1 expectedVersion:(id)arg2 error:(id)arg3;
-// ==PARITY-SELECTOR-PLACEHOLDER-END==
+#pragma mark - P2 补齐（原包方法对齐）
+
+// 属性补齐（原包 proplist，readwrite；latestDownloadSizeBytes 复用顶部 readonly 声明 + 手写 setter）
+@property (nonatomic, copy, nullable) NSString *cachedInstalledVersion;
+@property (nonatomic, assign) BOOL isRecoveringRuntime;
+@property (nonatomic, strong, nullable) NSMutableArray *runtimeRecoveryWaiters;
+@property (nonatomic, assign) BOOL updateInProgress;
+@property (nonatomic, strong, nullable) NSObject<OS_dispatch_queue> *workQueue;
+@property (nonatomic, copy, nullable) NSString *privateHelperDirectory;
+
+// 版本语义
+- (NSComparisonResult)compareVersion:(nullable NSString *)left toVersion:(nullable NSString *)right;
+- (nullable NSArray<NSNumber *> *)numericComponentsForVersion:(nullable NSString *)version;
+- (BOOL)isValidVersionTag:(nullable NSString *)version;
+- (nullable NSString *)logicalVersionForRuntimeReleaseTag:(nullable NSString *)tag;
+- (nullable NSString *)runtimeReleaseTagForVersion:(nullable NSString *)version;
+
+// 探测 / 版本状态
+- (BOOL)prefersBundledCodexTestRuntime;
+- (BOOL)hasActiveHelper;
+- (nullable NSDictionary *)helperExecutionEnvironmentWithStaging:(nullable NSString *)staging;
+- (nullable NSString *)executablePathWithFallback;
+- (nullable NSString *)activeExecutablePath;
+- (nullable NSString *)installedVersion;
+- (BOOL)isInstalled;
+- (BOOL)isManagedRuntime;
+- (BOOL)isManagedRuntimeVersion:(nullable NSString *)version;
+- (unsigned long long)installedSizeBytes;
+- (nullable NSString *)legacyInstalledVersionRecord;
+- (void)saveLegacyVersionRecord:(nullable NSString *)version;
+- (nullable NSString *)cachedDebPathForVersion:(nullable NSString *)version;
+- (nullable NSString *)locateToolNamed:(nullable NSString *)name;
+- (nullable NSString *)resolvedBundledSignerPath;
+- (nullable NSString *)resolvedEntitlementsPathInWorkDir:(nullable NSString *)workDirectory;
+
+// 校验 / 签名 / 执行
+- (nullable NSString *)sha256ForFileAtPath:(nullable NSString *)path;
+- (BOOL)signBinary:(NSString *)path withLdid:(nullable NSString *)ldidPath entitlementsPath:(nullable NSString *)entitlementsPath error:(NSError **)error;
+- (BOOL)runExecutable:(NSString *)executable
+            arguments:(nullable NSArray<NSString *> *)arguments
+           environment:(nullable NSDictionary<NSString *, NSString *> *)environment
+              timeout:(NSTimeInterval)timeout
+               output:(NSString *_Nullable *_Nullable)output
+                error:(NSError **)error;
+- (nullable NSString *)verifyBinaryLaunchability:(NSString *)binaryPath expectedVersion:(nullable NSString *)expectedVersion error:(NSError **)error;
+- (nullable NSString *)validateBinaryLaunchability:(NSString *)binaryPath expectedVersion:(nullable NSString *)expectedVersion error:(NSError **)error;
+- (nullable NSString *)validatedCodexEntryFromManifestData:(NSData *)manifestData error:(NSError **)error;
+
+// 解包 / 原子交换 / 回滚
+- (BOOL)extractDebPath:(NSString *)debPath toDirectory:(NSString *)destination progress:(nullable CAUpdateProgressHandler)progress error:(NSError **)error;
+- (BOOL)atomicSwapStagingCodex:(NSString *)stagingCodexPath
+                   stagingHost:(nullable NSString *)stagingHostPath
+                       version:(nullable NSString *)version
+                         error:(NSError **)error;
+- (BOOL)rollbackToPreviousVersion:(NSError *_Nullable *_Nullable)error;
+- (void)restoreCachedRuntimeIfNeededWithCompletion:(nullable void (^)(BOOL restored, NSError *_Nullable error))completion;
+- (BOOL)removeInstalledRuntime:(nullable NSString *)runtimeID error:(NSError **)error;
+- (BOOL)removeManagedBundleRuntime:(nullable NSString *)runtimeID;
+
+// 更新流程
+- (void)checkLatestVersion:(NSString *)runtimeID completion:(void (^)(NSString *_Nullable version, NSError *_Nullable error))completion;
+- (void)checkLatestVersionViaGitHubAPI:(NSString *)runtimeID completion:(void (^)(NSString *_Nullable version, NSError *_Nullable error))completion;
+- (void)updateToVersion:(NSString *)version
+               progress:(nullable CAUpdateProgressHandler)progress
+             completion:(void (^)(BOOL ok, NSError *_Nullable error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

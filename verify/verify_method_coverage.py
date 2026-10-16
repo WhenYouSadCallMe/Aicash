@@ -16,16 +16,19 @@ API = os.path.join(ROOT, "SPEC", "assets", "objc_api_map.json")
 
 
 def collect_sources():
-    blobs = []
+    """返回 (full_blob, impl_blob)。impl_blob 只含 .m 实现体——.h 声明不算命中。"""
+    blobs, impls = [], []
     for sub in DIRS:
         base = os.path.join(ROOT, sub)
         if not os.path.isdir(base):
             continue
         for root_dir, _dirs, names in os.walk(base):
             for f in sorted(names):
-                if f.endswith((".m", ".h")):
-                    blobs.append(open(os.path.join(root_dir, f), encoding="utf-8", errors="replace").read())
-    return "\n".join(blobs)
+                text = open(os.path.join(root_dir, f), encoding="utf-8", errors="replace").read()
+                blobs.append(text)
+                if f.endswith(".m"):
+                    impls.append(text)
+    return "\n".join(blobs), "\n".join(impls)
 
 
 def hit(sel, blob):
@@ -73,7 +76,7 @@ def main():
 
     method_types = json.load(open(TYPES, encoding="utf-8")) if os.path.exists(TYPES) else {}
     api = json.load(open(API, encoding="utf-8"))
-    blob = collect_sources()
+    blob, impl_blob = collect_sources()
 
     per_class, total_sel, total_hit = {}, 0, 0
     for cls, entry in sorted(api.items()):
@@ -83,7 +86,10 @@ def main():
         if not sels:
             continue
         hits = [s for s in sels if hit(s, blob)]
+        impl_hits = [s for s in sels if hit(s, impl_blob)]
         per_class[cls] = {"selectors_total": len(sels), "selectors_hit": len(hits),
+                          "implementation_hits": len(impl_hits),
+                          "implementation_coverage": round(len(impl_hits) / len(sels), 3),
                           "coverage": round(len(hits) / len(sels), 3),
                           "missing": [s for s in sels if s not in hits and s != ".cxx_destruct"][:400],
                           "compiler_generated_missing": sum(1 for s in sels if s not in hits and s == ".cxx_destruct"),
@@ -96,7 +102,8 @@ def main():
            "scanned_bytes": len(blob),
            "classes": per_class,
            "aggregate": {"classes": len(per_class), "selectors_total": total_sel, "selectors_hit": total_hit,
-                         "coverage": round(total_hit / total_sel, 4) if total_sel else 0}}
+                         "coverage": round(total_hit / total_sel, 4) if total_sel else 0,
+                         "implementation_coverage": round(sum(v.get("implementation_hits",0) for v in per_class.values()) / total_sel, 4) if total_sel else 0}}
     json.dump(out, open(os.path.join(ROOT, "SPEC", "method_coverage.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 

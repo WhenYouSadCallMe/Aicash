@@ -32,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) int processIdentifier;
 @property (nonatomic, copy, nullable) NSString *signature;
 
+/// 原包同名属性：app-server 向客户端发带 id 请求时的处理器。
+/// 签名：void (^)(NSString *method, NSDictionary *params, NSNumber *requestID)
+/// 设置后，带 id 且无 result/error 的入站消息交给 handler，不再走 didEmitNotification（避免重复弹卡）；
+/// 未设置时维持旧行为（按通知分发）。
+@property (nonatomic, copy, nullable) void (^serverRequestHandler)(NSString *method, NSDictionary *params, NSNumber *requestID);
+
 - (instancetype)initWithExecutable:(NSString *)executable
                          arguments:(NSArray<NSString *> *)arguments
                        environment:(NSDictionary<NSString *, NSString *> *)environment
@@ -44,6 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)callMethod:(NSString *)method
         parameters:(nullable NSDictionary *)parameters
         completion:(nullable void (^)(id _Nullable result, NSError *_Nullable error))completion;
+
+/// 应答 app-server 发来的带 id 请求（如 item/tool/requestUserInput）：回 {"jsonrpc":"2.0","id":rid,"result":...}
+/// result 传 nil 时回空对象 {}（codex 协议正常路径语义）。
+- (void)sendResult:(nullable id)result forRequestID:(nullable id)requestID;
 
 - (NSDictionary *)diagnosticSnapshot;
 
@@ -59,7 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, strong, nullable) NSObject<OS_dispatch_queue> * queue;
     @property (nonatomic, assign) BOOL reportedLateSubagentCleanup;
     @property (nonatomic, assign) BOOL restartAfterStop;
-    @property (nonatomic, copy, nullable) id serverRequestHandler;
     @property (nonatomic, strong, nullable) NSMutableArray * startWaiters;
     @property (nonatomic, copy, nullable) id stopLifetimeRetainer;
     @property (nonatomic, assign) BOOL stopRequested;
@@ -74,7 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)rootPersona;
     - (id)sendNotificationMethod:(id)arg1 params:(id)arg2;
     - (id)sendRequestMethod:(id)arg1 params:(id)arg2 timeout:(id)arg3 completion:(id)arg4;
-    - (id)sendResult:(id)arg1 forRequestID:(id)arg2;
     - (id)setUnexpectedTerminationHandler:(id)arg1;
     - (id)stopWithCompletion:(id)arg1;
     - (id)unexpectedTerminationHandler;

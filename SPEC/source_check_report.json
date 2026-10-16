@@ -21,8 +21,11 @@
   "MTAgent\\Sources\\CACommon.m",
   "MTAgent\\Sources\\CAComposerCatalog.h",
   "MTAgent\\Sources\\CAComposerCatalog.m",
+  "MTAgent\\Sources\\CAConstants.m",
   "MTAgent\\Sources\\CAControlCenterPanels.h",
   "MTAgent\\Sources\\CAControlCenterPanels.m",
+  "MTAgent\\Sources\\CAConversationMigration.h",
+  "MTAgent\\Sources\\CAConversationMigration.m",
   "MTAgent\\Sources\\CAConversationStore.h",
   "MTAgent\\Sources\\CAConversationStore.m",
   "MTAgent\\Sources\\CADiagnosticsViewController.h",
@@ -58,6 +61,7 @@
   "MTAgent\\Sources\\CASettingsViewController.m",
   "MTAgent\\Sources\\CAStorageManager.h",
   "MTAgent\\Sources\\CAStorageManager.m",
+  "MTAgent\\Sources\\CATheosEnvironment.m",
   "MTAgent\\Sources\\CAUpdateManager.h",
   "MTAgent\\Sources\\CAUpdateManager.m",
   "MTAgent\\Sources\\GeneratedUI\\CAANSIParser.h",
@@ -324,6 +328,14 @@
   "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceProjectCell.m",
   "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceViewController.h",
   "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\MTGeneratedArtifactCard.h",
+  "MTAgent\\Sources\\GeneratedUI\\MTGeneratedArtifactCard.m",
+  "MTAgent\\Sources\\GeneratedUI\\MTGeneratedArtifactOpen.h",
+  "MTAgent\\Sources\\GeneratedUI\\MTGeneratedArtifactOpen.m",
+  "MTAgent\\Sources\\GeneratedUI\\MTLocalArtifactPreview.h",
+  "MTAgent\\Sources\\GeneratedUI\\MTLocalArtifactPreview.m",
+  "MTAgent\\Sources\\GeneratedUI\\MTSubagentModelBadge.h",
+  "MTAgent\\Sources\\GeneratedUI\\MTSubagentModelBadge.m",
   "MTShareExtension\\Sources\\MTShareExtension.m"
  ],
  "interfaces": {
@@ -371,6 +383,9 @@
   ],
   "CAControlCenterViewController": [
    "CAControlCenterPanels.m"
+  ],
+  "CAConversationMigration": [
+   "CAConversationMigration.h"
   ],
   "CAConversationRecord": [
    "CAConversationStore.h"
@@ -936,6 +951,27 @@
    "CAWorkspaceViewController.h",
    "CAWorkspaceViewController.m"
   ],
+  "MTGeneratedArtifactCard": [
+   "MTGeneratedArtifactCard.h"
+  ],
+  "MTGeneratedArtifactOpen": [
+   "MTGeneratedArtifactOpen.h"
+  ],
+  "MTGeneratedArtifactPreviewController": [
+   "MTGeneratedArtifactOpen.h"
+  ],
+  "MTLocalArtifactPreview": [
+   "MTLocalArtifactPreview.h"
+  ],
+  "WKWebViewConfiguration": [
+   "MTLocalArtifactPreview.m"
+  ],
+  "WKWebView": [
+   "MTLocalArtifactPreview.m"
+  ],
+  "MTSubagentModelBadge": [
+   "MTSubagentModelBadge.h"
+  ],
   "CAMTShareGroup": [
    "MTShareExtension.m"
   ],
@@ -985,6 +1021,9 @@
   ],
   "CAControlCenterPanels": [
    "CAControlCenterPanels.m"
+  ],
+  "CAConversationMigration": [
+   "CAConversationMigration.m"
   ],
   "CAConversationRecord": [
    "CAConversationStore.m"
@@ -1052,9 +1091,6 @@
   "CAPythonEnvironment": [
    "CARuntimeEnvironments.m"
   ],
-  "CATheosEnvironment": [
-   "CARuntimeEnvironments.m"
-  ],
   "CAReverseToolsEnvironment": [
    "CARuntimeEnvironments.m"
   ],
@@ -1069,6 +1105,9 @@
   ],
   "CAStorageManager": [
    "CAStorageManager.m"
+  ],
+  "CATheosEnvironment": [
+   "CATheosEnvironment.m"
   ],
   "CAUpdateManager": [
    "CAUpdateManager.m"
@@ -1492,6 +1531,21 @@
   ],
   "CAWorkspaceViewController": [
    "CAWorkspaceViewController.m"
+  ],
+  "MTGeneratedArtifactCard": [
+   "MTGeneratedArtifactCard.m"
+  ],
+  "MTGeneratedArtifactOpen": [
+   "MTGeneratedArtifactOpen.m"
+  ],
+  "MTGeneratedArtifactPreviewController": [
+   "MTGeneratedArtifactOpen.m"
+  ],
+  "MTLocalArtifactPreview": [
+   "MTLocalArtifactPreview.m"
+  ],
+  "MTSubagentModelBadge": [
+   "MTSubagentModelBadge.m"
   ],
   "CAMTShareGroup": [
    "MTShareExtension.m"

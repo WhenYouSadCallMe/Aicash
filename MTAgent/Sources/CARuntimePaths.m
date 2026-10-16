@@ -101,6 +101,104 @@
 
 #pragma mark - 常用构建
 
+// P2 补齐（原包方法对齐）：PARITY-SELECTOR-PLACEHOLDER 12 个 + thirdPartyModelCatalogPath
+
++ (NSString *)appBundleRoot
+{
+    return [NSBundle.mainBundle.bundlePath copy];
+}
+
++ (NSString *)applicationSupportRoot
+{
+    return [self supportDirectory];
+}
+
++ (NSString *)codexHomeDirectory
+{
+    return [self codexHome];
+}
+
++ (NSString *)bundleHelpersDirectory
+{
+    return [[self appBundleRoot] stringByAppendingPathComponent:@"Helpers"];
+}
+
++ (NSString *)bundleCodexExecutable
+{
+    // 原包观测：内置 codex 位于 Helpers/codex（无后缀可执行）；缺失时返回 nil 由运行时安装兜底
+    NSString *candidate = [[self bundleHelpersDirectory] stringByAppendingPathComponent:@"codex"];
+    return [NSFileManager.defaultManager isExecutableFileAtPath:candidate] ? candidate : nil;
+}
+
++ (NSString *)bundleCodeModeHostExecutable
+{
+    // 原包：code-mode host 对齐 activeCodeModeHostPath 语义（bash.real 承担）
+    return [self bashRealPath];
+}
+
++ (NSString *)bundlePythonRuntimeRoot
+{
+    // 原包观察 .PythonRuntime.backup / PythonHome/lib/python3.13 → 内置根为 bundle/PythonRuntime
+    NSString *candidate = [[self appBundleRoot] stringByAppendingPathComponent:@"PythonRuntime"];
+    return [NSFileManager.defaultManager fileExistsAtPath:candidate] ? candidate : nil;
+}
+
++ (NSString *)bundleReverseToolsRuntimeRoot
+{
+    NSString *candidate = [[self appBundleRoot] stringByAppendingPathComponent:@"ReverseTools"];
+    return [NSFileManager.defaultManager fileExistsAtPath:candidate] ? candidate : nil;
+}
+
++ (NSString *)bundleTheosRuntimeRoot
+{
+    NSString *candidate = [[self appBundleRoot] stringByAppendingPathComponent:@"Theos"];
+    return [NSFileManager.defaultManager fileExistsAtPath:candidate] ? candidate : nil;
+}
+
++ (NSString *)remoteStateDirectory
+{
+    // 原包 remoteOperations 状态目录（对齐 support/CodexApp/Remote）
+    return [[self supportDirectory] stringByAppendingPathComponent:@"Remote"];
+}
+
++ (NSString *)runtimeConfigurationDirectory
+{
+    // 模型价格/运行时配置目录（原包 runtimeConfigurationDirectory 与 modelCosts 同层）
+    return [[self supportDirectory] stringByAppendingPathComponent:@"RuntimeConfig"];
+}
+
++ (NSString *)thirdPartyModelCatalogPath
+{
+    return [[self runtimeConfigurationDirectory] stringByAppendingPathComponent:@"third-party-models.json"];
+}
+
++ (NSString *)executableNamed:(NSString *)name environment:(NSDictionary *)environment
+{
+    if (name.length == 0) return nil;
+    if ([name hasPrefix:@"/"]) {
+        return [NSFileManager.defaultManager isExecutableFileAtPath:name] ? name : nil;
+    }
+    NSMutableArray<NSString *> *searchPaths = [NSMutableArray array];
+    [searchPaths addObject:[self bundleHelpersDirectory]];
+    [searchPaths addObjectsFromArray:[self helperSearchPathComponents]];
+    NSString *pathEnv = environment[@"PATH"];
+    if ([pathEnv isKindOfClass:[NSString class]] && pathEnv.length) {
+        [searchPaths addObjectsFromArray:[pathEnv componentsSeparatedByString:@":"]];
+    }
+    for (NSString *dir in searchPaths) {
+        if (dir.length == 0) continue;
+        NSString *candidate = [dir stringByAppendingPathComponent:name];
+        if ([NSFileManager.defaultManager isExecutableFileAtPath:candidate]) return candidate;
+    }
+    return nil;
+}
+
++ (NSArray<NSString *> *)helperSearchPathComponents
+{
+    // 对齐原包 helperSearchPath（复用既有 PATH 顺序，拆成数组供 executableNamed:environment: 使用）
+    return [[self helperSearchPath] componentsSeparatedByString:@":"];
+}
+
 + (NSString *)safeRelativePath:(NSString *)relative inRoot:(NSString *)root error:(NSError **)error
 {
     if (!relative.length) return nil;

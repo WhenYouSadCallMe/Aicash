@@ -96,35 +96,54 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, strong, nullable) NSMutableDictionary * resolvedWorkspaceKeys;
 // ==PARITY-PROPERTIES-END==
 
-// ==PARITY-SELECTOR-PLACEHOLDER-BEGIN==
-    - (id)absolutePathForStoredAttachment:(id)arg1;
-    - (id)absolutePathForStoredToolOutput:(id)arg1;
-    - (id)appendToolOutput:(id)arg1 conversationId:(id)arg2 itemId:(id)arg3;
-    - (id)attachmentDirectoryForConversationId:(id)arg1;
-    - (id)attachmentsRoot;
-    - (id)cleanupMigrationJournal:(id)arg1;
-    - (id)conversationIdReferencedInOtherWorkspace:(id)arg1 workspace:(id)arg2;
-    - (id)isSafeRelativeAttachmentPath:(id)arg1;
-    - (id)migrationJournalData:(id)arg1 key:(id)arg2;
-    - (id)migrationJournalDirectory;
-    - (id)migrationJournalPathForID:(id)arg1;
-    - (id)migrationJournalReferencesConversationId:(id)arg1;
-    - (id)moveConversationWithId:(id)arg1 fromWorkspace:(id)arg2 toWorkspace:(id)arg3 error:(id)arg4;
-    - (id)readIndex:(id)arg1;
-    - (id)recoverPendingMigrations;
-    - (id)removeMigrationFileIfPresent:(id)arg1;
-    - (id)removeUnreferencedDisplayAttachments:(id)arg1 remainingMessages:(id)arg2 preservingPaths:(id)arg3;
-    - (id)restoreMigrationActiveValue:(id)arg1 key:(id)arg2;
-    - (id)restoreMigrationIndexData:(id)arg1 existed:(id)arg2 path:(id)arg3;
-    - (id)sanitizedDisplayAttachments:(id)arg1;
-    - (id)sanitizedGeneratedArtifacts:(id)arg1 workspace:(id)arg2;
-    - (id)storeAttachmentFileAtPath:(id)arg1 conversationId:(id)arg2;
-    - (id)storeToolOutput:(id)arg1 conversationId:(id)arg2 itemId:(id)arg3;
-    - (id)toolOutputDirectoryForConversationId:(id)arg1;
-    - (id)toolOutputsRoot;
-    - (id)transientConversationForWorkspace:(id)arg1;
-    - (id)writeMigrationJournal:(id)arg1 toPath:(id)arg2;
-// ==PARITY-SELECTOR-PLACEHOLDER-END==
+// ==PARITY-SELECTOR-PLACEHOLDER-BEGIN== (typed declarations below, P2 补齐 原包方法对齐)// ==PARITY-SELECTOR-PLACEHOLDER-END==
+
+#pragma mark - P2 补齐（原包方法对齐）
+
+/// 别名：原包 saveConversation: → 复刻 saveRecord:
+- (BOOL)saveConversation:(CAConversationRecord *)record;
+/// 索引原始条目读取（与 rawIndexEntriesForWorkspace: 同义）
+- (NSArray<NSDictionary *> *)readIndex:(nullable NSString *)workspace;
+- (NSDictionary *)dictionaryFromRecord:(CAConversationRecord *)record;
+- (nullable CAConversationRecord *)recordFromDictionary:(NSDictionary *)dictionary workspace:(nullable NSString *)workspace;
+
+#pragma mark 迁移 journal（原子搬移协议）
+
+- (NSString *)migrationJournalDirectory;
+- (NSString *)migrationJournalPathForID:(NSString *)conversationId;
+- (BOOL)writeMigrationJournal:(NSDictionary *)journal toPath:(NSString *)path;
+- (nullable NSDictionary *)readMigrationJournalAtPath:(NSString *)path;
+- (nullable id)migrationJournalData:(NSDictionary *)journal key:(NSString *)key;
+- (BOOL)migrationJournalReferencesConversationId:(NSString *)conversationId;
+- (BOOL)cleanupMigrationJournal:(NSString *)conversationId;
+- (BOOL)removeMigrationFileIfPresent:(NSString *)path;
+- (void)recoverPendingMigrations;
+
+#pragma mark 附件 / 工具输出
+
+- (NSString *)attachmentsRoot;
+- (NSString *)toolOutputsRoot;
+- (NSString *)attachmentDirectoryForConversationId:(NSString *)conversationId;
+- (NSString *)toolOutputDirectoryForConversationId:(NSString *)conversationId;
+- (BOOL)isSafeRelativeAttachmentPath:(nullable NSString *)relative;
+- (nullable NSString *)storeAttachmentFileAtPath:(NSString *)sourcePath conversationId:(NSString *)conversationId;
+- (nullable NSString *)storeToolOutput:(NSString *)content conversationId:(NSString *)conversationId itemId:(NSString *)itemId;
+- (BOOL)appendToolOutput:(NSString *)content conversationId:(NSString *)conversationId itemId:(NSString *)itemId;
+- (nullable NSString *)absolutePathForStoredAttachment:(nullable NSString *)relative;
+- (nullable NSString *)absolutePathForStoredToolOutput:(nullable NSString *)relative;
+
+#pragma mark 清理 / 净化
+
+- (nullable NSString *)transientConversationForWorkspace:(nullable NSString *)workspace;
+- (BOOL)conversationIdReferencedInOtherWorkspace:(NSString *)conversationId workspace:(nullable NSString *)workspace;
+- (NSArray<NSDictionary *> *)removeUnreferencedDisplayAttachments:(NSArray<NSString *> *)displayAttachments
+                                                 remainingMessages:(NSArray<NSDictionary *> *)remainingMessages
+                                                   preservingPaths:(NSArray<NSString *> *)preservingPaths;
+- (NSArray<NSDictionary *> *)sanitizedDisplayAttachments:(NSArray<NSDictionary *> *)displayAttachments;
+- (NSArray<NSDictionary *> *)sanitizedGeneratedArtifacts:(NSArray<NSDictionary *> *)artifacts workspace:(nullable NSString *)workspace;
+
+// P1 补齐（原包方法对齐）：侧栏 moveConversationWithId: 调用点的声明恢复（原占位块 (id) 形态）
+- (id)moveConversationWithId:(id)arg1 fromWorkspace:(id)arg2 toWorkspace:(id)arg3 error:(id)arg4;
 @end
 
 NS_ASSUME_NONNULL_END
