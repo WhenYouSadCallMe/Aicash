@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 
 #pragma mark 内部实现
-- (void)rebuildSlugs;
+
 - (void)applyThemeColors;
 - (BOOL)isThirdPartySection:(NSInteger)section;
 - (BOOL)isNonChatSlug:(NSString *)slug;
@@ -234,7 +234,8 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return CAModelPickerSectionCount;
+    // 未配置第三方 provider 时只显示官方分区（原版行为：第三方列表为空则不渲染该分区）
+    return _thirdPartySlugs.count > 0 ? CAModelPickerSectionCount : 1;
 }
 
 #pragma mark - 内部实现
@@ -242,11 +243,21 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 - (void)rebuildSlugs
 {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    CAModelPricingManager *manager = [CAModelPricingManager sharedManager];
 
-    // 官方：价格目录的键，过滤掉明显非对话模型后按 provider 轮转取用（避免整屏都是同一家模型）
-    NSArray<NSString *> *keys = [manager.prices.allKeys sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-    NSMutableArray<NSString *> *official = [self mixedSlugsFromKeys:keys limit:kModelPickerOfficialLimit];
+    // 官方：内置 models.json（原包资源，8 个官方 slug）——顺序与原包一致
+    NSMutableArray<NSString *> *official = [NSMutableArray array];
+    NSString *modelsPath = [NSBundle.mainBundle pathForResource:@"models" ofType:@"json"];
+    NSData *modelsData = modelsPath ? [NSData dataWithContentsOfFile:modelsPath] : nil;
+    if (modelsData) {
+        NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:modelsData options:0 error:NULL];
+        NSArray<NSDictionary *> *models = payload[@"models"];
+        if ([models isKindOfClass:NSArray.class]) {
+            for (NSDictionary *m in models) {
+                NSString *slug = m[@"slug"];
+                if ([slug isKindOfClass:NSString.class] && slug.length > 0) [official addObject:slug];
+            }
+        }
+    }
     // 当前值必须出现在列表最前（目录未收录当前模型时也要补上）
     for (NSString *current in @[ [defaults stringForKey:CADefaultsActiveModelSlug] ?: @"",
                                  [defaults stringForKey:CADefaultsSelectedModel] ?: @"" ]) {
@@ -255,12 +266,12 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
         [official insertObject:current atIndex:0];
     }
     if (official.count == 0) {
-        // 价格目录尚未同步时的兜底候选，保证面板不空屏
-        [official addObjectsFromArray:@[ @"gpt-5-codex", @"gpt-5", @"o4-mini", @"claude-sonnet-4", @"gemini-2.5-pro" ]];
+        // models.json 缺失时的兜底
+        [official addObjectsFromArray:@[ @"gpt-6.1-sol", @"gpt-6-sol", @"gpt-6-luna", @"gpt-5.6-sol", @"gpt-5.6-terra", @"gpt-5.6-luna", @"gpt-5.5", @"gpt-6-astra" ]];
     }
     _officialSlugs = official;
 
-    // 第三方：defaults 里 provider 探测到的可用模型
+    // 第三方：仅取本机 provider 探测到的可用模型；未配置就保持空（不冒充官方清单）
     NSMutableOrderedSet<NSString *> *thirdParty = [NSMutableOrderedSet orderedSet];
     id stored = [defaults objectForKey:CADefaultsThirdPartyAvailable];
     if ([stored isKindOfClass:NSArray.class]) {
@@ -271,13 +282,6 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
             [thirdParty addObject:slug];
             if (thirdParty.count >= kModelPickerThirdPartyLimit) break;
         }
-    }
-    if (thirdParty.count == 0) {
-        // 未探测到第三方目录：退回价格目录（同样按 provider 轮转，取前 20 条）
-        [thirdParty addObjectsFromArray:[self mixedSlugsFromKeys:keys limit:kModelPickerThirdPartyLimit]];
-    }
-    if (thirdParty.count == 0) {
-        [thirdParty addObjectsFromArray:@[ @"claude-sonnet-4", @"deepseek-chat", @"qwen3-coder", @"kimi-k2", @"glm-4.6" ]];
     }
     _thirdPartySlugs = thirdParty.array;
 }

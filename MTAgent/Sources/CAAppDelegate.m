@@ -36,6 +36,7 @@ static NSString * const kAPNSDeviceTokenDefaultsKey = @"CodexAPNSDeviceToken";
 - (NSArray<CARuntimeCatalogEntry *> *)missingRequiredRuntimes;
 - (void)evaluateRequiredRuntimePrompt;
 - (void)presentController:(UIViewController *)controller;
+- (void)installCrashReporters;
 
 @end
 
@@ -45,6 +46,7 @@ static NSString * const kAPNSDeviceTokenDefaultsKey = @"CodexAPNSDeviceToken";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *)launchOptions
 {
+    [self installCrashReporters];
     NSError *directoryError = nil;
     if (![[CAStorageManager sharedManager] prepareDirectoriesWithError:&directoryError]) {
         CALog(CALogLevelError, @"GENERAL", @"prepare directories failed: %@", directoryError);
@@ -333,6 +335,68 @@ static NSString * const kAPNSDeviceTokenDefaultsKey = @"CodexAPNSDeviceToken";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - 崩溃兜底（未捕获异常 / 致命信号 → 落盘，供日志页查看与回传）
+
+static NSString *CACrashLogDirectory(void)
+{
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)
+                     firstObject];
+    dir = [dir stringByAppendingPathComponent:@"CrashReports"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:dir
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:NULL];
+    return dir;
+}
+
+static void CAGetCrashReportFilePath(char *out, size_t len)
+{
+    NSString *path = [CACrashLogDirectory() stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"crash-%@.log",
+                       [NSDateFormatter new].localizedStringFromDate:[NSDate date]
+                                                           dateStyle:NSDateFormatterShortStyle
+                                                           timeStyle:NSDateFormatterMediumStyle]];
+    strncpy(out, path.fileSystemRepresentation ?: "", len - 1);
+    out[len - 1] = 0;
+}
+
+static void CAUncaughtExceptionHandler(NSException *exception)
+{
+    char path[1024];
+    CAGetCrashReportFilePath(path, sizeof(path));
+    NSMutableString *report = [NSMutableString string];
+    [report appendFormat:@"[uncaught exception] %@\nreason: %@\ncallStack:\n", exception.name, exception.reason];
+    for (NSString *frame in exception.callStackSymbols) [report appendFormat:@"  %@\n", frame];
+    FILE *fp = fopen(path, "a");
+    if (fp) { fwrite(report.UTF8String, 1, strlen(report.UTF8String), fp); fclose(fp); }
+}
+
+static void CASignalHandler(int sig)
+{
+    char path[1024];
+    CAGetCrashReportFilePath(path, sizeof(path));
+    const char *names[] = { 0, "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT", "SIGEMT", "SIGFPE", "SIGKILL", "SIGBUS", "SIGSEGV" };
+    const char *name = (sig > 0 && (size_t)sig < sizeof(names) / sizeof(names[0])) ? names[sig] : "SIG?";
+    char buf[256];
+    snprintf(buf, sizeof(buf), "[fatal signal] %s (%d)\n", name, sig);
+    FILE *fp = fopen(path, "a");
+    if (fp) { fwrite(buf, 1, strlen(buf), fp); fclose(fp); }
+    signal(sig, SIG_DFL);
+    raise(sig);
+}
+
+- (void)installCrashReporters
+{
+    NSSetUncaughtExceptionHandler(&CAUncaughtExceptionHandler);
+    signal(SIGABRT, &CASignalHandler);
+    signal(SIGILL,  &CASignalHandler);
+    signal(SIGSEGV, &CASignalHandler);
+    signal(SIGFPE,  &CASignalHandler);
+    signal(SIGBUS,  &CASignalHandler);
+    signal(SIGTRAP, &CASignalHandler);
 }
 
 @end
