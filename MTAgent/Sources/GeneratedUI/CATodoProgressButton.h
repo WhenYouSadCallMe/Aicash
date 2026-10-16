@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGradientLayer;
+@class CALayer;
+@class CATodoProgressButton;
+
 @interface CATodoProgressButton : NSObject
     - (signed long long)activeIndex;
     - (CAGradientLayer *)activeSegmentLayer;

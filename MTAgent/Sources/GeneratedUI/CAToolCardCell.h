@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentCapsuleView;
+@class CAToolCardCell;
+@class CAToolItem;
+
 @interface CAToolCardCell : UITableViewCell
     - (UIButton *)actionCopyButton;
     - (CAAgentCapsuleView *)capsuleView;

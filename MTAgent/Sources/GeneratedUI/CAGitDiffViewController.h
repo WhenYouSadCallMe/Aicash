@@ -8,6 +8,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitChipLabel;
+@class CAGitDiffResult;
+@class CAGitRepository;
+@class UISegmentedControl;
+
 @interface CAGitDiffViewController : UIViewController
     - (NSDictionary *)change;
     - (void)copyDiff;

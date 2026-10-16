@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitPill;
+
 @interface CAGitPill : NSObject
     - (void)configureWithTitle:(id)arg1 symbol:(id)arg2 emphasized:(id)arg3 showsChevron:(id)arg4;
     - (CAGitPill *)initWithFrame:(id)arg1;

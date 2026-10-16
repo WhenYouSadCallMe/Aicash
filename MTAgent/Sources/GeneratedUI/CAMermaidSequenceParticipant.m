@@ -16,7 +16,7 @@
 - (CGRect)frame
 {
     // TODO(parity)
-    return 0;
+    return CGRectZero;
 }
 
 - (NSString *)label

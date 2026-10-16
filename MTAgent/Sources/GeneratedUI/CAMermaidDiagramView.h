@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAMermaidDiagramView;
+@class CAMermaidWeakScriptMessageHandler;
+
 @interface CAMermaidDiagramView : UIView
     - (CGSize)baseContentSize;
     - (void)centerDiagramContent;

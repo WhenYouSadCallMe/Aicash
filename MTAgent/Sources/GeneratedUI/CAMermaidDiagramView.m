@@ -10,7 +10,7 @@
 - (CGSize)baseContentSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)centerDiagramContent

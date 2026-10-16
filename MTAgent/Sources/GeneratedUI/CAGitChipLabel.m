@@ -15,7 +15,7 @@
 - (UIEdgeInsets)contentInsets
 {
     // TODO(parity)
-    return 0;
+    return UIEdgeInsetsZero;
 }
 
 - (void)drawTextInRect:(id)arg1
@@ -32,7 +32,7 @@
 - (CGSize)intrinsicContentSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)setContentInsets:(id)arg1

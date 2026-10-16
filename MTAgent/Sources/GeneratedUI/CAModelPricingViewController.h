@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIActivityIndicatorView;
+
 @interface CAModelPricingViewController : UIViewController
     - (void)applyTheme;
     - (id)candidateTitle:(id)arg1;

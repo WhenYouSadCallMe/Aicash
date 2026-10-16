@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CACodeBlockView;
+
 @interface CACodeBlockView : UIView
     - (UIButton *)actionCopyButton;
     - (UILabel *)codeLabel;

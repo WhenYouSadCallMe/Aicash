@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAComposerPopupView;
+
 @interface CAComposerPopupView : UIView
     - (void)applyTheme;
     - (UIVisualEffectView *)backgroundEffect;

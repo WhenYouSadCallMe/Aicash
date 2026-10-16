@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAChatCollectionView;
+
 @interface CABottomFollowTarget : NSObject
     - (void)setView:(id)arg1;
     - (void)tick:(id)arg1;

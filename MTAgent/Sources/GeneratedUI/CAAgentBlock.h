@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAMessageItem;
+
 @interface CAAgentBlock : NSObject
     - (NSString *)blockId;
     - (NSArray *)groupedMessages;

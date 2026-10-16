@@ -97,7 +97,7 @@
 - (CGRect)expandedBodyRectForCollapseSnapshot
 {
     // TODO(parity)
-    return 0;
+    return CGRectZero;
 }
 
 - (bool)gestureRecognizer:(id)arg1 shouldReceiveTouch:(id)arg2

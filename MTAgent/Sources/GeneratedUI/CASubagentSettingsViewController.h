@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CACodexEngine;
+
 @interface CASubagentSettingsViewController : UIViewController
     - (CACodexEngine *)contextEngine;
     - (id)effectiveContextEngine;

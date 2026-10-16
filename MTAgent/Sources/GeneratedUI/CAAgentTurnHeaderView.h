@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentTurnHeaderView;
+
 @interface CAAgentTurnHeaderView : UIView
     - (void)configureAssistantHeader;
     - (UIImageView *)iconView;

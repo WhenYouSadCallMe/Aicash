@@ -10,7 +10,7 @@
 - (CGSize)configureWithNodes:(id)arg1 edges:(id)arg2 direction:(id)arg3
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (NSString *)direction

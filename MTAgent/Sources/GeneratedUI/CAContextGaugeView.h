@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAContextGaugeView;
+
 @interface CAContextGaugeView : UIView
     - (NSString *)centerText;
     - (void)drawRect:(id)arg1;

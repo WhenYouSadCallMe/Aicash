@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAPlanDecisionViewController;
+
 @interface CAPlanDecisionViewController : UIViewController
     - (NSMutableDictionary *)choiceRows;
     - (id)completion;

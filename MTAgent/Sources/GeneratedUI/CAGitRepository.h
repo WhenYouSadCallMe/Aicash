@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitRepository;
+
 @interface CAGitRepository : NSObject
     - (void)commitMessage:(id)arg1 stageAll:(id)arg2 completion:(id)arg3;
     - (void)configureRemote:(id)arg1 URL:(id)arg2 completion:(id)arg3;

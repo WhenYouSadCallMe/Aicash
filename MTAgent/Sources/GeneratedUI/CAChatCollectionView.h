@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CABottomFollowTarget;
+
 @interface CAChatCollectionView : UIView
     - (void)adjustedContentInsetDidChange;
     - (void)advanceBottomFollow:(id)arg1;

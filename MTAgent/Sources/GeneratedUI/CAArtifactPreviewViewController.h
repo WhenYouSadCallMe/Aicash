@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AVPlayerViewController;
+@class CAArtifactPreviewViewController;
+
 @interface CAArtifactPreviewViewController : UIViewController
     - (void)close;
     - (CAArtifactPreviewViewController *)initWithPath:(id)arg1;

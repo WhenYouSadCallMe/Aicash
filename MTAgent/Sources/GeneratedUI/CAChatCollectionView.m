@@ -66,13 +66,13 @@
 - (UIEdgeInsets)lastAdjustedInsets
 {
     // TODO(parity)
-    return 0;
+    return UIEdgeInsetsZero;
 }
 
 - (CGSize)lastContentSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (double)lastFollowFrameAt
@@ -84,7 +84,7 @@
 - (CGSize)lastViewportSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)layoutSubviews

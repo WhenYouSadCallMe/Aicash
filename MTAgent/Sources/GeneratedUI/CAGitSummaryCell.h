@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitPill;
+@class CAGitSummaryCell;
+
 @interface CAGitSummaryCell : UITableViewCell
     - (void)applyModel:(id)arg1;
     - (CAGitPill *)branchPill;

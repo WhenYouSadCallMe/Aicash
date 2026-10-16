@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitEmptyStateView;
+
 @interface CAGitEmptyStateView : UIView
     - (void)actionTapped;
     - (void)applyTheme;

@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CASubagentPreferences;
+
 @interface CASubagentPreferences : NSObject
     - (id)argumentsForConfiguration:(id)arg1;
     - (NSUserDefaults *)defaults;

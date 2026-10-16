@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAQueuedMessageBubbleView;
+@class CAShapeLayer;
+
 @interface CAQueuedMessageBubbleView : UIView
     - (CAQueuedMessageBubbleView *)initWithFrame:(id)arg1;
     - (void)layoutSubviews;

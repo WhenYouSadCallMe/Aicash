@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIDropInteraction;
+
 @interface CAComposerTextView : UIView
     - (bool)becomeFirstResponder;
     - (bool)composerDropInstalled;

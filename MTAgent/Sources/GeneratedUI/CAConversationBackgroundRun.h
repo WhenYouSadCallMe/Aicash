@@ -8,6 +8,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CACodexEngine;
+@class CAConversationBackgroundRun;
+@class CAConversationRecord;
+@class CAMessageItem;
+@class NSMutableOrderedSet;
+
 @interface CAConversationBackgroundRun : NSObject
     - (id)assistantForID:(id)arg1;
     - (void)cleanupAttachments;

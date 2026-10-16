@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAPlanProgressViewController;
+
 @interface CAPlanProgressViewController : UIViewController
     - (void)close;
     - (bool)executionActive;

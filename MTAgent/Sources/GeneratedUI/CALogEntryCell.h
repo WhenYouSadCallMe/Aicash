@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CALogEntryCell;
+
 @interface CALogEntryCell : UITableViewCell
     - (void)configureWithEntry:(id)arg1;
     - (CALogEntryCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;

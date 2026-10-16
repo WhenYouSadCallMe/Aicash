@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAMessageItem;
+@class CAThinkingCell;
+@class UIActivityIndicatorView;
+
 @interface CAThinkingCell : UITableViewCell
     - (bool)ambientMusingActive;
     - (bool)canContinueAmbientGeneration:(id)arg1;

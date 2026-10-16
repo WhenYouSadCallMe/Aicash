@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAShapeLayer;
+
 @interface CAStorageProgressRingView : UIView
     - (UILabel *)checkLabel;
     - (CGSize)intrinsicContentSize;

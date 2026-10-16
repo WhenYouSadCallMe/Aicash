@@ -67,7 +67,7 @@
 - (CGSize)lastFitBoundsSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)layoutSubviews
@@ -78,7 +78,7 @@
 - (CGSize)naturalContentSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)setAllowedRoot:(id)arg1

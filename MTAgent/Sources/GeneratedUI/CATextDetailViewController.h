@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CATextDetailViewController;
+
 @interface CATextDetailViewController : UIViewController
     - (void)close;
     - (void)handleCopyText;

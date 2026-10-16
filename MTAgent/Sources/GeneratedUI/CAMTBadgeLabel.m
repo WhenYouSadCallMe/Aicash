@@ -15,7 +15,7 @@
 - (CGSize)intrinsicContentSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 @end

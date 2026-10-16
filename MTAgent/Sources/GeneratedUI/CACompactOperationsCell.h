@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CACompactOperationsCell;
+
 @interface CACompactOperationsCell : UITableViewCell
     - (void)applyRunningAnimationToRow:(id)arg1 message:(id)arg2;
     - (UIImageView *)chevronView;

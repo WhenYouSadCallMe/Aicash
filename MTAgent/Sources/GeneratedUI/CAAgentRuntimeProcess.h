@@ -8,6 +8,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentRuntimeProcess;
+@class NSFileHandle;
+@class OS_dispatch_queue;
+@class OS_dispatch_source;
+
 @interface CAAgentRuntimeProcess : NSObject
     - (bool)drainHandle:(id)arg1 handler:(id)arg2;
     - (OS_dispatch_source *)errorSource;

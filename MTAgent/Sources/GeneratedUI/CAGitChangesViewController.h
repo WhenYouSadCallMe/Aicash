@@ -8,6 +8,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitChangesViewController;
+@class CAGitCommitBar;
+@class CAGitEmptyStateView;
+@class CAGitRepository;
+@class CAGitSnapshot;
+@class UIRefreshControl;
+
 @interface CAGitChangesViewController : UIViewController
     - (void)anchorAlert:(id)arg1 toView:(id)arg2;
     - (void)applyPrefix:(id)arg1;

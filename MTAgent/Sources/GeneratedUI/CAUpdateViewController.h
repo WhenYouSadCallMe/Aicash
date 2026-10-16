@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAUpdateViewController;
+@class UIActivityIndicatorView;
+@class UIProgressView;
+
 @interface CAUpdateViewController : UIViewController
     - (signed long long)activeStage;
     - (void)applyTheme;

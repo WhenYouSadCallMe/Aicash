@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentProgressRingView;
+@class CAShapeLayer;
+
 @interface CAAgentProgressRingView : UIView
     - (CAAgentProgressRingView *)initWithFrame:(id)arg1;
     - (void)layoutSubviews;

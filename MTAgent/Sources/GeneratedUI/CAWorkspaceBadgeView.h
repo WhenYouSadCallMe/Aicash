@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAWorkspaceBadgeView;
+
 @interface CAWorkspaceBadgeView : UIView
     - (void)configureWithName:(id)arg1 symbol:(id)arg2 tint:(id)arg3 size:(id)arg4;
     - (CAWorkspaceBadgeView *)initWithFrame:(id)arg1;

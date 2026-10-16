@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitCleanCell;
+
 @interface CAGitCleanCell : UITableViewCell
     - (void)configureWithTitle:(id)arg1 detail:(id)arg2;
     - (CAGitCleanCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;

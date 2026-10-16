@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AVPlayerLayer;
+@class CAInlineMediaPreview;
+
 @interface CAInlineMediaPreview : NSObject
     - (UILabel *)captionLabel;
     - (CAInlineMediaPreview *)initWithPath:(id)arg1 video:(id)arg2;

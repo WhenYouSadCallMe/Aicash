@@ -51,7 +51,7 @@
 - (CGRect)expandedBodyRectForCollapseSnapshot
 {
     // TODO(parity)
-    return 0;
+    return CGRectZero;
 }
 
 - (UIButton *)fullOutputButton

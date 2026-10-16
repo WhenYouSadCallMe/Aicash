@@ -16,7 +16,7 @@
 - (CGSize)configureWithParticipants:(id)arg1 items:(id)arg2
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (void)drawArrowAt:(id)arg1 from:(id)arg2 cross:(id)arg3 color:(id)arg4

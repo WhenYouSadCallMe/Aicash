@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAActiveRunIndicator;
+@class CAShapeLayer;
+
 @interface CAActiveRunIndicator : NSObject
     - (CAShapeLayer *)arcLayer;
     - (CAActiveRunIndicator *)initWithDiameter:(id)arg1;

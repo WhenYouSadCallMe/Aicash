@@ -299,7 +299,7 @@
     NSString *legacy = [CARuntimePaths.cachesDirectory stringByAppendingPathComponent:@"ReverseTools"];
     if (![NSFileManager.defaultManager fileExistsAtPath:legacy]) return;
     NSError *error = nil;
-    [[NSFileManager defaultManager] moveItemAtPath:legacy toPath:[CARuntimePaths.reverseToolsDirectory] error:&error];
+    [[NSFileManager defaultManager] moveItemAtPath:legacy toPath:CARuntimePaths.reverseToolsDirectory error:&error];
     if (!error) CALog(CALogLevelInfo, @"RUNTIME", @"migrated ReverseTools cache to Application Support");
     else CALog(CALogLevelDebug, @"RUNTIME", @"ReverseTools cache migration skipped: %@", error);
 }

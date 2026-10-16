@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitCommitBar;
+
 @interface CAGitCommitBar : NSObject
     - (void)applyTheme;
     - (id)buildAccessoryView;

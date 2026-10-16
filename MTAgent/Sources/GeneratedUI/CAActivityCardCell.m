@@ -98,7 +98,7 @@
 - (CGRect)expandedBodyRectForCollapseSnapshot
 {
     // TODO(parity)
-    return 0;
+    return CGRectZero;
 }
 
 - (UIButton *)fullDetailButton
@@ -178,7 +178,7 @@
 - (CGSize)measuredSize
 {
     // TODO(parity)
-    return 0;
+    return CGSizeZero;
 }
 
 - (NSLayoutConstraint *)metadataHeight

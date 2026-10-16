@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAPlanDecisionChoiceView;
+
 @interface CAPlanDecisionChoiceView : UIView
     - (UILabel *)choiceDescription;
     - (UILabel *)choiceTitle;

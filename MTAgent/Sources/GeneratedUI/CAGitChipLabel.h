@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitChipLabel;
+
 @interface CAGitChipLabel : NSObject
     - (void)configureWithText:(id)arg1 color:(id)arg2;
     - (UIEdgeInsets)contentInsets;

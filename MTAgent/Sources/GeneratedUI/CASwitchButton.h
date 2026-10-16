@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CASwitchButton;
+
 @interface CASwitchButton : NSObject
     - (void)commonInit;
     - (void)handleTap;

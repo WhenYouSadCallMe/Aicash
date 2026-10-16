@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAWorkspaceManager;
+
 @interface CAWorkspaceManager : NSObject
     - (bool)activateWorkspaceWithPath:(id)arg1 name:(id)arg2 error:(id)arg3;
     - (NSString *)activeWorkspacePath;

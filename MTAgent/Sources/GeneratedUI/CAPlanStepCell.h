@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAPlanStatusRing;
+@class CAPlanStepCell;
+
 @interface CAPlanStepCell : UITableViewCell
     - (void)configureWithStep:(id)arg1;
     - (void)configureWithStep:(id)arg1 executionActive:(id)arg2;

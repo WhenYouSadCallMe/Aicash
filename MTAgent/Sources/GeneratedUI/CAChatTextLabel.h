@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAChatTextLabel;
+
 @interface CAChatTextLabel : NSObject
     - (void)handleLinkTap:(id)arg1;
     - (bool)hasMeasuredText;

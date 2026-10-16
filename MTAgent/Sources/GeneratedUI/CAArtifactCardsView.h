@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAArtifactCardsView;
+
 @interface CAArtifactCardsView : UIView
     - (CAArtifactCardsView *)initWithArtifacts:(id)arg1 onOpen:(id)arg2;
 

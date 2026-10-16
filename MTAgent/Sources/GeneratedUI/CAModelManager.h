@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAModelItem;
+
 @interface CAModelManager : NSObject
     - (CAModelItem *)activeModel;
     - (NSString *)activeReasoningEffort;

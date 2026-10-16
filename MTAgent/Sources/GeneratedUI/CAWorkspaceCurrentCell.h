@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAWorkspaceBadgeView;
+@class CAWorkspaceCurrentCell;
+
 @interface CAWorkspaceCurrentCell : UITableViewCell
     - (CAWorkspaceBadgeView *)badge;
     - (UILabel *)captionLabel;

@@ -38,7 +38,7 @@
 - (CGRect)knobFrameForOn:(id)arg1
 {
     // TODO(parity)
-    return 0;
+    return CGRectZero;
 }
 
 - (UIView *)knobView

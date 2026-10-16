@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAShapeLayer;
+
 @interface CADiagnosticsRingView : UIView
     - (CGSize)intrinsicContentSize;
     - (UILabel *)label;

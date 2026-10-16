@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitGroupHeaderView;
+
 @interface CAGitGroupHeaderView : UIView
     - (void)actionTapped;
     - (void)configureWithTitle:(id)arg1 count:(id)arg2 symbol:(id)arg3 tint:(id)arg4 expanded:(id)arg5 actionTitle:(id)arg6 actionEnabled:(id)arg7;

@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAGitChangeCell;
+
 @interface CAGitChangeCell : UITableViewCell
     - (void)configureWithChange:(id)arg1 side:(id)arg2 stats:(id)arg3 enabled:(id)arg4;
     - (CAGitChangeCell *)initWithStyle:(id)arg1 reuseIdentifier:(id)arg2;

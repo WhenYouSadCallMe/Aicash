@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAComposerAttachmentCell;
+
 @interface CAComposerAttachmentCell : UITableViewCell
     - (void)configure:(id)arg1;
     - (CAComposerAttachmentCell *)initWithFrame:(id)arg1;

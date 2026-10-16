@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAPathPickerViewController;
+
 @interface CAPathPickerViewController : UIViewController
     - (void)cancel;
     - (void)createFolder;

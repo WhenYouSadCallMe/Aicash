@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentCapsuleView;
+@class CAGradientLayer;
+
 @interface CAAgentCapsuleView : UIView
     - (void)didMoveToWindow;
     - (CAAgentCapsuleView *)initWithFrame:(id)arg1;

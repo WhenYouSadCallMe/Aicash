@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAConversationSidebarDelegate;
+@class CAProfileAvatarView;
+@class UIControl;
+
 @interface CAConversationSidebarViewController : UIViewController
     - (CAProfileAvatarView *)accountAvatar;
     - (UIControl *)accountControl;

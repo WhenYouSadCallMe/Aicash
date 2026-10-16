@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAToolItem;
+
 @interface CAMessageItem : NSObject
     - (NSString *)activityDetail;
     - (unsigned long long)activityDetailBytes;

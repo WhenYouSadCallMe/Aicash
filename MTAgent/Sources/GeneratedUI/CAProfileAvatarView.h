@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAProfileAvatarView;
+@class NSURLSessionDataTask;
+
 @interface CAProfileAvatarView : UIView
     - (NSString *)identity;
     - (id)imageCache;
