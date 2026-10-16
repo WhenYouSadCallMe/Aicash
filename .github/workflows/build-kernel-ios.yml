@@ -97,6 +97,9 @@ jobs:
           . "$HOME/.cargo/env"
           cd upstream
           cd "$CODEX_RS_DIR"
+          # codex-rs 用 rust-toolchain.toml 锁定 1.95.0，需为该工具链补装 iOS target
+          rustup target add aarch64-apple-ios
+          rustc --version && rustup target list --installed
           SDK=$(xcrun --sdk iphoneos --show-sdk-path)
           export SDKROOT="$SDK"
           export IPHONEOS_DEPLOYMENT_TARGET=15.0
