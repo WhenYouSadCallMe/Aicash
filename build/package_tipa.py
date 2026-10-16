@@ -74,29 +74,29 @@ def main():
             zf.writestr(info, data)
             written += 1
 
-    # 3) 追加 bundle 中存在但清单没有的文件（如 CI 拉取的 Helpers/codex 内核）
-    known = set()
-    for entry in manifest["entries"]:
-        rel = entry["path"]
-        if rel.startswith("../") or rel in ("", "/"):
-            continue
-        known.add(rel.rstrip("/"))
-    for dirpath, dirnames, filenames in os.walk(app):
-        for fn in filenames:
-            host = os.path.join(dirpath, fn)
-            rel = os.path.relpath(host, app).replace(os.sep, "/")
-            if rel in known or os.path.islink(host):
+        # 3) 追加 bundle 中存在但清单没有的文件（如 CI 拉取的 Helpers/codex 内核）
+        known = set()
+        for entry in manifest["entries"]:
+            rel = entry["path"]
+            if rel.startswith("../") or rel in ("", "/"):
                 continue
-            with open(host, "rb") as fh:
-                data = fh.read()
-            info = zipfile.ZipInfo(prefix + rel)
-            info.external_attr = (stat.S_IFREG | 0o755) << 16
-            zf.writestr(info, data)
-            written += 1
+            known.add(rel.rstrip("/"))
+        for dirpath, dirnames, filenames in os.walk(app):
+            for fn in filenames:
+                host = os.path.join(dirpath, fn)
+                rel = os.path.relpath(host, app).replace(os.sep, "/")
+                if rel in known or os.path.islink(host):
+                    continue
+                with open(host, "rb") as fh:
+                    data = fh.read()
+                info = zipfile.ZipInfo(prefix + rel)
+                info.external_attr = (stat.S_IFREG | 0o755) << 16
+                zf.writestr(info, data)
+                written += 1
 
     size = os.path.getsize(args.output)
     print("生成 %s (%d 字节)，写入条目 %d，缺失 %d" % (args.output, size, written, missing))
 
+
 if __name__ == "__main__":
     main()
-
