@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-10-16 14:14:52",
+ "generated_at": "2026-10-16 14:17:15",
  "rows": [
   {
    "check": "契约·plist/entitlements/布局/资源",
    "status": "pass",
-   "seconds": "4.2s",
+   "seconds": "3.9s",
    "detail": "======================================================================",
    "returncode": 0
   },
@@ -18,14 +18,14 @@
   {
    "check": "源码·import/括号/声明实现",
    "status": "pass",
-   "seconds": "0.4s",
+   "seconds": "0.5s",
    "detail": "报告: SPEC/source_check_report.json",
    "returncode": 0
   },
   {
    "check": "源码·类型可达性(前向声明)",
    "status": "pass",
-   "seconds": "0.6s",
+   "seconds": "0.7s",
    "detail": "报告: SPEC/forward_decl_report.json",
    "returncode": 0
   },

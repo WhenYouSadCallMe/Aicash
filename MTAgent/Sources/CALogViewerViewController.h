@@ -51,17 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // ==PARITY-PROPERTIES-BEGIN== (auto-generated from original __objc_proplist)
-    @property (nonatomic, strong, nullable) UIButton * categoryButton;
-    @property (nonatomic, strong, nullable) UILabel * emptyLabel;
-    @property (nonatomic, strong, nullable) NSString * fileSignature;
-    @property (nonatomic, strong, nullable) UIButton * jumpBottomButton;
-    @property (nonatomic, strong, nullable) UISegmentedControl * levelControl;
     @property (nonatomic, strong, nullable) UIBarButtonItem * logCopyItem;
     @property (nonatomic, strong, nullable) UIBarButtonItem * moreItem;
-    @property (nonatomic, strong, nullable) NSArray * pendingEntries;
-    @property (nonatomic, assign) BOOL preparingShare;
-    @property (nonatomic, assign) BOOL reading;
-    @property (nonatomic, strong, nullable) UISearchController * searchController;
 // ==PARITY-PROPERTIES-END==
 
 // ==PARITY-SELECTOR-PLACEHOLDER-BEGIN==

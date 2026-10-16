@@ -89,7 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, assign) int agentStatusRotationTimer;
     @property (nonatomic, strong, nullable) NSString * approvedPlanDispatchConversationId;
     @property (nonatomic, strong, nullable) NSString * approvedPlanExecutionConversationId;
-    @property (nonatomic, strong, nullable) UIButton * attachButton;
     @property (nonatomic, strong, nullable) CAComposerAttachmentGridView * attachmentGridView;
     @property (nonatomic, strong, nullable) NSLayoutConstraint * attachmentStripHeightConstraint;
     @property (nonatomic, strong, nullable) NSMutableDictionary * backgroundRuns;
@@ -158,14 +157,11 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, assign) double historyPanStartProgress;
     @property (nonatomic, strong, nullable) UINavigationController * historySidebarNavigationController;
     @property (nonatomic, strong, nullable) NSArray * inFlightAttachments;
-    @property (nonatomic, strong, nullable) UIView * inputBar;
     @property (nonatomic, strong, nullable) CAGradientLayer * inputBarGradientLayer;
     @property (nonatomic, strong, nullable) NSLayoutConstraint * inputBarHeightConstraint;
-    @property (nonatomic, strong, nullable) NSLayoutConstraint * inputBottomConstraint;
     @property (nonatomic, strong, nullable) UIView * inputContainer;
     @property (nonatomic, strong, nullable) NSLayoutConstraint * inputContainerHeightConstraint;
     @property (nonatomic, strong, nullable) CAComposerTextView * inputField;
-    @property (nonatomic, strong, nullable) UILabel * inputPlaceholderLabel;
     @property (nonatomic, strong, nullable) UIButton * jumpBottomButton;
     @property (nonatomic, assign) double lastComposerAvailableHeight;
     @property (nonatomic, assign) double lastComposerWidth;
@@ -194,7 +190,6 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, strong, nullable) UIStackView * scrollJumpStack;
     @property (nonatomic, strong, nullable) NSString * selectionConversationKey;
     @property (nonatomic, strong, nullable) NSString * selectionWorkspaceKey;
-    @property (nonatomic, strong, nullable) UIButton * sendButton;
     @property (nonatomic, assign) long long sendButtonVisualMode;
     @property (nonatomic, assign) BOOL sendButtonVisualStateInitialized;
     @property (nonatomic, assign) BOOL shareInboxImportPendingRetry;

@@ -77,7 +77,6 @@ extern NSString *const CAModelPricingUSDToCNYRateUpdatedAtKey;   // CAModelPrici
 
 
 // ==PARITY-PROPERTIES-BEGIN== (auto-generated from original __objc_proplist)
-    @property (nonatomic, assign) BOOL exchangeRateRefreshing;
     @property (nonatomic, strong, nullable) NSObject<OS_dispatch_queue> * queue;
 // ==PARITY-PROPERTIES-END==
 
