@@ -20,32 +20,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 若仓库内没有内核（Kernel/dist/codex），尝试从最新成功的 build-kernel-ios 运行拉取 artifact
+      # 若仓库内没有内核（Kernel/dist/codex），用官方 action 从最新成功的 build-kernel-ios 运行拉取 artifact
       - name: 拉取内核 artifact（存在时）
-        run: |
-          set -e
-          [ -f Kernel/dist/codex ] && { echo "仓库内已有内核，跳过"; exit 0; }
-          RUN_ID=$(curl -s -H "Authorization: token ${{ github.token }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/build-kernel-ios.yml/runs?status=success&per_page=1" \
-            | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['workflow_runs'][0]['id'] if d.get('workflow_runs') else '')") || true
-          if [ -n "$RUN_ID" ]; then
-            echo "从 run $RUN_ID 下载内核 artifact"
-            cd /tmp
-            curl -sL -H "Authorization: token ${{ github.token }}" \
-              "https://api.github.com/repos/${{ github.repository }}/actions/runs/$RUN_ID/artifacts" -o arts.json
-            ART_URL=$(python3 -c "import json;d=json.load(open('arts.json'));print([a['archive_download_url'] for a in d.get('artifacts',[]) if a['name']=='codex-ios-arm64'][0])" 2>/dev/null) || true
-            if [ -n "$ART_URL" ]; then
-              curl -sL -H "Authorization: token ${{ github.token }}" "$ART_URL" -o kernel.zip
-              unzip -o kernel.zip
-              mkdir -p "$GITHUB_WORKSPACE/Kernel/dist"
-              cp codex "$GITHUB_WORKSPACE/Kernel/dist/codex"
-              cp codex.sha256 "$GITHUB_WORKSPACE/Kernel/dist/" 2>/dev/null || true
-              chmod +x "$GITHUB_WORKSPACE/Kernel/dist/codex"
-              ls -l "$GITHUB_WORKSPACE/Kernel/dist"
-            fi
-          else
-            echo "没有成功的内核构建，产物不含智能内核"
-          fi
+        id: fetch_kernel
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('Kernel/dist/codex')) {
+              core.info('仓库内已有内核，跳过');
+              return;
+            }
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'build-kernel-ios.yml',
+              status: 'success',
+              per_page: 1,
+            });
+            const run = runs.data.workflow_runs[0];
+            if (!run) { core.warning('没有成功的内核构建，产物不含智能内核'); return; }
+            core.info(`从 run ${run.id} 下载内核 artifact`);
+            const arts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: run.id,
+            });
+            const art = arts.data.artifacts.find(a => a.name === 'codex-ios-arm64');
+            if (!art) { core.warning(`run ${run.id} 没有 codex-ios-arm64 artifact`); return; }
+            const dl = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: art.id,
+              archive_format: 'zip',
+            });
+            fs.mkdirSync('Kernel/dist', { recursive: true });
+            fs.writeFileSync('/tmp/kernel.zip', Buffer.from(dl.data));
+            await exec.exec('unzip', ['-o', '/tmp/kernel.zip', '-d', '/tmp/kernel_art']);
+            fs.copyFileSync('/tmp/kernel_art/codex', 'Kernel/dist/codex');
+            try { fs.copyFileSync('/tmp/kernel_art/codex.sha256', 'Kernel/dist/codex.sha256'); } catch (e) {}
+            fs.chmodSync('Kernel/dist/codex', 0o755);
+            await exec.exec('ls', ['-l', 'Kernel/dist']);
 
       - name: 工具链信息
         run: |
