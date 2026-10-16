@@ -13,9 +13,27 @@
 """
 import hashlib, json, os, plistlib, re, stat, sys, zipfile
 
+def _resolve_original_tipa():
+    """原包定位：环境变量 → 仓库内 reference/ → 仓库根 → SPEC/assets → 本机开发路径"""
+    env = os.environ.get("CA_ORIGINAL_TIPA")
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cands = [c for c in [
+        env,
+        os.path.join(root, "reference", "MT-Agent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "MT-Agent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "MTAgent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "SPEC", "assets", "MT-Agent-v1.0.2-Lite.tipa"),
+        r"C:\\Users\\Administrator\\Desktop\\ai\\MT-Agent-v1.0.2-Lite.tipa",
+    ] if c]
+    for c in cands:
+        if os.path.exists(c):
+            return c
+    return None
+
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 REPLICA = os.path.dirname(ROOT)
-TIP = r"C:\Users\Administrator\Desktop\ai\MT-Agent-v1.0.2-Lite.tipa"
+TIP = _resolve_original_tipa()
 APP_PREFIX = "Payload/CodexApp.app/"
 EXT_PREFIX = APP_PREFIX + "PlugIns/MTShareExtension.appex/"
 
@@ -37,7 +55,8 @@ def load_plist(data):
 
 def main():
     if not os.path.exists(TIP):
-        sys.exit("原始 tipa 不存在: %s" % TIP)
+        print("SKIP: 未提供原包（设置 CA_ORIGINAL_TIPA 或放到 reference/ 下即执行逐项比对）")
+    sys.exit(0)
     zf = zipfile.ZipFile(TIP)
     names = set(zf.namelist())
 

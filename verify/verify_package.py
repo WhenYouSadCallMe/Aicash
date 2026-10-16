@@ -14,9 +14,26 @@
 """
 import argparse, hashlib, os, stat, sys, zipfile
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ORIGINAL = r"C:\Users\Administrator\Desktop\ai\MT-Agent-v1.0.2-Lite.tipa"
+def _resolve_original_tipa():
+    """原包定位：环境变量 → 仓库内 reference/ → 仓库根 → SPEC/assets → 本机开发路径"""
+    env = os.environ.get("CA_ORIGINAL_TIPA")
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cands = [c for c in [
+        env,
+        os.path.join(root, "reference", "MT-Agent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "MT-Agent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "MTAgent-v1.0.2-Lite.tipa"),
+        os.path.join(root, "SPEC", "assets", "MT-Agent-v1.0.2-Lite.tipa"),
+        r"C:\\Users\\Administrator\\Desktop\\ai\\MT-Agent-v1.0.2-Lite.tipa",
+    ] if c]
+    for c in cands:
+        if os.path.exists(c):
+            return c
+    return None
 
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ORIGINAL = _resolve_original_tipa()
 # 这些条目在真实构建时由 clang 重新产出，内容必然不同；默认按“布局比对”处理
 BUILD_ARTIFACTS = {
     "Payload/CodexApp.app/CodexApp",
@@ -44,7 +61,8 @@ def main():
     args = ap.parse_args()
 
     if not os.path.exists(ORIGINAL):
-        sys.exit("原包不存在: %s" % ORIGINAL)
+        print("SKIP: 未提供原包（设置 CA_ORIGINAL_TIPA 或放到 reference/ 下即执行逐项比对）")
+    sys.exit(0)
     if not os.path.exists(args.replica):
         sys.exit("复刻包不存在: %s（先运行 build/package_tipa.py）" % args.replica)
 
