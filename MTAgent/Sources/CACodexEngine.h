@@ -13,6 +13,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// app-server 通知转发（聊天页据此做流式渲染）
+/// userInfo 键：CACodexEngineNotificationMethodKey（NSString）/ CACodexEngineNotificationParamsKey（NSDictionary）
+extern NSNotificationName const CACodexEngineAppServerNotification;
+extern NSString *const CACodexEngineNotificationMethodKey;
+extern NSString *const CACodexEngineNotificationParamsKey;
+
 typedef void (^CACodexTurnOutputHandler)(NSString *line, BOOL isStderr);
 typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable errorMessage);
 
@@ -70,6 +76,17 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
 - (void)sendPromptViaPersistentAppServer:(NSString *)prompt
                                 threadId:(nullable NSString *)threadId
                               completion:(CACodexTurnCompletion)completion;
+
+/// 常驻 app-server 上是否有一轮正在跑。
+/// 语义：-sendPromptViaPersistentAppServer:threadId:completion: 的 completion 在「回合结束」时回调
+///（turn/completed、turn/failed、会话失效或超时），而不是在 turn/start 的 RPC 应答时。
+@property (nonatomic, assign, readonly) BOOL persistentTurnInFlight;
+
+/// 回合结束原因（最后一次；nil 表示正常结束）
+@property (nonatomic, copy, readonly, nullable) NSString *lastTurnTerminalReason;
+
+/// 打断当前回合：先尝试 turn/interrupt，失败则重建常驻会话
+- (void)cancelCurrentTurnWithCompletion:(nullable void (^)(BOOL ok))completion;
 
 #pragma mark - 登录
 

@@ -353,6 +353,51 @@ static id CAConversationJSONScalar(id value)
     return ok;
 }
 
+#pragma mark - 迁移（会话侧栏「移动到工作区」）
+
+/// 头文件里该选择器的 error 形参被占位成 id（无法安全解成 NSError**），
+/// 因此这里不写回 out-param，只返回 @YES/@NO，并在日志里记录原因；签名保持与头文件逐字一致。
+- (id)moveConversationWithId:(id)arg1 fromWorkspace:(id)arg2 toWorkspace:(id)arg3 error:(id)arg4
+{
+    NSString *conversationId = [arg1 isKindOfClass:NSString.class] ? arg1 : nil;
+    NSString *source = [arg2 isKindOfClass:NSString.class] ? arg2 : nil;
+    NSString *destination = [arg3 isKindOfClass:NSString.class] ? arg3 : nil;
+
+    if (conversationId.length == 0 || destination.length == 0) {
+        CALog(CALogLevelWarn, @"GENERAL", @"conversation move rejected conversation=%@ destination=%@",
+              conversationId ?: @"(none)", destination ?: @"(none)");
+        return @NO;
+    }
+    if ([[self workspaceKey:source] isEqualToString:[self workspaceKey:destination]]) return @YES;
+
+    CAConversationRecord *record = [self loadConversationWithId:conversationId workspace:source];
+    if (!record) {
+        CALog(CALogLevelWarn, @"GENERAL", @"conversation move failed: record missing conversation=%@ workspace=%@",
+              conversationId, source ?: @"(default)");
+        return @NO;
+    }
+
+    BOOL wasActive = [[self activeConversationIdForWorkspace:source] isEqualToString:conversationId];
+    record.workspacePath = destination;
+    record.needsWorkspaceHandoff = NO;
+    record.handoffSourceWorkspace = nil;
+    record.updatedAt = [NSDate date];
+
+    if (![self saveRecord:record]) {
+        CALog(CALogLevelWarn, @"GENERAL", @"conversation move failed: destination save conversation=%@ workspace=%@",
+              conversationId, destination);
+        return @NO;
+    }
+    [self deleteRecordWithId:conversationId workspace:source];
+    if (wasActive) {
+        [self setActiveConversationId:conversationId workspace:destination];
+        [self setActiveConversationId:nil workspace:source];
+    }
+    CALog(CALogLevelInfo, @"GENERAL", @"conversation moved conversation=%@ %@ -> %@",
+          conversationId, source ?: @"(default)", destination);
+    return @YES;
+}
+
 #pragma mark - 活跃会话
 
 - (NSString *)activeConversationIdForWorkspace:(NSString *)workspace

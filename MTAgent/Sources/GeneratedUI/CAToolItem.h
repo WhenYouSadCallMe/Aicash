@@ -10,6 +10,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class NSString;
 
+// ==CHAT-KIT-BEGIN== 聊天主流程共享定义：工具调用状态（原包 _status 取值）
+typedef NS_ENUM(NSInteger, CAToolStatus) {
+    CAToolStatusRunning   = 0,
+    CAToolStatusSucceeded = 1,
+    CAToolStatusFailed    = 2,
+};
+// ==CHAT-KIT-END==
+
 @interface CAToolItem : NSObject
     - (NSString *)command;
     - (signed long long)exitCode;
@@ -29,6 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setOutputPersistencePending:(id)arg1;
     - (void)setStatus:(id)arg1;
     - (signed long long)status;
+
+// ==CHAT-KIT-API-BEGIN== 聊天主流程便捷写入（不动上面 parity 选择器的占位签名）
+- (void)chatSetStatus:(CAToolStatus)status exitCode:(NSInteger)exitCode;
+- (void)chatAppendOutput:(nullable NSString *)chunk;
+- (BOOL)isRunningTool;
+// ==CHAT-KIT-API-END==
 
 @end
 

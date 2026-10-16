@@ -14,6 +14,22 @@
 #import "CAProcess.h"
 
 static const NSTimeInterval kLoginStatusTimeout = 8.0;
+static const NSTimeInterval kPersistentTurnTimeout = 900.0;
+
+NSNotificationName const CACodexEngineAppServerNotification = @"CACodexEngineAppServerNotification";
+NSString *const CACodexEngineNotificationMethodKey = @"method";
+NSString *const CACodexEngineNotificationParamsKey = @"params";
+
+@interface CACodexEngine () {
+    CACodexTurnCompletion _pendingTurnCompletion;
+    NSString *_activeTurnId;
+    NSString *_activeTurnThreadId;
+    NSString *_lastTurnTerminalReason;
+    NSUInteger _turnGeneration;
+    BOOL _turnInFlight;
+    CAProcess *_activeExecTask;
+}
+@end
 
 @implementation CACodexEngine
 
@@ -288,20 +304,40 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
     NSPipe *errPipe = [NSPipe pipe];
     task.standardOutput = outPipe;
     task.standardError = errPipe;
+
+    // 按行切分：readabilityHandler 每次给到的是一段字节流，可能把一行 JSON 拦腰截断，
+    // 因此这里保留残行缓冲，只把完整行交给上层（保证每一行都是合法 JSON）。
+    __block NSMutableString *outBuffer = [NSMutableString string];
+    __block NSMutableString *errBuffer = [NSMutableString string];
+    void (^drain)(NSMutableString *, BOOL) = ^(NSMutableString *buffer, BOOL isStderr) {
+        NSRange newline;
+        while ((newline = [buffer rangeOfString:@"\n"]).location != NSNotFound) {
+            NSString *line = [buffer substringToIndex:newline.location];
+            [buffer deleteCharactersInRange:NSMakeRange(0, newline.location + 1)];
+            if (line.length > 0 && output) output(line, isStderr);
+        }
+    };
     outPipe.fileHandleForReading.readabilityHandler = ^(NSFileHandle *h) {
         NSData *d = h.availableData; if (!d.length) return;
-        NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding] ?: @"";
-        for (NSString *line in [s componentsSeparatedByString:@"\n"]) if (line.length) output(line, NO);
+        NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+        if (!s.length) return;
+        [outBuffer appendString:s];
+        drain(outBuffer, NO);
     };
     errPipe.fileHandleForReading.readabilityHandler = ^(NSFileHandle *h) {
         NSData *d = h.availableData; if (!d.length) return;
-        NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding] ?: @"";
-        for (NSString *line in [s componentsSeparatedByString:@"\n"]) if (line.length) output(line, YES);
+        NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+        if (!s.length) return;
+        [errBuffer appendString:s];
+        drain(errBuffer, YES);
     };
 
     task.terminationHandler = ^(CAProcess *t) {
         outPipe.fileHandleForReading.readabilityHandler = nil;
         errPipe.fileHandleForReading.readabilityHandler = nil;
+        // 冲刷残行：进程结束时最后一行通常没有换行符
+        drain(outBuffer, NO);
+        drain(errBuffer, YES);
         CALog(CALogLevelInfo, @"CHAT-TERMINAL", @"exec exited status=%d execution=%@", t.terminationStatus, executionMode ?: @"agent");
         if (completion) completion(t.terminationStatus, nil);
     };
@@ -312,18 +348,148 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
         if (completion) completion(-1, error.localizedDescription);
         return;
     }
+    _activeExecTask = task;
     CALog(CALogLevelInfo, @"CHAT-TERMINAL", @"exec launched pid=%d resume=%@ model=%@", task.processIdentifier, @"NO", model ?: @"default");
+}
+
+/// 原包同名选择器：中断 exec 路径的当前进程（app-server 路径走 -cancelCurrentTurnWithCompletion:）
+- (id)cancelExecution
+{
+    CAProcess *task = _activeExecTask;
+    if (!task || !task.isRunning) return @NO;
+    CALog(CALogLevelWarn, @"CHAT-TERMINAL", @"exec interrupted pid=%d", task.processIdentifier);
+    [task interrupt];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (task.isRunning) {
+            CALog(CALogLevelWarn, @"CHAT-TERMINAL", @"exec did not exit after interrupt, terminating pid=%d", task.processIdentifier);
+            [task terminate];
+        }
+    });
+    return @YES;
+}
+
+- (id)currentTask
+{
+    return _activeExecTask;
 }
 
 - (void)sendPromptViaPersistentAppServer:(NSString *)prompt threadId:(NSString *)threadId completion:(CACodexTurnCompletion)completion
 {
+    __weak typeof(self) weakSelf = self;
+    [self preparePersistentAppServerWithCompletion:^(BOOL ok, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (!ok) {
+            CALog(CALogLevelError, @"APP-SERVER", @"persistent app-server unavailable error=%@", error.localizedDescription ?: @"unknown");
+            if (completion) completion(127, error.localizedDescription ?: @"app-server 不可用");
+            return;
+        }
+        [strongSelf dispatchTurnWithPrompt:prompt threadId:threadId completion:completion];
+    } preserveCatalogSession:YES];
+}
+
+- (BOOL)persistentTurnInFlight
+{
+    return _turnInFlight;
+}
+
+- (NSString *)lastTurnTerminalReason
+{
+    return _lastTurnTerminalReason;
+}
+
+- (void)dispatchTurnWithPrompt:(NSString *)prompt threadId:(NSString *)threadId completion:(CACodexTurnCompletion)completion
+{
+    if (_turnInFlight) {
+        // 一轮还没结束：直接拒绝并发（聊天页在跑的时候按钮已切成「停止」）。
+        if (completion) completion(-1, @"上一轮还没有结束");
+        return;
+    }
+
+    _turnInFlight = YES;
+    _turnGeneration += 1;
+    NSUInteger generation = _turnGeneration;
+    _lastTurnTerminalReason = nil;
+    _activeTurnId = nil;
+    _activeTurnThreadId = threadId;
+    _pendingTurnCompletion = completion ? [completion copy] : nil;
+    self.isRunning = YES;
+
+    NSString *resolvedThread = threadId.length > 0 ? threadId : @"";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"thread_id"] = resolvedThread;
+    parameters[@"input"] = @[ @{ @"type": @"text", @"text": prompt ?: @"" } ];
+    parameters[@"collaboration_mode"] = @{ @"sandbox_policy": self.sandboxMode ?: @"workspace-write" };
+
+    CALog(CALogLevelInfo, @"APP-SERVER", @"turn/start thread=%@ chars=%lu", resolvedThread.length ? resolvedThread : @"(new)", (unsigned long)(prompt ? prompt.length : 0));
+
+    __weak typeof(self) weakSelf = self;
     [self.persistentAppServer callMethod:CARPCMethodTurnStart
-                              parameters:@{ @"thread_id": threadId ?: self.mcpCatalogThreadId ?: @"",
-                                            @"input": @[ @{ @"type": @"text", @"text": prompt } ],
-                                            @"collaboration_mode": @{ @"sandbox_policy": self.sandboxMode ?: @"workspace-write" } }
+                              parameters:parameters
                               completion:^(id result, NSError *error) {
-        if (error) { if (completion) completion(-1, error.localizedDescription); return; }
-        if (completion) completion(0, nil);
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (error) {
+            CALog(CALogLevelError, @"APP-SERVER", @"turn/start failed error=%@", error.localizedDescription);
+            [strongSelf finishTurnWithStatus:-1 reason:error.localizedDescription ?: @"turn/start 失败"];
+            return;
+        }
+        NSDictionary *payload = [result isKindOfClass:NSDictionary.class] ? result : @{};
+        NSString *turnId = [payload[@"turn_id"] ?: payload[@"turnId"] ?: payload[@"id"] isKindOfClass:NSString.class]
+            ? (payload[@"turn_id"] ?: payload[@"turnId"] ?: payload[@"id"]) : nil;
+        if (turnId.length > 0) strongSelf->_activeTurnId = turnId;
+        NSString *threadFromResult = [payload[@"thread_id"] ?: payload[@"threadId"] isKindOfClass:NSString.class]
+            ? (payload[@"thread_id"] ?: payload[@"threadId"]) : nil;
+        if (threadFromResult.length > 0) {
+            strongSelf->_activeTurnThreadId = threadFromResult;
+            strongSelf.currentConversationId = threadFromResult;
+        }
+        CALog(CALogLevelInfo, @"APP-SERVER", @"turn/start accepted turn=%@ thread=%@", turnId ?: @"?", strongSelf->_activeTurnThreadId ?: @"(none)");
+    }];
+
+    // 兜底看门狗：通知通道异常时不至于永远卡在「思考中」。
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPersistentTurnTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        if (strongSelf->_turnGeneration == generation && strongSelf->_turnInFlight) {
+            CALog(CALogLevelWarn, @"APP-SERVER", @"turn watchdog fired after %.0fs", kPersistentTurnTimeout);
+            [strongSelf finishTurnWithStatus:-1 reason:@"回合超时（未收到结束通知）"];
+        }
+    });
+}
+
+- (void)finishTurnWithStatus:(NSInteger)status reason:(NSString *)reason
+{
+    if (!_turnInFlight && !_pendingTurnCompletion) return;
+    CACodexTurnCompletion completion = _pendingTurnCompletion;
+    _pendingTurnCompletion = nil;
+    _turnInFlight = NO;
+    _activeTurnId = nil;
+    self.isRunning = NO;
+    _lastTurnTerminalReason = [reason copy];
+    CALog(CALogLevelInfo, @"APP-SERVER", @"turn finished status=%ld reason=%@", (long)status, reason ?: @"(completed)");
+    if (completion) completion(status, reason);
+}
+
+- (void)cancelCurrentTurnWithCompletion:(void (^)(BOOL))completion
+{
+    if (!_turnInFlight || !self.persistentAppServer.isRunning) {
+        [self finishTurnWithStatus:0 reason:@"用户中断"];
+        if (completion) completion(YES);
+        return;
+    }
+    NSDictionary *parameters = @{ @"thread_id": _activeTurnThreadId ?: @"",
+                                  @"turn_id": _activeTurnId ?: @"" };
+    __weak typeof(self) weakSelf = self;
+    [self.persistentAppServer callMethod:@"turn/interrupt"
+                              parameters:parameters
+                              completion:^(id result, NSError *error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        BOOL ok = (error == nil);
+        CALog(ok ? CALogLevelInfo : CALogLevelWarn, @"APP-SERVER", @"turn/interrupt ok=%@ error=%@", ok ? @"YES" : @"NO", error.localizedDescription ?: @"");
+        if (ok) [strongSelf finishTurnWithStatus:0 reason:@"用户中断"];
+        if (completion) completion(ok);
     }];
 }
 
@@ -466,12 +632,60 @@ static const NSTimeInterval kLoginStatusTimeout = 8.0;
 - (void)appServerSession:(CAAppServerSession *)session didInvalidateWithReason:(NSString *)reason
 {
     CALog(CALogLevelWarn, @"APP-SERVER", @"app-server.invalidated reason=%@", reason);
+    [self postAppServerNotification:@"app-server.invalidated" params:@{ @"reason": reason ?: @"" }];
+    if (_turnInFlight) [self finishTurnWithStatus:-1 reason:reason ?: @"app-server 连接失效"];
 }
 
 - (void)appServerSession:(CAAppServerSession *)session didRequestUserInput:(NSDictionary *)request
 {
     CALog(CALogLevelInfo, @"APP-SERVER", @"plan user-input requested id=%@ questions=%lu",
           request[@"id"] ?: @"?", (unsigned long)[request[@"questions"] count]);
+    [self postAppServerNotification:CARPCItemRequestUserInput params:request ?: @{}];
+}
+
+- (void)appServerSession:(CAAppServerSession *)session didReportUsage:(NSDictionary *)usage
+{
+    [self postAppServerNotification:@"turn/usage" params:usage ?: @{}];
+}
+
+- (void)appServerSession:(CAAppServerSession *)session didEmitNotification:(NSString *)method params:(NSDictionary *)params
+{
+    NSDictionary *payload = [params isKindOfClass:NSDictionary.class] ? params : @{};
+
+    // 记录 thread / turn 标识，供中断与下一轮复用。
+    NSString *threadId = payload[@"threadId"] ?: payload[@"thread_id"];
+    if ([threadId isKindOfClass:NSString.class] && threadId.length > 0) {
+        _activeTurnThreadId = threadId;
+        self.currentConversationId = threadId;
+    }
+    NSDictionary *turn = [payload[@"turn"] isKindOfClass:NSDictionary.class] ? payload[@"turn"] : nil;
+    NSString *turnId = payload[@"turnId"] ?: payload[@"turn_id"] ?: turn[@"id"];
+    if ([turnId isKindOfClass:NSString.class] && turnId.length > 0) _activeTurnId = turnId;
+
+    [self postAppServerNotification:method params:payload];
+
+    // 回合终止判定 → 结束挂起的 completion（一次且仅一次）。
+    NSString *lowercased = method.lowercaseString ?: @"";
+    if ([lowercased containsString:@"turn/completed"] || [lowercased containsString:@"turn/complete"]
+        || [lowercased isEqualToString:@"turn.completed"]) {
+        [self finishTurnWithStatus:0 reason:nil];
+    } else if ([lowercased containsString:@"turn/failed"] || [lowercased containsString:@"turn/aborted"]
+               || [lowercased containsString:@"turn/interrupted"] || [lowercased isEqualToString:@"turn.failed"]) {
+        NSString *reason = payload[@"error"] ?: payload[@"message"] ?: (turn[@"error"] ?: @"回合失败");
+        [self finishTurnWithStatus:-1 reason:[reason isKindOfClass:NSString.class] ? reason : @"回合失败"];
+    } else if ([lowercased isEqualToString:@"error"] || [lowercased isEqualToString:@"app-server.error"]) {
+        NSString *reason = payload[@"message"] ?: payload[@"error"];
+        [self finishTurnWithStatus:-1 reason:[reason isKindOfClass:NSString.class] ? reason : @"app-server 报错"];
+    }
+}
+
+- (void)postAppServerNotification:(NSString *)method params:(NSDictionary *)params
+{
+    if (method.length == 0) return;
+    [NSNotificationCenter.defaultCenter postNotificationName:CACodexEngineAppServerNotification
+                                                      object:self
+                                                    userInfo:@{ CACodexEngineNotificationMethodKey: method,
+                                                                CACodexEngineNotificationParamsKey: params ?: @{} }];
 }
 
 @end

@@ -14,6 +14,23 @@ NS_ASSUME_NONNULL_BEGIN
 @class NSDate;
 @class NSString;
 
+// ==CHAT-KIT-BEGIN== 聊天主流程共享定义（会话页 / 消息 Cell / 模型共用）
+typedef NS_ENUM(NSInteger, CAMessageRole) {
+    CAMessageRoleUser      = 0,
+    CAMessageRoleAssistant = 1,
+    CAMessageRoleSystem    = 2,
+};
+
+/// 消息卡片种类：普通文本 / 思考卡片 / 工具卡片 / 系统提示（错误、运行时引导）
+typedef NS_ENUM(NSInteger, CAMessageActivityKind) {
+    CAMessageActivityKindNone     = 0,
+    CAMessageActivityKindText     = 0,
+    CAMessageActivityKindThinking = 1,
+    CAMessageActivityKindTool     = 2,
+    CAMessageActivityKindNotice   = 3,
+};
+// ==CHAT-KIT-END==
+
 @interface CAMessageItem : NSObject
     - (NSString *)activityDetail;
     - (unsigned long long)activityDetailBytes;
@@ -75,6 +92,18 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)toolItem;
     - (id)toolMessageWithItem:(id)arg1;
     - (id)userMessageWithText:(id)arg1;
+
+// ==CHAT-KIT-API-BEGIN== 聊天主流程便捷写入（不动上面 parity 选择器的占位签名）
+/// 标量字段装箱写入的语义封装
+- (void)setStreamingFlag:(BOOL)streaming;
+- (void)setActivityOfKind:(CAMessageActivityKind)kind
+                    title:(nullable NSString *)title
+                   detail:(nullable NSString *)detail
+                  running:(BOOL)running;
+- (void)toggleActivityExpanded;
+- (void)appendText:(nullable NSString *)delta;
+- (BOOL)isNoticeMessage;
+// ==CHAT-KIT-API-END==
 
 @end
 

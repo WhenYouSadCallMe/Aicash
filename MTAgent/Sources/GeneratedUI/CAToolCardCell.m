@@ -2,343 +2,343 @@
 //  CAToolCardCell — AUTO-GENERATED（选择器与返回值取自 SPEC/method_types.json，参数类型统一占位 id）
 //  TODO(parity): 行为按原包实现补全（SPEC/复刻规格书.md）
 //
+//  聊天主流程实装：工具调用卡片（命令 + 状态 + 输出预览，可展开 / 收起 / 复制 / 中断）。
+//  由 CAChatViewController 在解析到 command_execution / mcp_tool_call / file_change 事件时创建。
+//
 
 #import "CAToolCardCell.h"
+#import "CAToolItem.h"
+
+static CGFloat const kCAToolCardCollapsedOutputHeight = 96.0;
+static CGFloat const kCAToolCardMaxOutputHeight       = 420.0;
+
+@interface CAToolCardCell () {
+    long long _lastStatus;
+    bool _hasRenderedState;
+}
+
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) UIImageView *iconView;
+@property (nonatomic, strong) UILabel *commandLabel;
+@property (nonatomic, strong) UILabel *statusLabel;
+@property (nonatomic, strong) UIButton *collapseButton;
+@property (nonatomic, strong) UIButton *stopButton;
+@property (nonatomic, strong) UIButton *actionCopyButton;
+@property (nonatomic, strong) UIButton *fullOutputButton;
+@property (nonatomic, strong) UIView *outputContainer;
+@property (nonatomic, strong) UILabel *outputLabel;
+@property (nonatomic, strong) NSLayoutConstraint *outputHeightConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *outputTopSpacing;
+@property (nonatomic, strong) NSLayoutConstraint *outputContentsBottom;
+@property (nonatomic, strong) NSLayoutConstraint *fullOutputHeight;
+@property (nonatomic, strong) NSLayoutConstraint *fullOutputTop;
+@property (nonatomic, strong) CAToolItem *configuredTool;
+@property (nonatomic, copy) NSString *rawOutput;
+@property (nonatomic, strong) NSAttributedString *renderedOutput;
+@property (nonatomic, copy) NSString *renderedOutputSource;
+@property (nonatomic, copy) NSString *lastItemID;
+@property (nonatomic, strong) id capsuleView;
+@property (nonatomic, strong) id onShowFullOutput;
+@property (nonatomic, strong) id onStop;
+@property (nonatomic, strong) id onToggleExpand;
+@end
 
 @implementation CAToolCardCell
 
-- (UIButton *)actionCopyButton
+#pragma mark - 生命周期
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    // TODO(parity)
-    return nil;
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+        [self setupToolCard];
+    }
+    return self;
 }
 
-- (id)capsuleView
+- (void)ensureToolUI
 {
-    // TODO(parity)
-    return nil;
-}
-
-- (UIButton *)collapseButton
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (UILabel *)commandLabel
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (id)compactCommand:(id)arg1
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (void)configureWithToolItem:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (id)configuredTool
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (CGRect)expandedBodyRectForCollapseSnapshot
-{
-    // TODO(parity)
-    return CGRectZero;
-}
-
-- (UIButton *)fullOutputButton
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (NSLayoutConstraint *)fullOutputHeight
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (NSLayoutConstraint *)fullOutputTop
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (void)handleCopyOutput
-{
-    // TODO(parity)
-}
-
-- (void)handleShowFullOutput
-{
-    // TODO(parity)
-}
-
-- (void)handleStop
-{
-    // TODO(parity)
-}
-
-- (void)handleTap
-{
-    // TODO(parity)
-}
-
-- (bool)hasRenderedState
-{
-    // TODO(parity)
-    return NO;
-}
-
-- (UIImageView *)iconView
-{
-    // TODO(parity)
-    return nil;
+    if (self.containerView) return;
+    [self setupToolCard];
 }
 
 - (id)initWithFrame:(id)arg1
 {
-    // TODO(parity)
-    return nil;
+    if ((self = [super initWithFrame:CGRectZero])) {
+        [self setupToolCard];
+    }
+    return self;
 }
 
-- (NSString *)lastItemID
+- (void)setupToolCard
 {
-    // TODO(parity)
-    return nil;
-}
+    self.backgroundColor = UIColor.clearColor;
+    self.contentView.backgroundColor = UIColor.clearColor;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-- (signed long long)lastStatus
-{
-    // TODO(parity)
-    return 0;
-}
+    _containerView = [[UIView alloc] init];
+    _containerView.translatesAutoresizingMaskIntoConstraints = NO;
+    _containerView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+    _containerView.layer.cornerRadius = 12.0;
+    _containerView.layer.masksToBounds = YES;
+    _containerView.layer.borderWidth = 1.0 / UIScreen.mainScreen.scale;
+    _containerView.layer.borderColor = UIColor.separatorColor.CGColor;
+    [_containerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap)]];
+    [self.contentView addSubview:_containerView];
 
-- (void)loadCompleteOutput:(id)arg1
-{
-    // TODO(parity)
-}
+    _iconView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"terminal"]];
+    _iconView.translatesAutoresizingMaskIntoConstraints = NO;
+    _iconView.tintColor = UIColor.secondaryLabelColor;
+    [_containerView addSubview:_iconView];
 
-- (id)onShowFullOutput
-{
-    // TODO(parity)
-    return nil;
-}
+    _commandLabel = [[UILabel alloc] init];
+    _commandLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _commandLabel.font = [UIFont monospacedSystemFontOfSize:12.0 weight:UIFontWeightMedium];
+    _commandLabel.textColor = UIColor.labelColor;
+    _commandLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    _commandLabel.text = @"工具调用";
+    [_containerView addSubview:_commandLabel];
 
-- (id)onStop
-{
-    // TODO(parity)
-    return nil;
-}
+    _statusLabel = [[UILabel alloc] init];
+    _statusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _statusLabel.font = [UIFont systemFontOfSize:11.0 weight:UIFontWeightSemibold];
+    _statusLabel.textColor = UIColor.secondaryLabelColor;
+    [_containerView addSubview:_statusLabel];
 
-- (id)onToggleExpand
-{
-    // TODO(parity)
-    return nil;
-}
+    _collapseButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _collapseButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_collapseButton setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
+    _collapseButton.tintColor = UIColor.secondaryLabelColor;
+    [_collapseButton addTarget:self action:@selector(handleTap) forControlEvents:UIControlEventTouchUpInside];
+    [_containerView addSubview:_collapseButton];
 
-- (UIView *)outputContainer
-{
-    // TODO(parity)
-    return nil;
-}
+    _stopButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _stopButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_stopButton setImage:[UIImage systemImageNamed:@"stop.circle"] forState:UIControlStateNormal];
+    _stopButton.tintColor = UIColor.systemRedColor;
+    _stopButton.hidden = YES;
+    [_stopButton addTarget:self action:@selector(handleStop) forControlEvents:UIControlEventTouchUpInside];
+    [_containerView addSubview:_stopButton];
 
-- (NSLayoutConstraint *)outputContentsBottom
-{
-    // TODO(parity)
-    return nil;
-}
+    _actionCopyButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _actionCopyButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_actionCopyButton setImage:[UIImage systemImageNamed:@"doc.on.doc"] forState:UIControlStateNormal];
+    _actionCopyButton.tintColor = UIColor.secondaryLabelColor;
+    [_actionCopyButton addTarget:self action:@selector(handleCopyOutput) forControlEvents:UIControlEventTouchUpInside];
+    [_containerView addSubview:_actionCopyButton];
 
-- (NSLayoutConstraint *)outputHeightConstraint
-{
-    // TODO(parity)
-    return nil;
-}
+    _outputContainer = [[UIView alloc] init];
+    _outputContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    _outputContainer.backgroundColor = UIColor.tertiarySystemBackgroundColor;
+    _outputContainer.layer.cornerRadius = 8.0;
+    _outputContainer.layer.masksToBounds = YES;
+    [_containerView addSubview:_outputContainer];
 
-- (UILabel *)outputLabel
-{
-    // TODO(parity)
-    return nil;
-}
+    _outputLabel = [[UILabel alloc] init];
+    _outputLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _outputLabel.numberOfLines = 0;
+    _outputLabel.font = [UIFont monospacedSystemFontOfSize:11.0 weight:UIFontWeightRegular];
+    _outputLabel.textColor = UIColor.secondaryLabelColor;
+    _outputLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_outputContainer addSubview:_outputLabel];
 
-- (NSLayoutConstraint *)outputTopSpacing
-{
-    // TODO(parity)
-    return nil;
-}
+    _fullOutputButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _fullOutputButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_fullOutputButton setTitle:@"查看完整输出" forState:UIControlStateNormal];
+    _fullOutputButton.titleLabel.font = [UIFont systemFontOfSize:11.0 weight:UIFontWeightMedium];
+    [_fullOutputButton addTarget:self action:@selector(handleShowFullOutput) forControlEvents:UIControlEventTouchUpInside];
+    [_containerView addSubview:_fullOutputButton];
 
-- (id)preferredLayoutAttributesFittingAttributes:(id)arg1
-{
-    // TODO(parity)
-    return nil;
+    _outputTopSpacing = [_outputContainer.topAnchor constraintEqualToAnchor:_commandLabel.bottomAnchor constant:8.0];
+    _outputHeightConstraint = [_outputContainer.heightAnchor constraintEqualToConstant:kCAToolCardCollapsedOutputHeight];
+    _outputContentsBottom = [_outputLabel.bottomAnchor constraintEqualToAnchor:_outputContainer.bottomAnchor constant:-6.0];
+    _fullOutputTop = [_fullOutputButton.topAnchor constraintEqualToAnchor:_outputContainer.bottomAnchor constant:4.0];
+    _fullOutputHeight = [_fullOutputButton.heightAnchor constraintEqualToConstant:0.0];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_containerView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:3.0],
+        [_containerView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-3.0],
+        [_containerView.leadingAnchor constraintEqualToAnchor:self.contentView.layoutMarginsGuide.leadingAnchor],
+        [_containerView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.layoutMarginsGuide.trailingAnchor],
+
+        [_iconView.leadingAnchor constraintEqualToAnchor:_containerView.leadingAnchor constant:10.0],
+        [_iconView.topAnchor constraintEqualToAnchor:_containerView.topAnchor constant:10.0],
+        [_iconView.widthAnchor constraintEqualToConstant:14.0],
+        [_iconView.heightAnchor constraintEqualToConstant:14.0],
+
+        [_commandLabel.leadingAnchor constraintEqualToAnchor:_iconView.trailingAnchor constant:6.0],
+        [_commandLabel.centerYAnchor constraintEqualToAnchor:_iconView.centerYAnchor],
+
+        [_statusLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:_commandLabel.trailingAnchor constant:6.0],
+        [_statusLabel.centerYAnchor constraintEqualToAnchor:_iconView.centerYAnchor],
+
+        [_collapseButton.leadingAnchor constraintEqualToAnchor:_statusLabel.trailingAnchor constant:2.0],
+        [_collapseButton.centerYAnchor constraintEqualToAnchor:_iconView.centerYAnchor],
+        [_collapseButton.widthAnchor constraintEqualToConstant:24.0],
+        [_collapseButton.heightAnchor constraintEqualToConstant:24.0],
+
+        [_actionCopyButton.leadingAnchor constraintEqualToAnchor:_collapseButton.trailingAnchor constant:2.0],
+        [_actionCopyButton.centerYAnchor constraintEqualToAnchor:_iconView.centerYAnchor],
+        [_actionCopyButton.widthAnchor constraintEqualToConstant:24.0],
+        [_actionCopyButton.heightAnchor constraintEqualToConstant:24.0],
+
+        [_stopButton.leadingAnchor constraintEqualToAnchor:_actionCopyButton.trailingAnchor constant:2.0],
+        [_stopButton.trailingAnchor constraintEqualToAnchor:_containerView.trailingAnchor constant:-8.0],
+        [_stopButton.centerYAnchor constraintEqualToAnchor:_iconView.centerYAnchor],
+        [_stopButton.widthAnchor constraintEqualToConstant:24.0],
+        [_stopButton.heightAnchor constraintEqualToConstant:24.0],
+
+        _outputTopSpacing,
+        [_outputContainer.leadingAnchor constraintEqualToAnchor:_containerView.leadingAnchor constant:8.0],
+        [_outputContainer.trailingAnchor constraintEqualToAnchor:_containerView.trailingAnchor constant:-8.0],
+        _outputHeightConstraint,
+
+        [_outputLabel.topAnchor constraintEqualToAnchor:_outputContainer.topAnchor constant:6.0],
+        [_outputLabel.leadingAnchor constraintEqualToAnchor:_outputContainer.leadingAnchor constant:8.0],
+        [_outputLabel.trailingAnchor constraintEqualToAnchor:_outputContainer.trailingAnchor constant:-8.0],
+        _outputContentsBottom,
+
+        _fullOutputTop,
+        [_fullOutputButton.leadingAnchor constraintEqualToAnchor:_containerView.leadingAnchor constant:8.0],
+        _fullOutputHeight,
+        [_fullOutputButton.bottomAnchor constraintEqualToAnchor:_containerView.bottomAnchor constant:-8.0],
+    ]];
 }
 
 - (void)prepareForReuse
 {
-    // TODO(parity)
+    [super prepareForReuse];
+    self.configuredTool = nil;
+    self.renderedOutput = nil;
+    self.renderedOutputSource = nil;
+    self.rawOutput = nil;
+    _hasRenderedState = false;
+    self.outputLabel.text = @"";
 }
 
-- (NSString *)rawOutput
+- (id)preferredLayoutAttributesFittingAttributes:(id)arg1
 {
-    // TODO(parity)
-    return nil;
+    // UITableViewCell 不是 collection view cell：这里直接回传入参（原包同选择器）。
+    return arg1;
 }
 
-- (NSAttributedString *)renderedOutput
-{
-    // TODO(parity)
-    return nil;
-}
+#pragma mark - 标量访问器（形参与头文件一致：id）
 
-- (NSString *)renderedOutputSource
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (void)setActionCopyButton:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setCapsuleView:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setCollapseButton:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setCommandLabel:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setConfiguredTool:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setFullOutputButton:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setFullOutputHeight:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setFullOutputTop:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setHasRenderedState:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setIconView:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setLastItemID:(id)arg1
-{
-    // TODO(parity)
-}
+- (signed long long)lastStatus { return _lastStatus; }
 
 - (void)setLastStatus:(id)arg1
 {
-    // TODO(parity)
+    _lastStatus = [arg1 respondsToSelector:@selector(longLongValue)] ? [arg1 longLongValue] : 0;
 }
 
-- (void)setOnShowFullOutput:(id)arg1
+- (bool)hasRenderedState { return _hasRenderedState; }
+
+- (void)setHasRenderedState:(id)arg1
 {
-    // TODO(parity)
+    _hasRenderedState = [arg1 respondsToSelector:@selector(boolValue)] ? [arg1 boolValue] : NO;
 }
 
-- (void)setOnStop:(id)arg1
+#pragma mark - 配置
+
+- (void)configureWithToolItem:(id)arg1
 {
-    // TODO(parity)
+    [self ensureToolUI];
+    CAToolItem *tool = [arg1 isKindOfClass:CAToolItem.class] ? arg1 : nil;
+    self.configuredTool = tool;
+    self.lastItemID = tool.itemId;
+    _lastStatus = (long long)tool.status;
+
+    NSString *command = tool.command.length > 0 ? tool.command : @"工具调用";
+    self.commandLabel.text = [self compactCommand:command];
+
+    BOOL running = (tool.status == CAToolStatusRunning);
+    if (running) {
+        self.statusLabel.text = @"运行中";
+        self.statusLabel.textColor = UIColor.systemOrangeColor;
+    } else if (tool.status == CAToolStatusFailed) {
+        self.statusLabel.text = [NSString stringWithFormat:@"失败（退出码 %lld）", tool.exitCode];
+        self.statusLabel.textColor = UIColor.systemRedColor;
+    } else {
+        self.statusLabel.text = tool.exitCode != 0 ? [NSString stringWithFormat:@"退出码 %lld", tool.exitCode] : @"已完成";
+        self.statusLabel.textColor = tool.exitCode != 0 ? UIColor.systemOrangeColor : UIColor.systemGreenColor;
+    }
+    self.stopButton.hidden = !running;
+    self.iconView.tintColor = running ? UIColor.systemOrangeColor : UIColor.secondaryLabelColor;
+
+    NSString *output = tool.output ?: @"";
+    self.outputLabel.text = output;
+    self.outputContainer.hidden = output.length == 0;
+    self.outputTopSpacing.constant = output.length > 0 ? 8.0 : 0.0;
+    self.outputHeightConstraint.constant = tool.isExpanded ? kCAToolCardMaxOutputHeight : kCAToolCardCollapsedOutputHeight;
+    [self.collapseButton setImage:[UIImage systemImageNamed:(tool.isExpanded ? @"chevron.up" : @"chevron.down")] forState:UIControlStateNormal];
+    self.fullOutputButton.hidden = output.length == 0;
+    self.fullOutputHeight.constant = output.length > 0 ? 24.0 : 0.0;
+    self.actionCopyButton.hidden = output.length == 0;
+    self.renderedOutputSource = output;
+    _hasRenderedState = true;
 }
 
-- (void)setOnToggleExpand:(id)arg1
+- (id)compactCommand:(id)arg1
 {
-    // TODO(parity)
+    NSString *command = [arg1 isKindOfClass:NSString.class] ? arg1 : (arg1 ? [arg1 description] : @"");
+    NSArray<NSString *> *parts = [command componentsSeparatedByString:@"\n"];
+    NSString *first = parts.firstObject ?: command;
+    if (first.length > 160) first = [NSString stringWithFormat:@"%@…", [first substringToIndex:160]];
+    return first;
 }
 
-- (void)setOutputContainer:(id)arg1
+- (void)loadCompleteOutput:(id)arg1
 {
-    // TODO(parity)
+    NSString *text = [arg1 isKindOfClass:NSString.class] ? arg1 : @"";
+    self.rawOutput = text;
+    self.outputLabel.text = text;
+    self.configuredTool.output = text;
 }
 
-- (void)setOutputContentsBottom:(id)arg1
+#pragma mark - 交互
+
+- (void)handleTap
 {
-    // TODO(parity)
+    CAToolItem *tool = self.configuredTool;
+    if (!tool) return;
+    [tool setIsExpanded:@(!tool.isExpanded)];
+    [self configureWithToolItem:tool];
+    id toggle = self.onToggleExpand;
+    if ([toggle isKindOfClass:NSClassFromString(@"NSBlock")]) {
+        void (^block)(CAToolItem *) = toggle;
+        block(tool);
+    }
 }
 
-- (void)setOutputHeightConstraint:(id)arg1
+- (void)handleCopyOutput
 {
-    // TODO(parity)
+    NSString *text = self.rawOutput.length > 0 ? self.rawOutput : (self.configuredTool.output ?: @"");
+    if (text.length == 0) return;
+    UIPasteboard.generalPasteboard.string = text;
 }
 
-- (void)setOutputLabel:(id)arg1
+- (void)handleShowFullOutput
 {
-    // TODO(parity)
+    id handler = self.onShowFullOutput;
+    if ([handler isKindOfClass:NSClassFromString(@"NSBlock")]) {
+        void (^block)(CAToolItem *) = handler;
+        block(self.configuredTool);
+        return;
+    }
+    [self handleTap];
 }
 
-- (void)setOutputTopSpacing:(id)arg1
+- (void)handleStop
 {
-    // TODO(parity)
+    id handler = self.onStop;
+    if ([handler isKindOfClass:NSClassFromString(@"NSBlock")]) {
+        void (^block)(CAToolItem *) = handler;
+        block(self.configuredTool);
+    }
 }
 
-- (void)setRawOutput:(id)arg1
+- (CGRect)expandedBodyRectForCollapseSnapshot
 {
-    // TODO(parity)
-}
-
-- (void)setRenderedOutput:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setRenderedOutputSource:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setStatusLabel:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setStopButton:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (UILabel *)statusLabel
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (UIButton *)stopButton
-{
-    // TODO(parity)
-    return nil;
+    return [self.containerView convertRect:self.outputContainer.frame toView:self.contentView];
 }
 
 @end
