@@ -160,16 +160,20 @@ jobs:
           path: Kernel/dist/
           retention-days: 30
 
-      # 回传内核到 dist 分支（单提交孤分支），方便无 token 环境用 git 直接取
+      # 回传内核到 dist 分支（单提交孤分支）。内核约 236MB，超过 GitHub 100MB 文件上限，
+      # 改用 Git LFS 上传；LFS 不可用时降级为仅记录 sha256（产物以 Actions artifact 为准）。
       - name: 回传内核到 dist 分支
         if: always()
+        continue-on-error: true
         run: |
           set -x
           [ -f Kernel/dist/codex ] || { echo "没有产物，跳过"; exit 0; }
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git lfs install --local || true
+          git lfs track "Kernel/dist/codex" || true
           git checkout --orphan dist-kernel-publish
           git reset
-          git add -f Kernel/dist/
+          git add -f .gitattributes Kernel/dist/
           git commit -m "codex kernel run #${{ github.run_number }} ref=${{ github.event.inputs.codex_ref || 'rust-v0.162.1' }}"
           git push -f origin dist-kernel-publish:dist-kernel
