@@ -1,0 +1,3093 @@
+{
+ "generated_at": "2026-10-16 14:07:54",
+ "scanned_bytes": 1037318,
+ "classes": {
+  "CAANSIParser": {
+   "selectors_total": 3,
+   "selectors_hit": 3,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAAccountInfoBridge": {
+   "selectors_total": 8,
+   "selectors_hit": 8,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAAccountProfile": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_accountType",
+    "_authenticated",
+    "_displayName",
+    "_email",
+    "_imageURL",
+    "_planType",
+    "_readSucceeded",
+    "_userId"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAActiveRunIndicator": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_arcLayer",
+    "_trackLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAActivityCardCell": {
+   "selectors_total": 90,
+   "selectors_hit": 89,
+   "coverage": 0.989,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actionCopyButton",
+    "_capsuleView",
+    "_collapseButton",
+    "_configuredMessage",
+    "_detailContainer",
+    "_detailContainerHeight",
+    "_detailContentsBottom",
+    "_detailLabel",
+    "_detailTopSpacing",
+    "_durationLabel",
+    "_durationTimer",
+    "_effortBadge",
+    "_fullDetailButton",
+    "_fullDetailHeight",
+    "_fullDetailTop",
+    "_hasRenderedState",
+    "_iconView",
+    "_lastRunningState",
+    "_lastStateTitle",
+    "_measuredRevision",
+    "_measuredSize",
+    "_metadataHeight",
+    "_metadataStack",
+    "_metadataTop",
+    "_modelBadge",
+    "_onDetailLayoutChange",
+    "_onShowFullDetail",
+    "_onStop",
+    "_onToggle",
+    "_renderRevision",
+    "_renderSignature",
+    "_renderedDetail",
+    "_renderedDetailSource",
+    "_stopButton",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentBlock": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_blockId",
+    "_groupedMessages",
+    "_message",
+    "_type"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentCapsuleView": {
+   "selectors_total": 14,
+   "selectors_hit": 13,
+   "coverage": 0.929,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_lastSheenWidth",
+    "_running",
+    "_runningSheenLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentIcon": {
+   "selectors_total": 10,
+   "selectors_hit": 10,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAAgentIdentity": {
+   "selectors_total": 2,
+   "selectors_hit": 2,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAAgentProfileViewController": {
+   "selectors_total": 26,
+   "selectors_hit": 25,
+   "coverage": 0.962,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_nameField",
+    "_nameFieldCell",
+    "_profileName",
+    "_profileSubtitle",
+    "_saveItem"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentProgressRingView": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_progressLayer",
+    "_status",
+    "_trackLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentRuntimeManager": {
+   "selectors_total": 10,
+   "selectors_hit": 9,
+   "coverage": 0.9,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeProcesses",
+    "_lastExitStatus",
+    "_lastExitWasRoot",
+    "_lastLaunchUsedRootPersona",
+    "_lastPID"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentRuntimeProcess": {
+   "selectors_total": 29,
+   "selectors_hit": 28,
+   "coverage": 0.966,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_errorSource",
+    "_ioQueue",
+    "_launchedWithRootPersona",
+    "_lifetimeRetainer",
+    "_outputSource",
+    "_processIdentifier",
+    "_running",
+    "_standardError",
+    "_standardInput",
+    "_standardOutput",
+    "_terminationHandler",
+    "_terminationStatus"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentStatusDetailViewController": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_snapshot"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentStatusKeyValueCell": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_keyLabel",
+    "_valueLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentStatusRowCell": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_detailLabelView",
+    "_progressRing",
+    "_titleLabelView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentStatusTextCell": {
+   "selectors_total": 5,
+   "selectors_hit": 4,
+   "coverage": 0.8,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_bodyLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentStatusViewController": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_detailController",
+    "_mainRunning",
+    "_snapshots",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentTurn": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_blocks",
+    "_queued",
+    "_role",
+    "_turnId"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAgentTurnHeaderView": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_iconView",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAppDelegate": {
+   "selectors_total": 23,
+   "selectors_hit": 22,
+   "coverage": 0.957,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_chatViewController",
+    "_lastCatalogRuntimeSignature",
+    "_lastRuntimeSourceNoticeSignature",
+    "_requiredRuntimePromptShown",
+    "_window"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAAppServerSession": {
+   "selectors_total": 60,
+   "selectors_hit": 59,
+   "coverage": 0.983,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_arguments",
+    "_currentDirectory",
+    "_environment",
+    "_executable",
+    "_inputHandle",
+    "_lastError",
+    "_lineBuffer",
+    "_nextRequestID",
+    "_notificationHandler",
+    "_pendingRequests",
+    "_process",
+    "_queue",
+    "_reportedInternalMCPTransportFailure",
+    "_reportedLateSubagentCleanup",
+    "_restartAfterStop",
+    "_serverRequestHandler",
+    "_startWaiters",
+    "_state",
+    "_stopLifetimeRetainer",
+    "_stopRequested",
+    "_stopWaiters",
+    "_unexpectedTerminationHandler"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAArchiveExtractor": {
+   "selectors_total": 2,
+   "selectors_hit": 2,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAArtifactCardsView": {
+   "selectors_total": 1,
+   "selectors_hit": 1,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAArtifactPreview": {
+   "selectors_total": 4,
+   "selectors_hit": 4,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAArtifactPreviewViewController": {
+   "selectors_total": 22,
+   "selectors_hit": 21,
+   "coverage": 0.955,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_path",
+    "_playerController",
+    "_quickLookController",
+    "_shareItem",
+    "_webView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAArtifactResolver": {
+   "selectors_total": 7,
+   "selectors_hit": 7,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CABackgroundKeepAlive": {
+   "selectors_total": 37,
+   "selectors_hit": 36,
+   "coverage": 0.973,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_backgroundTask",
+    "_backgroundTaskGeneration",
+    "_observersInstalled",
+    "_pulseCount",
+    "_pulseTimer",
+    "_silentPlayer",
+    "_started"
+   ],
+   "implemented_in_sources": true
+  },
+  "CABottomFollowTarget": {
+   "selectors_total": 4,
+   "selectors_hit": 3,
+   "coverage": 0.75,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_view"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAChatCollectionView": {
+   "selectors_total": 33,
+   "selectors_hit": 32,
+   "coverage": 0.97,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_bottomFollowLink",
+    "_bottomFollowTarget",
+    "_bottomFollowY",
+    "_bottomPinSuspended",
+    "_correctingBottom",
+    "_keepsBottomPinned",
+    "_lastAdjustedInsets",
+    "_lastContentSize",
+    "_lastFollowFrameAt",
+    "_lastViewportSize",
+    "_pendingBottomPosition",
+    "_smoothStreamingFollow"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAChatDisplayPreferences": {
+   "selectors_total": 2,
+   "selectors_hit": 2,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAChatTextLabel": {
+   "selectors_total": 14,
+   "selectors_hit": 13,
+   "coverage": 0.929,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_hasMeasuredText",
+    "_measuredTextSize",
+    "_onOpenLink"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAChatViewController": {
+   "selectors_total": 585,
+   "selectors_hit": 584,
+   "coverage": 0.998,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeRecord",
+    "_agentStatusController",
+    "_agentStatusIcon",
+    "_agentStatusRotationIndex",
+    "_agentStatusRotationTimer",
+    "_agentTurns",
+    "_approvedPlanDispatchConversationId",
+    "_approvedPlanExecutionConversationId",
+    "_attachButton",
+    "_attachmentGridView",
+    "_attachmentStripHeightConstraint",
+    "_autoFollowLatest",
+    "_backgroundRuns",
+    "_badgeRepository",
+    "_badgeWorkspace",
+    "_blockByID",
+    "_bottomEffortBtn",
+    "_bottomModelBtn",
+    "_chatDataSource",
+    "_chatEngine",
+    "_chatViewportGeneration",
+    "_clearChatButton",
+    "_collectionView",
+    "_compactGroupByMessageID",
+    "_composerCameraCoordinator",
+    "_composerContextGlowLayer",
+    "_composerFilteredMentionPaths",
+    "_composerFocusTap",
+    "_composerHasFocusedOnce",
+    "_composerMentionAnchor",
+    "_composerMentionPaths",
+    "_composerMentionScanGeneration",
+    "_composerMentionScannedAt",
+    "_composerMentionWorkspacePath",
+    "_composerMenuButton",
+    "_composerNextPasteID",
+    "_composerPastedTexts",
+    "_composerPlaceholderIndex",
+    "_composerPlaceholderPool",
+    "_composerPopupHeightConstraint",
+    "_composerPopupMode",
+    "_composerPopupView",
+    "_composerPopupVisible",
+    "_composerResizeHandleButton",
+    "_composerResizeLiveHeight",
+    "_composerResizeStartHeight",
+    "_composerSlashFilter",
+    "_composerSlashSuppressedText",
+    "_composerSlashTextDriven",
+    "_composerSwipeAnchorTranslation",
+    "_composerSwipeArmed",
+    "_composerSwipeGesture",
+    "_composerSwipeHasAnchor",
+    "_composerSwipeHintIcon",
+    "_composerSwipeHintLabel",
+    "_composerSwipeHintView",
+    "_composerTopShadowLayer",
+    "_composerUsageHintGeneration",
+    "_composerUsageHintText",
+    "_composerUsageHintUnconsumed",
+    "_contextCaption",
+    "_contextPillBtn",
+    "_contextUsageController",
+    "_conversationSaveTimer",
+    "_conversationSelectionGeneration",
+    "_deferredMarkdownLayoutScheduled",
+    "_dismissKeyboardTap",
+    "_executionModeButton",
+    "_executionModeIcon",
+    "_executionModeLabel",
+    "_expandedCompactOperationGroupIDs",
+    "_generatedArtifactMessage",
+    "_generatedArtifactPaths",
+    "_gitBadgeGeneration",
+    "_gitBadgeLabel",
+    "_gitBadgePollTimer",
+    "_historyCloseCompletion",
+    "_historyDismissGesture",
+    "_historyDrawer",
+    "_historyDrawerAnimating",
+    "_historyDrawerClosing",
+    "_historyDrawerInteracting",
+    "_historyDrawerOverlay",
+    "_historyDrawerProgress",
+    "_historyDrawerTransition",
+    "_historyDrawerWidthConstraint",
+    "_historyOpenGesture",
+    "_historyPanStartProgress",
+    "_historySidebar",
+    "_historySidebarNavigationController",
+    "_inFlightAttachments",
+    "_inputBar",
+    "_inputBarGradientLayer",
+    "_inputBarHeightConstraint",
+    "_inputBottomConstraint",
+    "_inputContainer",
+    "_inputContainerHeightConstraint",
+    "_inputField",
+    "_inputFieldTopConstraint",
+    "_inputPlaceholderLabel",
+    "_inputTextHeightConstraint",
+    "_isThinking",
+    "_jumpBottomButton",
+    "_jumpTopButton",
+    "_lastComposerAvailableHeight",
+    "_lastComposerWidth",
+    "_lastStreamRateUpdateAt",
+    "_lastStreamingLayoutAt",
+    "_legacyKeyboardOverlap",
+    "_markdownFinalizeID",
+    "_messages",
+    "_metadataHeightConstraint",
+    "_navigationStatusLabel",
+    "_needsInitialBottomPosition",
+    "_pendingActivityLayoutMessageIDs",
+    "_pendingAnimatedMessageID",
+    "_pendingAttachments",
+    "_pendingPlanDecisionAbort",
+    "_pendingPlanDecisionConversationID",
+    "_pendingPlanDecisionNavigation",
+    "_pendingProviderContextBridge",
+    "_pendingReconfiguredMessageID",
+    "_planProgressButton",
+    "_planProgressButtonWidth",
+    "_planProgressController",
+    "_planProgressEditWithoutUpdateLogged",
+    "_planProgressLeadingGap",
+    "_prefetchingBlockIDs",
+    "_queueDrainPaused",
+    "_quickActionBar",
+    "_scrollJumpStack",
+    "_selectionConversationKey",
+    "_selectionWorkspaceKey",
+    "_sendButton",
+    "_sendButtonVisualMode",
+    "_sendButtonVisualStateInitialized",
+    "_shareInboxImportInProgress",
+    "_shareInboxImportPendingRetry",
+    "_sourceControlButton",
+    "_stagedEntranceMessageID",
+    "_steeringQueuedMessageIDs",
+    "_streamDisplayLink",
+    "_streamDisplayPreferredFPS",
+    "_streamTargets",
+    "_streamTurnFinalizing",
+    "_subagentCostHintRefreshPending",
+    "_suppressWorkspaceChangeNotification",
+    "_terminalAssistantPresentationPending",
+    "_thinkingStartedAt",
+    "_thinkingSummaryCard",
+    "_welcomeActions",
+    "_welcomeIcon",
+    "_welcomeSubtitle",
+    "_welcomeView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CACodeBlockView": {
+   "selectors_total": 16,
+   "selectors_hit": 15,
+   "coverage": 0.938,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actionCopyButton",
+    "_codeLabel",
+    "_codeText",
+    "_headerView",
+    "_langLabel",
+    "_language"
+   ],
+   "implemented_in_sources": true
+  },
+  "CACodexEngine": {
+   "selectors_total": 380,
+   "selectors_hit": 379,
+   "coverage": 0.997,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeToolItems",
+    "_activityCardsById",
+    "_activityItemAliases",
+    "_activityItemMetadataById",
+    "_activityProbeRequestID",
+    "_activityProbeScheduleID",
+    "_activityProbeUnsupportedServer",
+    "_apiBaseURL",
+    "_apiKey",
+    "_appServerActiveTurnId",
+    "_appServerAnnouncedExecutionID",
+    "_appServerAnnouncedItemTypes",
+    "_appServerEnvironmentExecutionID",
+    "_appServerExecutionID",
+    "_appServerLoadedThreadIds",
+    "_appServerMessageBuffers",
+    "_appServerQueuedSpawnItemIds",
+    "_appServerReasoningBuffers",
+    "_appServerShutdownWaiters",
+    "_codexHomePath",
+    "_compactionItemId",
+    "_completedActivityItemIds",
+    "_confirmedCollaborationSettingsSignature",
+    "_confirmedCollaborationSettingsThreadId",
+    "_contextReadID",
+    "_contextUsageIsEstimated",
+    "_contextUsagePercent",
+    "_contextWindowLimitTokens",
+    "_currentConversationId",
+    "_currentExecID",
+    "_currentTask",
+    "_currentThreadId",
+    "_currentWorkspacePath",
+    "_delegate",
+    "_deliveredImageItemIds",
+    "_enableWebSearch",
+    "_enableWorktree",
+    "_execReceivedAgentMessage",
+    "_execTerminalType",
+    "_execUsageSummary",
+    "_executionMode",
+    "_fileChangeSnapshotsById",
+    "_forcingExecFallback",
+    "_hasStableCacheHitPercent",
+    "_isRunning",
+    "_knownSkills",
+    "_lastActivityProbeAt",
+    "_lastExecutionError",
+    "_lastKnownTurnUsage",
+    "_lastParentActivityEventAt",
+    "_lastReportedExecutionError",
+    "_lastSubagentCardUpdateTime",
+    "_latestCompletedTurnIdentifier",
+    "_latestContextTokenCount",
+    "_latestSubagentWaitItemId",
+    "_lineBuffer",
+    "_loginTask",
+    "_mcpCatalogThreadId",
+    "_mcpCatalogThreadStarting",
+    "_mcpCatalogThreadWaiters",
+    "_nextSubagentOrdinal",
+    "_observedSubagentWaitItemIds",
+    "_parentTurnStartedAt",
+    "_pendingCollaborationSettingsMode",
+    "_pendingCollaborationSettingsPolicy",
+    "_pendingCollaborationSettingsSignature",
+    "_pendingCollaborationSettingsThreadId",
+    "_pendingCollaborationTurnStart",
+    "_pendingTransportNotice",
+    "_persistentAppServer",
+    "_persistentAppServerSignature",
+    "_persistsProviderPreferences",
+    "_reasoningEffort",
+    "_receivedContextUsageThisTurn",
+    "_retiringAppServers",
+    "_sandboxMode",
+    "_selectedModel",
+    "_sessionGeneration",
+    "_shellEventProbeCommandCompleted",
+    "_shellEventProbeCommandStarted",
+    "_shellEventProbeCommandStatus",
+    "_shellEventProbeCompletedError",
+    "_shellEventProbeCompletedOutput",
+    "_shellEventProbeCompletedOutputChars",
+    "_shellEventProbeCompletion",
+    "_shellEventProbeExitCode",
+    "_shellEventProbeItemId",
+    "_shellEventProbeOutput",
+    "_shellEventProbeOutputDeltaReceived",
+    "_shellEventProbeRPCAcknowledged",
+    "_shellEventProbeThreadId",
+    "_shellEventProbeToken",
+    "_shellEventProbeTurnStarted",
+    "_stableCacheHitPercent",
+    "_subagentCardThrottleTimer",
+    "_subagentIntentStartedAt",
+    "_subagentMetadataByThreadId",
+    "_subagentRequestedByPrompt",
+    "_thinkingActivityCard",
+    "_thirdPartyAvailableModels",
+    "_thirdPartyContextWindowTokens",
+    "_thirdPartyModel",
+    "_thirdPartyProviderName",
+    "_thirdPartyReasoningEffort",
+    "_totalInputTokens",
+    "_totalOutputTokens",
+    "_totalReasoningTokens",
+    "_usageAccountingState",
+    "_usageTurnModel",
+    "_usageTurnProvider",
+    "_usePersistentAppServerChat",
+    "_useThirdPartyProvider"
+   ],
+   "implemented_in_sources": true
+  },
+  "CACodexMetadataReader": {
+   "selectors_total": 5,
+   "selectors_hit": 5,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CACommandSemantic": {
+   "selectors_total": 11,
+   "selectors_hit": 11,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CACompactOperationsCell": {
+   "selectors_total": 64,
+   "selectors_hit": 63,
+   "coverage": 0.984,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_chevronView",
+    "_collapsedBottom",
+    "_container",
+    "_durationTimer",
+    "_expanded",
+    "_expandedBottom",
+    "_hasRunningOperations",
+    "_headerButton",
+    "_headerIcon",
+    "_messages",
+    "_onOpenMessage",
+    "_onStop",
+    "_onToggle",
+    "_rowsScrollHeightConstraint",
+    "_rowsScrollView",
+    "_rowsStack",
+    "_stopButton",
+    "_summaryLabel",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerAttachmentCell": {
+   "selectors_total": 15,
+   "selectors_hit": 14,
+   "coverage": 0.933,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_nameLabel",
+    "_onRemove",
+    "_removeButton",
+    "_representedPath",
+    "_thumbView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerAttachmentGridView": {
+   "selectors_total": 23,
+   "selectors_hit": 22,
+   "coverage": 0.957,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_attachments",
+    "_collectionView",
+    "_items",
+    "_onOpenIndex",
+    "_onOpenPastedID",
+    "_onRemoveIndex",
+    "_onRemovePastedID",
+    "_pastedTexts"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerCameraCoordinator": {
+   "selectors_total": 31,
+   "selectors_hit": 30,
+   "coverage": 0.968,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_cameraPicker",
+    "_finished",
+    "_finishing",
+    "_onCapture",
+    "_onDismiss",
+    "_onFailure",
+    "_openedAt",
+    "_presenter",
+    "_started"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerCatalog": {
+   "selectors_total": 67,
+   "selectors_hit": 66,
+   "coverage": 0.985,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_cacheLookupAttempted",
+    "_generation",
+    "_items",
+    "_lastError",
+    "_lastMCPError",
+    "_lastPluginError",
+    "_lastServerMCP",
+    "_lastServerPlugins",
+    "_lastServerSkills",
+    "_lastSkillsWorkspace",
+    "_loadedAt",
+    "_loading",
+    "_skillErrors",
+    "_skillsFromServer",
+    "_waiters",
+    "_workspacePath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerCatalogItem": {
+   "selectors_total": 24,
+   "selectors_hit": 23,
+   "coverage": 0.958,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_body",
+    "_detail",
+    "_enabled",
+    "_identifier",
+    "_installed",
+    "_kind",
+    "_name",
+    "_path",
+    "_scope",
+    "_summary",
+    "_title"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerPopupCell": {
+   "selectors_total": 18,
+   "selectors_hit": 17,
+   "coverage": 0.944,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_badgeLabel",
+    "_highlightView",
+    "_iconTile",
+    "_iconView",
+    "_keyboardHighlighted",
+    "_subtitleLabel",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerPopupItem": {
+   "selectors_total": 19,
+   "selectors_hit": 18,
+   "coverage": 0.947,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_badge",
+    "_enabled",
+    "_identifier",
+    "_payload",
+    "_subtitle",
+    "_symbol",
+    "_tint",
+    "_title"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerPopupSection": {
+   "selectors_total": 6,
+   "selectors_hit": 5,
+   "coverage": 0.833,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_items",
+    "_title"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerPopupView": {
+   "selectors_total": 53,
+   "selectors_hit": 52,
+   "coverage": 0.981,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_backgroundEffect",
+    "_clipView",
+    "_closeButton",
+    "_headerHint",
+    "_headerHintLabel",
+    "_headerSeparator",
+    "_headerTitle",
+    "_headerTitleLabel",
+    "_headerView",
+    "_highlightedIndexPath",
+    "_onClose",
+    "_onSelectItem",
+    "_sections",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAComposerTextView": {
+   "selectors_total": 49,
+   "selectors_hit": 48,
+   "coverage": 0.98,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_composerDropInstalled",
+    "_composerDropInteraction",
+    "_emptyAccessoryView",
+    "_interceptsNavigationKeys",
+    "_onHardwareArrow",
+    "_onHardwareEscape",
+    "_onHardwareReturn",
+    "_onPasteFile",
+    "_onPasteImage",
+    "_onPasteLongText",
+    "_plainTextTypingAttributes"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAContextGaugeView": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_centerText",
+    "_percent"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAContextUsageViewController": {
+   "selectors_total": 32,
+   "selectors_hit": 31,
+   "coverage": 0.969,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_cacheHint",
+    "_cacheProgress",
+    "_cacheTokens",
+    "_cacheValue",
+    "_cards",
+    "_contextHint",
+    "_contextProgress",
+    "_contextTokens",
+    "_contextValue",
+    "_engine",
+    "_modelLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAConversationBackgroundRun": {
+   "selectors_total": 40,
+   "selectors_hit": 39,
+   "coverage": 0.975,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_didFinish",
+    "_engine",
+    "_finished",
+    "_generatedArtifactMessage",
+    "_generatedArtifactPaths",
+    "_inFlightAttachments",
+    "_record",
+    "_saveGeneration",
+    "_streamTargets"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAConversationCell": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeBar",
+    "_conversationIcon",
+    "_subtitleLabel",
+    "_surfaceView",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAConversationRecord": {
+   "selectors_total": 37,
+   "selectors_hit": 36,
+   "coverage": 0.973,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_apiBaseURL",
+    "_archivedBackendThreads",
+    "_conversationId",
+    "_costLedger",
+    "_executionMode",
+    "_handoffSourceWorkspace",
+    "_messages",
+    "_modelSlug",
+    "_needsWorkspaceHandoff",
+    "_pendingPlanText",
+    "_planProgressDetail",
+    "_planProgressPendingSync",
+    "_reasoningEffort",
+    "_threadId",
+    "_title",
+    "_updatedAt",
+    "_usageSnapshot",
+    "_workspacePath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAConversationSidebarViewController": {
+   "selectors_total": 139,
+   "selectors_hit": 138,
+   "coverage": 0.993,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_accountAvatar",
+    "_accountControl",
+    "_accountEmailLabel",
+    "_accountFooter",
+    "_accountHeight",
+    "_accountNameLabel",
+    "_accountPanel",
+    "_accountStatusLabel",
+    "_activeConversationId",
+    "_compactLayout",
+    "_composeButton",
+    "_composeHeight",
+    "_countsByWorkspace",
+    "_delegate",
+    "_emptyLabel",
+    "_expandedWorkspacePaths",
+    "_filzaRequestGeneration",
+    "_footerSeparator",
+    "_footerTop",
+    "_headerHeight",
+    "_headerStack",
+    "_profileHome",
+    "_profileRefreshID",
+    "_providerHintLabel",
+    "_quotaChevron",
+    "_quotaControl",
+    "_quotaHeading",
+    "_quotaRefreshError",
+    "_quotaRefreshGeneration",
+    "_quotaStatus",
+    "_quotaTitle",
+    "_quotaTop",
+    "_quotaWindows",
+    "_recordsByWorkspace",
+    "_refreshingQuota",
+    "_runningConversationIds",
+    "_runningWorkspacePaths",
+    "_sectionWorkspaces",
+    "_settingsButton",
+    "_sidebarHeader",
+    "_tableView",
+    "_windowBars",
+    "_windowTitles",
+    "_windowValues",
+    "_workspaceButton",
+    "_workspaceHeight",
+    "_workspacePath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAConversationStore": {
+   "selectors_total": 56,
+   "selectors_hit": 55,
+   "coverage": 0.982,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_fileManager",
+    "_lock",
+    "_preferences",
+    "_resolvedWorkspaceKeys",
+    "_storageDirectory"
+   ],
+   "implemented_in_sources": true
+  },
+  "CADiagnosticsRingView": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_label",
+    "_progressLayer",
+    "_trackLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CADiagnosticsViewController": {
+   "selectors_total": 78,
+   "selectors_hit": 77,
+   "coverage": 0.987,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeInstallRuntimeID",
+    "_checkCount",
+    "_elapsedTimer",
+    "_finishedAt",
+    "_installCompletedCount",
+    "_installStatus",
+    "_installTotalCount",
+    "_installingRuntime",
+    "_probing",
+    "_problemCount",
+    "_reportCopyItem",
+    "_rerunItem",
+    "_result",
+    "_runGeneration",
+    "_sections",
+    "_shareItem",
+    "_startedAt",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAExecutionEnvironment": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_profile"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAExecutionEnvironmentProfile": {
+   "selectors_total": 27,
+   "selectors_hit": 26,
+   "coverage": 0.963,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_brandName",
+    "_environmentKind",
+    "_evidenceSummary",
+    "_familyName",
+    "_hasJailbreakEvidence",
+    "_hasTrollStore",
+    "_launcherAppPath",
+    "_launcherBundleId",
+    "_launcherDisplayName",
+    "_prefersNativeTheosPackaging",
+    "_rootMode",
+    "_rootModeString",
+    "_trollStoreFlavor"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAExtensionListViewController": {
+   "selectors_total": 45,
+   "selectors_hit": 44,
+   "coverage": 0.978,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_emptyLabel",
+    "_kind",
+    "_sections",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAExtensionsViewController": {
+   "selectors_total": 33,
+   "selectors_hit": 32,
+   "coverage": 0.97,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_instructionStatus",
+    "_seedingGlobalInstruction",
+    "_statusGeneration",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitChangeCell": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_countsLabel",
+    "_onToggle",
+    "_row",
+    "_staged",
+    "_statusLabel",
+    "_subtitleLabel",
+    "_symbolView",
+    "_tile",
+    "_titleLabel",
+    "_toggleButton"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitChangeStyle": {
+   "selectors_total": 6,
+   "selectors_hit": 5,
+   "coverage": 0.833,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_color",
+    "_label",
+    "_symbol"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitChangesViewController": {
+   "selectors_total": 128,
+   "selectors_hit": 127,
+   "coverage": 0.992,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_bottomFiller",
+    "_collapsedKinds",
+    "_commitBar",
+    "_conflictChanges",
+    "_diffStats",
+    "_emptyView",
+    "_git",
+    "_loading",
+    "_moreItem",
+    "_mutating",
+    "_networkAction",
+    "_networkBranch",
+    "_onRepositoryChanged",
+    "_operationStatus",
+    "_pushToken",
+    "_pushUsername",
+    "_refreshControl",
+    "_refreshGeneration",
+    "_refreshItem",
+    "_sectionKinds",
+    "_selectedRemote",
+    "_snapshot",
+    "_stageAll",
+    "_stagedChanges",
+    "_tableToBar",
+    "_tableToGuide",
+    "_tableView",
+    "_unstagedChanges",
+    "_workspacePath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitChipLabel": {
+   "selectors_total": 6,
+   "selectors_hit": 6,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [
+    "_contentInsets"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitCleanCell": {
+   "selectors_total": 3,
+   "selectors_hit": 2,
+   "coverage": 0.667,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_detailLabel",
+    "_iconView",
+    "_titleLabel",
+    "_well"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitCommitBar": {
+   "selectors_total": 29,
+   "selectors_hit": 28,
+   "coverage": 0.966,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_commitButton",
+    "_hintLabel",
+    "_lastTextWidth",
+    "_onBeginEditing",
+    "_onCommit",
+    "_onPrefix",
+    "_onScopeChange",
+    "_onTextChange",
+    "_placeholder",
+    "_scopeControl",
+    "_textHeight",
+    "_textView",
+    "_topLine"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitDiffResult": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_error",
+    "_fileURL",
+    "_preview",
+    "_status",
+    "_truncated"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitDiffViewController": {
+   "selectors_total": 32,
+   "selectors_hit": 31,
+   "coverage": 0.969,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_change",
+    "_countsLabel",
+    "_diff",
+    "_generation",
+    "_git",
+    "_noticeLabel",
+    "_prefersStaged",
+    "_scopeControl",
+    "_stats",
+    "_statusChip",
+    "_symbolView",
+    "_textView",
+    "_tile"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitEmptyStateView": {
+   "selectors_total": 8,
+   "selectors_hit": 7,
+   "coverage": 0.875,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actionButton",
+    "_detailLabel",
+    "_iconView",
+    "_iconWell",
+    "_onAction",
+    "_spinner",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitGroupHeaderView": {
+   "selectors_total": 10,
+   "selectors_hit": 9,
+   "coverage": 0.9,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actionButton",
+    "_chevronView",
+    "_countChip",
+    "_iconView",
+    "_onAction",
+    "_onToggle",
+    "_tapArea",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitPill": {
+   "selectors_total": 5,
+   "selectors_hit": 4,
+   "coverage": 0.8,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_chevronView",
+    "_iconView",
+    "_label"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitRepository": {
+   "selectors_total": 39,
+   "selectors_hit": 38,
+   "coverage": 0.974,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_countWaiters",
+    "_repositoryRoot",
+    "_rootWaiters",
+    "_snapshotWaiters",
+    "_workspacePath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitSnapshot": {
+   "selectors_total": 42,
+   "selectors_hit": 41,
+   "coverage": 0.976,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_ahead",
+    "_behind",
+    "_branch",
+    "_branchSummary",
+    "_changes",
+    "_error",
+    "_hasConflicts",
+    "_hasHead",
+    "_remoteURLs",
+    "_remotes",
+    "_repository",
+    "_repositoryRoot",
+    "_stagedCount",
+    "_trackingCountsKnown",
+    "_trackingRef",
+    "_trackingRemote",
+    "_unstagedCount",
+    "_upstream",
+    "_userEmail",
+    "_userName"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitSummaryCell": {
+   "selectors_total": 21,
+   "selectors_hit": 20,
+   "coverage": 0.952,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_branchPill",
+    "_card",
+    "_detailLabel",
+    "_fetchButton",
+    "_hintLabel",
+    "_iconTile",
+    "_iconView",
+    "_onBranch",
+    "_onFetch",
+    "_onPull",
+    "_onPush",
+    "_onRemote",
+    "_pullButton",
+    "_pushButton",
+    "_remotePill",
+    "_spinner",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGitSummaryModel": {
+   "selectors_total": 35,
+   "selectors_hit": 34,
+   "coverage": 0.971,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_ahead",
+    "_behind",
+    "_branchEnabled",
+    "_branchTitle",
+    "_busy",
+    "_detail",
+    "_detailIsActivity",
+    "_fetchEnabled",
+    "_hint",
+    "_pullEnabled",
+    "_pushEnabled",
+    "_pushProminent",
+    "_remoteConfigured",
+    "_remoteEnabled",
+    "_remoteTitle",
+    "_remoteURL",
+    "_title"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAGlobalInstructionDefaults": {
+   "selectors_total": 8,
+   "selectors_hit": 8,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAInlineMediaPreview": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_captionLabel",
+    "_path",
+    "_playButton",
+    "_player",
+    "_playerLayer",
+    "_video"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAInlineZoomImagePreview": {
+   "selectors_total": 12,
+   "selectors_hit": 11,
+   "coverage": 0.917,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_fitted",
+    "_imageView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CALogEntry": {
+   "selectors_total": 22,
+   "selectors_hit": 21,
+   "coverage": 0.955,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_category",
+    "_isError",
+    "_isWarning",
+    "_level",
+    "_message",
+    "_pid",
+    "_raw",
+    "_searchText",
+    "_time"
+   ],
+   "implemented_in_sources": true
+  },
+  "CALogEntryCell": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_levelBar",
+    "_messageLabel",
+    "_metaLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CALogViewerViewController": {
+   "selectors_total": 87,
+   "selectors_hit": 86,
+   "coverage": 0.989,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_allEntries",
+    "_categories",
+    "_categoryButton",
+    "_categoryFilter",
+    "_emptyLabel",
+    "_fileSignature",
+    "_filterBar",
+    "_hasLoadedOnce",
+    "_jumpBottomButton",
+    "_levelControl",
+    "_logCopyItem",
+    "_moreItem",
+    "_pendingEntries",
+    "_pendingTotal",
+    "_preparingShare",
+    "_readGeneration",
+    "_reading",
+    "_refreshTimer",
+    "_searchController",
+    "_searchQuery",
+    "_tableView",
+    "_totalEntryCount",
+    "_visibleEntries"
+   ],
+   "implemented_in_sources": true
+  },
+  "CALogger": {
+   "selectors_total": 46,
+   "selectors_hit": 45,
+   "coverage": 0.978,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_bytesSinceRotateCheck",
+    "_formatter",
+    "_lastRotateCheckUptime",
+    "_logFilePath",
+    "_preferences",
+    "_queue",
+    "_runtimeDebugEnabled",
+    "_runtimeEnabled",
+    "_runtimeEnabledCategories",
+    "_throttleLock",
+    "_throttleTimes"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMTArtifactWebView": {
+   "selectors_total": 27,
+   "selectors_hit": 26,
+   "coverage": 0.963,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_allowedRoot",
+    "_cacheReusable",
+    "_didFitContent",
+    "_fitContentOnLoad",
+    "_fitWidthOnly",
+    "_fittedPageScale",
+    "_lastFitBoundsSize",
+    "_naturalContentSize"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMTBadgeLabel": {
+   "selectors_total": 2,
+   "selectors_hit": 2,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAManagedRuntimeDownload": {
+   "selectors_total": 14,
+   "selectors_hit": 13,
+   "coverage": 0.929,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_destination",
+    "_done",
+    "_error",
+    "_progress",
+    "_success"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAManagedRuntimeEnvironment": {
+   "selectors_total": 35,
+   "selectors_hit": 34,
+   "coverage": 0.971,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_queue",
+    "_states"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMarkdownBlock": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_content",
+    "_continuationFromPreviousText",
+    "_language",
+    "_mediaAltText",
+    "_mediaTarget",
+    "_tableAlignments",
+    "_tableRows",
+    "_type"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMarkdownTableView": {
+   "selectors_total": 1,
+   "selectors_hit": 1,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAMermaidCanvasView": {
+   "selectors_total": 10,
+   "selectors_hit": 9,
+   "coverage": 0.9,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_direction",
+    "_edges",
+    "_nodes"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidDiagramView": {
+   "selectors_total": 41,
+   "selectors_hit": 40,
+   "coverage": 0.976,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_baseContentSize",
+    "_didApplyInitialFit",
+    "_fallbackMessageHandler",
+    "_fallbackResourceDirectory",
+    "_fallbackWebView",
+    "_heightConstraint",
+    "_previewCacheKey",
+    "_scrollView",
+    "_source",
+    "_sourceCopyButton",
+    "_titleLabel",
+    "_zoomContentView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidEdge": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_arrow",
+    "_dashed",
+    "_label",
+    "_source",
+    "_target",
+    "_thick"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidNode": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_frame",
+    "_label",
+    "_nodeId",
+    "_shape"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidSequenceCanvasView": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activationSegments",
+    "_items",
+    "_participants"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidSequenceItem": {
+   "selectors_total": 23,
+   "selectors_hit": 22,
+   "coverage": 0.957,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_crossArrow",
+    "_dashed",
+    "_height",
+    "_kind",
+    "_label",
+    "_matchingIndex",
+    "_notePosition",
+    "_source",
+    "_target",
+    "_type",
+    "_y"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidSequenceParticipant": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actor",
+    "_frame",
+    "_label",
+    "_participantId"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMermaidWeakScriptMessageHandler": {
+   "selectors_total": 4,
+   "selectors_hit": 3,
+   "coverage": 0.75,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_target"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMessageCell": {
+   "selectors_total": 82,
+   "selectors_hit": 81,
+   "coverage": 0.988,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_artifactLookup",
+    "_assistantWidthConstraint",
+    "_bodyBottomConstraint",
+    "_bodyLeadingConstraint",
+    "_bodyStack",
+    "_bodyTopConstraint",
+    "_bodyTrailingConstraint",
+    "_bubbleView",
+    "_configuredQueued",
+    "_deferredBlockIndex",
+    "_deferredBlocks",
+    "_deferredBodyStack",
+    "_deferredMessageID",
+    "_deferredRenderGeneration",
+    "_leadingConstraint",
+    "_onDeferredRenderStep",
+    "_onEditQueued",
+    "_onOpenAttachmentPath",
+    "_onOpenMarkdownLink",
+    "_onSelectText",
+    "_onSteerQueued",
+    "_onWithdrawQueued",
+    "_queuedBorderLayer",
+    "_rawCopyText",
+    "_renderingStreaming",
+    "_streamingCommittedLength",
+    "_streamingTextLabel",
+    "_trailingConstraint"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAMessageItem": {
+   "selectors_total": 62,
+   "selectors_hit": 61,
+   "coverage": 0.984,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activityDetail",
+    "_activityDetailBytes",
+    "_activityDetailFile",
+    "_activityDetailPersistencePending",
+    "_activityDetailRenderCache",
+    "_activityDuration",
+    "_activityExpanded",
+    "_activityKind",
+    "_activityModelName",
+    "_activityModelRequested",
+    "_activityReasoningEffort",
+    "_activityRunning",
+    "_activityStartedAt",
+    "_activityTitle",
+    "_displayAttachments",
+    "_generatedArtifacts",
+    "_messageId",
+    "_parsedBlocksCache",
+    "_queued",
+    "_queuedAttachments",
+    "_queuedComposerText",
+    "_queuedPromptText",
+    "_role",
+    "_streaming",
+    "_text",
+    "_timestamp",
+    "_tokenUsage",
+    "_toolItem"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAModelItem": {
+   "selectors_total": 20,
+   "selectors_hit": 19,
+   "coverage": 0.95,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_contextWindowTokens",
+    "_defaultLevel",
+    "_desc",
+    "_displayName",
+    "_effectiveContextWindowPercent",
+    "_maxContextWindowTokens",
+    "_slug",
+    "_supportedLevels",
+    "_supportsReasoning"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAModelManager": {
+   "selectors_total": 18,
+   "selectors_hit": 17,
+   "coverage": 0.944,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeModel",
+    "_activeReasoningEffort",
+    "_internalModels"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAModelPickerViewController": {
+   "selectors_total": 15,
+   "selectors_hit": 14,
+   "coverage": 0.933,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_onModelSelected",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAModelPricingManager": {
+   "selectors_total": 65,
+   "selectors_hit": 64,
+   "coverage": 0.985,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_candidateCache",
+    "_confirmedAliases",
+    "_costHistory",
+    "_exchangeRateRefreshing",
+    "_exchangeRateUpdatedAt",
+    "_lastUpdatedAt",
+    "_modelCount",
+    "_prices",
+    "_queue",
+    "_reasoningEfforts",
+    "_refreshing",
+    "_usdToCNYRate"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAModelPricingViewController": {
+   "selectors_total": 40,
+   "selectors_hit": 39,
+   "coverage": 0.975,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_officialDisplaySnapshot",
+    "_officialModels",
+    "_searchController",
+    "_snapshotGeneration",
+    "_syncItem",
+    "_syncSpinner",
+    "_syncSpinnerItem",
+    "_thirdPartyDisplaySnapshot",
+    "_thirdPartyModels"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPathPickerViewController": {
+   "selectors_total": 32,
+   "selectors_hit": 31,
+   "coverage": 0.969,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_createItem",
+    "_currentPath",
+    "_entries",
+    "_onDirectorySelected",
+    "_pathBar",
+    "_pathLabel",
+    "_readGeneration",
+    "_selectItem",
+    "_tableView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanDecisionChoiceView": {
+   "selectors_total": 14,
+   "selectors_hit": 13,
+   "coverage": 0.929,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_choiceDescription",
+    "_choiceTitle",
+    "_choiceValue",
+    "_questionIndex",
+    "_selectionIcon"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanDecisionViewController": {
+   "selectors_total": 33,
+   "selectors_hit": 32,
+   "coverage": 0.97,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_choiceRows",
+    "_completion",
+    "_customRows",
+    "_freeformEditors",
+    "_privateEditors",
+    "_questions",
+    "_remainingLabel",
+    "_resolved",
+    "_selections",
+    "_submitButton"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanProgressViewController": {
+   "selectors_total": 21,
+   "selectors_hit": 20,
+   "coverage": 0.952,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_executionActive",
+    "_onCloseTodo",
+    "_pendingSync",
+    "_steps",
+    "_subtitle",
+    "_table"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanReviewViewController": {
+   "selectors_total": 16,
+   "selectors_hit": 15,
+   "coverage": 0.938,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_onApprove",
+    "_onEdit",
+    "_plan",
+    "_planText"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanStatusRing": {
+   "selectors_total": 15,
+   "selectors_hit": 14,
+   "coverage": 0.933,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_arcLayer",
+    "_checkView",
+    "_state",
+    "_trackLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPlanStepCell": {
+   "selectors_total": 9,
+   "selectors_hit": 8,
+   "coverage": 0.889,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_ring",
+    "_stepTitle"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAProfileAvatarView": {
+   "selectors_total": 19,
+   "selectors_hit": 18,
+   "coverage": 0.947,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_identity",
+    "_imageTask",
+    "_imageURL",
+    "_imageView",
+    "_initialLabel",
+    "_requestID"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAProjectInstructionsViewController": {
+   "selectors_total": 20,
+   "selectors_hit": 19,
+   "coverage": 0.95,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_statusByPath",
+    "_statusGeneration",
+    "_tableView",
+    "_workspaces"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAProtectedFileWriter": {
+   "selectors_total": 5,
+   "selectors_hit": 5,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAProviderConfiguration": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_directory",
+    "_keyPath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPythonDownload": {
+   "selectors_total": 16,
+   "selectors_hit": 15,
+   "coverage": 0.938,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_destination",
+    "_done",
+    "_error",
+    "_lastProgressTime",
+    "_progress",
+    "_success"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAPythonEnvironment": {
+   "selectors_total": 61,
+   "selectors_hit": 60,
+   "coverage": 0.984,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_downloadProgress",
+    "_downloadProxyPrefixes",
+    "_downloadStage",
+    "_isDownloading",
+    "_isPreparing",
+    "_isRecoveringRuntime",
+    "_lastError",
+    "_preparationProgress",
+    "_preparationStage",
+    "_remoteDownloadSizeBytes",
+    "_remoteEntry",
+    "_remoteExpandedSizeBytes",
+    "_remoteRevision",
+    "_remoteVersion",
+    "_runtimeRoot",
+    "_workQueue"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAQueuedMessageBubbleView": {
+   "selectors_total": 4,
+   "selectors_hit": 3,
+   "coverage": 0.75,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_queuedOutline"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARateLimitManager": {
+   "selectors_total": 29,
+   "selectors_hit": 28,
+   "coverage": 0.966,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_available",
+    "_lastUpdatedAt",
+    "_loadingCache",
+    "_officialSnapshot",
+    "_planName",
+    "_quotaBadgeText",
+    "_sessionTotalTokens",
+    "_snapshot",
+    "_unavailableReason"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARemoteOperations": {
+   "selectors_total": 41,
+   "selectors_hit": 40,
+   "coverage": 0.976,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_anonymousID",
+    "_consecutiveHeartbeatFailures",
+    "_heartbeatFailureLimit",
+    "_heartbeatHealthy",
+    "_lastHeartbeatSuccess",
+    "_policyKnown",
+    "_queue",
+    "_remoteLoggingEnabled",
+    "_remoteTheosEnabled",
+    "_requestInFlight",
+    "_started",
+    "_theosRuntimeAllowed",
+    "_timer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAReverseToolsDownload": {
+   "selectors_total": 16,
+   "selectors_hit": 15,
+   "coverage": 0.938,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_destination",
+    "_done",
+    "_error",
+    "_lastProgressTime",
+    "_progress",
+    "_success"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAReverseToolsEnvironment": {
+   "selectors_total": 65,
+   "selectors_hit": 64,
+   "coverage": 0.985,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_binPath",
+    "_downloadProgress",
+    "_downloadProxyPrefixes",
+    "_downloadStage",
+    "_isDownloading",
+    "_isPreparing",
+    "_isRecoveringRuntime",
+    "_lastError",
+    "_preparationProgress",
+    "_preparationStage",
+    "_remoteDownloadSizeBytes",
+    "_remoteEntry",
+    "_remoteExpandedSizeBytes",
+    "_remoteRevision",
+    "_remoteVersion",
+    "_runtimeRoot",
+    "_workQueue"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARootViewController": {
+   "selectors_total": 10,
+   "selectors_hit": 9,
+   "coverage": 0.9,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_contentViewController"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARuntimeCatalog": {
+   "selectors_total": 33,
+   "selectors_hit": 32,
+   "coverage": 0.97,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_changedRuntimeIDs",
+    "_entries",
+    "_lastError",
+    "_lastRefreshDate",
+    "_newlyAvailableRuntimeIDs",
+    "_queue",
+    "_refreshing",
+    "_timer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARuntimeCatalogEntry": {
+   "selectors_total": 31,
+   "selectors_hit": 30,
+   "coverage": 0.968,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_archiveSHA256",
+    "_archiveURL",
+    "_displayName",
+    "_downloadSize",
+    "_expandedSize",
+    "_group",
+    "_handler",
+    "_install",
+    "_optional",
+    "_order",
+    "_raw",
+    "_revision",
+    "_runtimeID",
+    "_summary",
+    "_version"
+   ],
+   "implemented_in_sources": true
+  },
+  "CARuntimeCompatibilityProbe": {
+   "selectors_total": 5,
+   "selectors_hit": 5,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CARuntimePaths": {
+   "selectors_total": 19,
+   "selectors_hit": 19,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CASettingsViewController": {
+   "selectors_total": 160,
+   "selectors_hit": 159,
+   "coverage": 0.994,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_accountIdentity",
+    "_avatarInitialLabel",
+    "_avatarRequestURL",
+    "_avatarTask",
+    "_avatarView",
+    "_checkingCLIUpdate",
+    "_checkingPythonUpdate",
+    "_checkingReverseToolsUpdate",
+    "_checkingTheosUpdate",
+    "_contextEngine",
+    "_currentProfile",
+    "_dismissingSettings",
+    "_displayUserName",
+    "_focusRequiredRuntimesOnAppear",
+    "_isLoggedIn",
+    "_latestAvailableVersion",
+    "_loginAttemptGeneration",
+    "_loginOptionsExpanded",
+    "_loginStatusText",
+    "_onSettingsChanged",
+    "_pendingSettingsChanged",
+    "_profileCard",
+    "_profileHeader",
+    "_profileRefreshID",
+    "_tableView",
+    "_thirdPartyConnectionGeneration",
+    "_thirdPartyDraftBaseURL",
+    "_thirdPartyDraftContext",
+    "_thirdPartyDraftEffort",
+    "_thirdPartyDraftKey",
+    "_thirdPartyDraftModel",
+    "_thirdPartyDraftName",
+    "_thirdPartyExpanded",
+    "_thirdPartyFieldHosts",
+    "_thirdPartyFields",
+    "_thirdPartyModelsRequestGeneration",
+    "_toolsExpanded",
+    "_userNameLabel",
+    "_userStatusLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAShareInbox": {
+   "selectors_total": 9,
+   "selectors_hit": 9,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAShellEnvironment": {
+   "selectors_total": 2,
+   "selectors_hit": 2,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAStorageManager": {
+   "selectors_total": 36,
+   "selectors_hit": 35,
+   "coverage": 0.972,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_caches",
+    "_cliLogs",
+    "_isBuildCacheInUse",
+    "_isBusy",
+    "_legacyHelpers",
+    "_liveProtectedPaths",
+    "_support",
+    "_temporary"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAStorageProgressRingView": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_checkLabel",
+    "_progressLayer",
+    "_trackLayer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAStorageViewController": {
+   "selectors_total": 31,
+   "selectors_hit": 30,
+   "coverage": 0.968,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_operationStatus",
+    "_pendingScanKeys",
+    "_resetting",
+    "_scanGeneration",
+    "_snapshot",
+    "_working"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAStreamRevealTarget": {
+   "selectors_total": 4,
+   "selectors_hit": 3,
+   "coverage": 0.75,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_view"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAStreamRevealUnit": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_color",
+    "_range",
+    "_start"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAStreamingTextView": {
+   "selectors_total": 37,
+   "selectors_hit": 36,
+   "coverage": 0.973,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_cachedTextHeight",
+    "_cachedTextWidth",
+    "_hasCachedTextSize",
+    "_intrinsicInvalidationPending",
+    "_measuredWidth",
+    "_revealDisplayLink",
+    "_revealTarget",
+    "_revealUnits",
+    "_streamingParagraph",
+    "_suppressSizeInvalidation",
+    "_textSizeDirty"
+   ],
+   "implemented_in_sources": true
+  },
+  "CASubagentPreferences": {
+   "selectors_total": 15,
+   "selectors_hit": 14,
+   "coverage": 0.933,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_defaults"
+   ],
+   "implemented_in_sources": true
+  },
+  "CASubagentSettingsViewController": {
+   "selectors_total": 22,
+   "selectors_hit": 21,
+   "coverage": 0.955,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_contextEngine"
+   ],
+   "implemented_in_sources": true
+  },
+  "CASwitchButton": {
+   "selectors_total": 19,
+   "selectors_hit": 18,
+   "coverage": 0.947,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_knobView",
+    "_on",
+    "_onTintColor"
+   ],
+   "implemented_in_sources": true
+  },
+  "CATextDetailViewController": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_shareItem",
+    "_text",
+    "_textSelectionMode",
+    "_textView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CATextEditorViewController": {
+   "selectors_total": 47,
+   "selectors_hit": 46,
+   "coverage": 0.979,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_editable",
+    "_fileExists",
+    "_infoBar",
+    "_loaded",
+    "_note",
+    "_onSaved",
+    "_originalText",
+    "_path",
+    "_pathLabel",
+    "_prefillTemplateWhenEmpty",
+    "_saveItem",
+    "_saving",
+    "_spinner",
+    "_statusLabel",
+    "_templateText",
+    "_textView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAThemeManager": {
+   "selectors_total": 21,
+   "selectors_hit": 20,
+   "coverage": 0.952,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_window"
+   ],
+   "implemented_in_sources": true
+  },
+  "CATheosEnvironment": {
+   "selectors_total": 152,
+   "selectors_hit": 151,
+   "coverage": 0.993,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_compilerPath",
+    "_defaultSDKPath",
+    "_desiredRemoteRuntimeAccessAllowed",
+    "_downloadProgress",
+    "_downloadStage",
+    "_dpkgDebPath",
+    "_forceNextPreparation",
+    "_installedSizeCache",
+    "_installedSizeCacheValid",
+    "_isDownloading",
+    "_isPreparing",
+    "_isRepairingEmbeddedAdapter",
+    "_lastQueuedPreparationStage",
+    "_lastQueuedPreparationTime",
+    "_linkerPath",
+    "_makePath",
+    "_moduleCachePath",
+    "_packageBuilderPath",
+    "_pathDirectories",
+    "_pendingCompletions",
+    "_perlPath",
+    "_preparationError",
+    "_preparationProgress",
+    "_preparationQueue",
+    "_preparationStage",
+    "_remoteDownloadSizeBytes",
+    "_remoteExpandedSizeBytes",
+    "_remoteManifest",
+    "_remoteManifestError",
+    "_remoteRuntimeAccessAllowed",
+    "_remoteVersion",
+    "_runtimeRoot",
+    "_sdkRoot",
+    "_signerPath",
+    "_theosPath",
+    "_usrPath"
+   ],
+   "implemented_in_sources": true
+  },
+  "CATheosRuntimeDownload": {
+   "selectors_total": 16,
+   "selectors_hit": 15,
+   "coverage": 0.938,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_destination",
+    "_done",
+    "_error",
+    "_lastProgressTime",
+    "_progress",
+    "_success"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAThinkingCell": {
+   "selectors_total": 65,
+   "selectors_hit": 64,
+   "coverage": 0.985,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_ambientMusingActive",
+    "_chevronView",
+    "_collapseButton",
+    "_collapseHeightConstraint",
+    "_collapseTopConstraint",
+    "_containerView",
+    "_detailHeightConstraint",
+    "_detailLabel",
+    "_detailTopConstraint",
+    "_durationLabel",
+    "_iconView",
+    "_message",
+    "_musingGeneration",
+    "_musingMessageID",
+    "_musingPhaseKey",
+    "_musingPhraseIndex",
+    "_onToggle",
+    "_spinner",
+    "_statusLabel",
+    "_timer"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAThirdPartyModelCatalog": {
+   "selectors_total": 5,
+   "selectors_hit": 5,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CATodoProgressButton": {
+   "selectors_total": 38,
+   "selectors_hit": 37,
+   "coverage": 0.974,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeIndex",
+    "_activeSegmentLayer",
+    "_completedLayer",
+    "_completedSteps",
+    "_completionSheenLayer",
+    "_headCoreLayer",
+    "_headGlowLayer",
+    "_lastWidth",
+    "_pendingSync",
+    "_totalSteps",
+    "_trackLayer",
+    "_trailLayer",
+    "_wasComplete"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAToolCardCell": {
+   "selectors_total": 62,
+   "selectors_hit": 61,
+   "coverage": 0.984,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_actionCopyButton",
+    "_capsuleView",
+    "_collapseButton",
+    "_commandLabel",
+    "_configuredTool",
+    "_fullOutputButton",
+    "_fullOutputHeight",
+    "_fullOutputTop",
+    "_hasRenderedState",
+    "_iconView",
+    "_lastItemID",
+    "_lastStatus",
+    "_onShowFullOutput",
+    "_onStop",
+    "_onToggleExpand",
+    "_outputContainer",
+    "_outputContentsBottom",
+    "_outputHeightConstraint",
+    "_outputLabel",
+    "_outputTopSpacing",
+    "_rawOutput",
+    "_renderedOutput",
+    "_renderedOutputSource",
+    "_statusLabel",
+    "_stopButton"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAToolItem": {
+   "selectors_total": 20,
+   "selectors_hit": 19,
+   "coverage": 0.95,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_command",
+    "_exitCode",
+    "_isExpanded",
+    "_itemId",
+    "_output",
+    "_outputBytes",
+    "_outputFile",
+    "_outputPersistencePending",
+    "_status"
+   ],
+   "implemented_in_sources": true
+  },
+  "CATransportNoticeCollectionCell": {
+   "selectors_total": 5,
+   "selectors_hit": 4,
+   "coverage": 0.8,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_label"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAUIStyle": {
+   "selectors_total": 9,
+   "selectors_hit": 9,
+   "coverage": 1.0,
+   "missing": [],
+   "compiler_generated_missing": 0,
+   "ivars": [],
+   "implemented_in_sources": true
+  },
+  "CAUpdateDownload": {
+   "selectors_total": 17,
+   "selectors_hit": 16,
+   "coverage": 0.941,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_destination",
+    "_done",
+    "_error",
+    "_lastProgressTime",
+    "_progress",
+    "_success"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAUpdateManager": {
+   "selectors_total": 65,
+   "selectors_hit": 64,
+   "coverage": 0.985,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_cachedInstalledVersion",
+    "_isRecoveringRuntime",
+    "_latestDownloadSizeBytes",
+    "_privateHelperDirectory",
+    "_runtimeRecoveryWaiters",
+    "_updateInProgress",
+    "_workQueue"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAUpdateProgress": {
+   "selectors_total": 11,
+   "selectors_hit": 10,
+   "coverage": 0.909,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_completedBytes",
+    "_fraction",
+    "_stage",
+    "_status",
+    "_totalBytes"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAUpdateViewController": {
+   "selectors_total": 55,
+   "selectors_hit": 54,
+   "coverage": 0.982,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeStage",
+    "_card",
+    "_closeButton",
+    "_completionHandler",
+    "_countLabel",
+    "_detailLabel",
+    "_finished",
+    "_progressBar",
+    "_pythonRuntime",
+    "_retryButton",
+    "_reverseToolsRuntime",
+    "_spinner",
+    "_stageIcons",
+    "_stageLabels",
+    "_statusLabel",
+    "_success",
+    "_theosRuntime",
+    "_titleLabel",
+    "_version"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAUsageViewController": {
+   "selectors_total": 42,
+   "selectors_hit": 41,
+   "coverage": 0.976,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_closeButton",
+    "_engine",
+    "_header",
+    "_planLabel",
+    "_quotaRefreshGeneration",
+    "_record",
+    "_refreshButton",
+    "_refreshing",
+    "_spinner",
+    "_stackView",
+    "_statusLabel",
+    "_titleLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceActionsCell": {
+   "selectors_total": 14,
+   "selectors_hit": 13,
+   "coverage": 0.929,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_browseButton",
+    "_createButton",
+    "_onBrowse",
+    "_onCreate"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceBadgeView": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_monogramLabel",
+    "_symbolView"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceCurrentCell": {
+   "selectors_total": 24,
+   "selectors_hit": 23,
+   "coverage": 0.958,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_badge",
+    "_captionLabel",
+    "_filzaButton",
+    "_metaLabel",
+    "_nameLabel",
+    "_onCopyPath",
+    "_onFilza",
+    "_pathCopyButton",
+    "_pathLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceItem": {
+   "selectors_total": 7,
+   "selectors_hit": 6,
+   "coverage": 0.857,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_isDefault",
+    "_name",
+    "_path"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceManager": {
+   "selectors_total": 25,
+   "selectors_hit": 24,
+   "coverage": 0.96,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_activeWorkspacePath",
+    "_documentsDirectory",
+    "_internalWorkspaces",
+    "_preferences"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceProjectCell": {
+   "selectors_total": 13,
+   "selectors_hit": 12,
+   "coverage": 0.923,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_badge",
+    "_checkView",
+    "_metaLabel",
+    "_nameLabel",
+    "_pathLabel"
+   ],
+   "implemented_in_sources": true
+  },
+  "CAWorkspaceViewController": {
+   "selectors_total": 47,
+   "selectors_hit": 46,
+   "coverage": 0.979,
+   "missing": [],
+   "compiler_generated_missing": 1,
+   "ivars": [
+    "_filzaRequestGeneration",
+    "_items",
+    "_metaByPath",
+    "_metaGeneration",
+    "_onActiveWorkspaceChanged",
+    "_tableView",
+    "_workspaceBusyProvider"
+   ],
+   "implemented_in_sources": true
+  }
+ },
+ "aggregate": {
+  "classes": 163,
+  "selectors_total": 5180,
+  "selectors_hit": 5039,
+  "coverage": 0.9728
+ }
+}

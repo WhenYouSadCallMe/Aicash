@@ -1,0 +1,559 @@
+{
+ "source_archive": "MT-Agent-v1.0.2-Lite.tipa",
+ "app_root": "CodexApp.app",
+ "entries": [
+  {
+   "path": "../",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/FastPathSign.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 3225,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Mermaid.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 1143,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Bash.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 35147,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/curl.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 1088,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/JQ.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 7887,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Runtime-Components.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 2801,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Ripgrep-MIT.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 1081,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Git.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 362,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Ripgrep-Unlicense.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 1211,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/ChOma.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 1069,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Zstandard.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 1549,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/OpenSSL.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 10175,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Oniguruma.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 1340,
+   "symlink_target": null
+  },
+  {
+   "path": "ThirdPartyNotices/Ripgrep.txt",
+   "kind": "file",
+   "mode": "0o664",
+   "size": 126,
+   "symlink_target": null
+  },
+  {
+   "path": "models.json",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 4116,
+   "symlink_target": null
+  },
+  {
+   "path": "codex-version.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 11,
+   "symlink_target": null
+  },
+  {
+   "path": "PlugIns/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "PlugIns/MTShareExtension.appex/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "PlugIns/MTShareExtension.appex/AppIcon60x60@2x.png",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 8160,
+   "symlink_target": null
+  },
+  {
+   "path": "PlugIns/MTShareExtension.appex/MTShareExtension",
+   "kind": "file",
+   "mode": "0o755",
+   "size": 100208,
+   "symlink_target": null
+  },
+  {
+   "path": "PlugIns/MTShareExtension.appex/Info.plist",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 809,
+   "symlink_target": null
+  },
+  {
+   "path": "AppIcon60x60@2x.png",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 8160,
+   "symlink_target": null
+  },
+  {
+   "path": "entitlements.plist",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 597,
+   "symlink_target": null
+  },
+  {
+   "path": "AppIcon60x60.png",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 2998,
+   "symlink_target": null
+  },
+  {
+   "path": "CA_NOTICE.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 956,
+   "symlink_target": null
+  },
+  {
+   "path": "AppIcon60x60@3x.png",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 15935,
+   "symlink_target": null
+  },
+  {
+   "path": "CodexApp",
+   "kind": "file",
+   "mode": "0o755",
+   "size": 7087072,
+   "symlink_target": null
+  },
+  {
+   "path": "cacert.pem",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 188900,
+   "symlink_target": null
+  },
+  {
+   "path": "Mermaid/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "Mermaid/mermaid.min.js",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 3337857,
+   "symlink_target": null
+  },
+  {
+   "path": "Mermaid/README.txt",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 1205,
+   "symlink_target": null
+  },
+  {
+   "path": "Mermaid/render.html",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 3012,
+   "symlink_target": null
+  },
+  {
+   "path": "codex-fallback-prompt.md",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 20904,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/tee",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/cat",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/bash-codex",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "../CodexApp"
+  },
+  {
+   "path": "Helpers/basename",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/du",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/xxd",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/bash.real",
+   "kind": "file",
+   "mode": "0o755",
+   "size": 811520,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/sort",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCoreCompat/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/TheosCoreCompat/touch",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCoreCompat/mkdir",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCoreCompat/rm",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCompat/",
+   "kind": "dir",
+   "mode": "0o755",
+   "size": 0,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/TheosCompat/mv",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCompat/cp",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/TheosCompat/tar",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 14,
+   "symlink_target": "../ca-filetool"
+  },
+  {
+   "path": "Helpers/sed",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/sysctl",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/uname",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/od",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/date",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/realpath",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/readlink",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/wc",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/tail",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/grep",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/bash",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "../CodexApp"
+  },
+  {
+   "path": "Helpers/head",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/sh",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "../CodexApp"
+  },
+  {
+   "path": "Helpers/uniq",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/codex-sign",
+   "kind": "file",
+   "mode": "0o755",
+   "size": 3514496,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/stat",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/nl",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/dirname",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/find",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/ln",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/ls",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/theos-helper",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/chmod",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Helpers/ca-filetool",
+   "kind": "file",
+   "mode": "0o755",
+   "size": 167136,
+   "symlink_target": null
+  },
+  {
+   "path": "Helpers/which",
+   "kind": "symlink",
+   "mode": "0o755",
+   "size": 11,
+   "symlink_target": "ca-filetool"
+  },
+  {
+   "path": "Info.plist",
+   "kind": "file",
+   "mode": "0o644",
+   "size": 1437,
+   "symlink_target": null
+  }
+ ]
+}

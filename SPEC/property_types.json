@@ -1,0 +1,6815 @@
+{
+ "encoding_map": {
+  "@": "id",
+  "c": "char",
+  "i": "int",
+  "s": "short",
+  "l": "long",
+  "q": "long long",
+  "C": "unsigned char",
+  "I": "unsigned int",
+  "S": "unsigned short",
+  "L": "unsigned long",
+  "Q": "unsigned long long",
+  "f": "float",
+  "d": "double",
+  "B": "BOOL",
+  "v": "void",
+  "*": "char *",
+  ":": "SEL",
+  "#": "Class",
+  "?": "id /* block */"
+ },
+ "classes": {
+  "CAAccountProfile": {
+   "authenticated": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "displayName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "email": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "imageURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "readSucceeded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "userId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAActiveRunIndicator": {
+   "arcLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   }
+  },
+  "CAActivityCardCell": {
+   "actionCopyButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "capsuleView": {
+    "encoding": "SubagentModelBadge\n10059d2fd\tMTSubagentEffortBadge\n10059d313\tchevron.up\n10059d31e\tstage=activity-toggle-tap item=%@ expanded=%d running=%d detailChars=%lu\n10059d36f\t%.1fs\n10059d375\t%.0fs\n10059d37b\t%lum %lus\n10059d385\tactivity-cell-lifecycle\n10059d39d\tv=%@ stage=cell-%@ item=%@ modelRunning=%d renderedRunning=%d stopVisible=%d attached=%d timer=%d duration=%.3f\n10059d40d\tattach\n10059d414\tdetach\n10059d41b\t%@\\n%@\\n%@\\n%@\\n%@\\n%ld\\n%d\\n%d\\n%.3f\\n%ld\\n%ld\\n%lu\n10059d445\t\\n%@\\n%@\\n%d\n10059d459\tcapsuleView\n10059d465\tT@\"CAAgentCapsuleView\"",
+    "type": "unsigned short",
+    "ambiguous": false
+   },
+   "collapseButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "configuredMessage": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": false
+   },
+   "detailContainer": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "detailContainerHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "detailContentsBottom": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "durationLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "durationTimer": {
+    "encoding": "imer\n10059d874\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "effortBadge": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "fullDetailButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "fullDetailHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "hasRenderedState": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "lastRunningState": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastStateTitle": {
+    "encoding": "itle\n10059d9a9\tT@\"NSString\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "measuredRevision": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "measuredSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "metadataHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "metadataStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "modelBadge": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "onDetailLayoutChange": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onShowFullDetail": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onStop": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "renderRevision": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "renderSignature": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "renderedDetail": {
+    "encoding": "@\"NSAttributedString\"",
+    "type": "NSAttributedString *",
+    "ambiguous": false
+   },
+   "renderedDetailSource": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "stopButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentBlock": {
+   "blockId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "groupedMessages": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "message": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": true
+   },
+   "type": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   }
+  },
+  "CAAgentCapsuleView": {
+   "lastSheenWidth": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "running": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "runningSheenLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentProfileViewController": {
+   "nameField": {
+    "encoding": "@\"UITextField\"",
+    "type": "UITextField *",
+    "ambiguous": false
+   },
+   "nameFieldCell": {
+    "encoding": "@\"UITableViewCell\"",
+    "type": "UITableViewCell *",
+    "ambiguous": false
+   },
+   "profileName": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "profileSubtitle": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "saveItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentProgressRingView": {
+   "progressLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "status": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   }
+  },
+  "CAAgentRuntimeProcess": {
+   "errorSource": {
+    "encoding": "@\"NSObject<OS_dispatch_source>\"",
+    "type": "NSObject<OS_dispatch_source> *",
+    "ambiguous": false
+   },
+   "ioQueue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "launchedWithRootPersona": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lifetimeRetainer": {
+    "encoding": "@",
+    "type": "id",
+    "ambiguous": false
+   },
+   "outputSource": {
+    "encoding": "@\"NSObject<OS_dispatch_source>\"",
+    "type": "NSObject<OS_dispatch_source> *",
+    "ambiguous": false
+   },
+   "running": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "standardError": {
+    "encoding": "@\"NSFileHandle\"",
+    "type": "NSFileHandle *",
+    "ambiguous": false
+   },
+   "standardInput": {
+    "encoding": "@\"NSFileHandle\"",
+    "type": "NSFileHandle *",
+    "ambiguous": false
+   },
+   "standardOutput": {
+    "encoding": "@\"NSFileHandle\"",
+    "type": "NSFileHandle *",
+    "ambiguous": false
+   },
+   "terminationHandler": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "terminationStatus": {
+    "encoding": "i",
+    "type": "int",
+    "ambiguous": false
+   }
+  },
+  "CAAgentStatusDetailViewController": {
+   "snapshot": {
+    "encoding": "@\"CAGitSnapshot\"",
+    "type": "CAGitSnapshot *",
+    "ambiguous": true
+   }
+  },
+  "CAAgentStatusKeyValueCell": {
+   "keyLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "valueLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentStatusRowCell": {
+   "detailLabelView": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "progressRing": {
+    "encoding": "@\"CAAgentProgressRingView\"",
+    "type": "CAAgentProgressRingView *",
+    "ambiguous": false
+   },
+   "titleLabelView": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentStatusTextCell": {
+   "bodyLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentStatusViewController": {
+   "detailController": {
+    "encoding": "@\"UIViewController\"",
+    "type": "UIViewController *",
+    "ambiguous": false
+   },
+   "mainRunning": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "snapshots": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentTurn": {
+   "blocks": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "queued": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "role": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "turnId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAAgentTurnHeaderView": {
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAAppDelegate": {
+   "chatViewController": {
+    "encoding": "@\"CAChatViewController\"",
+    "type": "CAChatViewController *",
+    "ambiguous": false
+   },
+   "lastCatalogRuntimeSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastRuntimeSourceNoticeSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "requiredRuntimePromptShown": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "window": {
+    "encoding": "@\"UIWindow\"",
+    "type": "UIWindow *",
+    "ambiguous": true
+   }
+  },
+  "CAAppServerSession": {
+   "arguments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "currentDirectory": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "environment": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "inputHandle": {
+    "encoding": "@\"NSFileHandle\"",
+    "type": "NSFileHandle *",
+    "ambiguous": false
+   },
+   "lastError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lineBuffer": {
+    "encoding": "@\"NSMutableData\"",
+    "type": "NSMutableData *",
+    "ambiguous": false
+   },
+   "nextRequestID": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "notificationHandler": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "pendingRequests": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "process": {
+    "encoding": "@\"CAAgentRuntimeProcess\"",
+    "type": "CAAgentRuntimeProcess *",
+    "ambiguous": false
+   },
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "reportedLateSubagentCleanup": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "restartAfterStop": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "serverRequestHandler": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "startWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "state": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "stopLifetimeRetainer": {
+    "encoding": "@",
+    "type": "id",
+    "ambiguous": false
+   },
+   "stopRequested": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "stopWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   }
+  },
+  "CAArtifactPreviewViewController": {
+   "path": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "playerController": {
+    "encoding": "@\"AVPlayerViewController\"",
+    "type": "AVPlayerViewController *",
+    "ambiguous": false
+   },
+   "quickLookController": {
+    "encoding": "@\"QLPreviewController\"",
+    "type": "QLPreviewController *",
+    "ambiguous": false
+   },
+   "shareItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "webView": {
+    "encoding": "@\"WKWebView\"",
+    "type": "WKWebView *",
+    "ambiguous": false
+   }
+  },
+  "CABackgroundKeepAlive": {
+   "observersInstalled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "pulseCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "pulseTimer": {
+    "encoding": "imer\n1005840b1\tT@\"NSObject<OS_dispatch_source>\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "started": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CABottomFollowTarget": {
+   "view": {
+    "encoding": "@\"CAStreamingTextView\"",
+    "type": "CAStreamingTextView *",
+    "ambiguous": true
+   }
+  },
+  "CAChatCollectionView": {
+   "bottomFollowLink": {
+    "encoding": "@\"CADisplayLink\"",
+    "type": "CADisplayLink *",
+    "ambiguous": false
+   },
+   "bottomFollowY": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "bottomPinSuspended": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "correctingBottom": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "keepsBottomPinned": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastAdjustedInsets": {
+    "encoding": "{UIEdgeInsets=dddd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "lastContentSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "lastFollowFrameAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastViewportSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "pendingBottomPosition": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "smoothStreamingFollow": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAChatTextLabel": {
+   "onOpenLink": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   }
+  },
+  "CAChatViewController": {
+   "activeRecord": {
+    "encoding": "@\"CAConversationRecord\"",
+    "type": "CAConversationRecord *",
+    "ambiguous": false
+   },
+   "agentStatusController": {
+    "encoding": "@\"CAAgentStatusViewController\"",
+    "type": "CAAgentStatusViewController *",
+    "ambiguous": false
+   },
+   "agentStatusIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "agentStatusRotationIndex": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "agentStatusRotationTimer": {
+    "encoding": "imer\n1005a2250\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "approvedPlanDispatchConversationId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "approvedPlanExecutionConversationId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "attachButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "attachmentGridView": {
+    "encoding": "@\"CAComposerAttachmentGridView\"",
+    "type": "CAComposerAttachmentGridView *",
+    "ambiguous": false
+   },
+   "attachmentStripHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "autoFollowLatest": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "backgroundRuns": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "badgeRepository": {
+    "encoding": "@\"CAGitRepository\"",
+    "type": "CAGitRepository *",
+    "ambiguous": false
+   },
+   "badgeWorkspace": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "blockByID": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "bottomEffortBtn": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "bottomModelBtn": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "chatDataSource": {
+    "encoding": "@\"UICollectionViewDiffableDataSource\"",
+    "type": "UICollectionViewDiffableDataSource *",
+    "ambiguous": false
+   },
+   "chatEngine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   },
+   "chatViewportGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "clearChatButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "collectionView": {
+    "encoding": "@\"CAChatCollectionView\"",
+    "type": "CAChatCollectionView *",
+    "ambiguous": true
+   },
+   "compactGroupByMessageID": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "composerCameraCoordinator": {
+    "encoding": "@\"CAComposerCameraCoordinator\"",
+    "type": "CAComposerCameraCoordinator *",
+    "ambiguous": false
+   },
+   "composerContextGlowLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "composerFilteredMentionPaths": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "composerHasFocusedOnce": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composerMentionAnchor": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "composerMentionPaths": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "composerMentionScanGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "composerMentionScannedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "composerMentionWorkspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "composerMenuButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "composerNextPasteID": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "composerPlaceholderIndex": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "composerPlaceholderPool": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "composerPopupHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "composerPopupMode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "composerPopupView": {
+    "encoding": "@\"CAComposerPopupView\"",
+    "type": "CAComposerPopupView *",
+    "ambiguous": false
+   },
+   "composerPopupVisible": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composerResizeHandleButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "composerResizeLiveHeight": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "composerResizeStartHeight": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "composerSlashFilter": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "composerSwipeArmed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composerSwipeGesture": {
+    "encoding": "@\"UIPanGestureRecognizer\"",
+    "type": "UIPanGestureRecognizer *",
+    "ambiguous": false
+   },
+   "composerSwipeHasAnchor": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composerSwipeHintIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "composerSwipeHintLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "composerSwipeHintView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "composerUsageHintGeneration": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "composerUsageHintUnconsumed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "contextCaption": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "contextPillBtn": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "contextUsageController": {
+    "encoding": "@\"CAContextUsageViewController\"",
+    "type": "CAContextUsageViewController *",
+    "ambiguous": false
+   },
+   "conversationSaveTimer": {
+    "encoding": "imer\n1005a2585\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "conversationSelectionGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "deferredMarkdownLayoutScheduled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "executionModeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "executionModeIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "executionModeLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "expandedCompactOperationGroupIDs": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "generatedArtifactMessage": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": false
+   },
+   "generatedArtifactPaths": {
+    "encoding": "@\"NSMutableOrderedSet\"",
+    "type": "NSMutableOrderedSet *",
+    "ambiguous": false
+   },
+   "gitBadgeGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "gitBadgeLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "gitBadgePollTimer": {
+    "encoding": "imer\n1005a29b6\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "historyCloseCompletion": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "historyDismissGesture": {
+    "encoding": "@\"UIPanGestureRecognizer\"",
+    "type": "UIPanGestureRecognizer *",
+    "ambiguous": false
+   },
+   "historyDrawer": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "historyDrawerAnimating": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "historyDrawerClosing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "historyDrawerInteracting": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "historyDrawerOverlay": {
+    "encoding": "@\"UIControl\"",
+    "type": "UIControl *",
+    "ambiguous": false
+   },
+   "historyDrawerProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "historyDrawerWidthConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "historyOpenGesture": {
+    "encoding": "@\"UIScreenEdgePanGestureRecognizer\"",
+    "type": "UIScreenEdgePanGestureRecognizer *",
+    "ambiguous": false
+   },
+   "historyPanStartProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "historySidebar": {
+    "encoding": "@\"CAConversationSidebarViewController\"",
+    "type": "CAConversationSidebarViewController *",
+    "ambiguous": false
+   },
+   "historySidebarNavigationController": {
+    "encoding": "@\"UINavigationController\"",
+    "type": "UINavigationController *",
+    "ambiguous": false
+   },
+   "inFlightAttachments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "inputBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "inputBarGradientLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   },
+   "inputBarHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "inputBottomConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "inputContainer": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "inputContainerHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "inputField": {
+    "encoding": "@\"CAComposerTextView\"",
+    "type": "CAComposerTextView *",
+    "ambiguous": false
+   },
+   "inputPlaceholderLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "jumpBottomButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "lastComposerAvailableHeight": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastComposerWidth": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastStreamRateUpdateAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastStreamingLayoutAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "legacyKeyboardOverlap": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "markdownFinalizeID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "messages": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "metadataHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "navigationStatusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "needsInitialBottomPosition": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "pendingActivityLayoutMessageIDs": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "pendingAnimatedMessageID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingAttachments": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "pendingPlanDecisionAbort": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "pendingPlanDecisionConversationID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingPlanDecisionNavigation": {
+    "encoding": "@\"UINavigationController\"",
+    "type": "UINavigationController *",
+    "ambiguous": false
+   },
+   "pendingProviderContextBridge": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingReconfiguredMessageID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "planProgressButton": {
+    "encoding": "@\"CATodoProgressButton\"",
+    "type": "CATodoProgressButton *",
+    "ambiguous": false
+   },
+   "planProgressButtonWidth": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "planProgressController": {
+    "encoding": "@\"CAPlanProgressViewController\"",
+    "type": "CAPlanProgressViewController *",
+    "ambiguous": false
+   },
+   "planProgressEditWithoutUpdateLogged": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "planProgressLeadingGap": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "prefetchingBlockIDs": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "queueDrainPaused": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "quickActionBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "scrollJumpStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "selectionConversationKey": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "selectionWorkspaceKey": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "sendButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "sendButtonVisualMode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "sendButtonVisualStateInitialized": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "shareInboxImportPendingRetry": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "sourceControlButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "stagedEntranceMessageID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "steeringQueuedMessageIDs": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "streamDisplayLink": {
+    "encoding": "@\"CADisplayLink\"",
+    "type": "CADisplayLink *",
+    "ambiguous": false
+   },
+   "streamDisplayPreferredFPS": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "subagentCostHintRefreshPending": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "suppressWorkspaceChangeNotification": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "terminalAssistantPresentationPending": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "thinkingStartedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "thinkingSummaryCard": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": false
+   },
+   "welcomeActions": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "welcomeIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "welcomeSubtitle": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "welcomeView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   }
+  },
+  "CACodeBlockView": {
+   "actionCopyButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "codeLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "headerView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "langLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "language": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CACodexEngine": {
+   "activityCardsById": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "activityItemAliases": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "activityItemMetadataById": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "activityProbeRequestID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityProbeScheduleID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityProbeUnsupportedServer": {
+    "encoding": "@\"CAAppServerSession\"",
+    "type": "CAAppServerSession *",
+    "ambiguous": false
+   },
+   "apiBaseURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "apiKey": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "appServerAnnouncedExecutionID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "appServerEnvironmentExecutionID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "appServerExecutionID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "appServerMessageBuffers": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "appServerQueuedSpawnItemIds": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "appServerReasoningBuffers": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "appServerShutdownWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "codexHomePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "compactionItemId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "completedActivityItemIds": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "confirmedCollaborationSettingsSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "contextReadID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "contextUsageIsEstimated": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "contextUsagePercent": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "currentConversationId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "currentExecID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "currentWorkspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "delegate": {
+    "encoding": "@\"<CACodexEngineDelegate>\"",
+    "type": "<CACodexEngineDelegate> *",
+    "ambiguous": true
+   },
+   "deliveredImageItemIds": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "enableWebSearch": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "enableWorktree": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "execReceivedAgentMessage": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "execUsageSummary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "executionMode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "fileChangeSnapshotsById": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "forcingExecFallback": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "hasStableCacheHitPercent": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isRunning": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastActivityProbeAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "lastExecutionError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastParentActivityEventAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastReportedExecutionError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastSubagentCardUpdateTime": {
+    "encoding": "ime\n10058c9bd\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "latestSubagentWaitItemId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lineBuffer": {
+    "encoding": "@\"NSMutableData\"",
+    "type": "NSMutableData *",
+    "ambiguous": false
+   },
+   "nextSubagentOrdinal": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "observedSubagentWaitItemIds": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "pendingCollaborationSettingsMode": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingCollaborationSettingsPolicy": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingCollaborationSettingsSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "persistentAppServer": {
+    "encoding": "@\"CAAppServerSession\"",
+    "type": "CAAppServerSession *",
+    "ambiguous": false
+   },
+   "persistentAppServerSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "persistsProviderPreferences": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "reasoningEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "retiringAppServers": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "sandboxMode": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "sessionGeneration": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shellEventProbeCommandCompleted": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "shellEventProbeCommandStarted": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "shellEventProbeCommandStatus": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shellEventProbeCompletedError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shellEventProbeCompletedOutput": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shellEventProbeCompletedOutputChars": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "shellEventProbeCompletion": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "shellEventProbeExitCode": {
+    "encoding": "@\"NSNumber\"",
+    "type": "NSNumber *",
+    "ambiguous": false
+   },
+   "shellEventProbeItemId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shellEventProbeOutput": {
+    "encoding": "@\"NSMutableString\"",
+    "type": "NSMutableString *",
+    "ambiguous": false
+   },
+   "shellEventProbeOutputDeltaReceived": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "shellEventProbeRPCAcknowledged": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "stableCacheHitPercent": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "subagentIntentStartedAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "subagentRequestedByPrompt": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "thinkingActivityCard": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": false
+   },
+   "thirdPartyAvailableModels": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "thirdPartyModel": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyProviderName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyReasoningEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "totalInputTokens": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "totalOutputTokens": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "totalReasoningTokens": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "usageAccountingState": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "usePersistentAppServerChat": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CACompactOperationsCell": {
+   "chevronView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "collapsedBottom": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "container": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "durationTimer": {
+    "encoding": "imer\n10059d874\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "expanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "expandedBottom": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "hasRunningOperations": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "headerButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "headerIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "messages": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "onOpenMessage": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onStop": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "rowsScrollHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "rowsScrollView": {
+    "encoding": "@\"UIScrollView\"",
+    "type": "UIScrollView *",
+    "ambiguous": false
+   },
+   "rowsStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "stopButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "summaryLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerAttachmentCell": {
+   "nameLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "onRemove": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "removeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "representedPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thumbView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerAttachmentGridView": {
+   "attachments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "collectionView": {
+    "encoding": "@\"CAChatCollectionView\"",
+    "type": "CAChatCollectionView *",
+    "ambiguous": true
+   },
+   "items": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "onOpenIndex": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onOpenPastedID": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onRemoveIndex": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onRemovePastedID": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   }
+  },
+  "CAComposerCameraCoordinator": {
+   "cameraPicker": {
+    "encoding": "@\"UIImagePickerController\"",
+    "type": "UIImagePickerController *",
+    "ambiguous": false
+   },
+   "finished": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "finishing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "onCapture": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onDismiss": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onFailure": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "openedAt": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "presenter": {
+    "encoding": "@\"UIViewController\"",
+    "type": "UIViewController *",
+    "ambiguous": false
+   },
+   "started": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAComposerCatalog": {
+   "cacheLookupAttempted": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "generation": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "items": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "lastError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastMCPError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastPluginError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastServerMCP": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "lastServerPlugins": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "lastServerSkills": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "lastSkillsWorkspace": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "loadedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "loading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "skillErrors": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "skillsFromServer": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "waiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "workspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerCatalogItem": {
+   "body": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "detail": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "enabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "identifier": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "installed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "kind": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "name": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "path": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "scope": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "summary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "title": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerPopupCell": {
+   "badgeLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "highlightView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "iconTile": {
+    "encoding": "ile\n1005a33a5\tT@\"UIView\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "keyboardHighlighted": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "subtitleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerPopupItem": {
+   "badge": {
+    "encoding": "@\"CAWorkspaceBadgeView\"",
+    "type": "CAWorkspaceBadgeView *",
+    "ambiguous": true
+   },
+   "enabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "identifier": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "payload": {
+    "encoding": "@",
+    "type": "id",
+    "ambiguous": false
+   },
+   "subtitle": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "symbol": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "tint": {
+    "encoding": "@\"UIColor\"",
+    "type": "UIColor *",
+    "ambiguous": false
+   },
+   "title": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerPopupSection": {
+   "items": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "title": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerPopupView": {
+   "backgroundEffect": {
+    "encoding": "@\"UIVisualEffectView\"",
+    "type": "UIVisualEffectView *",
+    "ambiguous": false
+   },
+   "clipView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "closeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "headerHint": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "headerHintLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "headerSeparator": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "headerTitle": {
+    "encoding": "itle\n1005a3657\tT@\"NSString\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "headerTitleLabel": {
+    "encoding": "itleLabel\n1005a34f8\tT@\"UILabel\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "headerView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "highlightedIndexPath": {
+    "encoding": "@\"NSIndexPath\"",
+    "type": "NSIndexPath *",
+    "ambiguous": false
+   },
+   "onClose": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onSelectItem": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "sections": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAComposerTextView": {
+   "composerDropInstalled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composerDropInteraction": {
+    "encoding": "@\"UIDropInteraction\"",
+    "type": "UIDropInteraction *",
+    "ambiguous": false
+   },
+   "emptyAccessoryView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "interceptsNavigationKeys": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "onHardwareArrow": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onHardwareEscape": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onHardwareReturn": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onPasteFile": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onPasteImage": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   }
+  },
+  "CAContextGaugeView": {
+   "percent": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   }
+  },
+  "CAContextUsageViewController": {
+   "cacheHint": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "cacheProgress": {
+    "encoding": "@\"UIProgressView\"",
+    "type": "UIProgressView *",
+    "ambiguous": false
+   },
+   "cacheValue": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "cards": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "contextHint": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "contextProgress": {
+    "encoding": "@\"UIProgressView\"",
+    "type": "UIProgressView *",
+    "ambiguous": false
+   },
+   "contextTokens": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "contextValue": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "engine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   },
+   "modelLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAConversationBackgroundRun": {
+   "didFinish": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "engine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   },
+   "finished": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "generatedArtifactMessage": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": false
+   },
+   "generatedArtifactPaths": {
+    "encoding": "@\"NSMutableOrderedSet\"",
+    "type": "NSMutableOrderedSet *",
+    "ambiguous": false
+   },
+   "inFlightAttachments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "record": {
+    "encoding": "@\"CAConversationRecord\"",
+    "type": "CAConversationRecord *",
+    "ambiguous": false
+   },
+   "saveGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   }
+  },
+  "CAConversationCell": {
+   "activeBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "conversationIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "subtitleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "surfaceView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAConversationRecord": {
+   "apiBaseURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "conversationId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "costLedger": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "executionMode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "handoffSourceWorkspace": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "messages": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "modelSlug": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "needsWorkspaceHandoff": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "planProgressDetail": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "planProgressPendingSync": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "reasoningEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "threadId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "title": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "updatedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "usageSnapshot": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "workspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAConversationSidebarViewController": {
+   "accountAvatar": {
+    "encoding": "@\"CAProfileAvatarView\"",
+    "type": "CAProfileAvatarView *",
+    "ambiguous": false
+   },
+   "accountControl": {
+    "encoding": "@\"UIControl\"",
+    "type": "UIControl *",
+    "ambiguous": false
+   },
+   "accountEmailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "accountFooter": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "accountHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "accountNameLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "accountPanel": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "accountStatusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "activeConversationId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "compactLayout": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "composeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "composeHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "countsByWorkspace": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "delegate": {
+    "encoding": "@\"<CACodexEngineDelegate>\"",
+    "type": "<CACodexEngineDelegate> *",
+    "ambiguous": true
+   },
+   "emptyLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "expandedWorkspacePaths": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "filzaRequestGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "footerSeparator": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "headerHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "headerStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "profileHome": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "profileRefreshID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "providerHintLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "quotaChevron": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "quotaControl": {
+    "encoding": "@\"UIControl\"",
+    "type": "UIControl *",
+    "ambiguous": false
+   },
+   "quotaHeading": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "quotaRefreshError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "quotaRefreshGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "quotaStatus": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "quotaTitle": {
+    "encoding": "itle\n1005a433e\tT@\"UILabel\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "quotaWindows": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "recordsByWorkspace": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "refreshingQuota": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "runningConversationIds": {
+    "encoding": "@\"NSSet\"",
+    "type": "NSSet *",
+    "ambiguous": false
+   },
+   "runningWorkspacePaths": {
+    "encoding": "@\"NSSet\"",
+    "type": "NSSet *",
+    "ambiguous": false
+   },
+   "settingsButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "sidebarHeader": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "windowBars": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "windowTitles": {
+    "encoding": "itles\n1005a43c2\tT@\"NSArray\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "windowValues": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "workspaceButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "workspaceHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "workspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAConversationStore": {
+   "fileManager": {
+    "encoding": "@\"NSFileManager\"",
+    "type": "NSFileManager *",
+    "ambiguous": false
+   },
+   "lock": {
+    "encoding": "itle\n10058f9ff\tactivityDetail\n10058fa0e\tactivityDetailFile\n10058fa21\tactivityDetailBytes\n10058fa35\tactivityModelName\n10058fa47\tactivityReasoningEffort\n10058fa5f\tactivityModelRequested\n10058fa76\tactivityDuration\n10058fa87\tqueued\n10058fa8e\tqueuedPromptText\n10058fa9f\tqueuedComposerText\n10058fab2\tqueuedAttachments\n10058fac4\tdisplayAttachments\n10058fad7\tgeneratedArtifacts\n10058faea\tactivityStartedAt\n10058fafc\ttoolItem\n10058fb05\toutputFile\n10058fb10\toutputBytes\n10058fb1c\tactivityRunning\n10058fb2c\tAttachments\n10058fb38\tToolOutputs\n10058fb48\t%@.%@\n10058fb4e\tT@\"NSRecursiveLock\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "preferences": {
+    "encoding": "@\"NSUserDefaults\"",
+    "type": "NSUserDefaults *",
+    "ambiguous": false
+   },
+   "resolvedWorkspaceKeys": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "storageDirectory": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CADiagnosticsRingView": {
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "progressLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   }
+  },
+  "CADiagnosticsViewController": {
+   "activeInstallRuntimeID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "checkCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "elapsedTimer": {
+    "encoding": "imer\n1005a4884\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "finishedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "installCompletedCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "installStatus": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "installingRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "probing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "problemCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "reportCopyItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "rerunItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "result": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "runGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "sections": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "shareItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "startedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAExecutionEnvironmentProfile": {
+   "brandName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "environmentKind": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "evidenceSummary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "familyName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "hasJailbreakEvidence": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "launcherAppPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "launcherBundleId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "launcherDisplayName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "rootMode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "rootModeString": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "trollStoreFlavor": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAExtensionListViewController": {
+   "emptyLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "kind": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "sections": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAExtensionsViewController": {
+   "instructionStatus": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "seedingGlobalInstruction": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "statusGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAGitChangeCell": {
+   "countsLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "subtitleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "symbolView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "tile": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAGitChangeStyle": {
+   "color": {
+    "encoding": "@\"UIColor\"",
+    "type": "UIColor *",
+    "ambiguous": false
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "symbol": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAGitChangesViewController": {
+   "bottomFiller": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "collapsedKinds": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "commitBar": {
+    "encoding": "@\"CAGitCommitBar\"",
+    "type": "CAGitCommitBar *",
+    "ambiguous": false
+   },
+   "conflictChanges": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "diffStats": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "emptyView": {
+    "encoding": "@\"CAGitEmptyStateView\"",
+    "type": "CAGitEmptyStateView *",
+    "ambiguous": false
+   },
+   "git": {
+    "encoding": "@\"CAGitRepository\"",
+    "type": "CAGitRepository *",
+    "ambiguous": false
+   },
+   "loading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "moreItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "mutating": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "networkAction": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "networkBranch": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "onRepositoryChanged": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "operationStatus": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pushUsername": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "refreshControl": {
+    "encoding": "@\"UIRefreshControl\"",
+    "type": "UIRefreshControl *",
+    "ambiguous": false
+   },
+   "refreshGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "refreshItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "sectionKinds": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "selectedRemote": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "snapshot": {
+    "encoding": "@\"CAGitSnapshot\"",
+    "type": "CAGitSnapshot *",
+    "ambiguous": true
+   },
+   "stageAll": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "stagedChanges": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "unstagedChanges": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "workspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAGitChipLabel": {
+   "contentInsets": {
+    "encoding": "{UIEdgeInsets=dddd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   }
+  },
+  "CAGitCleanCell": {
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAGitCommitBar": {
+   "onBeginEditing": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onCommit": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onPrefix": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onScopeChange": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "scopeControl": {
+    "encoding": "@\"UISegmentedControl\"",
+    "type": "UISegmentedControl *",
+    "ambiguous": false
+   },
+   "textView": {
+    "encoding": "@\"UITextView\"",
+    "type": "UITextView *",
+    "ambiguous": false
+   }
+  },
+  "CAGitDiffResult": {
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "fileURL": {
+    "encoding": "@\"NSURL\"",
+    "type": "NSURL *",
+    "ambiguous": false
+   },
+   "preview": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "status": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "truncated": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAGitDiffViewController": {
+   "change": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "countsLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "diff": {
+    "encoding": "@\"CAGitDiffResult\"",
+    "type": "CAGitDiffResult *",
+    "ambiguous": false
+   },
+   "generation": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "git": {
+    "encoding": "@\"CAGitRepository\"",
+    "type": "CAGitRepository *",
+    "ambiguous": false
+   },
+   "noticeLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "prefersStaged": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "scopeControl": {
+    "encoding": "@\"UISegmentedControl\"",
+    "type": "UISegmentedControl *",
+    "ambiguous": false
+   },
+   "stats": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "statusChip": {
+    "encoding": "@\"CAGitChipLabel\"",
+    "type": "CAGitChipLabel *",
+    "ambiguous": false
+   },
+   "symbolView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "textView": {
+    "encoding": "@\"UITextView\"",
+    "type": "UITextView *",
+    "ambiguous": false
+   },
+   "tile": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   }
+  },
+  "CAGitEmptyStateView": {
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "onAction": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAGitGroupHeaderView": {
+   "chevronView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "onAction": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAGitPill": {
+   "chevronView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   }
+  },
+  "CAGitRepository": {
+   "countWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "repositoryRoot": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "snapshotWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "workspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAGitSnapshot": {
+   "ahead": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "behind": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "branch": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "branchSummary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "changes": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "hasConflicts": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "hasHead": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "remoteURLs": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "remotes": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "repositoryRoot": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "stagedCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "trackingCountsKnown": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "trackingRef": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "trackingRemote": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "unstagedCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "upstream": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "userEmail": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "userName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAGitSummaryCell": {
+   "branchPill": {
+    "encoding": "@\"CAGitPill\"",
+    "type": "CAGitPill *",
+    "ambiguous": false
+   },
+   "card": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "iconTile": {
+    "encoding": "ile\n1005a33a5\tT@\"UIView\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "onBranch": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onFetch": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onPull": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onPush": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onRemote": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "remotePill": {
+    "encoding": "@\"CAGitPill\"",
+    "type": "CAGitPill *",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAGitSummaryModel": {
+   "ahead": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "behind": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "branchEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "branchTitle": {
+    "encoding": "itle\n1005a5448\tT@\"NSString\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "busy": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "detail": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "detailIsActivity": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fetchEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "hint": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pullEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "pushEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "pushProminent": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "remoteConfigured": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "remoteEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "remoteTitle": {
+    "encoding": "itle\n1005a5496\tT@\"NSString\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "remoteURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "title": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAInlineMediaPreview": {
+   "captionLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "path": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "playButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "player": {
+    "encoding": "@\"AVPlayer\"",
+    "type": "AVPlayer *",
+    "ambiguous": false
+   },
+   "playerLayer": {
+    "encoding": "@\"AVPlayerLayer\"",
+    "type": "AVPlayerLayer *",
+    "ambiguous": false
+   },
+   "video": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAInlineZoomImagePreview": {
+   "fitted": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "imageView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   }
+  },
+  "CALogEntry": {
+   "category": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "isError": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isWarning": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "level": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "message": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": true
+   },
+   "pid": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "raw": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": true
+   },
+   "time": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CALogEntryCell": {
+   "levelBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "messageLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "metaLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CALogViewerViewController": {
+   "allEntries": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "categories": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "categoryButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "categoryFilter": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "emptyLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "fileSignature": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "hasLoadedOnce": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "jumpBottomButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "levelControl": {
+    "encoding": "@\"UISegmentedControl\"",
+    "type": "UISegmentedControl *",
+    "ambiguous": false
+   },
+   "logCopyItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "moreItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "pendingEntries": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "preparingShare": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "readGeneration": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "reading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "refreshTimer": {
+    "encoding": "imer\n1005a5bd9\tT@\"NSTimer\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "searchController": {
+    "encoding": "@\"UISearchController\"",
+    "type": "UISearchController *",
+    "ambiguous": false
+   },
+   "searchQuery": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "totalEntryCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "visibleEntries": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   }
+  },
+  "CALogger": {
+   "bytesSinceRotateCheck": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "formatter": {
+    "encoding": "@\"NSDateFormatter\"",
+    "type": "NSDateFormatter *",
+    "ambiguous": false
+   },
+   "lastRotateCheckUptime": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "logFilePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "preferences": {
+    "encoding": "@\"NSUserDefaults\"",
+    "type": "NSUserDefaults *",
+    "ambiguous": false
+   },
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "runtimeDebugEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "runtimeEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "runtimeEnabledCategories": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "throttleLock": {
+    "encoding": "@\"NSLock\"",
+    "type": "NSLock *",
+    "ambiguous": false
+   },
+   "throttleTimes": {
+    "encoding": "imes\n100591838\tT@\"NSMutableDictionary\"",
+    "type": "int",
+    "ambiguous": false
+   }
+  },
+  "CAMTArtifactWebView": {
+   "allowedRoot": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "cacheReusable": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "didFitContent": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fitContentOnLoad": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fitWidthOnly": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fittedPageScale": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "lastFitBoundsSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "naturalContentSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   }
+  },
+  "CAManagedRuntimeDownload": {
+   "destination": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "done": {
+    "encoding": "@\"NSObject<OS_dispatch_semaphore>\"",
+    "type": "NSObject<OS_dispatch_semaphore> *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "progress": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAManagedRuntimeEnvironment": {
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   }
+  },
+  "CAMarkdownBlock": {
+   "content": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "language": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "tableAlignments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "tableRows": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "type": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidCanvasView": {
+   "direction": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "edges": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "nodes": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidDiagramView": {
+   "baseContentSize": {
+    "encoding": "{CGSize=dd}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "didApplyInitialFit": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fallbackMessageHandler": {
+    "encoding": "@\"CAMermaidWeakScriptMessageHandler\"",
+    "type": "CAMermaidWeakScriptMessageHandler *",
+    "ambiguous": false
+   },
+   "fallbackResourceDirectory": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "fallbackWebView": {
+    "encoding": "@\"WKWebView\"",
+    "type": "WKWebView *",
+    "ambiguous": false
+   },
+   "heightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "scrollView": {
+    "encoding": "@\"UIScrollView\"",
+    "type": "UIScrollView *",
+    "ambiguous": false
+   },
+   "source": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "sourceCopyButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "zoomContentView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidEdge": {
+   "arrow": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "dashed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "source": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "target": {
+    "encoding": "@\"<WKScriptMessageHandler>\"",
+    "type": "<WKScriptMessageHandler> *",
+    "ambiguous": true
+   },
+   "thick": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidNode": {
+   "frame": {
+    "encoding": "{CGRect={CGPoint=dd}{CGSize=dd}}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "nodeId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "shape": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidSequenceCanvasView": {
+   "activationSegments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "items": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "participants": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidSequenceItem": {
+   "crossArrow": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "dashed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "height": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "kind": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "matchingIndex": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "notePosition": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "source": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "target": {
+    "encoding": "@\"<WKScriptMessageHandler>\"",
+    "type": "<WKScriptMessageHandler> *",
+    "ambiguous": true
+   },
+   "type": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "y": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidSequenceParticipant": {
+   "actor": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "frame": {
+    "encoding": "{CGRect={CGPoint=dd}{CGSize=dd}}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "participantId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAMermaidWeakScriptMessageHandler": {
+   "target": {
+    "encoding": "@\"<WKScriptMessageHandler>\"",
+    "type": "<WKScriptMessageHandler> *",
+    "ambiguous": true
+   }
+  },
+  "CAMessageCell": {
+   "artifactLookup": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "assistantWidthConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "bodyBottomConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "bodyLeadingConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "bodyStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "bubbleView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "configuredQueued": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "deferredBlockIndex": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "deferredBlocks": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "deferredBodyStack": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "deferredMessageID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "deferredRenderGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "leadingConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "onDeferredRenderStep": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onEditQueued": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onOpenAttachmentPath": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onOpenMarkdownLink": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onSteerQueued": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onWithdrawQueued": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "queuedBorderLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "renderingStreaming": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "streamingCommittedLength": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "trailingConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   }
+  },
+  "CAMessageItem": {
+   "activityDetail": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityDetailBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "activityDetailFile": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityDetailPersistencePending": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "activityDetailRenderCache": {
+    "encoding": "@",
+    "type": "id",
+    "ambiguous": false
+   },
+   "activityDuration": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "activityExpanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "activityKind": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "activityModelName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityModelRequested": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "activityReasoningEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "activityRunning": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "activityStartedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "activityTitle": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "displayAttachments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "generatedArtifacts": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "messageId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "parsedBlocksCache": {
+    "encoding": "@",
+    "type": "id",
+    "ambiguous": false
+   },
+   "queued": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "queuedAttachments": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "queuedComposerText": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "queuedPromptText": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "role": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "streaming": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "text": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "timestamp": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "tokenUsage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "toolItem": {
+    "encoding": "@\"CAToolItem\"",
+    "type": "CAToolItem *",
+    "ambiguous": false
+   }
+  },
+  "CAModelItem": {
+   "defaultLevel": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "desc": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "displayName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "effectiveContextWindowPercent": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "supportedLevels": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "supportsReasoning": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAModelManager": {
+   "activeModel": {
+    "encoding": "@\"CAModelItem\"",
+    "type": "CAModelItem *",
+    "ambiguous": false
+   },
+   "activeReasoningEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "internalModels": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   }
+  },
+  "CAModelPickerViewController": {
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAModelPricingManager": {
+   "candidateCache": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "confirmedAliases": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "costHistory": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "exchangeRateRefreshing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "exchangeRateUpdatedAt": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "modelCount": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "prices": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "reasoningEfforts": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "refreshing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAModelPricingViewController": {
+   "officialDisplaySnapshot": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "officialModels": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "searchController": {
+    "encoding": "@\"UISearchController\"",
+    "type": "UISearchController *",
+    "ambiguous": false
+   },
+   "snapshotGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "syncItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "syncSpinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "syncSpinnerItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "thirdPartyDisplaySnapshot": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "thirdPartyModels": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   }
+  },
+  "CAPathPickerViewController": {
+   "createItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "currentPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "entries": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "onDirectorySelected": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "pathBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "pathLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "readGeneration": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "selectItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAPlanDecisionChoiceView": {
+   "choiceDescription": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "choiceTitle": {
+    "encoding": "itle\n1005a77ee\tT@\"UILabel\"",
+    "type": "int",
+    "ambiguous": false
+   },
+   "choiceValue": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "questionIndex": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "selectionIcon": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   }
+  },
+  "CAPlanDecisionViewController": {
+   "choiceRows": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "completion": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "customRows": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "freeformEditors": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "privateEditors": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "questions": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "remainingLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "resolved": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "selections": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "submitButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   }
+  },
+  "CAPlanProgressViewController": {
+   "executionActive": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "pendingSync": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "steps": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "subtitle": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "table": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   }
+  },
+  "CAPlanReviewViewController": {
+   "onApprove": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onEdit": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "plan": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAPlanStatusRing": {
+   "arcLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "checkView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "state": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   }
+  },
+  "CAPlanStepCell": {
+   "ring": {
+    "encoding": "@\"CAPlanStatusRing\"",
+    "type": "CAPlanStatusRing *",
+    "ambiguous": false
+   },
+   "stepTitle": {
+    "encoding": "itle\n1005a75e2\tT@\"UILabel\"",
+    "type": "int",
+    "ambiguous": false
+   }
+  },
+  "CAProfileAvatarView": {
+   "identity": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "imageURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "imageView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "initialLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "requestID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAProjectInstructionsViewController": {
+   "statusByPath": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "statusGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "workspaces": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   }
+  },
+  "CAProviderConfiguration": {
+   "directory": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "keyPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAPythonDownload": {
+   "destination": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "done": {
+    "encoding": "@\"NSObject<OS_dispatch_semaphore>\"",
+    "type": "NSObject<OS_dispatch_semaphore> *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "lastProgressTime": {
+    "encoding": "ime\n1005935d3\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "progress": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAPythonEnvironment": {
+   "downloadProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "downloadProxyPrefixes": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "downloadStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "isDownloading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isPreparing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isRecoveringRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "preparationProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "preparationStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteDownloadSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteEntry": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "remoteExpandedSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteRevision": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteVersion": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "workQueue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   }
+  },
+  "CAQueuedMessageBubbleView": {
+   "queuedOutline": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   }
+  },
+  "CARateLimitManager": {
+   "available": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "loadingCache": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "officialSnapshot": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "snapshot": {
+    "encoding": "@\"CAGitSnapshot\"",
+    "type": "CAGitSnapshot *",
+    "ambiguous": true
+   },
+   "unavailableReason": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CARemoteOperations": {
+   "anonymousID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "consecutiveHeartbeatFailures": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "heartbeatFailureLimit": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "heartbeatHealthy": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastHeartbeatSuccess": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "policyKnown": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "remoteLoggingEnabled": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "requestInFlight": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "started": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "theosRuntimeAllowed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "timer": {
+    "encoding": "@\"NSObject<OS_dispatch_source>\"",
+    "type": "NSObject<OS_dispatch_source> *",
+    "ambiguous": true
+   }
+  },
+  "CAReverseToolsDownload": {
+   "destination": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "done": {
+    "encoding": "@\"NSObject<OS_dispatch_semaphore>\"",
+    "type": "NSObject<OS_dispatch_semaphore> *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "lastProgressTime": {
+    "encoding": "ime\n1005935d3\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "progress": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAReverseToolsEnvironment": {
+   "downloadProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "downloadProxyPrefixes": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "downloadStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "isDownloading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isPreparing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isRecoveringRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "preparationProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "preparationStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteDownloadSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteEntry": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "remoteExpandedSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteRevision": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteVersion": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "workQueue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   }
+  },
+  "CARootViewController": {
+   "contentViewController": {
+    "encoding": "@\"UIViewController\"",
+    "type": "UIViewController *",
+    "ambiguous": false
+   }
+  },
+  "CARuntimeCatalog": {
+   "changedRuntimeIDs": {
+    "encoding": "@\"NSSet\"",
+    "type": "NSSet *",
+    "ambiguous": false
+   },
+   "entries": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "lastError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastRefreshDate": {
+    "encoding": "@\"NSDate\"",
+    "type": "NSDate *",
+    "ambiguous": false
+   },
+   "newlyAvailableRuntimeIDs": {
+    "encoding": "@\"NSSet\"",
+    "type": "NSSet *",
+    "ambiguous": false
+   },
+   "queue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "refreshing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "timer": {
+    "encoding": "@\"NSObject<OS_dispatch_source>\"",
+    "type": "NSObject<OS_dispatch_source> *",
+    "ambiguous": true
+   }
+  },
+  "CARuntimeCatalogEntry": {
+   "archiveSHA256": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "archiveURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "displayName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "downloadSize": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "expandedSize": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "group": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "handler": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "install": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "optional": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "order": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "raw": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": true
+   },
+   "revision": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "runtimeID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "summary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "version": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CASettingsViewController": {
+   "accountIdentity": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "avatarInitialLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "avatarRequestURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "avatarView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "checkingCLIUpdate": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "checkingPythonUpdate": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "contextEngine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   },
+   "currentProfile": {
+    "encoding": "@\"CAAccountProfile\"",
+    "type": "CAAccountProfile *",
+    "ambiguous": false
+   },
+   "dismissingSettings": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "displayUserName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "focusRequiredRuntimesOnAppear": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isLoggedIn": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "latestAvailableVersion": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "loginAttemptGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "loginOptionsExpanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "onSettingsChanged": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "pendingSettingsChanged": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "profileCard": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "profileRefreshID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "thirdPartyConnectionGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "thirdPartyDraftBaseURL": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyDraftContext": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyDraftEffort": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyDraftKey": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyDraftModel": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyDraftName": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "thirdPartyExpanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "thirdPartyFieldHosts": {
+    "encoding": "@\"NSMapTable\"",
+    "type": "NSMapTable *",
+    "ambiguous": false
+   },
+   "thirdPartyFields": {
+    "encoding": "@\"NSMutableDictionary\"",
+    "type": "NSMutableDictionary *",
+    "ambiguous": false
+   },
+   "thirdPartyModelsRequestGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "toolsExpanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "userNameLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "userStatusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAStorageManager": {
+   "caches": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "cliLogs": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "isBuildCacheInUse": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "isBusy": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "legacyHelpers": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "liveProtectedPaths": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "temporary": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAStorageProgressRingView": {
+   "checkLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "progressLayer": {
+    "encoding": "@\"CAShapeLayer\"",
+    "type": "CAShapeLayer *",
+    "ambiguous": false
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   }
+  },
+  "CAStorageViewController": {
+   "operationStatus": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pendingScanKeys": {
+    "encoding": "@\"NSMutableSet\"",
+    "type": "NSMutableSet *",
+    "ambiguous": false
+   },
+   "resetting": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "scanGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "snapshot": {
+    "encoding": "@\"CAGitSnapshot\"",
+    "type": "CAGitSnapshot *",
+    "ambiguous": true
+   },
+   "working": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAStreamRevealTarget": {
+   "view": {
+    "encoding": "@\"CAStreamingTextView\"",
+    "type": "CAStreamingTextView *",
+    "ambiguous": true
+   }
+  },
+  "CAStreamRevealUnit": {
+   "color": {
+    "encoding": "@\"UIColor\"",
+    "type": "UIColor *",
+    "ambiguous": false
+   },
+   "range": {
+    "encoding": "{_NSRange=QQ}",
+    "type": "void * /* struct/array */",
+    "ambiguous": false
+   },
+   "start": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   }
+  },
+  "CAStreamingTextView": {
+   "intrinsicInvalidationPending": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "measuredWidth": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "revealDisplayLink": {
+    "encoding": "@\"CADisplayLink\"",
+    "type": "CADisplayLink *",
+    "ambiguous": false
+   },
+   "revealUnits": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "streamingParagraph": {
+    "encoding": "@\"NSParagraphStyle\"",
+    "type": "NSParagraphStyle *",
+    "ambiguous": false
+   },
+   "suppressSizeInvalidation": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "textSizeDirty": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CASubagentPreferences": {
+   "defaults": {
+    "encoding": "Subagent.%@.%@\n100597008\tagents.%@=%@\n100597015\tdefault_subagent_model\n10059702c\tdefault_subagent_reasoning_effort\n10059704e\tagents.default_subagent_model\n10059706c\tagents.default_subagent_reasoning_effort\n100597095\tdefaults\n10059709e\tT@\"NSUserDefaults\"",
+    "type": "unsigned short",
+    "ambiguous": false
+   }
+  },
+  "CASubagentSettingsViewController": {
+   "contextEngine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   }
+  },
+  "CASwitchButton": {
+   "knobView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "on": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "onTintColor": {
+    "encoding": "intColor\n1005a8936\tT@\"UIColor\"",
+    "type": "int",
+    "ambiguous": false
+   }
+  },
+  "CATextDetailViewController": {
+   "shareItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "text": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "textSelectionMode": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "textView": {
+    "encoding": "@\"UITextView\"",
+    "type": "UITextView *",
+    "ambiguous": false
+   }
+  },
+  "CATextEditorViewController": {
+   "editable": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "fileExists": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "infoBar": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "loaded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "note": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "onSaved": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "path": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pathLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "saveItem": {
+    "encoding": "@\"UIBarButtonItem\"",
+    "type": "UIBarButtonItem *",
+    "ambiguous": false
+   },
+   "saving": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "textView": {
+    "encoding": "@\"UITextView\"",
+    "type": "UITextView *",
+    "ambiguous": false
+   }
+  },
+  "CAThemeManager": {
+   "window": {
+    "encoding": "@\"UIWindow\"",
+    "type": "UIWindow *",
+    "ambiguous": true
+   }
+  },
+  "CATheosEnvironment": {
+   "compilerPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "defaultSDKPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "desiredRemoteRuntimeAccessAllowed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "downloadProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "downloadStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "dpkgDebPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "forceNextPreparation": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "installedSizeCache": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "installedSizeCacheValid": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isDownloading": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isPreparing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "isRepairingEmbeddedAdapter": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "lastQueuedPreparationStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastQueuedPreparationTime": {
+    "encoding": "ime\n10059c044\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "linkerPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "makePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "moduleCachePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "packageBuilderPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "pathDirectories": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "pendingCompletions": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "perlPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "preparationError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "preparationProgress": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "preparationQueue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   },
+   "preparationStage": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteDownloadSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteExpandedSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "remoteManifest": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "remoteManifestError": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "remoteRuntimeAccessAllowed": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "remoteVersion": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "sdkRoot": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "signerPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "usrPath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CATheosRuntimeDownload": {
+   "destination": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "done": {
+    "encoding": "@\"NSObject<OS_dispatch_semaphore>\"",
+    "type": "NSObject<OS_dispatch_semaphore> *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "lastProgressTime": {
+    "encoding": "ime\n1005935d3\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "progress": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAThinkingCell": {
+   "ambientMusingActive": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "chevronView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "collapseButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "collapseHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "containerView": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "detailHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "durationLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "message": {
+    "encoding": "@\"CAMessageItem\"",
+    "type": "CAMessageItem *",
+    "ambiguous": true
+   },
+   "musingGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "musingMessageID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "musingPhaseKey": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "musingPhraseIndex": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "timer": {
+    "encoding": "@\"NSObject<OS_dispatch_source>\"",
+    "type": "NSObject<OS_dispatch_source> *",
+    "ambiguous": true
+   }
+  },
+  "CATodoProgressButton": {
+   "activeIndex": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "activeSegmentLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   },
+   "completedLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   },
+   "completedSteps": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "completionSheenLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   },
+   "headCoreLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": false
+   },
+   "headGlowLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": false
+   },
+   "lastWidth": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "pendingSync": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "totalSteps": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "trackLayer": {
+    "encoding": "@\"CALayer\"",
+    "type": "CALayer *",
+    "ambiguous": true
+   },
+   "trailLayer": {
+    "encoding": "@\"CAGradientLayer\"",
+    "type": "CAGradientLayer *",
+    "ambiguous": false
+   },
+   "wasComplete": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAToolCardCell": {
+   "actionCopyButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "capsuleView": {
+    "encoding": "SubagentModelBadge\n10059d2fd\tMTSubagentEffortBadge\n10059d313\tchevron.up\n10059d31e\tstage=activity-toggle-tap item=%@ expanded=%d running=%d detailChars=%lu\n10059d36f\t%.1fs\n10059d375\t%.0fs\n10059d37b\t%lum %lus\n10059d385\tactivity-cell-lifecycle\n10059d39d\tv=%@ stage=cell-%@ item=%@ modelRunning=%d renderedRunning=%d stopVisible=%d attached=%d timer=%d duration=%.3f\n10059d40d\tattach\n10059d414\tdetach\n10059d41b\t%@\\n%@\\n%@\\n%@\\n%@\\n%ld\\n%d\\n%d\\n%.3f\\n%ld\\n%ld\\n%lu\n10059d445\t\\n%@\\n%@\\n%d\n10059d459\tcapsuleView\n10059d465\tT@\"CAAgentCapsuleView\"",
+    "type": "unsigned short",
+    "ambiguous": false
+   },
+   "collapseButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "commandLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "fullOutputButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "fullOutputHeight": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "hasRenderedState": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "iconView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "lastItemID": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "lastStatus": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "onShowFullOutput": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onStop": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "outputContainer": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "outputContentsBottom": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "outputHeightConstraint": {
+    "encoding": "@\"NSLayoutConstraint\"",
+    "type": "NSLayoutConstraint *",
+    "ambiguous": false
+   },
+   "outputLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "rawOutput": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "renderedOutput": {
+    "encoding": "@\"NSAttributedString\"",
+    "type": "NSAttributedString *",
+    "ambiguous": false
+   },
+   "renderedOutputSource": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "stopButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   }
+  },
+  "CAToolItem": {
+   "command": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "exitCode": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "isExpanded": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "itemId": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "output": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "outputBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "outputFile": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "outputPersistencePending": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "status": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   }
+  },
+  "CATransportNoticeCollectionCell": {
+   "label": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   }
+  },
+  "CAUpdateDownload": {
+   "destination": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "done": {
+    "encoding": "@\"NSObject<OS_dispatch_semaphore>\"",
+    "type": "NSObject<OS_dispatch_semaphore> *",
+    "ambiguous": false
+   },
+   "error": {
+    "encoding": "@\"NSError\"",
+    "type": "NSError *",
+    "ambiguous": true
+   },
+   "lastProgressTime": {
+    "encoding": "ime\n1005935d3\tTd",
+    "type": "int",
+    "ambiguous": false
+   },
+   "progress": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   }
+  },
+  "CAUpdateManager": {
+   "cachedInstalledVersion": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "isRecoveringRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "latestDownloadSizeBytes": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "runtimeRecoveryWaiters": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "updateInProgress": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "workQueue": {
+    "encoding": "@\"NSObject<OS_dispatch_queue>\"",
+    "type": "NSObject<OS_dispatch_queue> *",
+    "ambiguous": false
+   }
+  },
+  "CAUpdateProgress": {
+   "completedBytes": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "fraction": {
+    "encoding": "d",
+    "type": "double",
+    "ambiguous": false
+   },
+   "status": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": true
+   },
+   "totalBytes": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   }
+  },
+  "CAUpdateViewController": {
+   "activeStage": {
+    "encoding": "q",
+    "type": "long long",
+    "ambiguous": false
+   },
+   "card": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "closeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "completionHandler": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "detailLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "finished": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "progressBar": {
+    "encoding": "@\"UIProgressView\"",
+    "type": "UIProgressView *",
+    "ambiguous": false
+   },
+   "pythonRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "retryButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "stageIcons": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "stageLabels": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "success": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "theosRuntime": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "version": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAUsageViewController": {
+   "closeButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "engine": {
+    "encoding": "@\"CACodexEngine\"",
+    "type": "CACodexEngine *",
+    "ambiguous": false
+   },
+   "header": {
+    "encoding": "@\"UIView\"",
+    "type": "UIView *",
+    "ambiguous": false
+   },
+   "planLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "quotaRefreshGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "record": {
+    "encoding": "@\"CAConversationRecord\"",
+    "type": "CAConversationRecord *",
+    "ambiguous": false
+   },
+   "refreshButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "refreshing": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "spinner": {
+    "encoding": "@\"UIActivityIndicatorView\"",
+    "type": "UIActivityIndicatorView *",
+    "ambiguous": false
+   },
+   "stackView": {
+    "encoding": "@\"UIStackView\"",
+    "type": "UIStackView *",
+    "ambiguous": false
+   },
+   "statusLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "titleLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceActionsCell": {
+   "browseButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "createButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "onBrowse": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onCreate": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceBadgeView": {
+   "monogramLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "symbolView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceCurrentCell": {
+   "badge": {
+    "encoding": "@\"CAWorkspaceBadgeView\"",
+    "type": "CAWorkspaceBadgeView *",
+    "ambiguous": true
+   },
+   "captionLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "filzaButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "metaLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "nameLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "onCopyPath": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "onFilza": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "pathCopyButton": {
+    "encoding": "@\"UIButton\"",
+    "type": "UIButton *",
+    "ambiguous": false
+   },
+   "pathLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceItem": {
+   "isDefault": {
+    "encoding": "B",
+    "type": "BOOL",
+    "ambiguous": false
+   },
+   "name": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "path": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceManager": {
+   "activeWorkspacePath": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "documentsDirectory": {
+    "encoding": "@\"NSString\"",
+    "type": "NSString *",
+    "ambiguous": false
+   },
+   "internalWorkspaces": {
+    "encoding": "@\"NSMutableArray\"",
+    "type": "NSMutableArray *",
+    "ambiguous": false
+   },
+   "preferences": {
+    "encoding": "@\"NSUserDefaults\"",
+    "type": "NSUserDefaults *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceProjectCell": {
+   "badge": {
+    "encoding": "@\"CAWorkspaceBadgeView\"",
+    "type": "CAWorkspaceBadgeView *",
+    "ambiguous": true
+   },
+   "checkView": {
+    "encoding": "@\"UIImageView\"",
+    "type": "UIImageView *",
+    "ambiguous": false
+   },
+   "metaLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "nameLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   },
+   "pathLabel": {
+    "encoding": "@\"UILabel\"",
+    "type": "UILabel *",
+    "ambiguous": false
+   }
+  },
+  "CAWorkspaceViewController": {
+   "filzaRequestGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "items": {
+    "encoding": "@\"NSArray\"",
+    "type": "NSArray *",
+    "ambiguous": true
+   },
+   "metaByPath": {
+    "encoding": "@\"NSDictionary\"",
+    "type": "NSDictionary *",
+    "ambiguous": false
+   },
+   "metaGeneration": {
+    "encoding": "Q",
+    "type": "unsigned long long",
+    "ambiguous": false
+   },
+   "onActiveWorkspaceChanged": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   },
+   "tableView": {
+    "encoding": "@\"UITableView\"",
+    "type": "UITableView *",
+    "ambiguous": false
+   },
+   "workspaceBusyProvider": {
+    "encoding": "@?",
+    "type": "id",
+    "ambiguous": false
+   }
+  }
+ }
+}

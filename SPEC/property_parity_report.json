@@ -1,0 +1,90 @@
+{
+ "applied": true,
+ "classes": [
+  {
+   "class": "CAAppServerSession",
+   "added": 15,
+   "skipped": 4
+  },
+  {
+   "class": "CAChatViewController",
+   "added": 129,
+   "skipped": 8
+  },
+  {
+   "class": "CACodexEngine",
+   "added": 71,
+   "skipped": 9
+  },
+  {
+   "class": "CAComposerCatalog",
+   "added": 7,
+   "skipped": 9
+  },
+  {
+   "class": "CAConversationStore",
+   "added": 1,
+   "skipped": 4
+  },
+  {
+   "class": "CADiagnosticsViewController",
+   "added": 3,
+   "skipped": 14
+  },
+  {
+   "class": "CALogViewerViewController",
+   "added": 11,
+   "skipped": 10
+  },
+  {
+   "class": "CAManagedRuntimeEnvironment",
+   "added": 1,
+   "skipped": 0
+  },
+  {
+   "class": "CAModelPricingManager",
+   "added": 2,
+   "skipped": 8
+  },
+  {
+   "class": "CAPythonEnvironment",
+   "added": 9,
+   "skipped": 6
+  },
+  {
+   "class": "CARemoteOperations",
+   "added": 4,
+   "skipped": 8
+  },
+  {
+   "class": "CAReverseToolsEnvironment",
+   "added": 9,
+   "skipped": 6
+  },
+  {
+   "class": "CARuntimeCatalog",
+   "added": 1,
+   "skipped": 7
+  },
+  {
+   "class": "CASettingsViewController",
+   "added": 24,
+   "skipped": 10
+  },
+  {
+   "class": "CAStorageManager",
+   "added": 7,
+   "skipped": 0
+  },
+  {
+   "class": "CATheosEnvironment",
+   "added": 30,
+   "skipped": 4
+  },
+  {
+   "class": "CAUpdateManager",
+   "added": 5,
+   "skipped": 1
+  }
+ ]
+}

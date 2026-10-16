@@ -1,0 +1,654 @@
+{
+ "CAAppDelegate": [
+  23,
+  21
+ ],
+ "CABackgroundKeepAlive": [
+  37,
+  36
+ ],
+ "CAAccountProfile": [
+  17,
+  16
+ ],
+ "CAAccountInfoBridge": [
+  8,
+  8
+ ],
+ "CAAgentRuntimeProcess": [
+  29,
+  28
+ ],
+ "CAAgentRuntimeManager": [
+  10,
+  9
+ ],
+ "CAAppServerSession": [
+  60,
+  47
+ ],
+ "CAArchiveExtractor": [
+  2,
+  2
+ ],
+ "CAArtifactResolver": [
+  7,
+  7
+ ],
+ "CACodexEngine": [
+  380,
+  194
+ ],
+ "CACodexMetadataReader": [
+  5,
+  5
+ ],
+ "CACommandSemantic": [
+  11,
+  11
+ ],
+ "CAComposerCatalogItem": [
+  24,
+  23
+ ],
+ "CAComposerCatalog": [
+  67,
+  53
+ ],
+ "CAConversationStore": [
+  56,
+  28
+ ],
+ "CAConversationRecord": [
+  37,
+  36
+ ],
+ "CAExecutionEnvironmentProfile": [
+  27,
+  26
+ ],
+ "CAExecutionEnvironment": [
+  11,
+  10
+ ],
+ "CAGitSnapshot": [
+  42,
+  41
+ ],
+ "CAGitDiffResult": [
+  13,
+  12
+ ],
+ "CAGitRepository": [
+  39,
+  38
+ ],
+ "CAGlobalInstructionDefaults": [
+  8,
+  8
+ ],
+ "CALogger": [
+  46,
+  45
+ ],
+ "CAManagedRuntimeDownload": [
+  14,
+  13
+ ],
+ "CAManagedRuntimeEnvironment": [
+  35,
+  22
+ ],
+ "CAModelItem": [
+  20,
+  19
+ ],
+ "CAModelManager": [
+  18,
+  17
+ ],
+ "CAModelPricingManager": [
+  65,
+  44
+ ],
+ "CAToolItem": [
+  20,
+  19
+ ],
+ "CAMessageItem": [
+  62,
+  61
+ ],
+ "CAProtectedFileWriter": [
+  5,
+  5
+ ],
+ "CAProviderConfiguration": [
+  13,
+  12
+ ],
+ "CAPythonDownload": [
+  16,
+  15
+ ],
+ "CAPythonEnvironment": [
+  61,
+  45
+ ],
+ "CARateLimitManager": [
+  29,
+  28
+ ],
+ "CARemoteOperations": [
+  41,
+  38
+ ],
+ "CAReverseToolsDownload": [
+  16,
+  15
+ ],
+ "CAReverseToolsEnvironment": [
+  65,
+  44
+ ],
+ "CARuntimeCatalogEntry": [
+  31,
+  30
+ ],
+ "CARuntimeCatalog": [
+  33,
+  30
+ ],
+ "CARuntimeCompatibilityProbe": [
+  5,
+  5
+ ],
+ "CARuntimePaths": [
+  19,
+  7
+ ],
+ "CAShareInbox": [
+  9,
+  9
+ ],
+ "CAShellEnvironment": [
+  2,
+  2
+ ],
+ "CAStorageManager": [
+  36,
+  22
+ ],
+ "CASubagentPreferences": [
+  15,
+  14
+ ],
+ "CAThemeManager": [
+  21,
+  20
+ ],
+ "CATheosRuntimeDownload": [
+  16,
+  15
+ ],
+ "CATheosEnvironment": [
+  152,
+  87
+ ],
+ "CAThirdPartyModelCatalog": [
+  5,
+  5
+ ],
+ "CAUpdateProgress": [
+  11,
+  10
+ ],
+ "CAUpdateDownload": [
+  17,
+  16
+ ],
+ "CAUpdateManager": [
+  65,
+  24
+ ],
+ "CAWorkspaceManager": [
+  25,
+  24
+ ],
+ "CAWorkspaceItem": [
+  7,
+  6
+ ],
+ "CAANSIParser": [
+  3,
+  3
+ ],
+ "CAMTBadgeLabel": [
+  2,
+  2
+ ],
+ "CAActivityCardCell": [
+  90,
+  89
+ ],
+ "CAAgentCapsuleView": [
+  14,
+  13
+ ],
+ "CAAgentIcon": [
+  10,
+  10
+ ],
+ "CAAgentIdentity": [
+  2,
+  2
+ ],
+ "CAAgentProfileViewController": [
+  26,
+  25
+ ],
+ "CAAgentBlock": [
+  9,
+  8
+ ],
+ "CAAgentTurn": [
+  13,
+  12
+ ],
+ "CAAgentTurnHeaderView": [
+  7,
+  6
+ ],
+ "CATransportNoticeCollectionCell": [
+  5,
+  4
+ ],
+ "CAMTArtifactWebView": [
+  27,
+  26
+ ],
+ "CAInlineZoomImagePreview": [
+  12,
+  11
+ ],
+ "CAInlineMediaPreview": [
+  17,
+  16
+ ],
+ "CAArtifactPreview": [
+  4,
+  4
+ ],
+ "CAArtifactPreviewViewController": [
+  22,
+  21
+ ],
+ "CAArtifactCardsView": [
+  1,
+  1
+ ],
+ "CABottomFollowTarget": [
+  4,
+  3
+ ],
+ "CAChatCollectionView": [
+  33,
+  32
+ ],
+ "CAChatDisplayPreferences": [
+  2,
+  2
+ ],
+ "CAAgentProgressRingView": [
+  9,
+  8
+ ],
+ "CAAgentStatusKeyValueCell": [
+  7,
+  6
+ ],
+ "CAAgentStatusTextCell": [
+  5,
+  4
+ ],
+ "CAAgentStatusRowCell": [
+  11,
+  10
+ ],
+ "CAAgentStatusDetailViewController": [
+  13,
+  12
+ ],
+ "CAAgentStatusViewController": [
+  17,
+  16
+ ],
+ "CAConversationBackgroundRun": [
+  40,
+  39
+ ],
+ "CAChatViewController": [
+  585,
+  332
+ ],
+ "CACompactOperationsCell": [
+  64,
+  63
+ ],
+ "CAComposerAttachmentCell": [
+  15,
+  14
+ ],
+ "CAComposerAttachmentGridView": [
+  23,
+  22
+ ],
+ "CAComposerCameraCoordinator": [
+  31,
+  30
+ ],
+ "CAComposerPopupItem": [
+  19,
+  18
+ ],
+ "CAComposerPopupSection": [
+  6,
+  5
+ ],
+ "CAComposerPopupCell": [
+  18,
+  17
+ ],
+ "CAComposerPopupView": [
+  53,
+  52
+ ],
+ "CAComposerTextView": [
+  49,
+  48
+ ],
+ "CAContextGaugeView": [
+  9,
+  8
+ ],
+ "CAContextUsageViewController": [
+  32,
+  31
+ ],
+ "CAActiveRunIndicator": [
+  7,
+  6
+ ],
+ "CAConversationCell": [
+  13,
+  12
+ ],
+ "CAConversationSidebarViewController": [
+  139,
+  138
+ ],
+ "CADiagnosticsRingView": [
+  11,
+  10
+ ],
+ "CADiagnosticsViewController": [
+  78,
+  63
+ ],
+ "CAExtensionListViewController": [
+  45,
+  44
+ ],
+ "CAProjectInstructionsViewController": [
+  20,
+  19
+ ],
+ "CAExtensionsViewController": [
+  33,
+  32
+ ],
+ "CAGitChangesViewController": [
+  128,
+  127
+ ],
+ "CAGitDiffViewController": [
+  32,
+  31
+ ],
+ "CAGitChangeStyle": [
+  6,
+  5
+ ],
+ "CAGitChipLabel": [
+  6,
+  6
+ ],
+ "CAGitPill": [
+  5,
+  4
+ ],
+ "CAGitSummaryModel": [
+  35,
+  34
+ ],
+ "CAGitSummaryCell": [
+  21,
+  20
+ ],
+ "CAGitChangeCell": [
+  7,
+  6
+ ],
+ "CAGitCleanCell": [
+  3,
+  2
+ ],
+ "CAGitGroupHeaderView": [
+  10,
+  9
+ ],
+ "CAGitCommitBar": [
+  29,
+  28
+ ],
+ "CAGitEmptyStateView": [
+  8,
+  7
+ ],
+ "CALogEntry": [
+  22,
+  21
+ ],
+ "CALogEntryCell": [
+  9,
+  8
+ ],
+ "CALogViewerViewController": [
+  87,
+  80
+ ],
+ "CAMarkdownBlock": [
+  17,
+  16
+ ],
+ "CAChatTextLabel": [
+  14,
+  13
+ ],
+ "CACodeBlockView": [
+  16,
+  15
+ ],
+ "CAMermaidNode": [
+  9,
+  8
+ ],
+ "CAMermaidEdge": [
+  13,
+  12
+ ],
+ "CAMermaidCanvasView": [
+  10,
+  9
+ ],
+ "CAMermaidSequenceParticipant": [
+  9,
+  8
+ ],
+ "CAMermaidSequenceItem": [
+  23,
+  22
+ ],
+ "CAMermaidSequenceCanvasView": [
+  11,
+  10
+ ],
+ "CAMermaidWeakScriptMessageHandler": [
+  4,
+  3
+ ],
+ "CAMermaidDiagramView": [
+  41,
+  40
+ ],
+ "CAMarkdownTableView": [
+  1,
+  1
+ ],
+ "CAQueuedMessageBubbleView": [
+  4,
+  3
+ ],
+ "CAMessageCell": [
+  82,
+  81
+ ],
+ "CAModelPickerViewController": [
+  15,
+  14
+ ],
+ "CAModelPricingViewController": [
+  40,
+  39
+ ],
+ "CAPathPickerViewController": [
+  32,
+  31
+ ],
+ "CAPlanStatusRing": [
+  15,
+  14
+ ],
+ "CAPlanStepCell": [
+  9,
+  8
+ ],
+ "CAPlanReviewViewController": [
+  16,
+  15
+ ],
+ "CAPlanProgressViewController": [
+  21,
+  20
+ ],
+ "CAPlanDecisionChoiceView": [
+  14,
+  13
+ ],
+ "CAPlanDecisionViewController": [
+  33,
+  32
+ ],
+ "CAProfileAvatarView": [
+  19,
+  18
+ ],
+ "CARootViewController": [
+  10,
+  9
+ ],
+ "CASettingsViewController": [
+  160,
+  108
+ ],
+ "CAStorageProgressRingView": [
+  11,
+  10
+ ],
+ "CAStorageViewController": [
+  31,
+  30
+ ],
+ "CAStreamRevealUnit": [
+  7,
+  6
+ ],
+ "CAStreamRevealTarget": [
+  4,
+  3
+ ],
+ "CAStreamingTextView": [
+  37,
+  36
+ ],
+ "CASubagentSettingsViewController": [
+  22,
+  21
+ ],
+ "CASwitchButton": [
+  19,
+  18
+ ],
+ "CATextDetailViewController": [
+  17,
+  16
+ ],
+ "CATextEditorViewController": [
+  47,
+  46
+ ],
+ "CAThinkingCell": [
+  65,
+  64
+ ],
+ "CATodoProgressButton": [
+  38,
+  37
+ ],
+ "CAToolCardCell": [
+  62,
+  61
+ ],
+ "CAUIStyle": [
+  9,
+  9
+ ],
+ "CAUpdateViewController": [
+  55,
+  54
+ ],
+ "CAUsageViewController": [
+  42,
+  41
+ ],
+ "CAWorkspaceBadgeView": [
+  7,
+  6
+ ],
+ "CAWorkspaceCurrentCell": [
+  24,
+  23
+ ],
+ "CAWorkspaceActionsCell": [
+  14,
+  13
+ ],
+ "CAWorkspaceProjectCell": [
+  13,
+  12
+ ],
+ "CAWorkspaceViewController": [
+  47,
+  46
+ ]
+}

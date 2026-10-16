@@ -1,0 +1,431 @@
+{
+ "CAAccountProfile": [
+  ".cxx_destruct"
+ ],
+ "CAActiveRunIndicator": [
+  ".cxx_destruct"
+ ],
+ "CAActivityCardCell": [
+  ".cxx_destruct"
+ ],
+ "CAAgentBlock": [
+  ".cxx_destruct"
+ ],
+ "CAAgentCapsuleView": [
+  ".cxx_destruct"
+ ],
+ "CAAgentProfileViewController": [
+  ".cxx_destruct"
+ ],
+ "CAAgentProgressRingView": [
+  ".cxx_destruct"
+ ],
+ "CAAgentRuntimeManager": [
+  ".cxx_destruct"
+ ],
+ "CAAgentRuntimeProcess": [
+  ".cxx_destruct"
+ ],
+ "CAAgentStatusDetailViewController": [
+  ".cxx_destruct"
+ ],
+ "CAAgentStatusKeyValueCell": [
+  ".cxx_destruct"
+ ],
+ "CAAgentStatusRowCell": [
+  ".cxx_destruct"
+ ],
+ "CAAgentStatusTextCell": [
+  ".cxx_destruct"
+ ],
+ "CAAgentStatusViewController": [
+  ".cxx_destruct"
+ ],
+ "CAAgentTurn": [
+  ".cxx_destruct"
+ ],
+ "CAAgentTurnHeaderView": [
+  ".cxx_destruct"
+ ],
+ "CAAppDelegate": [
+  ".cxx_destruct"
+ ],
+ "CAAppServerSession": [
+  ".cxx_destruct"
+ ],
+ "CAArtifactPreviewViewController": [
+  ".cxx_destruct"
+ ],
+ "CABackgroundKeepAlive": [
+  ".cxx_destruct"
+ ],
+ "CABottomFollowTarget": [
+  ".cxx_destruct"
+ ],
+ "CAChatCollectionView": [
+  ".cxx_destruct"
+ ],
+ "CAChatTextLabel": [
+  ".cxx_destruct"
+ ],
+ "CAChatViewController": [
+  ".cxx_destruct",
+  "conversationSidebar:didDeleteRecord:",
+  "conversationSidebar:didMoveRecord:toWorkspace:",
+  "conversationSidebar:didRenameRecord:title:",
+  "conversationSidebar:didRequestNewConversationForWorkspace:",
+  "conversationSidebar:didRequestPermanentDeleteWorkspaceAtPath:",
+  "conversationSidebar:didSelectRecord:"
+ ],
+ "CACodeBlockView": [
+  ".cxx_destruct"
+ ],
+ "CACodexEngine": [
+  ".cxx_destruct"
+ ],
+ "CACompactOperationsCell": [
+  ".cxx_destruct"
+ ],
+ "CAComposerAttachmentCell": [
+  ".cxx_destruct"
+ ],
+ "CAComposerAttachmentGridView": [
+  ".cxx_destruct"
+ ],
+ "CAComposerCameraCoordinator": [
+  ".cxx_destruct"
+ ],
+ "CAComposerCatalog": [
+  ".cxx_destruct"
+ ],
+ "CAComposerCatalogItem": [
+  ".cxx_destruct"
+ ],
+ "CAComposerPopupCell": [
+  ".cxx_destruct"
+ ],
+ "CAComposerPopupItem": [
+  ".cxx_destruct"
+ ],
+ "CAComposerPopupSection": [
+  ".cxx_destruct"
+ ],
+ "CAComposerPopupView": [
+  ".cxx_destruct"
+ ],
+ "CAComposerTextView": [
+  ".cxx_destruct"
+ ],
+ "CAContextGaugeView": [
+  ".cxx_destruct"
+ ],
+ "CAContextUsageViewController": [
+  ".cxx_destruct"
+ ],
+ "CAConversationBackgroundRun": [
+  ".cxx_destruct"
+ ],
+ "CAConversationCell": [
+  ".cxx_destruct"
+ ],
+ "CAConversationRecord": [
+  ".cxx_destruct"
+ ],
+ "CAConversationSidebarViewController": [
+  ".cxx_destruct"
+ ],
+ "CAConversationStore": [
+  ".cxx_destruct"
+ ],
+ "CADiagnosticsRingView": [
+  ".cxx_destruct"
+ ],
+ "CADiagnosticsViewController": [
+  ".cxx_destruct"
+ ],
+ "CAExecutionEnvironment": [
+  ".cxx_destruct"
+ ],
+ "CAExecutionEnvironmentProfile": [
+  ".cxx_destruct"
+ ],
+ "CAExtensionListViewController": [
+  ".cxx_destruct"
+ ],
+ "CAExtensionsViewController": [
+  ".cxx_destruct"
+ ],
+ "CAGitChangeCell": [
+  ".cxx_destruct"
+ ],
+ "CAGitChangeStyle": [
+  ".cxx_destruct"
+ ],
+ "CAGitChangesViewController": [
+  ".cxx_destruct"
+ ],
+ "CAGitCleanCell": [
+  ".cxx_destruct"
+ ],
+ "CAGitCommitBar": [
+  ".cxx_destruct"
+ ],
+ "CAGitDiffResult": [
+  ".cxx_destruct"
+ ],
+ "CAGitDiffViewController": [
+  ".cxx_destruct"
+ ],
+ "CAGitEmptyStateView": [
+  ".cxx_destruct"
+ ],
+ "CAGitGroupHeaderView": [
+  ".cxx_destruct"
+ ],
+ "CAGitPill": [
+  ".cxx_destruct"
+ ],
+ "CAGitRepository": [
+  ".cxx_destruct"
+ ],
+ "CAGitSnapshot": [
+  ".cxx_destruct"
+ ],
+ "CAGitSummaryCell": [
+  ".cxx_destruct"
+ ],
+ "CAGitSummaryModel": [
+  ".cxx_destruct"
+ ],
+ "CAInlineMediaPreview": [
+  ".cxx_destruct"
+ ],
+ "CAInlineZoomImagePreview": [
+  ".cxx_destruct"
+ ],
+ "CALogEntry": [
+  ".cxx_destruct"
+ ],
+ "CALogEntryCell": [
+  ".cxx_destruct"
+ ],
+ "CALogViewerViewController": [
+  ".cxx_destruct"
+ ],
+ "CALogger": [
+  ".cxx_destruct"
+ ],
+ "CAMTArtifactWebView": [
+  ".cxx_destruct"
+ ],
+ "CAManagedRuntimeDownload": [
+  ".cxx_destruct"
+ ],
+ "CAManagedRuntimeEnvironment": [
+  ".cxx_destruct"
+ ],
+ "CAMarkdownBlock": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidCanvasView": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidDiagramView": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidEdge": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidNode": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidSequenceCanvasView": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidSequenceItem": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidSequenceParticipant": [
+  ".cxx_destruct"
+ ],
+ "CAMermaidWeakScriptMessageHandler": [
+  ".cxx_destruct"
+ ],
+ "CAMessageCell": [
+  ".cxx_destruct"
+ ],
+ "CAMessageItem": [
+  ".cxx_destruct"
+ ],
+ "CAModelItem": [
+  ".cxx_destruct"
+ ],
+ "CAModelManager": [
+  ".cxx_destruct"
+ ],
+ "CAModelPickerViewController": [
+  ".cxx_destruct"
+ ],
+ "CAModelPricingManager": [
+  ".cxx_destruct"
+ ],
+ "CAModelPricingViewController": [
+  ".cxx_destruct"
+ ],
+ "CAPathPickerViewController": [
+  ".cxx_destruct"
+ ],
+ "CAPlanDecisionChoiceView": [
+  ".cxx_destruct"
+ ],
+ "CAPlanDecisionViewController": [
+  ".cxx_destruct"
+ ],
+ "CAPlanProgressViewController": [
+  ".cxx_destruct"
+ ],
+ "CAPlanReviewViewController": [
+  ".cxx_destruct"
+ ],
+ "CAPlanStatusRing": [
+  ".cxx_destruct"
+ ],
+ "CAPlanStepCell": [
+  ".cxx_destruct"
+ ],
+ "CAProfileAvatarView": [
+  ".cxx_destruct"
+ ],
+ "CAProjectInstructionsViewController": [
+  ".cxx_destruct"
+ ],
+ "CAProviderConfiguration": [
+  ".cxx_destruct"
+ ],
+ "CAPythonDownload": [
+  ".cxx_destruct"
+ ],
+ "CAPythonEnvironment": [
+  ".cxx_destruct"
+ ],
+ "CAQueuedMessageBubbleView": [
+  ".cxx_destruct"
+ ],
+ "CARateLimitManager": [
+  ".cxx_destruct"
+ ],
+ "CARemoteOperations": [
+  ".cxx_destruct"
+ ],
+ "CAReverseToolsDownload": [
+  ".cxx_destruct"
+ ],
+ "CAReverseToolsEnvironment": [
+  ".cxx_destruct"
+ ],
+ "CARootViewController": [
+  ".cxx_destruct"
+ ],
+ "CARuntimeCatalog": [
+  ".cxx_destruct"
+ ],
+ "CARuntimeCatalogEntry": [
+  ".cxx_destruct"
+ ],
+ "CASettingsViewController": [
+  ".cxx_destruct"
+ ],
+ "CAStorageManager": [
+  ".cxx_destruct"
+ ],
+ "CAStorageProgressRingView": [
+  ".cxx_destruct"
+ ],
+ "CAStorageViewController": [
+  ".cxx_destruct"
+ ],
+ "CAStreamRevealTarget": [
+  ".cxx_destruct"
+ ],
+ "CAStreamRevealUnit": [
+  ".cxx_destruct"
+ ],
+ "CAStreamingTextView": [
+  ".cxx_destruct"
+ ],
+ "CASubagentPreferences": [
+  ".cxx_destruct"
+ ],
+ "CASubagentSettingsViewController": [
+  ".cxx_destruct"
+ ],
+ "CASwitchButton": [
+  ".cxx_destruct"
+ ],
+ "CATextDetailViewController": [
+  ".cxx_destruct"
+ ],
+ "CATextEditorViewController": [
+  ".cxx_destruct"
+ ],
+ "CAThemeManager": [
+  ".cxx_destruct"
+ ],
+ "CATheosEnvironment": [
+  ".cxx_destruct"
+ ],
+ "CATheosRuntimeDownload": [
+  ".cxx_destruct"
+ ],
+ "CAThinkingCell": [
+  ".cxx_destruct"
+ ],
+ "CATodoProgressButton": [
+  ".cxx_destruct"
+ ],
+ "CAToolCardCell": [
+  ".cxx_destruct"
+ ],
+ "CAToolItem": [
+  ".cxx_destruct"
+ ],
+ "CATransportNoticeCollectionCell": [
+  ".cxx_destruct"
+ ],
+ "CAUpdateDownload": [
+  ".cxx_destruct"
+ ],
+ "CAUpdateManager": [
+  ".cxx_destruct"
+ ],
+ "CAUpdateProgress": [
+  ".cxx_destruct"
+ ],
+ "CAUpdateViewController": [
+  ".cxx_destruct"
+ ],
+ "CAUsageViewController": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceActionsCell": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceBadgeView": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceCurrentCell": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceItem": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceManager": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceProjectCell": [
+  ".cxx_destruct"
+ ],
+ "CAWorkspaceViewController": [
+  ".cxx_destruct"
+ ]
+}

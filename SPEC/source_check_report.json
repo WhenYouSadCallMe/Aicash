@@ -1,0 +1,1408 @@
+{
+ "files": [
+  "MTAgent\\Sources\\CAAccountInfoBridge.h",
+  "MTAgent\\Sources\\CAAccountInfoBridge.m",
+  "MTAgent\\Sources\\CAAgentRuntimeMain.m",
+  "MTAgent\\Sources\\CAAppDelegate.h",
+  "MTAgent\\Sources\\CAAppDelegate.m",
+  "MTAgent\\Sources\\CAAppServerSession.h",
+  "MTAgent\\Sources\\CAAppServerSession.m",
+  "MTAgent\\Sources\\CAArchiveExtractor.h",
+  "MTAgent\\Sources\\CAArchiveExtractor.m",
+  "MTAgent\\Sources\\CABackgroundKeepAlive.h",
+  "MTAgent\\Sources\\CABackgroundKeepAlive.m",
+  "MTAgent\\Sources\\CAChatViewController.h",
+  "MTAgent\\Sources\\CAChatViewController.m",
+  "MTAgent\\Sources\\CACodexEngine.h",
+  "MTAgent\\Sources\\CACodexEngine.m",
+  "MTAgent\\Sources\\CACodexMetadataReader.h",
+  "MTAgent\\Sources\\CACodexMetadataReader.m",
+  "MTAgent\\Sources\\CACommon.h",
+  "MTAgent\\Sources\\CACommon.m",
+  "MTAgent\\Sources\\CAComposerCatalog.h",
+  "MTAgent\\Sources\\CAComposerCatalog.m",
+  "MTAgent\\Sources\\CAConversationStore.h",
+  "MTAgent\\Sources\\CAConversationStore.m",
+  "MTAgent\\Sources\\CADiagnosticsViewController.h",
+  "MTAgent\\Sources\\CADiagnosticsViewController.m",
+  "MTAgent\\Sources\\CAEntryPoint.m",
+  "MTAgent\\Sources\\CAExecutionEnvironment.h",
+  "MTAgent\\Sources\\CAExecutionEnvironment.m",
+  "MTAgent\\Sources\\CAFileToolMain.m",
+  "MTAgent\\Sources\\CALogViewerViewController.h",
+  "MTAgent\\Sources\\CALogViewerViewController.m",
+  "MTAgent\\Sources\\CALogger.h",
+  "MTAgent\\Sources\\CALogger.m",
+  "MTAgent\\Sources\\CAMCPBridge.h",
+  "MTAgent\\Sources\\CAMCPBridge.m",
+  "MTAgent\\Sources\\CAModelPricingManager.h",
+  "MTAgent\\Sources\\CAModelPricingManager.m",
+  "MTAgent\\Sources\\CAProviderConfiguration.h",
+  "MTAgent\\Sources\\CAProviderConfiguration.m",
+  "MTAgent\\Sources\\CARemoteOperations.h",
+  "MTAgent\\Sources\\CARemoteOperations.m",
+  "MTAgent\\Sources\\CARuntimeCatalog.h",
+  "MTAgent\\Sources\\CARuntimeCatalog.m",
+  "MTAgent\\Sources\\CARuntimeEnvironments.h",
+  "MTAgent\\Sources\\CARuntimeEnvironments.m",
+  "MTAgent\\Sources\\CARuntimePaths.h",
+  "MTAgent\\Sources\\CARuntimePaths.m",
+  "MTAgent\\Sources\\CASettingsViewController.h",
+  "MTAgent\\Sources\\CASettingsViewController.m",
+  "MTAgent\\Sources\\CAStorageManager.h",
+  "MTAgent\\Sources\\CAStorageManager.m",
+  "MTAgent\\Sources\\CAUpdateManager.h",
+  "MTAgent\\Sources\\CAUpdateManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAANSIParser.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAANSIParser.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAccountProfile.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAccountProfile.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAActiveRunIndicator.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAActiveRunIndicator.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAActivityCardCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAActivityCardCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentBlock.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentBlock.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentCapsuleView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentCapsuleView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentIcon.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentIcon.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentIdentity.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentIdentity.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentProfileViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentProfileViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentProgressRingView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentProgressRingView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentRuntimeManager.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentRuntimeManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentRuntimeProcess.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentRuntimeProcess.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusDetailViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusDetailViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusKeyValueCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusKeyValueCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusRowCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusRowCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusTextCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusTextCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentStatusViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentTurn.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentTurn.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentTurnHeaderView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAAgentTurnHeaderView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactCardsView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactCardsView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactPreview.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactPreview.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactPreviewViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactPreviewViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactResolver.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAArtifactResolver.m",
+  "MTAgent\\Sources\\GeneratedUI\\CABottomFollowTarget.h",
+  "MTAgent\\Sources\\GeneratedUI\\CABottomFollowTarget.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatCollectionView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatCollectionView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatDisplayPreferences.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatDisplayPreferences.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatTextLabel.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAChatTextLabel.m",
+  "MTAgent\\Sources\\GeneratedUI\\CACodeBlockView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CACodeBlockView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CACommandSemantic.h",
+  "MTAgent\\Sources\\GeneratedUI\\CACommandSemantic.m",
+  "MTAgent\\Sources\\GeneratedUI\\CACompactOperationsCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CACompactOperationsCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerAttachmentCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerAttachmentCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerAttachmentGridView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerAttachmentGridView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerCameraCoordinator.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerCameraCoordinator.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupSection.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupSection.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerPopupView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerTextView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAComposerTextView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAContextGaugeView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAContextGaugeView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAContextUsageViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAContextUsageViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationBackgroundRun.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationBackgroundRun.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationSidebarViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAConversationSidebarViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CADiagnosticsRingView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CADiagnosticsRingView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAExtensionListViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAExtensionListViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAExtensionsViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAExtensionsViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangeCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangeCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangeStyle.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangeStyle.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangesViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChangesViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChipLabel.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitChipLabel.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitCleanCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitCleanCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitCommitBar.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitCommitBar.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitDiffResult.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitDiffResult.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitDiffViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitDiffViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitEmptyStateView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitEmptyStateView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitGroupHeaderView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitGroupHeaderView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitPill.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitPill.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitRepository.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitRepository.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSnapshot.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSnapshot.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSummaryCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSummaryCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSummaryModel.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGitSummaryModel.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAGlobalInstructionDefaults.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAGlobalInstructionDefaults.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAInlineMediaPreview.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAInlineMediaPreview.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAInlineZoomImagePreview.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAInlineZoomImagePreview.m",
+  "MTAgent\\Sources\\GeneratedUI\\CALogEntry.h",
+  "MTAgent\\Sources\\GeneratedUI\\CALogEntry.m",
+  "MTAgent\\Sources\\GeneratedUI\\CALogEntryCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CALogEntryCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMTArtifactWebView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMTArtifactWebView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMTBadgeLabel.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMTBadgeLabel.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAManagedRuntimeDownload.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAManagedRuntimeDownload.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMarkdownBlock.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMarkdownBlock.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMarkdownTableView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMarkdownTableView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidCanvasView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidCanvasView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidDiagramView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidDiagramView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidEdge.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidEdge.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidNode.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidNode.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceCanvasView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceCanvasView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceParticipant.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidSequenceParticipant.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidWeakScriptMessageHandler.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMermaidWeakScriptMessageHandler.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMessageCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMessageCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAMessageItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAMessageItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelManager.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelPickerViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelPickerViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelPricingViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAModelPricingViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPathPickerViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPathPickerViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanDecisionChoiceView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanDecisionChoiceView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanDecisionViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanDecisionViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanProgressViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanProgressViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanReviewViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanReviewViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanStatusRing.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanStatusRing.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanStepCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPlanStepCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAProfileAvatarView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAProfileAvatarView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAProjectInstructionsViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAProjectInstructionsViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAProtectedFileWriter.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAProtectedFileWriter.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAPythonDownload.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAPythonDownload.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAQueuedMessageBubbleView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAQueuedMessageBubbleView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CARateLimitManager.h",
+  "MTAgent\\Sources\\GeneratedUI\\CARateLimitManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAReverseToolsDownload.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAReverseToolsDownload.m",
+  "MTAgent\\Sources\\GeneratedUI\\CARootViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CARootViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CARuntimeCompatibilityProbe.h",
+  "MTAgent\\Sources\\GeneratedUI\\CARuntimeCompatibilityProbe.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAShapeLayer.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAShapeLayer.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAShareInbox.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAShareInbox.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAShellEnvironment.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAShellEnvironment.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAStorageProgressRingView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAStorageProgressRingView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAStorageViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAStorageViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamRevealTarget.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamRevealTarget.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamRevealUnit.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamRevealUnit.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamingTextView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAStreamingTextView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CASubagentPreferences.h",
+  "MTAgent\\Sources\\GeneratedUI\\CASubagentPreferences.m",
+  "MTAgent\\Sources\\GeneratedUI\\CASubagentSettingsViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CASubagentSettingsViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CASwitchButton.h",
+  "MTAgent\\Sources\\GeneratedUI\\CASwitchButton.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATextDetailViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATextDetailViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATextEditorViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATextEditorViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAThemeManager.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAThemeManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATheosRuntimeDownload.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATheosRuntimeDownload.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAThinkingCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAThinkingCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATodoProgressButton.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATodoProgressButton.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAToolCardCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAToolCardCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAToolItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAToolItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATransition.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATransition.m",
+  "MTAgent\\Sources\\GeneratedUI\\CATransportNoticeCollectionCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CATransportNoticeCollectionCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAUIStyle.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAUIStyle.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateDownload.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateDownload.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateProgress.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateProgress.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAUpdateViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAUsageViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAUsageViewController.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceActionsCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceActionsCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceBadgeView.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceBadgeView.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceCurrentCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceCurrentCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceItem.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceItem.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceManager.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceManager.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceProjectCell.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceProjectCell.m",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceViewController.h",
+  "MTAgent\\Sources\\GeneratedUI\\CAWorkspaceViewController.m",
+  "MTShareExtension\\Sources\\MTShareExtension.m"
+ ],
+ "interfaces": {
+  "CAAccountInfoBridge": [
+   "CAAccountInfoBridge.h"
+  ],
+  "CAAppDelegate": [
+   "CAAppDelegate.h",
+   "CAAppDelegate.m"
+  ],
+  "CAAppServerSession": [
+   "CAAppServerSession.h",
+   "CAAppServerSession.m"
+  ],
+  "CAArchiveExtractor": [
+   "CAArchiveExtractor.h"
+  ],
+  "CABackgroundKeepAlive": [
+   "CABackgroundKeepAlive.h",
+   "CABackgroundKeepAlive.m"
+  ],
+  "CAChatViewController": [
+   "CAChatViewController.h",
+   "CAChatViewController.m"
+  ],
+  "CAChatShellMessage": [
+   "CAChatViewController.m"
+  ],
+  "CAChatShellCell": [
+   "CAChatViewController.m"
+  ],
+  "CACodexEngine": [
+   "CACodexEngine.h"
+  ],
+  "CACodexMetadataReader": [
+   "CACodexMetadataReader.h"
+  ],
+  "CAComposerCatalogItem": [
+   "CAComposerCatalog.h"
+  ],
+  "CAComposerCatalog": [
+   "CAComposerCatalog.h",
+   "CAComposerCatalog.m"
+  ],
+  "CAConversationRecord": [
+   "CAConversationStore.h"
+  ],
+  "CAConversationStore": [
+   "CAConversationStore.h"
+  ],
+  "CADiagnosticsViewController": [
+   "CADiagnosticsViewController.h",
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsValueCell": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsItem": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsSection": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CAExecutionEnvironmentProfile": [
+   "CAExecutionEnvironment.h"
+  ],
+  "CAExecutionEnvironment": [
+   "CAExecutionEnvironment.h"
+  ],
+  "CALogViewerViewController": [
+   "CALogViewerViewController.h",
+   "CALogViewerViewController.m"
+  ],
+  "CALogViewerEntry": [
+   "CALogViewerViewController.m"
+  ],
+  "CALogger": [
+   "CALogger.h"
+  ],
+  "CAMCPBridge": [
+   "CAMCPBridge.h",
+   "CAMCPBridge.m"
+  ],
+  "CAModelPricingManager": [
+   "CAModelPricingManager.h",
+   "CAModelPricingManager.m"
+  ],
+  "CAThirdPartyModelCatalog": [
+   "CAModelPricingManager.h"
+  ],
+  "CAProviderConfiguration": [
+   "CAProviderConfiguration.h"
+  ],
+  "CARemoteOperations": [
+   "CARemoteOperations.h"
+  ],
+  "CARuntimeCatalogEntry": [
+   "CARuntimeCatalog.h"
+  ],
+  "CARuntimeCatalog": [
+   "CARuntimeCatalog.h"
+  ],
+  "CARuntimeEnvironmentBase": [
+   "CARuntimeEnvironments.h"
+  ],
+  "CAManagedRuntimeEnvironment": [
+   "CARuntimeEnvironments.h"
+  ],
+  "CAPythonEnvironment": [
+   "CARuntimeEnvironments.h"
+  ],
+  "CATheosEnvironment": [
+   "CARuntimeEnvironments.h"
+  ],
+  "CAReverseToolsEnvironment": [
+   "CARuntimeEnvironments.h"
+  ],
+  "CARuntimePaths": [
+   "CARuntimePaths.h"
+  ],
+  "CASettingsViewController": [
+   "CASettingsViewController.h",
+   "CASettingsViewController.m"
+  ],
+  "CASettingsValueCell": [
+   "CASettingsViewController.m"
+  ],
+  "CAStorageManager": [
+   "CAStorageManager.h"
+  ],
+  "CAUpdateManager": [
+   "CAUpdateManager.h",
+   "CAUpdateManager.m"
+  ],
+  "CAANSIParser": [
+   "CAANSIParser.h"
+  ],
+  "CAAccountProfile": [
+   "CAAccountProfile.h"
+  ],
+  "CAActiveRunIndicator": [
+   "CAActiveRunIndicator.h"
+  ],
+  "CAActivityCardCell": [
+   "CAActivityCardCell.h"
+  ],
+  "CAAgentBlock": [
+   "CAAgentBlock.h"
+  ],
+  "CAAgentCapsuleView": [
+   "CAAgentCapsuleView.h"
+  ],
+  "CAAgentIcon": [
+   "CAAgentIcon.h"
+  ],
+  "CAAgentIdentity": [
+   "CAAgentIdentity.h"
+  ],
+  "CAAgentProfileViewController": [
+   "CAAgentProfileViewController.h"
+  ],
+  "CAAgentProgressRingView": [
+   "CAAgentProgressRingView.h"
+  ],
+  "CAAgentRuntimeManager": [
+   "CAAgentRuntimeManager.h"
+  ],
+  "CAAgentRuntimeProcess": [
+   "CAAgentRuntimeProcess.h"
+  ],
+  "CAAgentStatusDetailViewController": [
+   "CAAgentStatusDetailViewController.h"
+  ],
+  "CAAgentStatusKeyValueCell": [
+   "CAAgentStatusKeyValueCell.h"
+  ],
+  "CAAgentStatusRowCell": [
+   "CAAgentStatusRowCell.h"
+  ],
+  "CAAgentStatusTextCell": [
+   "CAAgentStatusTextCell.h"
+  ],
+  "CAAgentStatusViewController": [
+   "CAAgentStatusViewController.h"
+  ],
+  "CAAgentTurn": [
+   "CAAgentTurn.h"
+  ],
+  "CAAgentTurnHeaderView": [
+   "CAAgentTurnHeaderView.h"
+  ],
+  "CAArtifactCardsView": [
+   "CAArtifactCardsView.h"
+  ],
+  "CAArtifactPreview": [
+   "CAArtifactPreview.h"
+  ],
+  "CAArtifactPreviewViewController": [
+   "CAArtifactPreviewViewController.h"
+  ],
+  "CAArtifactResolver": [
+   "CAArtifactResolver.h"
+  ],
+  "CABottomFollowTarget": [
+   "CABottomFollowTarget.h"
+  ],
+  "CAChatCollectionView": [
+   "CAChatCollectionView.h"
+  ],
+  "CAChatDisplayPreferences": [
+   "CAChatDisplayPreferences.h"
+  ],
+  "CAChatTextLabel": [
+   "CAChatTextLabel.h"
+  ],
+  "CACodeBlockView": [
+   "CACodeBlockView.h"
+  ],
+  "CACommandSemantic": [
+   "CACommandSemantic.h"
+  ],
+  "CACompactOperationsCell": [
+   "CACompactOperationsCell.h"
+  ],
+  "CAComposerAttachmentCell": [
+   "CAComposerAttachmentCell.h"
+  ],
+  "CAComposerAttachmentGridView": [
+   "CAComposerAttachmentGridView.h"
+  ],
+  "CAComposerCameraCoordinator": [
+   "CAComposerCameraCoordinator.h"
+  ],
+  "CAComposerPopupCell": [
+   "CAComposerPopupCell.h"
+  ],
+  "CAComposerPopupItem": [
+   "CAComposerPopupItem.h"
+  ],
+  "CAComposerPopupSection": [
+   "CAComposerPopupSection.h"
+  ],
+  "CAComposerPopupView": [
+   "CAComposerPopupView.h"
+  ],
+  "CAComposerTextView": [
+   "CAComposerTextView.h"
+  ],
+  "CAContextGaugeView": [
+   "CAContextGaugeView.h"
+  ],
+  "CAContextUsageViewController": [
+   "CAContextUsageViewController.h"
+  ],
+  "CAConversationBackgroundRun": [
+   "CAConversationBackgroundRun.h"
+  ],
+  "CAConversationCell": [
+   "CAConversationCell.h"
+  ],
+  "CAConversationSidebarViewController": [
+   "CAConversationSidebarViewController.h"
+  ],
+  "CADiagnosticsRingView": [
+   "CADiagnosticsRingView.h"
+  ],
+  "CAExtensionListViewController": [
+   "CAExtensionListViewController.h"
+  ],
+  "CAExtensionsViewController": [
+   "CAExtensionsViewController.h"
+  ],
+  "CAGitChangeCell": [
+   "CAGitChangeCell.h"
+  ],
+  "CAGitChangeStyle": [
+   "CAGitChangeStyle.h"
+  ],
+  "CAGitChangesViewController": [
+   "CAGitChangesViewController.h"
+  ],
+  "CAGitChipLabel": [
+   "CAGitChipLabel.h"
+  ],
+  "CAGitCleanCell": [
+   "CAGitCleanCell.h"
+  ],
+  "CAGitCommitBar": [
+   "CAGitCommitBar.h"
+  ],
+  "CAGitDiffResult": [
+   "CAGitDiffResult.h"
+  ],
+  "CAGitDiffViewController": [
+   "CAGitDiffViewController.h"
+  ],
+  "CAGitEmptyStateView": [
+   "CAGitEmptyStateView.h"
+  ],
+  "CAGitGroupHeaderView": [
+   "CAGitGroupHeaderView.h"
+  ],
+  "CAGitPill": [
+   "CAGitPill.h"
+  ],
+  "CAGitRepository": [
+   "CAGitRepository.h"
+  ],
+  "CAGitSnapshot": [
+   "CAGitSnapshot.h"
+  ],
+  "CAGitSummaryCell": [
+   "CAGitSummaryCell.h"
+  ],
+  "CAGitSummaryModel": [
+   "CAGitSummaryModel.h"
+  ],
+  "CAGlobalInstructionDefaults": [
+   "CAGlobalInstructionDefaults.h"
+  ],
+  "CAInlineMediaPreview": [
+   "CAInlineMediaPreview.h"
+  ],
+  "CAInlineZoomImagePreview": [
+   "CAInlineZoomImagePreview.h"
+  ],
+  "CALogEntry": [
+   "CALogEntry.h"
+  ],
+  "CALogEntryCell": [
+   "CALogEntryCell.h"
+  ],
+  "CAMTArtifactWebView": [
+   "CAMTArtifactWebView.h"
+  ],
+  "CAMTBadgeLabel": [
+   "CAMTBadgeLabel.h"
+  ],
+  "CAManagedRuntimeDownload": [
+   "CAManagedRuntimeDownload.h"
+  ],
+  "CAMarkdownBlock": [
+   "CAMarkdownBlock.h"
+  ],
+  "CAMarkdownTableView": [
+   "CAMarkdownTableView.h"
+  ],
+  "CAMermaidCanvasView": [
+   "CAMermaidCanvasView.h"
+  ],
+  "CAMermaidDiagramView": [
+   "CAMermaidDiagramView.h"
+  ],
+  "CAMermaidEdge": [
+   "CAMermaidEdge.h"
+  ],
+  "CAMermaidNode": [
+   "CAMermaidNode.h"
+  ],
+  "CAMermaidSequenceCanvasView": [
+   "CAMermaidSequenceCanvasView.h"
+  ],
+  "CAMermaidSequenceItem": [
+   "CAMermaidSequenceItem.h"
+  ],
+  "CAMermaidSequenceParticipant": [
+   "CAMermaidSequenceParticipant.h"
+  ],
+  "CAMermaidWeakScriptMessageHandler": [
+   "CAMermaidWeakScriptMessageHandler.h"
+  ],
+  "CAMessageCell": [
+   "CAMessageCell.h"
+  ],
+  "CAMessageItem": [
+   "CAMessageItem.h"
+  ],
+  "CAModelItem": [
+   "CAModelItem.h"
+  ],
+  "CAModelManager": [
+   "CAModelManager.h"
+  ],
+  "CAModelPickerViewController": [
+   "CAModelPickerViewController.h"
+  ],
+  "CAModelPricingViewController": [
+   "CAModelPricingViewController.h"
+  ],
+  "CAPathPickerViewController": [
+   "CAPathPickerViewController.h"
+  ],
+  "CAPlanDecisionChoiceView": [
+   "CAPlanDecisionChoiceView.h"
+  ],
+  "CAPlanDecisionViewController": [
+   "CAPlanDecisionViewController.h"
+  ],
+  "CAPlanProgressViewController": [
+   "CAPlanProgressViewController.h"
+  ],
+  "CAPlanReviewViewController": [
+   "CAPlanReviewViewController.h"
+  ],
+  "CAPlanStatusRing": [
+   "CAPlanStatusRing.h"
+  ],
+  "CAPlanStepCell": [
+   "CAPlanStepCell.h"
+  ],
+  "CAProfileAvatarView": [
+   "CAProfileAvatarView.h"
+  ],
+  "CAProjectInstructionsViewController": [
+   "CAProjectInstructionsViewController.h"
+  ],
+  "CAProtectedFileWriter": [
+   "CAProtectedFileWriter.h"
+  ],
+  "CAPythonDownload": [
+   "CAPythonDownload.h"
+  ],
+  "CAQueuedMessageBubbleView": [
+   "CAQueuedMessageBubbleView.h"
+  ],
+  "CARateLimitManager": [
+   "CARateLimitManager.h"
+  ],
+  "CAReverseToolsDownload": [
+   "CAReverseToolsDownload.h"
+  ],
+  "CARootViewController": [
+   "CARootViewController.h"
+  ],
+  "CARuntimeCompatibilityProbe": [
+   "CARuntimeCompatibilityProbe.h"
+  ],
+  "CAShapeLayer": [
+   "CAShapeLayer.h"
+  ],
+  "CAShareInbox": [
+   "CAShareInbox.h"
+  ],
+  "CAShellEnvironment": [
+   "CAShellEnvironment.h"
+  ],
+  "CAStorageProgressRingView": [
+   "CAStorageProgressRingView.h"
+  ],
+  "CAStorageViewController": [
+   "CAStorageViewController.h"
+  ],
+  "CAStreamRevealTarget": [
+   "CAStreamRevealTarget.h"
+  ],
+  "CAStreamRevealUnit": [
+   "CAStreamRevealUnit.h"
+  ],
+  "CAStreamingTextView": [
+   "CAStreamingTextView.h"
+  ],
+  "CASubagentPreferences": [
+   "CASubagentPreferences.h"
+  ],
+  "CASubagentSettingsViewController": [
+   "CASubagentSettingsViewController.h"
+  ],
+  "CASwitchButton": [
+   "CASwitchButton.h"
+  ],
+  "CATextDetailViewController": [
+   "CATextDetailViewController.h"
+  ],
+  "CATextEditorViewController": [
+   "CATextEditorViewController.h"
+  ],
+  "CAThemeManager": [
+   "CAThemeManager.h"
+  ],
+  "CATheosRuntimeDownload": [
+   "CATheosRuntimeDownload.h"
+  ],
+  "CAThinkingCell": [
+   "CAThinkingCell.h"
+  ],
+  "CATodoProgressButton": [
+   "CATodoProgressButton.h"
+  ],
+  "CAToolCardCell": [
+   "CAToolCardCell.h"
+  ],
+  "CAToolItem": [
+   "CAToolItem.h"
+  ],
+  "CATransition": [
+   "CATransition.h"
+  ],
+  "CATransportNoticeCollectionCell": [
+   "CATransportNoticeCollectionCell.h"
+  ],
+  "CAUIStyle": [
+   "CAUIStyle.h"
+  ],
+  "CAUpdateDownload": [
+   "CAUpdateDownload.h"
+  ],
+  "CAUpdateProgress": [
+   "CAUpdateProgress.h"
+  ],
+  "CAUpdateViewController": [
+   "CAUpdateViewController.h"
+  ],
+  "CAUsageViewController": [
+   "CAUsageViewController.h"
+  ],
+  "CAWorkspaceActionsCell": [
+   "CAWorkspaceActionsCell.h"
+  ],
+  "CAWorkspaceBadgeView": [
+   "CAWorkspaceBadgeView.h"
+  ],
+  "CAWorkspaceCurrentCell": [
+   "CAWorkspaceCurrentCell.h"
+  ],
+  "CAWorkspaceItem": [
+   "CAWorkspaceItem.h"
+  ],
+  "CAWorkspaceManager": [
+   "CAWorkspaceManager.h"
+  ],
+  "CAWorkspaceProjectCell": [
+   "CAWorkspaceProjectCell.h"
+  ],
+  "CAWorkspaceViewController": [
+   "CAWorkspaceViewController.h"
+  ],
+  "CAMTShareGroup": [
+   "MTShareExtension.m"
+  ],
+  "CAMTShareInbox": [
+   "MTShareExtension.m"
+  ],
+  "CAMTShareViewController": [
+   "MTShareExtension.m"
+  ]
+ },
+ "implementations": {
+  "CAAccountInfoBridge": [
+   "CAAccountInfoBridge.m"
+  ],
+  "CAAppDelegate": [
+   "CAAppDelegate.m"
+  ],
+  "CAAppServerSession": [
+   "CAAppServerSession.m"
+  ],
+  "CAArchiveExtractor": [
+   "CAArchiveExtractor.m"
+  ],
+  "CABackgroundKeepAlive": [
+   "CABackgroundKeepAlive.m"
+  ],
+  "CAChatShellMessage": [
+   "CAChatViewController.m"
+  ],
+  "CAChatShellCell": [
+   "CAChatViewController.m"
+  ],
+  "CAChatViewController": [
+   "CAChatViewController.m"
+  ],
+  "CACodexEngine": [
+   "CACodexEngine.m"
+  ],
+  "CACodexMetadataReader": [
+   "CACodexMetadataReader.m"
+  ],
+  "CAComposerCatalogItem": [
+   "CAComposerCatalog.m"
+  ],
+  "CAComposerCatalog": [
+   "CAComposerCatalog.m"
+  ],
+  "CAConversationRecord": [
+   "CAConversationStore.m"
+  ],
+  "CAConversationStore": [
+   "CAConversationStore.m"
+  ],
+  "CADiagnosticsValueCell": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsItem": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsSection": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CADiagnosticsViewController": [
+   "CADiagnosticsViewController.m"
+  ],
+  "CAExecutionEnvironmentProfile": [
+   "CAExecutionEnvironment.m"
+  ],
+  "CAExecutionEnvironment": [
+   "CAExecutionEnvironment.m"
+  ],
+  "CALogViewerEntry": [
+   "CALogViewerViewController.m"
+  ],
+  "CALogViewerViewController": [
+   "CALogViewerViewController.m"
+  ],
+  "CALogger": [
+   "CALogger.m"
+  ],
+  "CAMCPBridge": [
+   "CAMCPBridge.m"
+  ],
+  "CAModelPricingManager": [
+   "CAModelPricingManager.m"
+  ],
+  "CAThirdPartyModelCatalog": [
+   "CAModelPricingManager.m"
+  ],
+  "CAProviderConfiguration": [
+   "CAProviderConfiguration.m"
+  ],
+  "CARemoteOperations": [
+   "CARemoteOperations.m"
+  ],
+  "CARuntimeCatalogEntry": [
+   "CARuntimeCatalog.m"
+  ],
+  "CARuntimeCatalog": [
+   "CARuntimeCatalog.m"
+  ],
+  "CARuntimeEnvironmentBase": [
+   "CARuntimeEnvironments.m"
+  ],
+  "CAManagedRuntimeEnvironment": [
+   "CARuntimeEnvironments.m"
+  ],
+  "CAPythonEnvironment": [
+   "CARuntimeEnvironments.m"
+  ],
+  "CATheosEnvironment": [
+   "CARuntimeEnvironments.m"
+  ],
+  "CAReverseToolsEnvironment": [
+   "CARuntimeEnvironments.m"
+  ],
+  "CARuntimePaths": [
+   "CARuntimePaths.m"
+  ],
+  "CASettingsValueCell": [
+   "CASettingsViewController.m"
+  ],
+  "CASettingsViewController": [
+   "CASettingsViewController.m"
+  ],
+  "CAStorageManager": [
+   "CAStorageManager.m"
+  ],
+  "CAUpdateManager": [
+   "CAUpdateManager.m"
+  ],
+  "CAANSIParser": [
+   "CAANSIParser.m"
+  ],
+  "CAAccountProfile": [
+   "CAAccountProfile.m"
+  ],
+  "CAActiveRunIndicator": [
+   "CAActiveRunIndicator.m"
+  ],
+  "CAActivityCardCell": [
+   "CAActivityCardCell.m"
+  ],
+  "CAAgentBlock": [
+   "CAAgentBlock.m"
+  ],
+  "CAAgentCapsuleView": [
+   "CAAgentCapsuleView.m"
+  ],
+  "CAAgentIcon": [
+   "CAAgentIcon.m"
+  ],
+  "CAAgentIdentity": [
+   "CAAgentIdentity.m"
+  ],
+  "CAAgentProfileViewController": [
+   "CAAgentProfileViewController.m"
+  ],
+  "CAAgentProgressRingView": [
+   "CAAgentProgressRingView.m"
+  ],
+  "CAAgentRuntimeManager": [
+   "CAAgentRuntimeManager.m"
+  ],
+  "CAAgentRuntimeProcess": [
+   "CAAgentRuntimeProcess.m"
+  ],
+  "CAAgentStatusDetailViewController": [
+   "CAAgentStatusDetailViewController.m"
+  ],
+  "CAAgentStatusKeyValueCell": [
+   "CAAgentStatusKeyValueCell.m"
+  ],
+  "CAAgentStatusRowCell": [
+   "CAAgentStatusRowCell.m"
+  ],
+  "CAAgentStatusTextCell": [
+   "CAAgentStatusTextCell.m"
+  ],
+  "CAAgentStatusViewController": [
+   "CAAgentStatusViewController.m"
+  ],
+  "CAAgentTurn": [
+   "CAAgentTurn.m"
+  ],
+  "CAAgentTurnHeaderView": [
+   "CAAgentTurnHeaderView.m"
+  ],
+  "CAArtifactCardsView": [
+   "CAArtifactCardsView.m"
+  ],
+  "CAArtifactPreview": [
+   "CAArtifactPreview.m"
+  ],
+  "CAArtifactPreviewViewController": [
+   "CAArtifactPreviewViewController.m"
+  ],
+  "CAArtifactResolver": [
+   "CAArtifactResolver.m"
+  ],
+  "CABottomFollowTarget": [
+   "CABottomFollowTarget.m"
+  ],
+  "CAChatCollectionView": [
+   "CAChatCollectionView.m"
+  ],
+  "CAChatDisplayPreferences": [
+   "CAChatDisplayPreferences.m"
+  ],
+  "CAChatTextLabel": [
+   "CAChatTextLabel.m"
+  ],
+  "CACodeBlockView": [
+   "CACodeBlockView.m"
+  ],
+  "CACommandSemantic": [
+   "CACommandSemantic.m"
+  ],
+  "CACompactOperationsCell": [
+   "CACompactOperationsCell.m"
+  ],
+  "CAComposerAttachmentCell": [
+   "CAComposerAttachmentCell.m"
+  ],
+  "CAComposerAttachmentGridView": [
+   "CAComposerAttachmentGridView.m"
+  ],
+  "CAComposerCameraCoordinator": [
+   "CAComposerCameraCoordinator.m"
+  ],
+  "CAComposerPopupCell": [
+   "CAComposerPopupCell.m"
+  ],
+  "CAComposerPopupItem": [
+   "CAComposerPopupItem.m"
+  ],
+  "CAComposerPopupSection": [
+   "CAComposerPopupSection.m"
+  ],
+  "CAComposerPopupView": [
+   "CAComposerPopupView.m"
+  ],
+  "CAComposerTextView": [
+   "CAComposerTextView.m"
+  ],
+  "CAContextGaugeView": [
+   "CAContextGaugeView.m"
+  ],
+  "CAContextUsageViewController": [
+   "CAContextUsageViewController.m"
+  ],
+  "CAConversationBackgroundRun": [
+   "CAConversationBackgroundRun.m"
+  ],
+  "CAConversationCell": [
+   "CAConversationCell.m"
+  ],
+  "CAConversationSidebarViewController": [
+   "CAConversationSidebarViewController.m"
+  ],
+  "CADiagnosticsRingView": [
+   "CADiagnosticsRingView.m"
+  ],
+  "CAExtensionListViewController": [
+   "CAExtensionListViewController.m"
+  ],
+  "CAExtensionsViewController": [
+   "CAExtensionsViewController.m"
+  ],
+  "CAGitChangeCell": [
+   "CAGitChangeCell.m"
+  ],
+  "CAGitChangeStyle": [
+   "CAGitChangeStyle.m"
+  ],
+  "CAGitChangesViewController": [
+   "CAGitChangesViewController.m"
+  ],
+  "CAGitChipLabel": [
+   "CAGitChipLabel.m"
+  ],
+  "CAGitCleanCell": [
+   "CAGitCleanCell.m"
+  ],
+  "CAGitCommitBar": [
+   "CAGitCommitBar.m"
+  ],
+  "CAGitDiffResult": [
+   "CAGitDiffResult.m"
+  ],
+  "CAGitDiffViewController": [
+   "CAGitDiffViewController.m"
+  ],
+  "CAGitEmptyStateView": [
+   "CAGitEmptyStateView.m"
+  ],
+  "CAGitGroupHeaderView": [
+   "CAGitGroupHeaderView.m"
+  ],
+  "CAGitPill": [
+   "CAGitPill.m"
+  ],
+  "CAGitRepository": [
+   "CAGitRepository.m"
+  ],
+  "CAGitSnapshot": [
+   "CAGitSnapshot.m"
+  ],
+  "CAGitSummaryCell": [
+   "CAGitSummaryCell.m"
+  ],
+  "CAGitSummaryModel": [
+   "CAGitSummaryModel.m"
+  ],
+  "CAGlobalInstructionDefaults": [
+   "CAGlobalInstructionDefaults.m"
+  ],
+  "CAInlineMediaPreview": [
+   "CAInlineMediaPreview.m"
+  ],
+  "CAInlineZoomImagePreview": [
+   "CAInlineZoomImagePreview.m"
+  ],
+  "CALogEntry": [
+   "CALogEntry.m"
+  ],
+  "CALogEntryCell": [
+   "CALogEntryCell.m"
+  ],
+  "CAMTArtifactWebView": [
+   "CAMTArtifactWebView.m"
+  ],
+  "CAMTBadgeLabel": [
+   "CAMTBadgeLabel.m"
+  ],
+  "CAManagedRuntimeDownload": [
+   "CAManagedRuntimeDownload.m"
+  ],
+  "CAMarkdownBlock": [
+   "CAMarkdownBlock.m"
+  ],
+  "CAMarkdownTableView": [
+   "CAMarkdownTableView.m"
+  ],
+  "CAMermaidCanvasView": [
+   "CAMermaidCanvasView.m"
+  ],
+  "CAMermaidDiagramView": [
+   "CAMermaidDiagramView.m"
+  ],
+  "CAMermaidEdge": [
+   "CAMermaidEdge.m"
+  ],
+  "CAMermaidNode": [
+   "CAMermaidNode.m"
+  ],
+  "CAMermaidSequenceCanvasView": [
+   "CAMermaidSequenceCanvasView.m"
+  ],
+  "CAMermaidSequenceItem": [
+   "CAMermaidSequenceItem.m"
+  ],
+  "CAMermaidSequenceParticipant": [
+   "CAMermaidSequenceParticipant.m"
+  ],
+  "CAMermaidWeakScriptMessageHandler": [
+   "CAMermaidWeakScriptMessageHandler.m"
+  ],
+  "CAMessageCell": [
+   "CAMessageCell.m"
+  ],
+  "CAMessageItem": [
+   "CAMessageItem.m"
+  ],
+  "CAModelItem": [
+   "CAModelItem.m"
+  ],
+  "CAModelManager": [
+   "CAModelManager.m"
+  ],
+  "CAModelPickerViewController": [
+   "CAModelPickerViewController.m"
+  ],
+  "CAModelPricingViewController": [
+   "CAModelPricingViewController.m"
+  ],
+  "CAPathPickerViewController": [
+   "CAPathPickerViewController.m"
+  ],
+  "CAPlanDecisionChoiceView": [
+   "CAPlanDecisionChoiceView.m"
+  ],
+  "CAPlanDecisionViewController": [
+   "CAPlanDecisionViewController.m"
+  ],
+  "CAPlanProgressViewController": [
+   "CAPlanProgressViewController.m"
+  ],
+  "CAPlanReviewViewController": [
+   "CAPlanReviewViewController.m"
+  ],
+  "CAPlanStatusRing": [
+   "CAPlanStatusRing.m"
+  ],
+  "CAPlanStepCell": [
+   "CAPlanStepCell.m"
+  ],
+  "CAProfileAvatarView": [
+   "CAProfileAvatarView.m"
+  ],
+  "CAProjectInstructionsViewController": [
+   "CAProjectInstructionsViewController.m"
+  ],
+  "CAProtectedFileWriter": [
+   "CAProtectedFileWriter.m"
+  ],
+  "CAPythonDownload": [
+   "CAPythonDownload.m"
+  ],
+  "CAQueuedMessageBubbleView": [
+   "CAQueuedMessageBubbleView.m"
+  ],
+  "CARateLimitManager": [
+   "CARateLimitManager.m"
+  ],
+  "CAReverseToolsDownload": [
+   "CAReverseToolsDownload.m"
+  ],
+  "CARootViewController": [
+   "CARootViewController.m"
+  ],
+  "CARuntimeCompatibilityProbe": [
+   "CARuntimeCompatibilityProbe.m"
+  ],
+  "CAShapeLayer": [
+   "CAShapeLayer.m"
+  ],
+  "CAShareInbox": [
+   "CAShareInbox.m"
+  ],
+  "CAShellEnvironment": [
+   "CAShellEnvironment.m"
+  ],
+  "CAStorageProgressRingView": [
+   "CAStorageProgressRingView.m"
+  ],
+  "CAStorageViewController": [
+   "CAStorageViewController.m"
+  ],
+  "CAStreamRevealTarget": [
+   "CAStreamRevealTarget.m"
+  ],
+  "CAStreamRevealUnit": [
+   "CAStreamRevealUnit.m"
+  ],
+  "CAStreamingTextView": [
+   "CAStreamingTextView.m"
+  ],
+  "CASubagentPreferences": [
+   "CASubagentPreferences.m"
+  ],
+  "CASubagentSettingsViewController": [
+   "CASubagentSettingsViewController.m"
+  ],
+  "CASwitchButton": [
+   "CASwitchButton.m"
+  ],
+  "CATextDetailViewController": [
+   "CATextDetailViewController.m"
+  ],
+  "CATextEditorViewController": [
+   "CATextEditorViewController.m"
+  ],
+  "CAThemeManager": [
+   "CAThemeManager.m"
+  ],
+  "CATheosRuntimeDownload": [
+   "CATheosRuntimeDownload.m"
+  ],
+  "CAThinkingCell": [
+   "CAThinkingCell.m"
+  ],
+  "CATodoProgressButton": [
+   "CATodoProgressButton.m"
+  ],
+  "CAToolCardCell": [
+   "CAToolCardCell.m"
+  ],
+  "CAToolItem": [
+   "CAToolItem.m"
+  ],
+  "CATransition": [
+   "CATransition.m"
+  ],
+  "CATransportNoticeCollectionCell": [
+   "CATransportNoticeCollectionCell.m"
+  ],
+  "CAUIStyle": [
+   "CAUIStyle.m"
+  ],
+  "CAUpdateDownload": [
+   "CAUpdateDownload.m"
+  ],
+  "CAUpdateProgress": [
+   "CAUpdateProgress.m"
+  ],
+  "CAUpdateViewController": [
+   "CAUpdateViewController.m"
+  ],
+  "CAUsageViewController": [
+   "CAUsageViewController.m"
+  ],
+  "CAWorkspaceActionsCell": [
+   "CAWorkspaceActionsCell.m"
+  ],
+  "CAWorkspaceBadgeView": [
+   "CAWorkspaceBadgeView.m"
+  ],
+  "CAWorkspaceCurrentCell": [
+   "CAWorkspaceCurrentCell.m"
+  ],
+  "CAWorkspaceItem": [
+   "CAWorkspaceItem.m"
+  ],
+  "CAWorkspaceManager": [
+   "CAWorkspaceManager.m"
+  ],
+  "CAWorkspaceProjectCell": [
+   "CAWorkspaceProjectCell.m"
+  ],
+  "CAWorkspaceViewController": [
+   "CAWorkspaceViewController.m"
+  ],
+  "CAMTShareGroup": [
+   "MTShareExtension.m"
+  ],
+  "CAMTShareInbox": [
+   "MTShareExtension.m"
+  ],
+  "CAMTShareViewController": [
+   "MTShareExtension.m"
+  ]
+ },
+ "imports_missing": [],
+ "balance_issues": [],
+ "orphan_impl": [],
+ "dup_impl": [],
+ "missing_core": []
+}

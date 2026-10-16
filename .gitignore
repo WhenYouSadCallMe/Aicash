@@ -1,0 +1,19 @@
+# 构建产物
+build/out/
+build/MT-Agent-replica.tipa
+build/symlink_plan.json
+build_*.log
+*.tipa
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# 说明：以下内容**需要**入库（CI 装配依赖它们）
+#   OriginalAssets/**            原包可直接复用的资源与第三方二进制（bash.real / codex-sign / 图标 / Mermaid / 通知 …）
+#   SPEC/assets/**               对齐基线（原文字符串表、ObjC 类/方法映射、契约分组、zip 布局；其中 CodexApp.original.bin 为 7MB 参考二进制）
+#   若仓库体积敏感，可用 Git LFS 托管 CodexApp.original.bin：
+#     git lfs track "SPEC/assets/CodexApp.original.bin"

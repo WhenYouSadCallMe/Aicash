@@ -1,0 +1,100 @@
+
+======================================================================
+## PATH-SAFETY
+   hasPrefix:
+   pathComponents
+   escapedPatternForString:
+   safeRelativePath:
+   _rejected
+   policy rejected
+   policy_rejected
+   shell_syntax_rejected
+   @_objc_unsafeClaimAutoreleasedReturnValue
+   @_symlink
+   _objc_unsafeClaimAutoreleasedReturnValue
+   _symlink
+
+======================================================================
+## SHELL-TEMPLATES
+   tokensForCommand:
+   evaluateWithObject:
+   evaluateJavaScript:completionHandler:
+   shellPipeline
+   shellPipelineStages
+   shellRedirect
+   shellPipelineRedirect
+   shellPipelineRedirectStages
+   shellPipelineRC
+   shellPipelineError
+   shellRedirectRC
+   shellRedirectError
+   shellPipelineRedirectRC
+   shellPipelineRedirectError
+   include $(THEOS)/makefiles/common.mk
+   include $(THEOS_MAKE_PATH)/tool.mk
+   __clean_pwd = $(shell (unset CDPATH; cd "$(1)"; pwd))
+   ifeq ($(CA_THEOS_EMBEDDED),1)
+   __clean_pwd = $(abspath $(1))
+   _THEOS_SCHEMA := $(shell echo "$(strip $(schema) $(SCHEMA))" | tr 'a-z' 'A-Z')
+   _THEOS_SCHEMA := $(if $(strip $(schema) $(SCHEMA)),$(shell "$(CA_THEOS_HELPER)" upper "$(strip $(schema) $(SCHEMA))"),)
+   override _THEOS_CLEANED_SCHEMA_SET := $(shell echo "$(filter-out DEFAULT,$(THEOS_SCHEMA))" | tr -Cd ' A-Z' | tr ' A-Z' '_a-z')
+   override _THEOS_CLEANED_SCHEMA_SET := $(if $(filter-out DEFAULT,$(THEOS_SCHEMA)),$(shell "$(CA_THEOS_HELPER)" schema-key "$(filter-out DEFAULT,$(THEOS_SCHEMA))"),)
+   uname_s := $(shell uname -s)
+   uname_o := $(shell uname -o 2>/dev/null)
+   _THEOS_TARGET_NAME_DEFINE := $(shell echo "$(THEOS_TARGET_NAME)" | tr 'a-z' 'A-Z')
+   _THEOS_TARGET_NAME_DEFINE := $(if $(filter iphone,$(THEOS_TARGET_NAME)),IPHONE,$(shell "$(CA_THEOS_HELPER)" upper "$(THEOS_TARGET_NAME)"))
+   FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot"
+   FAKEROOT := "$(CA_THEOS_HELPER)" fakeroot -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot"
+   SHELL := $(_THEOS_CA_BASH)
+   ifneq ($(strip $(CA_THEOS_PATH)),)
+   export PATH := $(CA_THEOS_PATH):$(PATH)
+   ECHO_PREPROCESSING = @$(PRINT_FORMAT_RED) "Preprocessing $<";
+   ECHO_PREPROCESSING_XSWIFT = @$(PRINT_FORMAT_RED) "Preprocessing $(subst $(_SPACE),$(_COMMA) ,$^)";
+   ifneq ($(THEOS_CURRENT_ARCH),)
+   ECHO_COMPILING = @$(PRINT_FORMAT_GREEN) "Compiling $< ($(THEOS_CURRENT_ARCH))";
+   ECHO_LINKING = @$(PRINT_FORMAT_YELLOW) "Linking $(_THEOS_CURRENT_TYPE) $(THEOS_CURRENT_INSTANCE) ($(THEOS_CURRENT_ARCH))";
+   ECHO_STATIC_LINKING = @$(PRINT_FORMAT_YELLOW) "Linking static $(_THEOS_CURRENT_TYPE) $(THEOS_CURRENT_INSTANCE) ($(THEOS_CURRENT_ARCH))";
+   ECHO_LINKING_WITH_STRIP = @$(PRINT_FORMAT_YELLOW) "Linking $(_THEOS_CURRENT_TYPE) $(THEOS_CURRENT_INSTANCE) (with strip, $(THEOS_CURRENT_ARCH))";
+   ECHO_STRIPPING = @$(PRINT_FORMAT_BLUE) "Stripping $(THEOS_CURRENT_INSTANCE) ($(THEOS_CURRENT_ARCH))";
+   ECHO_COMPILING = @$(PRINT_FORMAT_GREEN) "Compiling $<";
+
+======================================================================
+## CRASH-TRAPS
+
+======================================================================
+## LOG-ROTATION
+   truncated
+   _truncated
+   bytesSinceRotateCheck
+   rotateIfNeeded
+   _bytesSinceRotateCheck
+   rotateComposerPlaceholderIfNeeded
+   rotateAgentStatusPill
+   shouldAutorotate
+   TB,N,V_truncated
+   TQ,N,V_bytesSinceRotateCheck
+   truncation_policy
+
+======================================================================
+## PERMISSIONS
+   ed mode:ommand nLANGUAGEdebian-bcontrol.data.tar%s: %s: grep: invalid pamv: unsupported renamed '%s' -> uniq: extra operchmod: unsupportdu: unsupported %s: extra operanstat: missing op%o %lld %lld %s
+   numberWithInt:
+   numberWithInteger:
+   chmod
+   -agent-chmod-helper
+   @_NSFilePosixPermissions
+   @_chmod
+   _NSFilePosixPermissions
+   _chmod
+
+======================================================================
+## PATH-DENY/ALLOW
+   caseInsensitiveCompare:
+   localizedCaseInsensitiveCompare:
+   protectedPathsComplete:conversationBytes:livePaths:
+   case-insensitive-model-id
+   protected write path=%@ bytes=%lu success=%@
+   protected remove path=%@ success=%@
+   guardian
+   @___stack_chk_guard
+   ___stack_chk_guard

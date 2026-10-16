@@ -1,0 +1,367 @@
+ROOT = C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7 True
+APP  = C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app True
+
+======================================================================
+### Info.plist (main)  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Info.plist
+{
+ "CFBundleName": "MT Agent",
+ "LSApplicationQueriesSchemes": [
+  "filza"
+ ],
+ "CFBundleDevelopmentRegion": "zh_CN",
+ "CFBundleVersion": "3",
+ "UIBackgroundModes": [
+  "audio"
+ ],
+ "NSCameraUsageDescription": "用于拍摄照片并作为附件发送给 MT 智能体。",
+ "CFBundleDocumentTypes": [
+  {
+   "CFBundleTypeName": "MT 智能体附件",
+   "CFBundleTypeRole": "Editor",
+   "LSItemContentTypes": [
+    "public.data",
+    "public.content"
+   ],
+   "LSHandlerRank": "Alternate"
+  }
+ ],
+ "CFBundlePackageType": "APPL",
+ "CFBundleShortVersionString": "1.0.2",
+ "CFBundleInfoDictionaryVersion": "6.0",
+ "CFBundleExecutable": "CodexApp",
+ "UIRequiredDeviceCapabilities": [
+  "arm64"
+ ],
+ "LSSupportsOpeningDocumentsInPlace": true,
+ "CFBundleIdentifier": "wiki.qaq.codexapp",
+ "CFBundleURLTypes": [
+  {
+   "CFBundleURLName": "wiki.qaq.codexapp.share",
+   "CFBundleURLSchemes": [
+    "mtagent"
+   ]
+  }
+ ],
+ "UIViewControllerBasedStatusBarAppearance": true,
+ "CFBundleIcons": {
+  "CFBundlePrimaryIcon": {
+   "CFBundleIconFiles": [
+    "AppIcon60x60"
+   ],
+   "UIPrerenderedIcon": true
+  }
+ },
+ "LSRequiresIPhoneOS": true,
+ "CARuntimeManifestURL": "https://raw.githubusercontent.com/susu123oss/CodexApp-Runtime/main/Runtime/runtime-manifest.json",
+ "CFBundleDisplayName": "MT 智能体",
+ "UISupportedInterfaceOrientations": [
+  "UIInterfaceOrientationPortrait",
+  "UIInterfaceOrientationLandscapeLeft",
+  "UIInterfaceOrientationLandscapeRight"
+ ]
+}
+
+======================================================================
+### entitlements.plist (main)  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\entitlements.plist
+{
+ "com.apple.private.security.no-container": true,
+ "com.apple.private.security.storage.AppDataContainers": true,
+ "proc_info-allow": true,
+ "com.apple.private.security.no-sandbox": true,
+ "com.apple.private.background-task.allowed": true,
+ "com.apple.private.security.storage.AppBundles": true,
+ "platform-application": true,
+ "com.apple.private.security.container-required": false,
+ "com.apple.security.application-groups": [
+  "group.wiki.qaq.codexapp"
+ ],
+ "com.apple.private.persona-mgmt": true,
+ "com.apple.developer.kernel.extended-virtual-addressing": true
+}
+
+======================================================================
+### Info.plist (MTShareExtension)  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\PlugIns\MTShareExtension.appex\Info.plist
+{
+ "CFBundleShortVersionString": "1.0.2",
+ "CFBundleIdentifier": "wiki.qaq.codexapp.share",
+ "NSExtension": {
+  "NSExtensionAttributes": {
+   "NSExtensionActivationRule": {
+    "NSExtensionActivationSupportsImageWithMaxCount": 10,
+    "NSExtensionActivationSupportsFileWithMaxCount": 10,
+    "NSExtensionActivationSupportsMovieWithMaxCount": 10
+   }
+  },
+  "NSExtensionPointIdentifier": "com.apple.share-services",
+  "NSExtensionPrincipalClass": "CAMTShareViewController"
+ },
+ "CFBundleVersion": "3",
+ "CFBundleName": "MT Agent Share",
+ "CFBundleDisplayName": "MT 智能体",
+ "CFBundleExecutable": "MTShareExtension",
+ "CFBundlePackageType": "XPC!",
+ "MinimumOSVersion": "15.0",
+ "CFBundleIcons": {
+  "CFBundlePrimaryIcon": {
+   "CFBundleIconFiles": [
+    "AppIcon60x60"
+   ]
+  }
+ }
+}
+
+======================================================================
+### MACH-O CodexApp (main)  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\CodexApp
+  slice@0        cputype=16777228 ftype=2 ncmds=36 flags=0x200085 size=7087072
+  platform=ios minos=15.0.0 sdk=16.2 cryptid=0
+  segments/sections: 
+  rpaths: []
+  dylibs (19):
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+
+======================================================================
+### MACH-O Helpers/codex-sign  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Helpers\codex-sign
+  slice@0        cputype=16777228 ftype=2 ncmds=23 flags=0x200085 size=3514496
+  platform=ios minos=15.0.0 sdk=16.2 cryptid=0
+  segments/sections: 
+  rpaths: []
+  dylibs (5):
+     
+     
+     
+     
+     
+
+======================================================================
+### MACH-O Helpers/ca-filetool  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Helpers\ca-filetool
+  slice@0        cputype=16777228 ftype=2 ncmds=22 flags=0x200085 size=167136
+  platform=ios minos=15.0.0 sdk=16.2 cryptid=0
+  segments/sections: 
+  rpaths: []
+  dylibs (4):
+     
+     
+     
+     
+
+======================================================================
+### MACH-O Helpers/bash.real  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Helpers\bash.real
+  slice@0        cputype=16777228 ftype=2 ncmds=20 flags=0x200085 size=811520
+  platform=ios minos=15.0.0 sdk=16.2 cryptid=0
+  segments/sections: 
+  rpaths: []
+  dylibs (2):
+     
+     
+
+======================================================================
+### MACH-O MTShareExtension  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\PlugIns\MTShareExtension.appex\MTShareExtension
+  slice@0        cputype=16777228 ftype=2 ncmds=24 flags=0x200085 size=100208
+  platform=ios minos=15.0.0 sdk=16.2 cryptid=0
+  segments/sections: 
+  rpaths: []
+  dylibs (6):
+     
+     
+     
+     
+     
+     
+
+======================================================================
+### STRINGS CodexApp (main)  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\CodexApp
+  -- URLs (15) --
+    http://www.apple.com/DTDs/PropertyList-1.0.dtd
+    https://api.example.com/v1
+    https://api.frankfurter.dev/v2/rate/usd/cny
+    https://api.github.com/repos/%@/%@/releases/tags/%@
+    https://api.github.com/repos/%@/%@/releases?per_page=50
+    https://auth
+    https://bctwtbuvphdwbnlbprav.supabase.co
+    https://gh-proxy.org/
+    https://ghproxy.net/
+    https://github.com/%@/%@/releases/download/%@/%@
+    https://github.com/%@/%@/releases/download/%@/SHA256SUMS
+    https://host/owner/project.git
+    https://models.dev/catalog.json
+    https://openrouter.ai/api/v1/models
+    https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json
+  -- domains top40 --
+    com.apple.private.se                                         x10
+    app.co                                                       x5
+    com.app                                                      x5
+    ca.to                                                        x4
+    oundation.fr                                                 x3
+    it.fr                                                        x3
+    github.com                                                   x3
+    untime.in                                                    x3
+    models.dev                                                   x3
+    group.wiki.qaq.co                                            x3
+    codex-control-format.pl                                      x3
+    com.apple.private.security.co                                x3
+    chat.co                                                      x3
+    app.codex.ru                                                 x2
+    wiki.qaq.co                                                  x2
+    checkmark.se                                                 x2
+    config.to                                                    x2
+    raw.githubusercontent.com                                    x2
+    agents.de                                                    x2
+    ettings.pl                                                   x2
+    fakeroot.sh                                                  x2
+    version.sh                                                   x2
+    api.github.com                                               x2
+    www.apple.com                                                x2
+    com.apple.dev                                                x2
+    com.apple.security.app                                       x2
+    raphics.fr                                                   x1
+    ervices.fr                                                   x1
+    ook.fr                                                       x1
+    ecurity.fr                                                   x1
+    edia.fr                                                      x1
+    ideo.fr                                                      x1
+    udio.fr                                                      x1
+    ore.fr                                                       x1
+    app.codex.app                                                x1
+    os-instamkfifoatcom.co                                       x1
+    codex.in                                                     x1
+    codex-code-mode-host.in                                      x1
+    manager.metadata.pl                                          x1
+    wiki.qaq.codexapp.pl                                         x1
+  -- keyword hits --
+    [  1] auth.json                    auth.json
+    [  1] apikey                       apikey
+    [  2] API_KEY                      CODEX_CUSTOM_API_KEY | model_providers.custom={ name="%@", base_url="%@", env_key="CODEX_CUSTOM_API_KEY", wire_api="responses", requires_openai_auth=false, supports_standalone_web_sea
+    [  4] Bearer                       (?i)Bearer\s+[A-Za-z0-9._~+/-]+=* | Bearer <redacted> | Bearer %@ | Bearer 
+    [  1] id_token                     id_token
+    [  1] Keychain                     removeLegacyKeychainCredential
+    [  4] SecItem                      @_SecItemCopyMatching | @_SecItemDelete | _SecItemCopyMatching | _SecItemDelete
+    [  4] kSecClass                    @_kSecClass | @_kSecClassGenericPassword | _kSecClass | _kSecClassGenericPassword
+    [  3] platform-application             <key>platform-application</key> | <key>platform-application</key> | platform-application
+    [ 18] com.apple.private                <key>com.apple.private.security.no-sandbox</key> |     <key>com.apple.private.security.storage.AppBundles</key> |     <key>com.apple.private.security.storage.AppDataContainers</key> |     <key>com.apple.private.security.container-required</key>
+    [  4] jailbr                       jailbreak brand raw=%@ app=%@ bundle=%@ legacy=%@ result=%@ reason=%@ path=%@ | jailbreak | environment profile kind=%@ jailbreak=%d trollstore=%d flavor=%@ brand=%@ family=%@ root=%@ launcher=%@ bundle=%@ evidence=%@ theos=%@ | libjailbreak
+    [  2] cydia                        cydiasubstrate
+    [  1] base_url                     model_providers.custom={ name="%@", base_url="%@", env_key="CODEX_CUSTOM_API_KEY", wire_api="responses", requires_openai_auth=false, supports_standalone_web_sea
+    [  4] proxy                        registered application proxy missing | https://gh-proxy.org/ | https://ghproxy.net/ | download_proxy_prefixes
+    [  1] SSL_CERT_FILE                SSL_CERT_FILE
+    [  1] CODEX_CA_CERTIFICATE         CODEX_CA_CERTIFICATE
+    [  1] dangerous                    --dangerously-bypass-approvals-and-sandbox
+    [  6] UserDefaults                 standardUserDefaults | T@"NSUserDefaults",&,N,V_preferences | T@"NSUserDefaults",&,N,V_defaults | @"NSUserDefaults"
+    [  5] NSUserDefaults               T@"NSUserDefaults",&,N,V_preferences | T@"NSUserDefaults",&,N,V_defaults | @"NSUserDefaults" | @_OBJC_CLASS_$_NSUserDefaults
+    [  1] credit                       rate_limit_reset_credits
+    [  1] password                     password
+    [ 68] token                        tokensForCommand: | tokens:containAny: | remoteEnvironment:push:username:token:completion: | fetchFromRemote:username:token:completion:
+    [  1] secret                       secretFieldChanged:
+    [  4] credential                   provider credential migration failed code=%ld | legacy provider credential cleanup failed | provider credential read failed code=%ld | provider credential save failed code=%ld
+    [ 31] .codex                       app.codex.runtimCODEXAPP_AGENT_R | app.codex.app-se | app.codex.logger | ?os-instamkfifoatcom.codexapp.the[,$qZ
+    [  2] Library/Application Support  /var/mobile/Library/Application Support/CodexApp | Library/Application Support
+
+======================================================================
+### STRINGS Helpers/codex-sign  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Helpers\codex-sign
+  -- URLs (5) --
+    http://crl.apple.com/root.crl0
+    http://ocsp.apple.com/ocsp03-aipca040
+    http://ocsp.apple.com/ocsp03-applerootca0.
+    http://www.apple.com/DTDs/PropertyList-1.0.dtd
+    https://www.apple.com/appleca/0
+  -- domains top40 --
+    params.se                                                    x14
+    openssl.org                                                  x9
+    com.apple.private.se                                         x7
+    sh.fr                                                        x4
+    adb.in                                                       x4
+    com.app                                                      x4
+    www.apple.com                                                x3
+    oundation.fr                                                 x2
+    cts.in                                                       x2
+    ocsp.apple.com                                               x2
+    main.co                                                      x2
+    com.apple.private.security.co                                x2
+    com.apple.security.app                                       x2
+    group.wiki.qaq.co                                            x2
+    ecurity.fr                                                   x1
+    arm.com                                                      x1
+    openssl.cn                                                   x1
+    machdep.cpu.br                                               x1
+    crl.apple.com                                                x1
+    fsname.space                                                 x1
+    ord.ch                                                       x1
+    secret.de                                                    x1
+    one.co                                                       x1
+    224.sh                                                       x1
+    256.sh                                                       x1
+    384.sh                                                       x1
+    512.sh                                                       x1
+    shake128.sh                                                  x1
+    shake256.sh                                                  x1
+    com.apple.dev                                                x1
+    4com.apple.private.se                                        x1
+    6com.apple.dev                                               x1
+  -- keyword hits --
+    [  2] platform-application         <key>platform-application</key> | platform-application
+    [ 14] com.apple.private            <key>com.apple.private.security.no-sandbox</key> | <key>com.apple.private.security.no-container</key> | <key>com.apple.private.persona-mgmt</key> | <key>com.apple.private.background-task.allowed</key>
+    [  6] proxy                        ac-proxying | proxyCertInfo | proxyPolicy | invalid proxy policy setting
+    [  2] insecure                     _xts_allow_insecure_decrypt | _ossl_aes_xts_allow_insecure_decrypt
+    [  5] id_rsa                       _ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_224 | _ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_256 | _ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_384 | _ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_512
+    [  2] privateKey                   privateKey | privateKeyUsagePeriod
+    [ 13] private_key                  get_payload_private_key | X509_check_private_key | ossl_x509_check_private_key | generate_private_key
+    [  3] -----BEGIN                   -----BEGIN  | -----BEGIN CERTIFICATE----- | -----BEGIN PRIVATE KEY-----
+    [ 17] password                     no password | ossl_pw_set_pem_password_cb | No password method specified | password based MAC
+    [  4] token                        ICC or token signature | no time stamp token | token not present | token present
+    [ 16] secret                       missing pbm secret | missing secret | invalid secret | hexsecret
+    [  2] .codex                       <string>group.wiki.qaq.codexapp</string> | group.wiki.qaq.codexapp
+
+======================================================================
+### STRINGS Helpers/ca-filetool  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\Helpers\ca-filetool
+  -- URLs (1) --
+    http://www.apple.com/DTDs/PropertyList-1.0.dtd
+  -- domains top40 --
+    com.apple.private.se                                         x7
+    com.app                                                      x4
+    oundation.fr                                                 x2
+    com.apple.private.security.co                                x2
+    com.apple.security.app                                       x2
+    group.wiki.qaq.co                                            x2
+    www.apple.com                                                x1
+    com.apple.dev                                                x1
+    4com.apple.private.se                                        x1
+    6com.apple.dev                                               x1
+  -- keyword hits --
+    [  2] platform-application         <key>platform-application</key> | platform-application
+    [ 14] com.apple.private            <key>com.apple.private.security.no-sandbox</key> | <key>com.apple.private.security.no-container</key> | <key>com.apple.private.persona-mgmt</key> | <key>com.apple.private.background-task.allowed</key>
+    [  3] .codex                       .codex-deb-%@ | <string>group.wiki.qaq.codexapp</string> | group.wiki.qaq.codexapp
+
+======================================================================
+### STRINGS MTShareExtension  <- C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app\PlugIns\MTShareExtension.appex\MTShareExtension
+  -- URLs (1) --
+    http://www.apple.com/DTDs/PropertyList-1.0.dtd
+  -- domains top40 --
+    group.wiki.qaq.co                                            x3
+    oundation.fr                                                 x2
+    com.apple.security.app                                       x2
+    it.fr                                                        x1
+    dentifiers.fr                                                x1
+    wiki.qaq.mt.sh                                               x1
+    manifest.pl                                                  x1
+    www.apple.com                                                x1
+  -- keyword hits --
+    [  2] UserDefaults                 _OBJC_CLASS_$_NSUserDefaults | _OBJC_CLASS_$_NSUserDefaults
+    [  2] NSUserDefaults               _OBJC_CLASS_$_NSUserDefaults | _OBJC_CLASS_$_NSUserDefaults
+    [  3] .codex                       group.wiki.qaq.codexapp | <string>group.wiki.qaq.codexapp</string> | group.wiki.qaq.codexapp

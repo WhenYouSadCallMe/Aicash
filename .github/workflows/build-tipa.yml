@@ -1,0 +1,104 @@
+name: build-tipa
+
+# 在 GitHub 的 macOS runner 上编译 + 签名 + 打包 .tipa，并跑完一致性校验。
+# 触发：手动（Actions → build-tipa → Run workflow）或 push 到 main/master。
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 工具链信息
+        run: |
+          set -x
+          sw_vers
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-path
+          python3 --version
+          which make clang ldid || true
+
+      - name: 安装 ldid（失败则回退 codesign adhoc）
+        run: |
+          brew install ldid || echo "::warning::ldid 安装失败，将回退 codesign --sign -"
+
+      - name: 编译（CodexApp + ca-filetool + MTShareExtension 并装配 bundle）
+        run: |
+          set -o pipefail
+          make -C build all 2>&1 | tee build_all.log
+
+      - name: 失败时导出编译日志
+        if: failure()
+        run: |
+          echo "==== 编译失败，日志尾部 ===="
+          tail -n 300 build_all.log || true
+          exit 1
+
+      - name: 签名（entitlements 逐项对齐原包）
+        run: |
+          make -C build sign 2>&1 | tee build_sign.log || echo "::warning::签名步骤有警告，见 build_sign.log"
+
+      - name: 打包 .tipa（条目顺序/权限/符号链接与原包一致）
+        run: |
+          make -C build package 2>&1 | tee build_package.log
+
+      - name: 校验（工程一致性 + 产物一致性）
+        run: |
+          python3 - <<'PY'
+          import subprocess, sys
+          checks = [
+              ["python3", "verify/verify_parity.py"],
+              ["python3", "verify/verify_literals.py"],
+              ["python3", "scripts/check_sources.py"],
+              ["python3", "scripts/check_conflicts.py"],
+              ["python3", "scripts/fix_parity_forward_decls.py", "--check"],
+              ["python3", "scripts/run_all_checks.py"],
+              ["python3", "verify/verify_package.py", "--replica", "build/MT-Agent-replica.tipa"],
+          ]
+          failed = []
+          for cmd in checks:
+              print("\n$ " + " ".join(cmd), flush=True)
+              rc = subprocess.run(cmd).returncode
+              if rc != 0:
+                  failed.append(" ".join(cmd))
+          print("\n失败项:", failed or "无")
+          sys.exit(1 if failed else 0)
+          PY
+
+      - name: 收集产物与日志
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MT-Agent-replica-${{ github.run_number }}
+          path: |
+            build/MT-Agent-replica.tipa
+            build/out/Payload/CodexApp.app/**
+            build_*.log
+            SPEC/*.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: 摘要
+        if: always()
+        run: |
+          {
+            echo "## MT Agent 复刻构建结果"
+            echo ""
+            echo "- 运行: #${{ github.run_number }} (${{ github.sha }})"
+            [ -f build/MT-Agent-replica.tipa ] && echo "- 产物: build/MT-Agent-replica.tipa ($(stat -f%z build/MT-Agent-replica.tipa) 字节)" || echo "- 产物: 未生成"
+            [ -f build/out/Payload/CodexApp.app/CodexApp ] && echo "- 主程序: $(file -b build/out/Payload/CodexApp.app/CodexApp)" || true
+            echo "- 装配清单条目: $(python3 -c \"import json;print(len(json.load(open('build/bundle_manifest.json'))['entries']))\" 2>/dev/null || echo n/a)"
+            echo ""
+            echo "### 编译警告/错误摘录（如有）"
+            echo '```'
+            grep -E \"error:|warning:\" build_all.log 2>/dev/null | head -n 40 || echo "无"
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY

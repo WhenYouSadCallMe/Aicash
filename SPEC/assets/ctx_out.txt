@@ -1,0 +1,471 @@
+
+##############################################################################
+# FILE: CodexApp 7087072 bytes
+
+======================================================================
+## SUPABASE/EXFIL
+  · supabase               @0x593f05: napshot.loadingCache.TB,N,V_loadingCache.CARemoteOperationsDidChangeNotification.https://bctwtbuvphdwbnlbprav.supabase.co.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHd0YnV2cGhkd2JubGJwcmF2Iiwicm9sZ
+  · bctwtbuvphdwbnlbprav   @0x593ef0: NSDictionary",&,N,V_snapshot.loadingCache.TB,N,V_loadingCache.CARemoteOperationsDidChangeNotification.https://bctwtbuvphdwbnlbprav.supabase.co.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHd0YnV2cGhkd2JubGJwcmF2
+
+======================================================================
+## AUTH/KEYS
+  · auth.json              @0x58d9a2: ent_nickname.display_name."".modelSource._request_prompt_tokens.unified_diff.unifiedDiff.diff --git a/%@ b/%@.auth.json.tokens.id_token.sub.preferred_username.given_name.picture.image_url.avatar_url..jsonl.sessions.archived_sessi
+  · CODEX_CUSTOM_API_KEY   @0x58763a: _NAME.CODEXAPP_WORKSPACE_PATH.PWD.cacert.pem.bash-codex.SHELL.CONFIG_SHELL.shell=%@ executable=%@.unavailable.CODEX_CUSTOM_API_KEY.CODEX_CA_CERTIFICATE.SSL_CERT_FILE.using bundled TLS roots.third-party native model catalog main=%@ models=%l
+  · CODEX_CUSTOM_API_KEY   @0x588b5f: ures.standalone_web_search=true.web_search="live".model_providers.custom={ name="%@", base_url="%@", env_key="CODEX_CUSTOM_API_KEY", wire_api="responses", requires_openai_auth=false, supports_standalone_web_search=true }.model_catalog_json=
+  · apiKey                 @0x56460d: talInputTokens.totalOutputTokens.totalReasoningTokens.contextTokenCountFromEvent:.saveThirdPartyAPIKey:error:.apiKey.persistsProviderPreferences.isEqualToArray:.setInteger:forKey:.thirdPartyModel.selectedModel.slug.thirdPartyR
+  · apiKey                 @0x566ebe: Summary._lastKnownTurnUsage._usageAccountingState._usageTurnModel._usageTurnProvider._pendingTransportNotice._apiKey._persistentAppServer._retiringAppServers._appServerShutdownWaiters._persistentAppServerSignature._appServerEn
+  · apiKey                 @0x58c5b3: ThisTurn.TB,N,V_receivedContextUsageThisTurn.pendingTransportNotice.T@"NSString",C,N,V_pendingTransportNotice.apiKey.T@"NSString",C,N,V_apiKey.persistentAppServer.T@"CAAppServerSession",&,N,V_persistentAppServer.retiringAppSer
+  · apiKey                 @0x58c5cd: ntextUsageThisTurn.pendingTransportNotice.T@"NSString",C,N,V_pendingTransportNotice.apiKey.T@"NSString",C,N,V_apiKey.persistentAppServer.T@"CAAppServerSession",&,N,V_persistentAppServer.retiringAppServers.T@"NSMutableSet",&,N,
+  · id_token               @0x58d9b3: lay_name."".modelSource._request_prompt_tokens.unified_diff.unifiedDiff.diff --git a/%@ b/%@.auth.json.tokens.id_token.sub.preferred_username.given_name.picture.image_url.avatar_url..jsonl.sessions.archived_sessions.payload.even
+  · credential             @0x586d04: els.CodexThirdPartyReasoningEffort.CodexThirdPartyContextWindowTokens.CodexApp.CustomProvider.APIKey.provider credential migration failed code=%ld.legacy provider credential cleanup failed.provider credential read failed code=%ld.
+  · credential             @0x586d39: textWindowTokens.CodexApp.CustomProvider.APIKey.provider credential migration failed code=%ld.legacy provider credential cleanup failed.provider credential read failed code=%ld.CodexSandboxMode.CodexAppServerPrimaryTransportV1.tok
+  · credential             @0x586d5c: vider.APIKey.provider credential migration failed code=%ld.legacy provider credential cleanup failed.provider credential read failed code=%ld.CodexSandboxMode.CodexAppServerPrimaryTransportV1.tokenUsage.token_usage.info.last.last_
+  · credential             @0x587415: nown.stableCachePercent.totalReasoningTokens.legacy-snapshot.modelContextWindow.model_context_window.provider credential save failed code=%ld.third-party API key changed.API base URL changed.provider source changed.provider name c
+  · secretField            @0x580165: Icon._choiceTitle._choiceDescription.questions.deferQuestions.label:font:color:.selectChoice:.setBorderStyle:.secretFieldChanged:.privateEditors.freeformEditors.customRows.choiceRows.setRemainingLabel:.remainingLabel.setSubmitButto
+  · password               @0x565ca0: ck.sendPromptViaPersistentAppServer:attachments:.setExecTerminalType:.setExecUsageSummary:.currentExecID.user.password.enableWebSearch.enableWorktree.codexEngineDidStartTurn.processRawData:.finishExecWithID:status:diagnostics:.e
+  · Authorization          @0x5610d3: URLSession:completionHandler:.application:handleWatchKitExtensionRequest:reply:.applicationShouldRequestHealthAuthorization:.application:handlerForIntent:.application:handleIntent:completionHandler:.applicationDidEnterBackground:.app
+  · Authorization          @0x579843: howsCameraControls.cameraOverlayView.timeIntervalSinceReferenceDate.openedAt.setPresenter:.setOpenedAt:.cameraAuthorizationStatus.isCameraAvailable.finishWithFailure:.presentAuthorizedCamera.requestCameraAccess:.presenter.newCameraPi
+  · Authorization          @0x591417: ach-ref.--format=%(refname).check-ref-format.switch.commit.--local.remote.get-url.set-url.--push.%@:%@.oauth2.Authorization: Basic %@.GIT_CONFIG_COUNT.%lu.http.%@.extraHeader.GIT_CONFIG_KEY_%lu.GIT_CONFIG_VALUE_%lu.fetch.--no-recurse
+  · Authorization          @0x592270: /api.frankfurter.dev/v2/rate/usd/cny.CAModelPricingUSDToCNYRate.CAModelPricingUSDToCNYRateUpdatedAt.Bearer %@.Authorization.application/json.Accept.provider model list refreshed models=%lu host=%@.provider model list refresh failed h
+  · Bearer                 @0x5916bf: IX.yyyy-MM-dd HH:mm:ss.SSS.Codex started.APP.UPDATE.NETWORK.GENERAL.APPSERVER.\x{1B}\[[0-9;?]*[ -/]*[@-~].(?i)Bearer\s+[A-Za-z0-9._~+/-]+=*.sk-[A-Za-z0-9_-]{8,}.(?i)(access[_ -]?token|api[_ -]?key|authorization)(\s*[:=]\s*)([^
+  · Bearer                 @0x59173b: -z0-9._~+/-]+=*.sk-[A-Za-z0-9_-]{8,}.(?i)(access[_ -]?token|api[_ -]?key|authorization)(\s*[:=]\s*)([^\s,;]+).Bearer <redacted>.<redacted-key>.$1$2<redacted>.DEBUG.WARN.ERROR.INFO..1.%@.%@.%@.%d.%@..[CodexApp][%@] %@.logFilePa
+  · Bearer                 @0x592266: ls.https://api.frankfurter.dev/v2/rate/usd/cny.CAModelPricingUSDToCNYRate.CAModelPricingUSDToCNYRateUpdatedAt.Bearer %@.Authorization.application/json.Accept.provider model list refreshed models=%lu host=%@.provider model list
+  · Bearer                 @0x594066: odexRemoteTheosEnabled.CodexRemoteHeartbeatFailureLimit.codex-.iPhone.CFBundleShortVersionString.1.0.0.apikey.Bearer .Content-Type.Theos remote access state changed allowed=%d heartbeat=%d.feature_flags.log_switches.codex_theo
+
+======================================================================
+## KEYCHAIN
+  · Keychain               @0x5626bf: .stringWithFileSystemRepresentation:length:.arrayWithCapacity:.enumerateKeysAndObjectsUsingBlock:.removeLegacyKeychainCredential.path.reason.pathComponents.lastObject.initWithUUIDString:.dictionaryWithContentsOfFile:.legacyExter
+  · SecItem                @0x699d08: SSelectorFromString...s...@_NSStringFromCGSize...s...@_NSStringFromClass...s...@_NSTemporaryDirectory...s...@_SecItemCopyMatching...s...@_SecItemDelete...s...@_UIAccessibilityIsReduceMotionEnabled...s...@_UIAccessibilityPostNot
+  · SecItem                @0x699d24: NSStringFromCGSize...s...@_NSStringFromClass...s...@_NSTemporaryDirectory...s...@_SecItemCopyMatching...s...@_SecItemDelete...s...@_UIAccessibilityIsReduceMotionEnabled...s...@_UIAccessibilityPostNotification...s...@_UIApplicat
+  · SecItem                @0x6aad96: TACLASS_$_UITextView._OBJC_METACLASS_$_UIView._OBJC_METACLASS_$_UIViewController._OBJC_METACLASS_$_WKWebView._SecItemCopyMatching._SecItemDelete._UIAccessibilityAnnouncementNotification._UIAccessibilityIsReduceMotionEnabled._UI
+  · SecItem                @0x6aadab: _OBJC_METACLASS_$_UIView._OBJC_METACLASS_$_UIViewController._OBJC_METACLASS_$_WKWebView._SecItemCopyMatching._SecItemDelete._UIAccessibilityAnnouncementNotification._UIAccessibilityIsReduceMotionEnabled._UIAccessibilityLayoutCh
+  · GenericPassword        @0x699213: ter..@_OBJC_CLASS_$_PHPickerViewController...@_kSecAttrAccount.r...@_kSecAttrService..@_kSecClass..@_kSecClassGenericPassword..@_kSecMatchLimit..@_kSecMatchLimitOne..@_kSecReturnData...@_AVLayerVideoGravityResizeAspect.............@_AV
+  · GenericPassword        @0x6aba93: dCacheImmediately._kCGImageSourceThumbnailMaxPixelSize._kSecAttrAccount._kSecAttrService._kSecClass._kSecClassGenericPassword._kSecMatchLimit._kSecMatchLimitOne._kSecReturnData._kill._link._localtime_r._lstat._malloc._memchr._memcpy._m
+
+======================================================================
+## FILESYSTEM
+  · /var/mobile            @0x584b5e: data.plist.container metadata is not a real file.MCMMetadataIdentifier.container metadata identifier mismatch./var/mobile/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./
+  · /var/mobile            @0x584b8f: MCMMetadataIdentifier.container metadata identifier mismatch./var/mobile/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Libra
+  · /var/mobile            @0x584bb3: data identifier mismatch./var/mobile/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.pli
+  · /var/mobile            @0x584bd6: e/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/
+  · /var/mobile            @0x584bf7: exApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/Documents/.codex./tmp./private/tm
+  · /var/mobile            @0x584c43: ./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/Documents/.codex./tmp./private/tmp.CodexAttachments.CodexPastes.queue-edit-./private/var./var./private/var/./
+  · /var/mobile            @0x594a5b: C,N,V_changedRuntimeIDs.TB,N,V_refreshing.lastRefreshDate.T@"NSDate",&,N,V_lastRefreshDate.executable missing./var/mobile/Documents.launch failed.timeout..runtime-probe..git-probe.probe..probe.txt..userland-probe.Nested.alpha.beta.
+  · /var/mobile            @0x594d78: eosPackageTools.theosBuildReady.theosBuildPackage.theosBuildPackageValid.theosBuildOutput.theosShellBootstrap./var/mobile.LC_ALL.C.LANG.CA_THEOS_RUNTIME.CA_THEOS_SDKROOT.CA_THEOS_EMBEDDED.CA_THEOS_HELPER.CA_THEOS_BASH.CA_THEOS_PATH
+  · /var/mobile            @0x595093: RC.theosShellBootstrapOutput.theosShellBootstrapError.printf 'EUID=%s\n' "$EUID"; printf 'SHELL_OK=1\n'; [ -r /var/mobile/Documents ] && printf 'DOCS_READ=1\n' || printf 'DOCS_READ=0\n'; [ -w /var/mobile/Documents ] && printf 'DOCS
+  · /var/mobile            @0x5950e5: printf 'SHELL_OK=1\n'; [ -r /var/mobile/Documents ] && printf 'DOCS_READ=1\n' || printf 'DOCS_READ=0\n'; [ -w /var/mobile/Documents ] && printf 'DOCS_WRITE=1\n' || printf 'DOCS_WRITE=0\n'; printf 'probe' > "$CA_PROBE_FILE" 2>/dev/n
+  · /var/mobile            @0x596b72: g.third-party-models.json.Logs.Library/Caches.Diagnostics/RuntimeProbe.Remote.device-group-id-v1.CodexHelpers./var/mobile/Documents/Codex-mt./var/mobile/Documents/.mt-device-group-id-v1./var/jb/usr/bin./var/jb/bin./usr/local/bin./u
+  · /var/mobile            @0x596b91: Library/Caches.Diagnostics/RuntimeProbe.Remote.device-group-id-v1.CodexHelpers./var/mobile/Documents/Codex-mt./var/mobile/Documents/.mt-device-group-id-v1./var/jb/usr/bin./var/jb/bin./usr/local/bin./usr/bin./bin./usr/sbin./sbin.gro
+  · /var/containers        @0x58fefa: ackaging.TB,N,V_prefersNativeTheosPackaging.%@ %@ %@ %@ %@.trollstore.lite.relaxin.dopamine..jbroot-.roothide./var/containers/Bundle/Application./private/var/containers/Bundle/Application.app.CFBundleIdentifier.CFBundleDisplayName.CFBu
+  · /var/containers        @0x58ff25: .%@ %@ %@ %@ %@.trollstore.lite.relaxin.dopamine..jbroot-.roothide./var/containers/Bundle/Application./private/var/containers/Bundle/Application.app.CFBundleIdentifier.CFBundleDisplayName.CFBundleName.CFBundleExecutable.LSApplicationWo
+  · /var/containers        @0x5900c8: ooks.identity:fs:/var/jb->.jbroot./var/jb./private/var/jb.identity:fs:.jbroot./private/preboot.mixed.standard./var/containers/Bundle/Application/./private/var/containers/Bundle/Application/.App.legacy-fallback.app-product-name-no-metad
+  · /var/containers        @0x5900f4: rivate/var/jb.identity:fs:.jbroot./private/preboot.mixed.standard./var/containers/Bundle/Application/./private/var/containers/Bundle/Application/.App.legacy-fallback.app-product-name-no-metadata.metadata-equals-legacy-family.bundle-id-
+  · Application Support    @0x584b72:  metadata is not a real file.MCMMetadataIdentifier.container metadata identifier mismatch./var/mobile/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/
+  · Application Support    @0x592394: t.includeHidden.official model/list refresh failed reason=%@.official model/list refreshed models=%lu.Library/Application Support.Usage.cost-history-v1.json.entries.amountUSD.key.billingMode.rate.USD/CNY reference rate refreshed rate=%.6f.
+  · Application Support    @0x594540: r2.rabin2.reverse_tools.archive_parts.url.sha256.RuntimeDownloads/ReverseTools.migrated ReverseTools cache to Application Support.ReverseTools cache migration skipped: %@.CA_REVERSE_TOOLS_STAGING.part%02lu.radare2_version.radare2_ref.rever
+  · Documents/             @0x584bbf: ier mismatch./var/mobile/Library/Application Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge fa
+  · Documents/             @0x584be2: plication Support/CodexApp./var/mobile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/Documents/.
+  · Documents/             @0x584c4f: /Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/Documents/.codex./tmp./private/tmp.CodexAttachments.CodexPastes.queue-edit-./private/var./var./private/var/./private/tmp
+  · Documents/             @0x596b7e: y-models.json.Logs.Library/Caches.Diagnostics/RuntimeProbe.Remote.device-group-id-v1.CodexHelpers./var/mobile/Documents/Codex-mt./var/mobile/Documents/.mt-device-group-id-v1./var/jb/usr/bin./var/jb/bin./usr/local/bin./usr/bin./bin
+  · Documents/             @0x596b9d: es.Diagnostics/RuntimeProbe.Remote.device-group-id-v1.CodexHelpers./var/mobile/Documents/Codex-mt./var/mobile/Documents/.mt-device-group-id-v1./var/jb/usr/bin./var/jb/bin./usr/local/bin./usr/bin./bin./usr/sbin./sbin.group.wiki.qaq
+  · Documents/             @0x5a98ea: tiveWorkspaceChanged.T@?,C,N,V_onActiveWorkspaceChanged.workspaceBusyProvider.T@?,C,N,V_workspaceBusyProvider.Documents/._availability_version_check.kCFAllocatorNull.CFDataCreateWithBytesNoCopy.CFPropertyListCreateWithData.CFPrope
+  · Library/Preferences    @0x584c03: obile/Library/Caches/CodexApp./var/mobile/Documents/CodexHelpers./var/mobile/Documents/.codex/log./var/mobile/Library/Preferences/wiki.qaq.codexapp.plist.purge failed %@: %@./var/mobile/Documents/.codex./tmp./private/tmp.CodexAttachments.C
+
+======================================================================
+## ELEVATED
+  · platform-application   @0x59cc06: e//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">.<plist version="1.0">.<dict>.    <key>platform-application</key>.    <true/>.    <key>com.apple.private.security.no-sandbox</key>.    <true/>.    <key>com.apple.private
+  · platform-application   @0x6b480a: pple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no
+  · platform-application   @0x6b4b02: >...<string>group.wiki.qaq.codexapp</string>..</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.secu
+  · no-sandbox             @0x59cc51: ist version="1.0">.<dict>.    <key>platform-application</key>.    <true/>.    <key>com.apple.private.security.no-sandbox</key>.    <true/>.    <key>com.apple.private.security.storage.AppBundles</key>.    <true/>.    <key>com.apple
+  · no-sandbox             @0x6b484f: dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-m
+  · no-sandbox             @0x6b4b5d: c_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.private.background-task.allowed...02.-com.apple
+  · AppDataContainers      @0x59cce3: y>com.apple.private.security.storage.AppBundles</key>.    <true/>.    <key>com.apple.private.security.storage.AppDataContainers</key>.    <true/>.    <key>com.apple.container-required</key>.    <false/>.    <key>com.apple.private.securit
+  · AppDataContainers      @0x6b4985: >..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.private.security.container-required</key>..<false/>..<key>proc_info-allow</key
+  · AppDataContainers      @0x6b4c57: ntainer-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-addressing...0B.%com.apple.security.application-groups0...g
+  · AppBundles             @0x59cc9a: .    <key>com.apple.private.security.no-sandbox</key>.    <true/>.    <key>com.apple.private.security.storage.AppBundles</key>.    <true/>.    <key>com.apple.private.security.storage.AppDataContainers</key>.    <true/>.    <key>co
+  · AppBundles             @0x6b4942: rue/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.priv
+  · AppBundles             @0x6b4c23: und-task.allowed...02.-com.apple.private.security.container-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-
+  · persona-mgmt           @0x6b48be: o-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-mgmt</key>..<true/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.securit
+  · persona-mgmt           @0x6b4b2f: .</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.pri
+  · jailbreak              @0x5901a9: e-no-metadata.metadata-equals-legacy-family.bundle-id-matches-app-name.metadata-name.app-product-name.Unknown.jailbreak brand raw=%@ app=%@ bundle=%@ legacy=%@ result=%@ reason=%@ path=%@.roothidehooks.ellekit.libhooker.cydiasubs
+  · jailbreak              @0x590422: ncher.launcher:%@.rootless.rootful.ElleKit / RootHide.ElleKit.Substrate.RootHide.Traditional.Relaxin.Dopamine.jailbreak.environment profile kind=%@ jailbreak=%d trollstore=%d flavor=%@ brand=%@ family=%@ root=%@ launcher=%@ bundl
+  · jailbreak              @0x590448: eKit / RootHide.ElleKit.Substrate.RootHide.Traditional.Relaxin.Dopamine.jailbreak.environment profile kind=%@ jailbreak=%d trollstore=%d flavor=%@ brand=%@ family=%@ root=%@ launcher=%@ bundle=%@ evidence=%@ theos=%@.forkless.T@"
+  · jailbreak              @0x5905af: ine.checkra1n.xina.fugu.odyssey.chimera.serotonin.nekojb.meowbrek.bootstrap.relaxinlite.relaxin lite.cydia.libjailbreak.basebin.jbroot.Frameworks.Resources.Info.plist.theos-helper.upper.schema-key.sort-versions.q24@?0@"NSString"8
+  · trollstore             @0x58fec7: NSString",C,N,V_environmentKind.prefersNativeTheosPackaging.TB,N,V_prefersNativeTheosPackaging.%@ %@ %@ %@ %@.trollstore.lite.relaxin.dopamine..jbroot-.roothide./var/containers/Bundle/Application./private/var/containers/Bundle/App
+  · trollstore             @0x590455: de.ElleKit.Substrate.RootHide.Traditional.Relaxin.Dopamine.jailbreak.environment profile kind=%@ jailbreak=%d trollstore=%d flavor=%@ brand=%@ family=%@ root=%@ launcher=%@ bundle=%@ evidence=%@ theos=%@.forkless.T@"CAExecutionEnv
+  · TrollStore             @0x5688db: anager._storageDirectory._preferences._resolvedWorkspaceKeys.hasJailbreakEvidence.setHasJailbreakEvidence:.hasTrollStore.setHasTrollStore:.rootMode.setRootMode:.rootModeString.setRootModeString:.familyName.setFamilyName:.brandName
+  · TrollStore             @0x5688ec: rectory._preferences._resolvedWorkspaceKeys.hasJailbreakEvidence.setHasJailbreakEvidence:.hasTrollStore.setHasTrollStore:.rootMode.setRootMode:.rootModeString.setRootModeString:.familyName.setFamilyName:.brandName.setBrandName:.la
+  · TrollStore             @0x5689ec: herDisplayName:.launcherBundleId.setLauncherBundleId:.launcherAppPath.setLauncherAppPath:.trollStoreFlavor.setTrollStoreFlavor:.evidenceSummary.setEvidenceSummary:.environmentKind.setEnvironmentKind:.prefersNativeTheosPackaging.se
+  · TrollStore             @0x568a9c: ind.setEnvironmentKind:.prefersNativeTheosPackaging.setPrefersNativeTheosPackaging:._hasJailbreakEvidence._hasTrollStore._prefersNativeTheosPackaging._rootMode._rootModeString._familyName._brandName._launcherDisplayName._launcherB
+  · TrollStore             @0x568c21: hasRootHideRuntimeFilesystemEvidence:.hasRootHideIdentityFilesystemEvidence:.hasRootHidePrebootEvidence.detectTrollStoreFlavorWithApplicationEvidence:.resolvedBrandWithApplicationEvidence:legacyName:.setProfile:.profile._profile.c
+  · TrollStore             @0x58fc81: eKeys.T@"NSMutableDictionary",&,N,V_resolvedWorkspaceKeys.hasJailbreakEvidence.TB,N,V_hasJailbreakEvidence.hasTrollStore.TB,N,V_hasTrollStore.rootMode.Tq,N,V_rootMode.rootModeString.T@"NSString",C,N,V_rootModeString.familyName.T@"
+  · TrollStore             @0x58fc96: tionary",&,N,V_resolvedWorkspaceKeys.hasJailbreakEvidence.TB,N,V_hasJailbreakEvidence.hasTrollStore.TB,N,V_hasTrollStore.rootMode.Tq,N,V_rootMode.rootModeString.T@"NSString",C,N,V_rootModeString.familyName.T@"NSString",C,N,V_famil
+  · TrollStore             @0x594bf7: le.shellExecutable.runtimeEnvironmentKind.runtimeJailbreakBrand.runtimeJailbreakFamily.runtimeRootMode.runtimeTrollStoreFlavor.runtimeJailbreakLauncher.runtimeJailbreakLauncherBundle.runtimeEnvironmentEvidence.runtimeHasJailbreakE
+  · TrollStore             @0x594c81: breakLauncher.runtimeJailbreakLauncherBundle.runtimeEnvironmentEvidence.runtimeHasJailbreakEvidence.runtimeHasTrollStore.CA_THEOS_PACKAGE_MODE.theosPackageMode.theosBundled.theosInstalled.theosSDK.theosSDKName.makefiles/common.mk.
+  · cydia                  @0x590217: jailbreak brand raw=%@ app=%@ bundle=%@ legacy=%@ result=%@ reason=%@ path=%@.roothidehooks.ellekit.libhooker.cydiasubstrate.libsubstrate.pspawn.dylib.libinjector.dylib.dyld:roothidehooks.dyld:ellekit.dyld:libhooker.dyld:subs
+  · cydia                  @0x5905a6: 0ver.taurine.checkra1n.xina.fugu.odyssey.chimera.serotonin.nekojb.meowbrek.bootstrap.relaxinlite.relaxin lite.cydia.libjailbreak.basebin.jbroot.Frameworks.Resources.Info.plist.theos-helper.upper.schema-key.sort-versions.q24@?
+  · substrate              @0x59021c: reak brand raw=%@ app=%@ bundle=%@ legacy=%@ result=%@ reason=%@ path=%@.roothidehooks.ellekit.libhooker.cydiasubstrate.libsubstrate.pspawn.dylib.libinjector.dylib.dyld:roothidehooks.dyld:ellekit.dyld:libhooker.dyld:substrate.dyl
+  · substrate              @0x590229: w=%@ app=%@ bundle=%@ legacy=%@ result=%@ reason=%@ path=%@.roothidehooks.ellekit.libhooker.cydiasubstrate.libsubstrate.pspawn.dylib.libinjector.dylib.dyld:roothidehooks.dyld:ellekit.dyld:libhooker.dyld:substrate.dyld:bootstrap.f
+  · substrate              @0x590286: ydiasubstrate.libsubstrate.pspawn.dylib.libinjector.dylib.dyld:roothidehooks.dyld:ellekit.dyld:libhooker.dyld:substrate.dyld:bootstrap.fs:/var/jb.fs:ellekit.fs:libhooker.fs:substrate.fs:bootstrap.fs:dopamine.fs:relaxin.fs:traditi
+  · substrate              @0x5902c5: roothidehooks.dyld:ellekit.dyld:libhooker.dyld:substrate.dyld:bootstrap.fs:/var/jb.fs:ellekit.fs:libhooker.fs:substrate.fs:bootstrap.fs:dopamine.fs:relaxin.fs:traditional.DYLD_INSERT_LIBRARIES.pspawn.env:ellekit.env:dopamine.env:
+  · rootless               @0x5903c6: :ls:.jbroot-path.identity:metadata-roothide.bootstrap:roothide.identity:preboot-roothide.launcher.launcher:%@.rootless.rootful.ElleKit / RootHide.ElleKit.Substrate.RootHide.Traditional.Relaxin.Dopamine.jailbreak.environment prof
+  · fakeroot               @0x5906a9: ontrol-field.format-control.installed-size-kb.package-build-number.verify-deb.assemble-deb.build-deb-forkless.fakeroot.bash.real.hw.ncpu.hw.logicalcpu.hw.activecpu.-f.%.%s.%lld.%o.directory.symbolic link.regular file.%%%C.date.-
+  · fakeroot               @0x5980cb: ARGET_NAME_DEFINE := $(shell echo "$(THEOS_TARGET_NAME)" | tr 'a-z' 'A-Z').endif.# CodexApp embedded forkless fakeroot.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".# CodexApp
+  · fakeroot               @0x598104: | tr 'a-z' 'A-Z').endif.# CodexApp embedded forkless fakeroot.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".# CodexApp embedded forkless fakeroot.ifeq ($(CA_THEOS_EMBEDDED),1)
+  · fakeroot               @0x59812d: ed forkless fakeroot.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".# CodexApp embedded forkless fakeroot.ifeq ($(CA_THEOS_EMBEDDED),1).FAKEROOT := "$(CA_THEOS_HELPER)" fakeroo
+  · fakeroot               @0x598154: OS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".# CodexApp embedded forkless fakeroot.ifeq ($(CA_THEOS_EMBEDDED),1).FAKEROOT := "$(CA_THEOS_HELPER)" fakeroot -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot
+  · fakeroot               @0x59819c: akeroot".# CodexApp embedded forkless fakeroot.ifeq ($(CA_THEOS_EMBEDDED),1).FAKEROOT := "$(CA_THEOS_HELPER)" fakeroot -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".else.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$
+  · fakeroot               @0x5981c2: fakeroot.ifeq ($(CA_THEOS_EMBEDDED),1).FAKEROOT := "$(CA_THEOS_HELPER)" fakeroot -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".else.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".endi
+  · fakeroot               @0x598201: HELPER)" fakeroot -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".else.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".endif.# CodexApp embedded native shell/path.ifeq ($(CA_THEOS_EMBEDD
+  · fakeroot               @0x59822a: _DIR)/fakeroot".else.FAKEROOT := $(_THEOS_CA_BASH) $(THEOS_BIN_PATH)/fakeroot.sh -p "$(_THEOS_LOCAL_DATA_DIR)/fakeroot".endif.# CodexApp embedded native shell/path.ifeq ($(CA_THEOS_EMBEDDED),1).SHELL := $(_THEOS_CA_BASH).ifneq (
+  · bootstrap              @0x5881b6: t conversation. Do not invoke remote coding-tool lifecycle calls such as coding_tools_mcp_mac.history_session_bootstrap/checkpoint/search/read or coding_tools_mcp_wind.history_session_bootstrap/checkpoint/search/read merely becau
+  · bootstrap              @0x588200: oding_tools_mcp_mac.history_session_bootstrap/checkpoint/search/read or coding_tools_mcp_wind.history_session_bootstrap/checkpoint/search/read merely because that MCP server says to bootstrap at the start of a new conversation. T
+  · bootstrap              @0x588248: coding_tools_mcp_wind.history_session_bootstrap/checkpoint/search/read merely because that MCP server says to bootstrap at the start of a new conversation. Those remote session lifecycle rules apply only when the delegated task e
+  · bootstrap              @0x590295: ibsubstrate.pspawn.dylib.libinjector.dylib.dyld:roothidehooks.dyld:ellekit.dyld:libhooker.dyld:substrate.dyld:bootstrap.fs:/var/jb.fs:ellekit.fs:libhooker.fs:substrate.fs:bootstrap.fs:dopamine.fs:relaxin.fs:traditional.DYLD_INSER
+  · bootstrap              @0x5902d2: .dyld:ellekit.dyld:libhooker.dyld:substrate.dyld:bootstrap.fs:/var/jb.fs:ellekit.fs:libhooker.fs:substrate.fs:bootstrap.fs:dopamine.fs:relaxin.fs:traditional.DYLD_INSERT_LIBRARIES.pspawn.env:ellekit.env:dopamine.env:roothide.env:
+  · bootstrap              @0x590384: S.pspawn.env:ellekit.env:dopamine.env:roothide.env:pspawn.identity:ls:.jbroot-path.identity:metadata-roothide.bootstrap:roothide.identity:preboot-roothide.launcher.launcher:%@.rootless.rootful.ElleKit / RootHide.ElleKit.Substrate
+  · bootstrap              @0x590583: let.esign.umbra.irisin.palera1n.unc0ver.taurine.checkra1n.xina.fugu.odyssey.chimera.serotonin.nekojb.meowbrek.bootstrap.relaxinlite.relaxin lite.cydia.libjailbreak.basebin.jbroot.Frameworks.Resources.Info.plist.theos-helper.upper
+
+======================================================================
+## CODE-EXEC
+  · posix_spawn            @0x5954f8: pelineStages.shellRedirect.shellPipelineRedirect.shellPipelineRedirectStages.CODEXAPP_SPAWN_EXTERNAL.forkless-posix_spawn.native-fork.shellSpawnMode..shell-redirect-probe-%@.txt.session-nested.group-nested.-agent-spawn-mode-probe.-
+  · posix_spawn            @0x69a8c5: t...s...@_objc_terminate...s...@_objc_unsafeClaimAutoreleasedReturnValue...s.. .@_open...s.. .@_pipe...s.. .@_posix_spawn...s.. .@_posix_spawn_file_actions_addclose...s.. .@_posix_spawn_file_actions_adddup2...s.. .@_posix_spawn_fil
+  · posix_spawn            @0x69a8da: ate...s...@_objc_unsafeClaimAutoreleasedReturnValue...s.. .@_open...s.. .@_pipe...s.. .@_posix_spawn...s.. .@_posix_spawn_file_actions_addclose...s.. .@_posix_spawn_file_actions_adddup2...s.. .@_posix_spawn_file_actions_destroy...s
+  · posix_spawn            @0x69a905: urnValue...s.. .@_open...s.. .@_pipe...s.. .@_posix_spawn...s.. .@_posix_spawn_file_actions_addclose...s.. .@_posix_spawn_file_actions_adddup2...s.. .@_posix_spawn_file_actions_destroy...s.. .@_posix_spawn_file_actions_init...s.. .
+  · posix_spawn            @0x69a92f:  .@_posix_spawn...s.. .@_posix_spawn_file_actions_addclose...s.. .@_posix_spawn_file_actions_adddup2...s.. .@_posix_spawn_file_actions_destroy...s.. .@_posix_spawn_file_actions_init...s.. .@_posix_spawnattr_destroy...s.. .@_posix_s
+  · posix_spawn            @0x69a959: actions_addclose...s.. .@_posix_spawn_file_actions_adddup2...s.. .@_posix_spawn_file_actions_destroy...s.. .@_posix_spawn_file_actions_init...s.. .@_posix_spawnattr_destroy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr
+  · posix_spawn            @0x69a980: ile_actions_adddup2...s.. .@_posix_spawn_file_actions_destroy...s.. .@_posix_spawn_file_actions_init...s.. .@_posix_spawnattr_destroy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags
+  · posix_spawn            @0x69a9a1: x_spawn_file_actions_destroy...s.. .@_posix_spawn_file_actions_init...s.. .@_posix_spawnattr_destroy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags...s.. .@_posix_spawnattr_setpgro
+  · posix_spawn            @0x69a9c3:  .@_posix_spawn_file_actions_init...s.. .@_posix_spawnattr_destroy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags...s.. .@_posix_spawnattr_setpgroup...s.. .@_posix_spawnattr_setsig
+  · posix_spawn            @0x69a9e1: nit...s.. .@_posix_spawnattr_destroy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags...s.. .@_posix_spawnattr_setpgroup...s.. .@_posix_spawnattr_setsigdefault...s.. .@_posix_spawnp.
+  · posix_spawn            @0x69aa03: oy...s.. .@_posix_spawnattr_getflags...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags...s.. .@_posix_spawnattr_setpgroup...s.. .@_posix_spawnattr_setsigdefault...s.. .@_posix_spawnp...s.. .@_pread...s.. .@_printf...s
+  · posix_spawn            @0x69aa26: s...s.. .@_posix_spawnattr_init...s.. .@_posix_spawnattr_setflags...s.. .@_posix_spawnattr_setpgroup...s.. .@_posix_spawnattr_setsigdefault...s.. .@_posix_spawnp...s.. .@_pread...s.. .@_printf...s.. .@_putchar...s.. .@_read...s.. .
+  · system                 @0x560732: tViewController:.initWithRootViewController:.view.configureWithOpaqueBackground.surfaceColor.primaryTextColor.systemFontOfSize:weight:.dictionaryWithObjects:forKeys:count:.setTitleTextAttributes:.navigationBar.setStandardAppea
+  · system                 @0x567557: n:.stringByPaddingToLength:withString:startingAtIndex:.tokensForCommand:.tokens:containAny:.text:containsAny:.systemImageNamed:.verbForKind:.symbolNameForKind:.setKind:.identifier.setIdentifier:.setName:.title.setTitle:.summar
+  · system                 @0x568bc9: tKind.refresh.mainBundle.executablePath.caseInsensitiveCompare:.scanApplicationEvidence.hasRootHideRuntimeFilesystemEvidence:.hasRootHideIdentityFilesystemEvidence:.hasRootHidePrebootEvidence.detectTrollStoreFlavorWithApplicat
+  · system                 @0x568bf0: .caseInsensitiveCompare:.scanApplicationEvidence.hasRootHideRuntimeFilesystemEvidence:.hasRootHideIdentityFilesystemEvidence:.hasRootHidePrebootEvidence.detectTrollStoreFlavorWithApplicationEvidence:.resolvedBrandWithApplicati
+  · system                 @0x5696eb: yTemplate.previousTenAgentTemplate.previousTenAgentLegacyTemplate.initPrivate.debugEnabled.isCategoryEnabled:.systemUptime.normalizedCategory:.throttleLock.throttleTimes.logsDirectory.initWithLogFilePath:defaults:.localeWithLo
+  · system                 @0x56c8ba: erfaceStyle:.userInterfaceStyle.colorWithWhite:alpha:.colorWithDynamicProvider:.neutralLight:dark:.labelColor.systemBackgroundColor.secondaryLabelColor.separatorColor.systemBlueColor.setMode:.chatBackgroundColor.raisedSurfaceC
+  · system                 @0x56c8f3: orWithDynamicProvider:.neutralLight:dark:.labelColor.systemBackgroundColor.secondaryLabelColor.separatorColor.systemBlueColor.setMode:.chatBackgroundColor.raisedSurfaceColor.controlFillColor.userMessageColor.sendButtonColor.se
+  · system                 @0x56e043: nternalWorkspaces.stringByReplacingMatchesInString:options:range:withTemplate:.colorWithRed:green:blue:alpha:.systemRedColor.systemPurpleColor.initWithString:.monospacedSystemFontOfSize:weight:.pointSize.initWithString:attribu
+  · system                 @0x56e052: es.stringByReplacingMatchesInString:options:range:withTemplate:.colorWithRed:green:blue:alpha:.systemRedColor.systemPurpleColor.initWithString:.monospacedSystemFontOfSize:weight:.pointSize.initWithString:attributes:.appendAttr
+  · system                 @0x56e1ab: NSIText:baseFont:baseColor:.intrinsicContentSize.drawTextInRect:.detailContainer.isHidden.convertRect:toView:.systemGreenColor.addAttribute:value:range:.renderedDetailForText:kind:baseColor:.clearColor.contentView.setTranslate
+  · system                 @0x56e316: ePriority:forAxis:.monospacedDigitSystemFontOfSize:weight:.buttonWithType:.configurationWithPointSize:weight:.systemImageNamed:withConfiguration:.setImage:forState:.setAccessibilityLabel:.handleStop.addTarget:action:forControl
+  · system                 @0x56f237: Key:.setRunningSheenLayer:._runningSheenLayer._lastSheenWidth.availableSymbol:fallback:.symbolNameForCommand:.systemYellowColor.accentColorForToolItem:.systemPinkColor.systemCyanColor.systemOrangeColor.systemIndigoColor.comman
+  · ldid                   @0x58b0de: dfile.read_file.file_read.ocr.show.$theos.${theos}.ca_theos_._theos_platform_./theos/.theos/makefiles..theos/.ldid.dpkg.dpkg-deb.nic.pl.logos.pl.make.package.package-messages.install.tipa.tipa-lite.which.whereis.-v.-V.sh.zsh
+  · ldid                   @0x596746:  %@\n.clang launch     %@  %@\n.make launch      %@  %@\n.perl launch      %@  %@\n.linker launch    %@  %@\n.ldid launch      %@  %@\n.package tools    %@\n.dpkg-deb launch  %@  %@\n.tar launch       %@  %@\n.gzip launch   
+  · ldid                   @0x597412: duleCache=%@.raw.githubusercontent.com.usr/lib/llvm-16/bin/clang.usr/bin/make.usr/bin/perl.usr/bin/ld.usr/bin/ldid.usr/bin/dpkg-deb.theos/makefiles/common.mk.theos/sdks/iPhoneOS16.5.sdk/SDKSettings.plist.runtime executable m
+  · codex-sign             @0x58470e: unt.activeRootProcessCount.lastPID.lastExitStatus.lastExitWasRoot.-agent-runtime.TB,R,N.TQ,R,N./.TheosRuntime.codex-sign.bash.git.git-remote-http.rg.CODEXAPP_UPDATE_TMP_ROOT.staging.codex-code-mode-host.CodexUpdate-.codex-version.
+  · codex-sign             @0x597518: grade: %@.runtime entitlement upgrade executable union metadata=%lu scanned=%lu total=%lu.executables.Helpers/codex-sign..installing.metadata_url.archive_bytes.tar_bytes.TheosRuntime.part%02lu.download.-agent-clone-path.usr.sbin.l
+  · codex-sign             @0x59c89a: in.%@:.%@:%@:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/jb/usr/bin:/var/jb/bin.:%@.-agent-chmod-helper.codex-sign exists but is not executable path=%@ error=%@.v0123456789.-..-.codex.deb.-agent-install-codex-runtime.-agent-
+  · runtime-manifest       @0x5948ed: V_order.optional.TB,N,V_optional.T@"NSDictionary",&,N,V_install.raw.T@"NSDictionary",&,N,V_raw.RuntimeCatalog.runtime-manifest.json.Theos.q24@?0@"CARuntimeCatalogEntry"8@"CARuntimeCatalogEntry"16.catalog refreshed entries=%lu new=%lu ch
+  · runtime-manifest       @0x59bb1c:  upgrade required installed=%ld target=%ld.embedded adapter upgrade %@ revision=%ld remoteAllowed=%d.complete.runtime-manifest.json.tmp.TheosRuntime.tar.gz.download.TheosRuntime.bundle.json.download.-agent-remove-theos-runtime.bin/tar.b
+  · RuntimeManifest        @0x593596: ng",C,N,V_keyPath.CAPythonEnvironmentDidChangeNotification.CAPythonEnvironmentIdentityDidChangeNotification.CARuntimeManifestURL.app.codex.python-runtime.lastProgressTime.Td,N,V_lastProgressTime.PythonHome.lib/python3.13/os.py.python_v
+  · install                @0x560490: re.setLastRuntimeSourceNoticeSignature:.showToast:inView:.prepareTheosRuntimeIfAuthorized.activeWorkspacePath.installedVersion.executablePathWithFallback.setLastCatalogRuntimeSignature:.items.kind.name.isInternalMCPName:.lastEr
+  · install                @0x5615b9: nature._lastRuntimeSourceNoticeSignature._chatViewController.init.removeObserver:.dealloc.started.setStarted:.installAudioObserversIfNeeded.configureAudioSession.startSilentAudio.renewBackgroundTask.startPulseTimer.stopPulseTim
+  · install                @0x567626: le.setTitle:.summary.setSummary:.scope.setScope:.setPath:.body.setBody:.detail.setDetail:.enabled.setEnabled:.installed.setInstalled:._enabled._installed._kind._identifier._name._title._summary._scope._path._body._detail.setObj
+  · install                @0x567648: cope.setScope:.setPath:.body.setBody:.detail.setDetail:.enabled.setEnabled:.installed.setInstalled:._enabled._installed._kind._identifier._name._title._summary._scope._path._body._detail.setObject:atIndexedSubscript:.sortedArra
+  · install                @0x569ddf: on:.setProgress:.success.setDone:._success._destination._progress._done.rootForID:.safeID:.revisionPathForID:.installedRevisionForEntry:.install.safeRelativePath:.revision.states.mutableState:.cacheDirectoryForEntry:.postNotifi
+  · install                @0x569dfa: tDone:._success._destination._progress._done.rootForID:.safeID:.revisionPathForID:.installedRevisionForEntry:.install.safeRelativePath:.revision.states.mutableState:.cacheDirectoryForEntry:.postNotificationName:object:userInfo:
+  · install                @0x56a0c5: ing:signPaths:error:.signPaths:staging:error:.probePayloadForEntry:error:.downloadAndInstallEntry:completion:.installedSizeForEntry:.updateAvailable:.removeRuntimeID:error:.installedPathDirectories.installedEnvironmentValues.pr
+  · install                @0x56a104: try:error:.downloadAndInstallEntry:completion:.installedSizeForEntry:.updateAvailable:.removeRuntimeID:error:.installedPathDirectories.installedEnvironmentValues.probeEntry:completion:.setStates:._states.shortName.setSlug:.desc
+  · install                @0x56a11d: tallEntry:completion:.installedSizeForEntry:.updateAvailable:.removeRuntimeID:error:.installedPathDirectories.installedEnvironmentValues.probeEntry:completion:.setStates:._states.shortName.setSlug:.desc.setDesc:.supportsReasoni
+  · install                @0x56b15d: irectory:.setKeyPath:._directory._keyPath.lastProgressTime.setLastProgressTime:._lastProgressTime.runtimeRoot.installedManifest.pythonHome.remoteRevision.installedRevision.setDownloadProgress:.setDownloadStage:.setPreparationPr
+  · install                @0x56b189: stProgressTime.setLastProgressTime:._lastProgressTime.runtimeRoot.installedManifest.pythonHome.remoteRevision.installedRevision.setDownloadProgress:.setDownloadStage:.setPreparationProgress:.setPreparationStage:.isValidHTTPSURL
+  · install                @0x56b519: dArchiveForRemoteEntry.setIsRecoveringRuntime:.downloadAndInstallLatestRuntimeWithCompletion:.updateAvailable.installedSizeBytes.removeInstalledRuntime:.setRuntimeRoot:.downloadProgress.preparationProgress.downloadStage.prepara
+  · deb                    @0x3f39f0: *ld%s.find: %sttern: %ls: %s..%08lx: .option: '%s' -> rm: %s: removed mkdir: %........ed mode:ommand nLANGUAGEdebian-bcontrol.data.tar%s: %s: grep: invalid pamv: unsupported renamed '%s' -> uniq: extra operchmod: unsupportd
+  · deb                    @0x560aff: nformsToProtocol:.respondsToSelector:.retain.release.autorelease.retainCount.zone.hash.superclass.description.debugDescription.applicationDidFinishLaunching:.application:willFinishLaunchingWithOptions:.application:didFinish
+  · deb                    @0x5696cb: nstruction.currentTemplate.legacyTemplate.previousTenAgentTemplate.previousTenAgentLegacyTemplate.initPrivate.debugEnabled.isCategoryEnabled:.systemUptime.normalizedCategory:.throttleLock.throttleTimes.logsDirectory.initWit
+  · deb                    @0x5725d5: ments.composerPastedTexts.refreshAttachmentPlaceholder.flushStreamingMessages.saveActiveConversation.refreshSidebarRunningState.historySidebar.approvedPlanExecutionConversationId.setApprovedPlanExecutionConversationId:.setA
+  · deb                    @0x5725f0: efreshAttachmentPlaceholder.flushStreamingMessages.saveActiveConversation.refreshSidebarRunningState.historySidebar.approvedPlanExecutionConversationId.setApprovedPlanExecutionConversationId:.setApprovedPlanDispatchConversa
+  · deb                    @0x575771: oserPlaceholderIndex:.setThinkingSummaryCard:.setThinkingStartedAt:.syncGlobalCapabilitiesToChatEngine.freshSidebarRecord:sidebar:.advanceConversationSelectionForRecord:.detachActiveConversationRunIfNeeded.attachEngineForRe
+  · deb                    @0x57577f: rIndex:.setThinkingSummaryCard:.setThinkingStartedAt:.syncGlobalCapabilitiesToChatEngine.freshSidebarRecord:sidebar:.advanceConversationSelectionForRecord:.detachActiveConversationRunIfNeeded.attachEngineForRecord:.setQueue
+  · deb                    @0x57593f: ssibilityViewIsModal:.setAccessibilityTraits:.closeHistoryDrawer.setHistoryDrawerWidthConstraint:.setHistorySidebar:.setHistorySidebarNavigationController:.setHistoryDrawerOverlay:.setHistoryDrawer:.handleHistoryDismissPan:
+  · deb                    @0x575952: l:.setAccessibilityTraits:.closeHistoryDrawer.setHistoryDrawerWidthConstraint:.setHistorySidebar:.setHistorySidebarNavigationController:.setHistoryDrawerOverlay:.setHistoryDrawer:.handleHistoryDismissPan:.setHistoryDismissG
+  · deb                    @0x575a09: dleHistoryDismissPan:.setHistoryDismissGesture:.setAccessibilityElementsHidden:.historyDrawerOverlay.historySidebarNavigationController.willMoveToParentViewController:.removeFromParentViewController.setHistoryDrawerClosing:
+  · deb                    @0x575c7f: ller.thinkingStartedAt.activateConversation:.expandWorkspaceAtPath:.conversationHasRunningWork:.conversationSidebar:didRequestNewConversationForWorkspace:.handleNewChat.isThreadNotFoundDeleteError:.bestEffortDeleteCodexThre
+  · deb                    @0x575da4: nsportError:.verifyPermanentThreadDeletion:allowRetryDelete:completion:.finishPermanentConversationDeletion:sidebar:background:deletingActive:.deleteWorkspaceConversationRecords:index:completion:.requestPermanentThreadDelet
+  · dpkg                   @0x56c0db: d:environment:timeout:completion:.shellValuesFromOutput:.compilerPath.makePath.perlPath.linkerPath.signerPath.dpkgDebPath.runWithCompletion:.formattedReport:.reportSections:.remoteStateDirectory.bundleCodexExecutable.bundleC
+  · dpkg                   @0x56d489: _defaultSDKPath._pathDirectories._preparationError._compilerPath._makePath._perlPath._linkerPath._signerPath._dpkgDebPath._packageBuilderPath._moduleCachePath._remoteManifest._remoteManifestError._installedSizeCache._prepara
+  · dpkg                   @0x58b0e3: .read_file.file_read.ocr.show.$theos.${theos}.ca_theos_._theos_platform_./theos/.theos/makefiles..theos/.ldid.dpkg.dpkg-deb.nic.pl.logos.pl.make.package.package-messages.install.tipa.tipa-lite.which.whereis.-v.-V.sh.zsh.-lc.
+  · dpkg                   @0x58b0e8: _file.file_read.ocr.show.$theos.${theos}.ca_theos_._theos_platform_./theos/.theos/makefiles..theos/.ldid.dpkg.dpkg-deb.nic.pl.logos.pl.make.package.package-messages.install.tipa.tipa-lite.which.whereis.-v.-V.sh.zsh.-lc.exec-
+  · dpkg                   @0x596776:  %@  %@\n.perl launch      %@  %@\n.linker launch    %@  %@\n.ldid launch      %@  %@\n.package tools    %@\n.dpkg-deb launch  %@  %@\n.tar launch       %@  %@\n.gzip launch      %@  %@\n.xz launch        %@  %@\n.helper sh 
+  · dpkg                   @0x59741f: raw.githubusercontent.com.usr/lib/llvm-16/bin/clang.usr/bin/make.usr/bin/perl.usr/bin/ld.usr/bin/ldid.usr/bin/dpkg-deb.theos/makefiles/common.mk.theos/sdks/iPhoneOS16.5.sdk/SDKSettings.plist.runtime executable metadata unusa
+  · dpkg                   @0x59b064: cut -f 1)" >> "$@"$(ECHO_END).endif.# CodexApp embedded environment package mode.# CodexApp embedded verified dpkg-deb.ifeq ($(CA_THEOS_EMBEDDED),1)..$(ECHO_NOTHING)COPYFILE_DISABLE=1 $(FAKEROOT) -r $(_THEOS_PLATFORM_DPKG_DE
+  · dpkg                   @0x59b16c: ION) -z$(THEOS_PLATFORM_DEB_COMPRESSION_LEVEL) -b "$(THEOS_STAGING_DIR)" "$(_THEOS_DEB_PACKAGE_FILENAME)"; ca_dpkg_rc=$$?; if [ "$$ca_dpkg_rc" -eq 0 ]; then exit 0; fi; if [ "$$ca_dpkg_rc" -eq 141 ] && "$(CA_THEOS_HELPER)" v
+  · dpkg                   @0x59b184: DEB_COMPRESSION_LEVEL) -b "$(THEOS_STAGING_DIR)" "$(_THEOS_DEB_PACKAGE_FILENAME)"; ca_dpkg_rc=$$?; if [ "$$ca_dpkg_rc" -eq 0 ]; then exit 0; fi; if [ "$$ca_dpkg_rc" -eq 141 ] && "$(CA_THEOS_HELPER)" verify-deb "$(_THEOS_DEB_
+  · dpkg                   @0x59b1b2: )" "$(_THEOS_DEB_PACKAGE_FILENAME)"; ca_dpkg_rc=$$?; if [ "$$ca_dpkg_rc" -eq 0 ]; then exit 0; fi; if [ "$$ca_dpkg_rc" -eq 141 ] && "$(CA_THEOS_HELPER)" verify-deb "$(_THEOS_DEB_PACKAGE_FILENAME)"; then printf 'CodexApp: dpk
+  · dpkg                   @0x59b221: pkg_rc" -eq 141 ] && "$(CA_THEOS_HELPER)" verify-deb "$(_THEOS_DEB_PACKAGE_FILENAME)"; then printf 'CodexApp: dpkg-deb SIGPIPE after verified package; accepting artifact\n' >&2; exit 0; fi; exit "$$ca_dpkg_rc"$(ECHO_END).els
+  · dpkg                   @0x59b27c:  printf 'CodexApp: dpkg-deb SIGPIPE after verified package; accepting artifact\n' >&2; exit 0; fi; exit "$$ca_dpkg_rc"$(ECHO_END).else..$(ECHO_NOTHING)COPYFILE_DISABLE=1 $(FAKEROOT) -r $(_THEOS_PLATFORM_DPKG_DEB) -Z$(_THEOS_
+
+======================================================================
+## PRIVACY-SOURCES
+  · UIPasteboard           @0x698184: _CLASS_$_UINotificationFeedbackGenerator.....@_OBJC_CLASS_$_UIPanGestureRecognizer.............@_OBJC_CLASS_$_UIPasteboard.............@_OBJC_CLASS_$_UIProgressView.....@_OBJC_CLASS_$_UIRefreshControl..P.@_OBJC_CLASS_$_UIResponder..
+  · UIPasteboard           @0x6aa782: onController._OBJC_CLASS_$_UINotificationFeedbackGenerator._OBJC_CLASS_$_UIPanGestureRecognizer._OBJC_CLASS_$_UIPasteboard._OBJC_CLASS_$_UIProgressView._OBJC_CLASS_$_UIRefreshControl._OBJC_CLASS_$_UIResponder._OBJC_CLASS_$_UIScreen.
+  · AVCaptureDevice        @0x6992af: LimitOne..@_kSecReturnData...@_AVLayerVideoGravityResizeAspect.............@_AVMediaTypeVideo..@_OBJC_CLASS_$_AVCaptureDevice.s....@_OBJC_CLASS_$_AVPlayer.............@_OBJC_CLASS_$_AVPlayerLayer..............@_OBJC_CLASS_$_AVPlayerVie
+  · AVCaptureDevice        @0x6a9702: FileKey._NSUnderlineStyleAttributeName._OBJC_CLASS_$_AVAudioPlayer._OBJC_CLASS_$_AVAudioSession._OBJC_CLASS_$_AVCaptureDevice._OBJC_CLASS_$_AVPlayer._OBJC_CLASS_$_AVPlayerLayer._OBJC_CLASS_$_AVPlayerViewController._OBJC_CLASS_$_CABasic
+  · WKWebView              @0x59e604: de=%ld.v24@?0@"WKContentRuleList"8@"NSError"16.share file=%@ via stable activity sheet.about:blank.webView.T@"WKWebView",&,N,V_webView.playerController.T@"AVPlayerViewController",&,N,V_playerController.quickLookController.T@"QLPr
+  · WKWebView              @0x5a6425: eContentSize.T{CGSize=dd},N,V_baseContentSize.didApplyInitialFit.TB,N,V_didApplyInitialFit.fallbackWebView.T@"WKWebView",&,N,V_fallbackWebView.fallbackMessageHandler.T@"CAMermaidWeakScriptMessageHandler",&,N,V_fallbackMessageHand
+  · WKWebView              @0x5bf132: g>"24.q32@0:8@16q24.@32@0:8@16q24.d32@0:8@16q24.@"UITextField".@"UIBarButtonItem".@"UITableViewCell".v40@0:8@"WKWebView"16@"WKNavigationAction"24@?<v@?q>32.v48@0:8@"WKWebView"16@"WKNavigationAction"24@"WKWebpagePreferences"32@?<v
+  · WKWebView              @0x5bf169: tField".@"UIBarButtonItem".@"UITableViewCell".v40@0:8@"WKWebView"16@"WKNavigationAction"24@?<v@?q>32.v48@0:8@"WKWebView"16@"WKNavigationAction"24@"WKWebpagePreferences"32@?<v@?q@"WKWebpagePreferences">40.v40@0:8@"WKWebView"16@"WK
+  · WKWebView              @0x5bf1d0: 8@0:8@"WKWebView"16@"WKNavigationAction"24@"WKWebpagePreferences"32@?<v@?q@"WKWebpagePreferences">40.v40@0:8@"WKWebView"16@"WKNavigationResponse"24@?<v@?q>32.v32@0:8@"WKWebView"16@"WKNavigation"24.v40@0:8@"WKWebView"16@"WKNavigat
+  · WKWebView              @0x5bf209: erences"32@?<v@?q@"WKWebpagePreferences">40.v40@0:8@"WKWebView"16@"WKNavigationResponse"24@?<v@?q>32.v32@0:8@"WKWebView"16@"WKNavigation"24.v40@0:8@"WKWebView"16@"WKNavigation"24@"NSError"32.v40@0:8@"WKWebView"16@"NSURLAuthentica
+  · WKWebView              @0x5bf230: ">40.v40@0:8@"WKWebView"16@"WKNavigationResponse"24@?<v@?q>32.v32@0:8@"WKWebView"16@"WKNavigation"24.v40@0:8@"WKWebView"16@"WKNavigation"24@"NSError"32.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?q@"NSURLCredentia
+  · WKWebView              @0x5bf263: @?<v@?q>32.v32@0:8@"WKWebView"16@"WKNavigation"24.v40@0:8@"WKWebView"16@"WKNavigation"24@"NSError"32.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?q@"NSURLCredential">32.v24@0:8@"WKWebView"16.v40@0:8@"WKWebView"16@"
+  · WKWebView              @0x5bf2b6: on"24@"NSError"32.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?q@"NSURLCredential">32.v24@0:8@"WKWebView"16.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?B>32.v40@0:8@"WKWebView"16@"WKNavigationAction
+  · WKWebView              @0x5bf2cc: 0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?q@"NSURLCredential">32.v24@0:8@"WKWebView"16.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?B>32.v40@0:8@"WKWebView"16@"WKNavigationAction"24@"WKDownload"32.v40
+  · WKWebView              @0x5bf30d: redential">32.v24@0:8@"WKWebView"16.v40@0:8@"WKWebView"16@"NSURLAuthenticationChallenge"24@?<v@?B>32.v40@0:8@"WKWebView"16@"WKNavigationAction"24@"WKDownload"32.v40@0:8@"WKWebView"16@"WKNavigationResponse"24@"WKDownload"32.@56@0:
+  · WKWebView              @0x5bf349: SURLAuthenticationChallenge"24@?<v@?B>32.v40@0:8@"WKWebView"16@"WKNavigationAction"24@"WKDownload"32.v40@0:8@"WKWebView"16@"WKNavigationResponse"24@"WKDownload"32.@56@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16@48.v48@0:8@16{CGPoint=dd
+  · WKWebsiteDataStore     @0x699017: .............@_OBJC_CLASS_$_WKWebView......`.@_OBJC_CLASS_$_WKWebViewConfiguration.............@_OBJC_CLASS_$_WKWebsiteDataStore..@_OBJC_METACLASS_$_WKWebView...j..@_OBJC_CLASS_$_SFSafariViewController..............@_OBJC_CLASS_$_QLPrevie
+  · WKWebsiteDataStore     @0x6aab3e: troller._OBJC_CLASS_$_WKUserScript._OBJC_CLASS_$_WKWebView._OBJC_CLASS_$_WKWebViewConfiguration._OBJC_CLASS_$_WKWebsiteDataStore._OBJC_EHTYPE_$_NSException._OBJC_METACLASS_$_NSObject._OBJC_METACLASS_$_UIButton._OBJC_METACLASS_$_UICollecti
+
+======================================================================
+## NET-ENDPOINTS
+  · openrouter             @0x5921df: alog.json.https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json.https://openrouter.ai/api/v1/models.https://api.frankfurter.dev/v2/rate/usd/cny.CAModelPricingUSDToCNYRate.CAModelPricingUSDToCN
+  · openrouter             @0x5926b7: context.size.threshold.experimental.modes.fast.priority.pricing.completion.input_cache_read.input_cache_write.openrouter.openrouter/%@.CodexApp/1.0.User-Agent.HTTP %ld.litellm.OK.model pricing synced models=%lu reasoning=%lu sourc
+  · openrouter             @0x5926c2: e.threshold.experimental.modes.fast.priority.pricing.completion.input_cache_read.input_cache_write.openrouter.openrouter/%@.CodexApp/1.0.User-Agent.HTTP %ld.litellm.OK.model pricing synced models=%lu reasoning=%lu sources=models.d
+  · openrouter             @0x592745: p/1.0.User-Agent.HTTP %ld.litellm.OK.model pricing synced models=%lu reasoning=%lu sources=models.dev,litellm,openrouter.model pricing sync failed reason=%@._pricing_key._pricing_confirmed_alias.%@|%@|%lu.score.same-model-family._
+  · openrouter             @0x592df0: nai/.google/.google-ai-studio/.gemini/.vertex_ai/.vertex-ai/.anthropic/.xai/.deepseek/.mistral/.cohere/.groq/.openrouter/.-thinking.-think.:thinking.-high.:high.exact-model-id.case-insensitive-model-id.same-model-with-provider-pre
+  · base_url               @0x588b47: ures.code_mode=true.features.standalone_web_search=true.web_search="live".model_providers.custom={ name="%@", base_url="%@", env_key="CODEX_CUSTOM_API_KEY", wire_api="responses", requires_openai_auth=false, supports_standalone_w
+  · proxy                  @0x58497b: IME=1.LSApplicationProxy.applicationProxyForIdentifier:.LSApplicationProxy unavailable.registered application proxy missing.applicationIdentifier.dataContainerURL.registered bundle identifier mismatch.invalid data container U
+  · proxy                  @0x591b0d: ths.restoreFailed.CAManagedRuntimeDesired..runtime.tar.gz.%02x.RuntimeDownloads.Managed.github.com.https://gh-proxy.org/.https://ghproxy.net/.PYTHONHOME.PYTHONPATH.%@:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin.sign_paths.pr
+  · proxy                  @0x591b22: anagedRuntimeDesired..runtime.tar.gz.%02x.RuntimeDownloads.Managed.github.com.https://gh-proxy.org/.https://ghproxy.net/.PYTHONHOME.PYTHONPATH.%@:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin.sign_paths.probe.entitlements.plis
+  · proxy                  @0x5936b0: evision.archive_sha256.archive_url.download_size.unpacked_size.runtime_format.0123456789abcdefABCDEF.download_proxy_prefixes.Python.format.Python.framework/Python.Python Runtime CoreTrust frameworks %lu/%lu.-agent-install-pyt
+  · 127.0.0.1              @0x584db7: llout items: thread.not found.late subagent cleanup ignored after terminal child turn.rmcp::transport::worker.127.0.0.1:27018/mcp.Transport channel closed.internal CodexApp MCP bridge is unavailable; user-facing MCP discovery wil
+
+======================================================================
+## LINKED LIBRARIES / PATHS
+  /System/Library/CoreServices/SystemVersion.plist
+  /System/Library/Frameworks/AVFAudio.framework/AVFAudio
+  /System/Library/Frameworks/AVFoundation.framework/AVFoundation
+  /System/Library/Frameworks/AVKit.framework/AVKit
+  /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+  /System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+  /System/Library/Frameworks/CoreMedia.framework/CoreMedia
+  /System/Library/Frameworks/CoreVideo.framework/CoreVideo
+  /System/Library/Frameworks/Foundation.framework/Foundation
+  /System/Library/Frameworks/ImageIO.framework/ImageIO
+  /System/Library/Frameworks/PhotosUI.framework/PhotosUI
+  /System/Library/Frameworks/QuartzCore.framework/QuartzCore
+  /System/Library/Frameworks/QuickLook.framework/QuickLook
+  /System/Library/Frameworks/SafariServices.framework/SafariServices
+  /System/Library/Frameworks/Security.framework/Security
+  /System/Library/Frameworks/UIKit.framework/UIKit
+  /System/Library/Frameworks/WebKit.framework/WebKit
+  /usr/lib//var/jb/basebin//usr/bin/palera1/usr/libexec/cyd
+  /usr/lib/dyld
+  /usr/lib/libSystem.B.dylib
+  /usr/lib/libobjc.A.dylib
+  /usr/lib/libz.1.dylib
+  /usr/local/bin
+
+======================================================================
+## ObjC CLASS/METHOD-LIKE SYMBOLS
+  CAANSIParser, CAAccountInfoBridge, CAAccountProfile, CAActiveRunIndicator, CAActivityCardCell, CAAgentBlock, CAAgentCapsuleView, CAAgentDisplayName, CAAgentIcon, CAAgentIdentity, CAAgentIdentityDidChangeNotification, CAAgentProfileViewController, CAAgentProgressRingView, CAAgentRuntimeMain, CAAgentRuntimeManager, CAAgentRuntimeProcess, CAAgentRuntimeShouldHandleArguments, CAAgentStatusDetailViewController, CAAgentStatusKeyValueCell, CAAgentStatusRowCell, CAAgentStatusTextCell, CAAgentStatusViewController, CAAgentTurn, CAAgentTurnHeaderView, CAAppDelegate, CAAppServerSession, CAArchiveExtractor, CAArtifactCardsView, CAArtifactPreview, CAArtifactPreviewViewController, CAArtifactResolver, CABackgroundKeepAlive, CABasicAnimation, CABottomFollowTarget, CAChatCollectionView, CAChatDisplayModeDidChangeNotification, CAChatDisplayPreferences, CAChatTextLabel, CAChatViewController, CACodeBlockView, CACodexEngine, CACodexEngineDelegate, CACodexMetadataReader, CACommandSemantic, CACompactOperationsCell, CAComposerAttachmentCell, CAComposerAttachmentGridView, CAComposerCameraCoordinator, CAComposerCatalog, CAComposerCatalogDidChangeNotification, CAComposerCatalogItem, CAComposerPopupCell, CAComposerPopupItem, CAComposerPopupSection, CAComposerPopupView, CAComposerReferenceMetadata, CAComposerReferenceMetadataAttribute, CAComposerTextView, CAContextGaugeView, CAContextUsageViewController, CAConversationBackgroundRun, CAConversationCell, CAConversationMigration, CAConversationRecord, CAConversationSidebarDelegate, CAConversationSidebarViewController, CAConversationStore, CACornerCurveContinuous, CACurrentMediaTime, CADiagnosticsRingView, CADiagnosticsViewController, CADisplayLink, CAExecutionEnvironment, CAExecutionEnvironmentProfile, CAExtensionListViewController, CAExtensionsViewController, CAFileToolMain, CAFileToolShouldHandleArguments, CAFrameRateRangeMake, CAGitChangeCell, CAGitChangeStyle, CAGitChangesViewController, CAGitChipLabel, CAGitCleanCell, CAGitCommitBar, CAGitCountsString, CAGitDiffResult, CAGitDiffViewController, CAGitDigitFont, CAGitEmptyStateView, CAGitFont, CAGitGroupHeaderView, CAGitPill, CAGitRepository, CAGitSanitizedURL, CAGitSna, CAGitSnapshot, CAGitSummaryCell, CAGitSummaryModel, CAGlobalInstructionDefaults, CAGradientLayer, CAINFO, CAInlineMediaPreview, CAInlineZoomImagePreview, CAKeyframeAnimation, CALayer, CALineCapRound, CALogEntry, CALogEntryCell, CALogViewerViewController, CALogger, CAMERA, CAMTArtifactWebView, CAMTBadgeLabel, CAManagedRuntimeDesired, CAManagedRuntimeDownload, CAManagedRuntimeEnvironment, CAManagedRuntimeEnvironmentDidChangeNotific, CAMarkdownBlock, CAMarkdownTableView
+
+##############################################################################
+# FILE: MTShareExtension 100208 bytes
+
+======================================================================
+## SUPABASE/EXFIL
+
+======================================================================
+## AUTH/KEYS
+
+======================================================================
+## KEYCHAIN
+
+======================================================================
+## FILESYSTEM
+
+======================================================================
+## ELEVATED
+
+======================================================================
+## CODE-EXEC
+  · system                 @0xb392: array.stringByAppendingPathExtension:.registeredTypeIdentifiers.UUIDString..setBackgroundColor:.setTextColor:.systemFontOfSize:weight:..objectForKey:.isEqualToString:..loadFileRepresentationForTypeIdentifier:completionHandler:
+  · system                 @0xb54a: :.constraintEqualToAnchor:..inputItems..count.setAxis:..numberWithDouble:.addTarget:action:forControlEvents:..systemBackgroundColor.setTextAlignment:.dictionaryWithObjects:forKeys:count:..leadingAnchor.setHidden:..pathExtensio
+  · system                 @0x1776b: cingOccurrencesOfString:withString:._objc_msgSend$stringWithFormat:._objc_msgSend$suggestedName._objc_msgSend$systemBackgroundColor._objc_msgSend$systemFontOfSize:weight:._objc_msgSend$timeIntervalSince1970._objc_msgSend$title
+  · system                 @0x1778f: _objc_msgSend$stringWithFormat:._objc_msgSend$suggestedName._objc_msgSend$systemBackgroundColor._objc_msgSend$systemFontOfSize:weight:._objc_msgSend$timeIntervalSince1970._objc_msgSend$titleLabel._objc_msgSend$trailingAnchor._
+
+======================================================================
+## PRIVACY-SOURCES
+
+======================================================================
+## NET-ENDPOINTS
+
+======================================================================
+## LINKED LIBRARIES / PATHS
+  /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+  /System/Library/Frameworks/Foundation.framework/Foundation
+  /System/Library/Frameworks/UIKit.framework/UIKit
+  /System/Library/Frameworks/UniformTypeIdentifiers.framework/UniformTypeIdentifiers
+  /usr/lib/dyld
+  /usr/lib/libSystem.B.dylib
+  /usr/lib/libobjc.A.dylib
+
+======================================================================
+## ObjC CLASS/METHOD-LIKE SYMBOLS
+  CAMTShareConversationKey, CAMTShareGroup, CAMTShareInbox, CAMTShareViewController, MTShareActiveConversation, MTShareExtension
+
+##############################################################################
+# FILE: codex-sign 3514496 bytes
+
+======================================================================
+## SUPABASE/EXFIL
+
+======================================================================
+## AUTH/KEYS
+  · password               @0x25ce98: t set.no key.no key or cert.no matching digest.no matching recipient.no matching signature.no msgsigdigest.no password.no private key.no public key.no receipt request.no signers.operation unsupported.peer key error.private key d
+  · password               @0x26570e: r-flag.eybits.eparator.erivation_function.tm.egacy.rsion.ghash.s_standard.crypto/passphrase.c.ossl_pw_set_pem_password_cb.ossl_pw_set_ossl_passphrase_cb.ossl_pw_get_passphrase.Prompt info data type incorrect.No password method s
+  · password               @0x265773: _set_pem_password_cb.ossl_pw_set_ossl_passphrase_cb.ossl_pw_get_passphrase.Prompt info data type incorrect.No password method specified.PVK.do_ui_passphrase.pass phrase.crypto/provider_child.c.crypto/provider_conf.c.providers.pr
+  · password               @0x269937: ED-CBC.seed-cbc.SEED-OFB.seed-ofb.SEED-CFB.seed-cfb.HMAC-MD5.hmac-md5.HMAC-SHA1.hmac-sha1.id-PasswordBasedMAC.password based MAC.id-DHBasedMac.Diffie-Hellman based MAC.id-it-suppLangTags.caRepository.CA Repository.id-smime-ct-co
+  · password               @0x26d82c: rror.keyblob too short.missing dek iv.not dek info.not encrypted.not proc type.no start line.problems getting password.pvk data too short.pvk too short.read key.short header.unexpected dek iv.unsupported encryption.unsupported k
+  · password               @0x26dcae: ey.i2b_PVK.crypto/pkcs12/p12_crpt.c.PKCS12_PBE_keyivgen_ex.crypto/pkcs12/p12_decr.c.PKCS12_pbe_crypt_ex.empty password.maybe wrong password.PKCS12_item_decrypt_d2i_ex.PKCS12_item_i2d_encrypt_ex.crypto/pkcs12/p12_key.c.PKCS12_key
+  · password               @0x26dcc3: s12/p12_crpt.c.PKCS12_PBE_keyivgen_ex.crypto/pkcs12/p12_decr.c.PKCS12_pbe_crypt_ex.empty password.maybe wrong password.PKCS12_item_decrypt_d2i_ex.PKCS12_item_i2d_encrypt_ex.crypto/pkcs12/p12_key.c.PKCS12_key_gen_utf8_ex.PKCS12KD
+  · password               @0x26f864: /stack/stack.c.OPENSSL_sk_reserve.OPENSSL_sk_insert.OPENSSL_sk_set.i=%d.sk_reserve.ambiguous content type.bad password read.error verifying pkcs12 mac.fingerprint size does not match digest.invalid scheme.is not a.loader incompl
+  · password               @0x26ffa8: ./dev/tty.crypto/ui/ui_openssl.c.open_console.errno=%d.Verifying - %s.Verify failure..crypto/ui/ui_util.c.PEM password callback wrapper.crypto/x509/pcy_cache.c.crypto/x509/pcy_data.c.-. (Negative).%02x%c.    .%02X.%02x%s.IPAddre
+  · password               @0x2eb295: input_....p....selection........*...structure....type........*.....+...rams....ssphrase_cb........+...a....em_password_cb........+.....*...CTX_....INSTANCE_get_decoder....do_all_provided....fr....get0_....is_a....up_ref........*
+  · password               @0x2f76a6: caching....get_passphrase....p....set_........;.....;.....;...dec....enc........;...assphrase_callback_....em_password....vk_password........;.....;.....;...ossl_passphrase_cb....pem_password_cb........;.....<.....D...entropy...
+  · password               @0x2f76b5: passphrase....p....set_........;.....;.....;...dec....enc........;...assphrase_callback_....em_password....vk_password........;.....;.....;...ossl_passphrase_cb....pem_password_cb........;.....<.....D...entropy....int....nonce..
+  · Authorization          @0x26d25f: X509v3 Attribute Mappings.holderNameConstraints.X509v3 Holder Name Constraints.authorizationValidation.X509v3 Authorization Validation.protRestrict.X509v3 Protocol Restriction.subjectAltPublicKeyInfo.X509v3 Subject Alternative Public
+
+======================================================================
+## KEYCHAIN
+
+======================================================================
+## FILESYSTEM
+  · id_rsa                 @0x32d105: d_ecdsa_with_sha3_256._ossl_der_oid_id_ecdsa_with_sha3_384._ossl_der_oid_id_ecdsa_with_sha3_512._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_224._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_256._ossl_der_oid_id_rsassa_pkcs1_v1
+  · id_rsa                 @0x32d136: _sha3_384._ossl_der_oid_id_ecdsa_with_sha3_512._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_224._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_256._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_384._ossl_der_oid_id_rsassa_pkcs1_v1
+  · id_rsa                 @0x32d167: ssl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_224._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_256._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_384._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_512._ossl_der_oid_md2WithRSAEncrypti
+  · id_rsa                 @0x32d198: ssl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_256._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_384._ossl_der_oid_id_rsassa_pkcs1_v1_5_with_sha3_512._ossl_der_oid_md2WithRSAEncryption._ossl_der_oid_md4WithRSAEncryption._ossl_der_o
+  · id_rsa                 @0x32d27b: d_md5WithRSAEncryption._ossl_der_oid_mdc2WithRSASignature._ossl_der_oid_ripemd160WithRSAEncryption._ossl_der_oid_rsaEncryption._ossl_der_oid_sha1WithRSAEncryption._ossl_der_oid_sha224WithRSAEncryption._ossl_der_oid_sha256WithR
+
+======================================================================
+## ELEVATED
+  · platform-application   @0x353068: pple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no
+  · platform-application   @0x353360: >...<string>group.wiki.qaq.codexapp</string>..</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.secu
+  · no-sandbox             @0x3530ad: dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-m
+  · no-sandbox             @0x3533bb: c_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.private.background-task.allowed...02.-com.apple
+  · AppDataContainers      @0x3531e3: >..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.private.security.container-required</key>..<false/>..<key>proc_info-allow</key
+  · AppDataContainers      @0x3534b5: ntainer-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-addressing...0B.%com.apple.security.application-groups0...g
+  · AppBundles             @0x3531a0: rue/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.priv
+  · AppBundles             @0x353481: und-task.allowed...02.-com.apple.private.security.container-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-
+  · persona-mgmt           @0x35311c: o-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-mgmt</key>..<true/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.securit
+  · persona-mgmt           @0x35338d: .</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.pri
+
+======================================================================
+## CODE-EXEC
+  · system                 @0x261325: c.lib(%lu).reason(%lu).error:%08lX:%s:%s:%s.err:%lx:%lx:%lx:%lx.<NULL>.crypto/err/err_local.h.unknown library.system library.bignum routines.rsa routines.Diffie-Hellman routines.digital envelope routines.memory buffer routines
+  · system                 @0x2615f7: es.STORE routines.SM2 routines.ESS routines.Provider routines.ENCODER routines.DECODER routines.HTTP routines.system lib.BN lib.RSA lib.DH lib.EVP lib.BUF lib.OBJ lib.PEM lib.DSA lib.X509 lib.ASN1 lib.CRYPTO lib.EC lib.BIO lib
+  · ldid                   @0x25eddb: VE.value.named_curve.value.parameters.value.implicitlyCA.EC_PRIVATEKEY.privateKey.parameters.ec_asn1_group2fieldid.ec_asn1_group2curve.crypto/ec/ec_backend.c.ossl_ec_group_todata.use-cofactor-flag.include-public.ossl_ec_key_
+  · codesign               @0x271423: rypt.CRL signing.crlsign.Any Purpose.any.OCSP helper.ocsphelper.Time Stamp signing.timestampsign.Code signing.codesign.setup_dp.othername: SmtpUTF8Mailbox:.othername: XmppAddr:.othername: SRVName:.othername: UPN:.othername: NAIR
+  · codesign               @0x327ffb: _wexpand._bread_conv._buffered_stream_init_from_buffer._buffered_stream_init_from_buffer_nocopy._bwrite_conv._codesign_sign_adhoc._csd_blob_delete._csd_blob_free._csd_blob_get_size._csd_blob_init._csd_blob_insert._csd_blob_read.
+  · codex-sign             @0x259295: AddSignatureWithErrors.Failed to encode entitlements: %@.Error while signing: %s..--adhoc-only.--entitlements.codex-sign: invalid entitlements plist..codex-sign: signed %d file(s) mode=%s..coretrust.adhoc-only.codex-sign: stat fai
+  · codex-sign             @0x2592bd: entitlements: %@.Error while signing: %s..--adhoc-only.--entitlements.codex-sign: invalid entitlements plist..codex-sign: signed %d file(s) mode=%s..coretrust.adhoc-only.codex-sign: stat failed: %s..codex-sign: thin copyfile.codex
+  · codex-sign             @0x2592f9: itlements.codex-sign: invalid entitlements plist..codex-sign: signed %d file(s) mode=%s..coretrust.adhoc-only.codex-sign: stat failed: %s..codex-sign: thin copyfile.codex-sign: thinned FAT nested Mach-O: %s..codex-sign: adhoc sign
+  · codex-sign             @0x259316:  entitlements plist..codex-sign: signed %d file(s) mode=%s..coretrust.adhoc-only.codex-sign: stat failed: %s..codex-sign: thin copyfile.codex-sign: thinned FAT nested Mach-O: %s..codex-sign: adhoc signing failed (%d): %s..codex-si
+  · codex-sign             @0x259330: -sign: signed %d file(s) mode=%s..coretrust.adhoc-only.codex-sign: stat failed: %s..codex-sign: thin copyfile.codex-sign: thinned FAT nested Mach-O: %s..codex-sign: adhoc signing failed (%d): %s..codex-sign: no compatible Mach-O s
+  · codex-sign             @0x25935b: .adhoc-only.codex-sign: stat failed: %s..codex-sign: thin copyfile.codex-sign: thinned FAT nested Mach-O: %s..codex-sign: adhoc signing failed (%d): %s..codex-sign: no compatible Mach-O slice: %s..codex-sign: CoreTrust bypass fail
+  · codex-sign             @0x259386: dex-sign: thin copyfile.codex-sign: thinned FAT nested Mach-O: %s..codex-sign: adhoc signing failed (%d): %s..codex-sign: no compatible Mach-O slice: %s..codex-sign: CoreTrust bypass failed (%d): %s..codex-sign: copyfile./tmp/code
+  · codex-sign             @0x2593b2: FAT nested Mach-O: %s..codex-sign: adhoc signing failed (%d): %s..codex-sign: no compatible Mach-O slice: %s..codex-sign: CoreTrust bypass failed (%d): %s..codex-sign: copyfile./tmp/codex-sign-XXXXXX.crypto/asn1/a_bitstr.c.ossl_c2
+  · codex-sign             @0x2593e0: ng failed (%d): %s..codex-sign: no compatible Mach-O slice: %s..codex-sign: CoreTrust bypass failed (%d): %s..codex-sign: copyfile./tmp/codex-sign-XXXXXX.crypto/asn1/a_bitstr.c.ossl_c2i_ASN1_BIT_STRING.crypto/asn1/a_d2i_fp.c.asn1_
+  · codex-sign             @0x2593fa: sign: no compatible Mach-O slice: %s..codex-sign: CoreTrust bypass failed (%d): %s..codex-sign: copyfile./tmp/codex-sign-XXXXXX.crypto/asn1/a_bitstr.c.ossl_c2i_ASN1_BIT_STRING.crypto/asn1/a_d2i_fp.c.asn1_d2i_read_bio.crypto/asn1/a
+  · codex-sign             @0x34ec6c: ....C.......GZ......Ij......C................X.......O.4...........................................(..........codex-sign.....V.-..-..J..Y'$........................cT.s]m..W..H...#...........................................dsB.g..Z
+  · codex-sign             @0x352f5b: b.......}*.....~QVh+.`N..Q.5z..v[pS'.:I.{t...e-.WI.<.......{E...U............................l................codex-sign..........................subject.CN......................*.H..cd...........qq....<?xml version="1.0" encoding
+  · deb                    @0x2e843a: ..+.....,.....,...error..olast_error..o....,...eek_..oop_to_mark..orint_errors_cb..o....,.....,.....,.....,...debug..oerror..pmark..p....,.....,.....+.....,.....,...free..pnew..p....,...V2_..pfree..pnew..p....,.....,...CERT
+  · deb                    @0x321fe3: ._ERR_peek_error._ERR_peek_last_error._ERR_pop_to_mark._ERR_print_errors_cb._ERR_reason_error_string._ERR_set_debug._ERR_set_error._ERR_set_mark._ERR_unload_strings._ERR_vset_error._ESS_CERT_ID_V2_free._ESS_CERT_ID_V2_new._
+  · deb                    @0x3393cc: ._sm4_ecb_cipher._sm4_ofb_cipher._sm4_cfb_cipher._sm4_ctr_cipher._desx_cbc_init_key._desx_cbc_cipher._evp_decodeblock_int._alg_module_init._evp_cipher_init_internal._evp_EncryptDecryptUpdate._safe_div_round_up_int._evp_ciph
+  · deb                    @0x33a34e: py._core_gettable_params._core_get_params._core_get_libctx._core_thread_start._core_new_error._core_set_error_debug._core_vset_error._core_set_error_mark._core_clear_last_error_mark._core_pop_error_to_mark._core_self_test_g
+
+======================================================================
+## PRIVACY-SOURCES
+
+======================================================================
+## NET-ENDPOINTS
+  · proxy                  @0x267c06: ent.domain.Domain.selected-attribute-types.Selected Attribute Types.clearance.RSA-MD4.md4WithRSAEncryption.ac-proxying.subjectInfoAccess.Subject Information Access.id-aca-encAttrs.role.policyConstraints.X509v3 Policy Constrai
+  · proxy                  @0x269012: -CFB8.des-cfb8.DES-EDE3-CFB1.des-ede3-cfb1.DES-EDE3-CFB8.des-ede3-cfb8.street.streetAddress.postalCode.id-ppl.proxyCertInfo.Proxy Certificate Information.id-ppl-anyLanguage.Any language.id-ppl-inheritAll.Inherit all.nameConst
+  · proxy                  @0x2711b9: ci_value.hex:.file:.text:.PROXY_POLICY.PROXY_CERT_INFO_EXTENSION.policyLanguage.policy.pcPathLengthConstraint.proxyPolicy.POLICY_CONSTRAINTS.requireExplicitPolicy.inhibitPolicyMapping.Require Explicit Policy.Inhibit Policy Ma
+  · proxy                  @0x271c04: s.invalid name.invalid null value.invalid numbers.invalid object identifier.invalid policy identifier.invalid proxy policy setting.invalid purpose.invalid safi.invalid section.invalid syntax.issuer decode error.need organizat
+  · proxy                  @0x271ceb: d numbers.negative pathlen.no config database.no issuer certificate.no issuer details.no policy identifier.no proxy cert policy language defined.no subject details.operation not defined.othername error.policy language already
+  · proxy                  @0x271da9: rname error.policy language already defined.policy path length.policy path length already defined.policy when proxy language requires no policy.section not found.unable to get issuer details.unable to get issuer keyid.unknown
+  · localhost              @0x27948b: t would be set to %d.providers/implementations/signature/sm2_sig.c.sm2sig_signature_init.sm2sig_set_mdname.//.localhost/.providers/implementations/storemgmt/file_store.c.file_open.Given path=%s.file_open_dir.Calling OPENSSL_DIR_r
+  · tun                    @0x268b50: ification.set-policy-root.setCext-hashedRoot.setCext-certType.setCext-merchData.setCext-cCertRequired.setCext-tunneling.setCext-setExt.setCext-setQualf.setCext-PGWYcapabilities.setCext-TokenIdentifier.setCext-Track2Data.set
+
+======================================================================
+## LINKED LIBRARIES / PATHS
+  /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+  /System/Library/Frameworks/Foundation.framework/Foundation
+  /System/Library/Frameworks/Security.framework/Security
+  /usr/lib/dyld
+  /usr/lib/libSystem.B.dylib
+  /usr/lib/libobjc.A.dylib
+  /usr/local/lib/ossl-modules
+
+======================================================================
+## ObjC CLASS/METHOD-LIKE SYMBOLS
+  CACert, CACertLength, CACompromise, CAExtractPreferredSlice, CAKeyLength, CAMELLIA, CAMELLIA128, CAMELLIA192, CAMELLIA256, CAQ8AMIIBCgKCAQEA9rl, CAQEAKxMm, CATEPOLICIES, MTQwMgYDVQQDDCtUcm9sbFN0b3JlIDIgaVBob25lIEN
+
+##############################################################################
+# FILE: ca-filetool 167136 bytes
+
+======================================================================
+## SUPABASE/EXFIL
+
+======================================================================
+## AUTH/KEYS
+
+======================================================================
+## KEYCHAIN
+
+======================================================================
+## FILESYSTEM
+
+======================================================================
+## ELEVATED
+  · platform-application   @0x281ad: pple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no
+  · platform-application   @0x284a5: >...<string>group.wiki.qaq.codexapp</string>..</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.secu
+  · no-sandbox             @0x281f2: dtd">.<plist version="1.0">.<dict>..<key>platform-application</key>..<true/>..<key>com.apple.private.security.no-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-m
+  · no-sandbox             @0x28500: c_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.private.background-task.allowed...02.-com.apple
+  · AppDataContainers      @0x28328: >..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.private.security.container-required</key>..<false/>..<key>proc_info-allow</key
+  · AppDataContainers      @0x285fa: ntainer-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-addressing...0B.%com.apple.security.application-groups0...g
+  · AppBundles             @0x282e5: rue/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.security.storage.AppBundles</key>..<true/>..<key>com.apple.private.security.storage.AppDataContainers</key>..<true/>..<key>com.apple.priv
+  · AppBundles             @0x285c6: und-task.allowed...02.-com.apple.private.security.container-required...02.-com.apple.private.security.storage.AppBundles...09.4com.apple.private.security.storage.AppDataContainers...0;.6com.apple.developer.kernel.extended-virtual-
+  · persona-mgmt           @0x28261: o-sandbox</key>..<true/>..<key>com.apple.private.security.no-container</key>..<true/>..<key>com.apple.private.persona-mgmt</key>..<true/>..<key>com.apple.private.background-task.allowed</key>..<true/>..<key>com.apple.private.securit
+  · persona-mgmt           @0x284d2: .</array>.</dict>.</plist>...qr....1...0...proc_info-allow...0...platform-application...0#..com.apple.private.persona-mgmt...0*.%com.apple.private.security.no-sandbox...0,.'com.apple.private.security.no-container...0..)com.apple.pri
+  · fakeroot               @0x1a10b: h8.control-field.installed-size-kb.%llu..package-build-number.%ld..verify-deb.assemble-deb.build-deb-forkless.fakeroot.-p.-r.-c.theos-helper: unsupported operation: %s..uname.uname: unsupported argument: %s..uname: unsupported o
+
+======================================================================
+## CODE-EXEC
+  · posix_spawn            @0x24544: bjc_release._objc_retain._objc_retainAutorelease._objc_retainAutoreleasedReturnValue._objc_retainBlock._open._posix_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spa
+  · posix_spawn            @0x24551: objc_retain._objc_retainAutorelease._objc_retainAutoreleasedReturnValue._objc_retainBlock._open._posix_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spawnattr_setpgr
+  · posix_spawn            @0x2456a: utorelease._objc_retainAutoreleasedReturnValue._objc_retainBlock._open._posix_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spawnattr_setpgroup._pread._printf._putch
+  · posix_spawn            @0x24584: oreleasedReturnValue._objc_retainBlock._open._posix_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spawnattr_setpgroup._pread._printf._putchar._puts._read._readlink._
+  · posix_spawn            @0x2459a: objc_retainBlock._open._posix_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spawnattr_setpgroup._pread._printf._putchar._puts._read._readlink._realpath$DARWIN_EXTSN.
+  · posix_spawn            @0x245b4: six_spawn._posix_spawnattr_destroy._posix_spawnattr_getflags._posix_spawnattr_init._posix_spawnattr_setflags._posix_spawnattr_setpgroup._pread._printf._putchar._puts._read._readlink._realpath$DARWIN_EXTSN._sigaction._snprintf._stat
+  · install                @0x1a0ae: short read control: %s.....upper.schema-key.sort-versions.q24@?0@"NSString"8@"NSString"16.hash8.control-field.installed-size-kb.%llu..package-build-number.%ld..verify-deb.assemble-deb.build-deb-forkless.fakeroot.-p.-r.-c.theos-
+  · deb                    @0x1a0e7: .q24@?0@"NSString"8@"NSString"16.hash8.control-field.installed-size-kb.%llu..package-build-number.%ld..verify-deb.assemble-deb.build-deb-forkless.fakeroot.-p.-r.-c.theos-helper: unsupported operation: %s..uname.uname: unsup
+  · deb                    @0x1a0f4: ring"8@"NSString"16.hash8.control-field.installed-size-kb.%llu..package-build-number.%ld..verify-deb.assemble-deb.build-deb-forkless.fakeroot.-p.-r.-c.theos-helper: unsupported operation: %s..uname.uname: unsupported argume
+  · deb                    @0x1a0fe: String"16.hash8.control-field.installed-size-kb.%llu..package-build-number.%ld..verify-deb.assemble-deb.build-deb-forkless.fakeroot.-p.-r.-c.theos-helper: unsupported operation: %s..uname.uname: unsupported argument: %s..un
+  · deb                    @0x1b09c: control: %s..Version:.version:.Architecture:.architecture:.${LIBSWIFT}.${LIBSWIFT_VERSION}.${ORION}.packages..debmake.%@-%@.~.%ld.!<arch>..debian-binary.control.tar.data.tar.control.tar..data.tar..2.0..%-16s%-12lld%-6d%-6d%
+  · deb                    @0x1b0b9: :.Architecture:.architecture:.${LIBSWIFT}.${LIBSWIFT_VERSION}.${ORION}.packages..debmake.%@-%@.~.%ld.!<arch>..debian-binary.control.tar.data.tar.control.tar..data.tar..2.0..%-16s%-12lld%-6d%-6d%-8o%-10llu%c..DEBIAN..codex-d
+  · deb                    @0x1b129: bian-binary.control.tar.data.tar.control.tar..data.tar..2.0..%-16s%-12lld%-6d%-6d%-8o%-10llu%c..DEBIAN..codex-deb-%@.-%ld.-cf.--exclude=./DEBIAN.--exclude=./DEBIAN/*.--threads=1..gz..xz.CodexApp: forkless deb builder comple
+  · deb                    @0x1b188: .DEBIAN..codex-deb-%@.-%ld.-cf.--exclude=./DEBIAN.--exclude=./DEBIAN/*.--threads=1..gz..xz.CodexApp: forkless deb builder completed: %s..%s: %s: %s..B.K.M.G.T.P.%lluB.%.0f%s.%.1f%s../%@./*.entry.long-entry.%06o.././@LongLin
+
+======================================================================
+## PRIVACY-SOURCES
+
+======================================================================
+## NET-ENDPOINTS
+
+======================================================================
+## LINKED LIBRARIES / PATHS
+  /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+  /System/Library/Frameworks/Foundation.framework/Foundation
+  /usr/lib/dyld
+  /usr/lib/libSystem.B.dylib
+  /usr/lib/libobjc.A.dylib
+
+======================================================================
+## ObjC CLASS/METHOD-LIKE SYMBOLS
+  CACompareSortText, CAFileToolMain, CAFindEvaluate, CAFindParseAnd, CAFindParseNot, CAFindParseOr, CAHumanReadableBytes, CAParseBoundedUnsigned, CASortKeyFromSpec, CASortKeyText, CAStandaloneWriteAll, CATarAddPath, CATarOctal, CATarSplitName, CATarWriteHeader, CATarWriteLongValue, CATheosHelperAssembleDeb, CATheosHelperJoinedArguments, CATheosHelperSpawnArray, CATheosHelperTreeBytes, CATheosHelperVerifyDebArchive, CATheosHelperWriteAll, CATheosHelperWriteArMember, CAToolError, CAWriteAllFD, CAWriteFileBytes, CAWriteGrepLine, CAWriteSedText
