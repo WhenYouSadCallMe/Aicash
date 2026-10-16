@@ -147,7 +147,9 @@ int CARunHelperInvocation(int argc, char **argv)
         return 127;
     }
     if ([invocation isEqualToString:@"bash-codex"] || [invocation isEqualToString:@"codex-code-mode-host"]) {
+        #ifndef CA_NO_AGENT_RUNTIME
         if (CAAgentRuntimeMain) return CAAgentRuntimeMain(argc, argv);
+#endif
         // 弱符号未链接进本目标（如 ca-filetool）：退化到 bash -lc
         NSMutableArray<NSString *> *bashArgs = [NSMutableArray arrayWithObject:@"-lc"];
         [bashArgs addObject:argc > 1 ? [NSString stringWithUTF8String:argv[1]] : @""];
