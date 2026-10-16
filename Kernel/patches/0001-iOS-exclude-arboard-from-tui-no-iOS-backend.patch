@@ -1,0 +1,25 @@
+From b2d66584739f8d5235059031f7adb9c30a52869f Mon Sep 17 00:00:00 2001
+From: aicash <aicash@local>
+Date: Fri, 16 Oct 2026 23:52:17 +0800
+Subject: [PATCH] iOS: exclude arboard from tui (no iOS backend)
+
+---
+ codex-rs/tui/Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/codex-rs/tui/Cargo.toml b/codex-rs/tui/Cargo.toml
+index 45f5866..3b71637 100644
+--- a/codex-rs/tui/Cargo.toml
++++ b/codex-rs/tui/Cargo.toml
+@@ -167,7 +167,7 @@ winsplit = "0.1"
+ 
+ # Clipboard support via `arboard` is not available on Android/Termux.
+ # Only include it for non-Android targets so the crate builds on Android.
+-[target.'cfg(not(target_os = "android"))'.dependencies]
++[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+ arboard = { workspace = true }
+ 
+ 
+-- 
+2.55.0.windows.5
+
