@@ -28,6 +28,7 @@
   "MTAgent\\Sources\\CAEntryPoint.m",
   "MTAgent\\Sources\\CAExecutionEnvironment.h",
   "MTAgent\\Sources\\CAExecutionEnvironment.m",
+  "MTAgent\\Sources\\CAFileToolEntry.m",
   "MTAgent\\Sources\\CAFileToolMain.m",
   "MTAgent\\Sources\\CALogViewerViewController.h",
   "MTAgent\\Sources\\CALogViewerViewController.m",

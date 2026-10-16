@@ -128,7 +128,7 @@ int CASpawnHelper(NSString *executable, NSArray<NSString *> *arguments, NSDictio
 // 由 CAFileToolMain / CAAgentRuntimeMain 提供。
 // 说明：ca-filetool 目标不含 CAAgentRuntimeMain.m，故此处用弱引用，未定义时回退（避免 Undefined symbols）。
 int CAFileToolMain(int argc, char **argv);
-int CAAgentRuntimeMain(int argc, char **argv) __attribute__((weak));
+int CAAgentRuntimeMain(int argc, char **argv) __attribute__((weak_import));
 
 int CARunHelperInvocation(int argc, char **argv)
 {

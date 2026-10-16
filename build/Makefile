@@ -58,10 +58,10 @@ $(BUNDLE)/CodexApp: $(APP_SRC)
 filetool: $(BUNDLE)/Helpers/ca-filetool
 
 $(BUNDLE)/Helpers/ca-filetool: $(SRC)/CAFileToolMain.m $(SRC)/CAArchiveExtractor.m $(SRC)/CARuntimePaths.m \
-                               $(SRC)/CALogger.m $(SRC)/CACommon.m
+                               $(SRC)/CALogger.m $(SRC)/CACommon.m $(SRC)/CAProcess.m $(SRC)/CAFileToolEntry.m
 	@mkdir -p $(BUNDLE)/Helpers
 	$(CLANG) $(COMMON_FLAGS) $(SRC)/CAFileToolMain.m $(SRC)/CAArchiveExtractor.m $(SRC)/CARuntimePaths.m \
-	         $(SRC)/CALogger.m $(SRC)/CACommon.m -framework Foundation -framework UIKit -lz -o $@
+	         $(SRC)/CALogger.m $(SRC)/CACommon.m $(SRC)/CAProcess.m $(SRC)/CAFileToolEntry.m -framework Foundation -framework UIKit -lz -o $@
 
 # ---------------------------------------------------------------- 分享扩展
 extension: $(BUNDLE)/PlugIns/MTShareExtension.appex/MTShareExtension
