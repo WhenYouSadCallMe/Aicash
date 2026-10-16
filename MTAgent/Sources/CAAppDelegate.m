@@ -354,11 +354,10 @@ static NSString *CACrashLogDirectory(void)
 
 static void CAGetCrashReportFilePath(char *out, size_t len)
 {
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyyyMMdd-HHmmss";
     NSString *path = [CACrashLogDirectory() stringByAppendingPathComponent:
-                      [NSString stringWithFormat:@"crash-%@.log",
-                       [NSDateFormatter new].localizedStringFromDate:[NSDate date]
-                                                           dateStyle:NSDateFormatterShortStyle
-                                                           timeStyle:NSDateFormatterMediumStyle]];
+                      [NSString stringWithFormat:@"crash-%@.log", [fmt stringFromDate:[NSDate date]]]];
     strncpy(out, path.fileSystemRepresentation ?: "", len - 1);
     out[len - 1] = 0;
 }
