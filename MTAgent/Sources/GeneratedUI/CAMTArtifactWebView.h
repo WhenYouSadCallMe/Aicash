@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAMTArtifactWebView;
 
+@class NSString;
+
 @interface CAMTArtifactWebView : UIView
     - (NSString *)allowedRoot;
     - (void)applyInitialContentFitIfNeeded;

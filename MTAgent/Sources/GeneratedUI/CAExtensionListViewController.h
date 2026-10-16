@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAExtensionListViewController;
 
+@class NSArray;
+@class UILabel;
+@class UITableView;
+
 @interface CAExtensionListViewController : UIViewController
     - (void)applyMCPServer:(id)arg1 enabled:(id)arg2 toggle:(id)arg3;
     - (void)applySkill:(id)arg1 enabled:(id)arg2 toggle:(id)arg3;

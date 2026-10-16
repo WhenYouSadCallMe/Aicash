@@ -12,6 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAAgentCapsuleView;
 @class CAMessageItem;
 
+@class NSAttributedString;
+@class NSDictionary;
+@class NSLayoutConstraint;
+@class NSString;
+@class NSTimer;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+@class UIStackView;
+@class UIView;
+
 @interface CAActivityCardCell : UITableViewCell
     - (UIButton *)actionCopyButton;
     - (id)capsuleView;

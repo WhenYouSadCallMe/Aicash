@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAComposerAttachmentGridView;
 
+@class NSArray;
+@class UICollectionView;
+
 @interface CAComposerAttachmentGridView : UIView
     - (NSArray *)attachments;
     - (UICollectionView *)collectionView;

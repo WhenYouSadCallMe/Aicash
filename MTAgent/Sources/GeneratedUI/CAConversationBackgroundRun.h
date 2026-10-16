@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAMessageItem;
 @class NSMutableOrderedSet;
 
+@class NSArray;
+@class NSMutableDictionary;
+
 @interface CAConversationBackgroundRun : NSObject
     - (id)assistantForID:(id)arg1;
     - (void)cleanupAttachments;

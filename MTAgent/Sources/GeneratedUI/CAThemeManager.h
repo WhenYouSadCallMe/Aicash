@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIWindow;
+
 @interface CAThemeManager : NSObject
     - (id)accentColor;
     - (void)applyToWindow:(id)arg1;

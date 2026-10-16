@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class OS_dispatch_semaphore;
 
+@class NSError;
+@class NSString;
+
 @interface CAUpdateDownload : NSObject
     - (void)URLSession:(id)arg1 downloadTask:(id)arg2 didFinishDownloadingToURL:(id)arg3;
     - (void)URLSession:(id)arg1 downloadTask:(id)arg2 didWriteData:(id)arg3 totalBytesWritten:(id)arg4 totalBytesExpectedToWrite:(id)arg5;

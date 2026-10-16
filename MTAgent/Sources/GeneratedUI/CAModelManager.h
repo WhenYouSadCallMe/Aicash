@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAModelItem;
 
+@class NSArray;
+@class NSMutableArray;
+@class NSString;
+
 @interface CAModelManager : NSObject
     - (id)activeModel;
     - (NSString *)activeReasoningEffort;

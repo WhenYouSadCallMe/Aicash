@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAPlanStatusRing;
 @class CAShapeLayer;
 
+@class NSString;
+@class UIImageView;
+
 @interface CAPlanStatusRing : NSObject
     - (id)arcLayer;
     - (UIImageView *)checkView;

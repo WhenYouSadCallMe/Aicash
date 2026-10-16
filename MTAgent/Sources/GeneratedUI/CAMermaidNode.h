@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CAMermaidNode : NSObject
     - (CGRect)frame;
     - (NSString *)label;

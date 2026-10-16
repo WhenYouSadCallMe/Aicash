@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSDictionary;
+@class NSMutableSet;
+@class NSString;
+
 @interface CAStorageViewController : UIViewController
     - (void)completeScanKey:(id)arg1 value:(id)arg2 generation:(id)arg3;
     - (void)confirmAndClearDownloads;

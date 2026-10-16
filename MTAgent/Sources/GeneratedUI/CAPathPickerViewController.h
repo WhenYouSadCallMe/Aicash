@@ -10,6 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAPathPickerViewController;
 
+@class NSArray;
+@class NSString;
+@class UILabel;
+@class UITableView;
+@class UIView;
+
 @interface CAPathPickerViewController : UIViewController
     - (void)cancel;
     - (void)createFolder;

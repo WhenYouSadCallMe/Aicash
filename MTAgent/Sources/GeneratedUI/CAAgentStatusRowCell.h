@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAAgentProgressRingView;
 @class CAAgentStatusRowCell;
 
+@class UILabel;
+
 @interface CAAgentStatusRowCell : UITableViewCell
     - (void)configureWithSnapshot:(id)arg1 mainRunning:(id)arg2;
     - (UILabel *)detailLabelView;

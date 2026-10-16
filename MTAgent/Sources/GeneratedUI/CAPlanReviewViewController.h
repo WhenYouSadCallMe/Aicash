@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAPlanReviewViewController;
 
+@class NSString;
+@class UITextView;
+
 @interface CAPlanReviewViewController : UIViewController
     - (id)action:(id)arg1 fill:(id)arg2 selector:(id)arg3;
     - (void)approvePlan;

@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UIActivityIndicatorView;
 
+@class NSArray;
+@class NSDictionary;
+@class UISearchController;
+
 @interface CAModelPricingViewController : UIViewController
     - (void)applyTheme;
     - (id)candidateTitle:(id)arg1;

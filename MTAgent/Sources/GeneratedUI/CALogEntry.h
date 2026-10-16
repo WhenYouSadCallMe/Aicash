@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CALogEntry : NSObject
     - (NSString *)category;
     - (id)detailText;

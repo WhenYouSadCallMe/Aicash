@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CAToolItem : NSObject
     - (NSString *)command;
     - (signed long long)exitCode;

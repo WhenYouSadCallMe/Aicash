@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSDate;
+@class NSDictionary;
+@class NSString;
+
 @interface CARateLimitManager : NSObject
     - (bool)available;
     - (id)formattedQuotaReport;

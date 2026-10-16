@@ -15,6 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAGitSnapshot;
 @class UIRefreshControl;
 
+@class NSArray;
+@class NSDictionary;
+@class NSLayoutConstraint;
+@class NSMutableSet;
+@class NSString;
+@class UITableView;
+@class UIView;
+
 @interface CAGitChangesViewController : UIViewController
     - (void)anchorAlert:(id)arg1 toView:(id)arg2;
     - (void)applyPrefix:(id)arg1;

@@ -13,10 +13,10 @@
     return nil;
 }
 
-- (_NSRange)range
+- (NSRange)range
 {
     // TODO(parity)
-    return 0;
+    return NSMakeRange(0, 0);
 }
 
 - (void)setColor:(id)arg1

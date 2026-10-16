@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAGitChangeStyle;
 
+@class NSString;
+@class UIColor;
+
 @interface CAGitChangeStyle : NSObject
     - (UIColor *)color;
     - (id)initWithLabel:(id)arg1 symbol:(id)arg2 color:(id)arg3;

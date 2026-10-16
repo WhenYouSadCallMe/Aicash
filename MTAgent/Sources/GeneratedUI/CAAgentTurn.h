@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSMutableArray;
+@class NSString;
+
 @interface CAAgentTurn : NSObject
     - (signed long long)blockTypeForMessage:(id)arg1;
     - (NSMutableArray *)blocks;

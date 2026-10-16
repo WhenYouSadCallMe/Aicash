@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CAUpdateProgress : NSObject
     - (signed long long)completedBytes;
     - (double)fraction;

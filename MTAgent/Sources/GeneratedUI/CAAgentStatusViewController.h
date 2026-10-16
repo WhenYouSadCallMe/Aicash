@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class UITableView;
+@class UIViewController;
+
 @interface CAAgentStatusViewController : UIViewController
     - (void)close;
     - (UIViewController *)detailController;

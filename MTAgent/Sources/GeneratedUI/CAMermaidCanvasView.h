@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSString;
+
 @interface CAMermaidCanvasView : UIView
     - (CGSize)configureWithNodes:(id)arg1 edges:(id)arg2 direction:(id)arg3;
     - (NSString *)direction;

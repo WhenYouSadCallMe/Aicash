@@ -12,6 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAProfileAvatarView;
 @class UIControl;
 
+@class NSArray;
+@class NSDictionary;
+@class NSLayoutConstraint;
+@class NSMutableSet;
+@class NSSet;
+@class NSString;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+@class UIStackView;
+@class UITableView;
+@class UIView;
+
 @interface CAConversationSidebarViewController : UIViewController
     - (id)accountAvatar;
     - (id)accountControl;

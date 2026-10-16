@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAAgentStatusDetailViewController;
 
+@class NSDictionary;
+
 @interface CAAgentStatusDetailViewController : UIViewController
     - (id)initWithSnapshot:(id)arg1;
     - (signed long long)numberOfSectionsInTableView:(id)arg1;

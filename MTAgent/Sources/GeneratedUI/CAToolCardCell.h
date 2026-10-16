@@ -12,6 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAToolCardCell;
 @class CAToolItem;
 
+@class NSAttributedString;
+@class NSLayoutConstraint;
+@class NSString;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+@class UIView;
+
 @interface CAToolCardCell : UITableViewCell
     - (UIButton *)actionCopyButton;
     - (id)capsuleView;

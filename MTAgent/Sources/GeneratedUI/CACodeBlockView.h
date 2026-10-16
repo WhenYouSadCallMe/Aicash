@@ -10,6 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CACodeBlockView;
 
+@class NSString;
+@class UIButton;
+@class UILabel;
+@class UIView;
+
 @interface CACodeBlockView : UIView
     - (UIButton *)actionCopyButton;
     - (UILabel *)codeLabel;

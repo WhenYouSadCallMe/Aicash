@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIImageView;
+
 @interface CAInlineZoomImagePreview : NSObject
     - (void)centerZoomContent;
     - (bool)fitted;

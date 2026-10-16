@@ -12,6 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAThinkingCell;
 @class UIActivityIndicatorView;
 
+@class NSLayoutConstraint;
+@class NSString;
+@class NSTimer;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+@class UIView;
+
 @interface CAThinkingCell : UITableViewCell
     - (bool)ambientMusingActive;
     - (bool)canContinueAmbientGeneration:(id)arg1;

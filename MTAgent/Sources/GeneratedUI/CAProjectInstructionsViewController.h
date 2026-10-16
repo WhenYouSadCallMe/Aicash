@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSDictionary;
+@class UITableView;
+
 @interface CAProjectInstructionsViewController : UIViewController
     - (id)instructionPathForWorkspace:(id)arg1;
     - (void)reloadStatuses;

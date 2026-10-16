@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UIDropInteraction;
 
+@class NSDictionary;
+@class UIView;
+
 @interface CAComposerTextView : UIView
     - (bool)becomeFirstResponder;
     - (bool)composerDropInstalled;

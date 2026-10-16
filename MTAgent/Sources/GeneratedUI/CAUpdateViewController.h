@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class UIActivityIndicatorView;
 @class UIProgressView;
 
+@class NSArray;
+@class NSString;
+@class UIButton;
+@class UILabel;
+@class UIView;
+
 @interface CAUpdateViewController : UIViewController
     - (signed long long)activeStage;
     - (void)applyTheme;

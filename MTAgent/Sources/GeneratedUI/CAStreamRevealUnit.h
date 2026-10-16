@@ -8,9 +8,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIColor;
+
 @interface CAStreamRevealUnit : NSObject
     - (UIColor *)color;
-    - (_NSRange)range;
+    - (NSRange)range;
     - (void)setColor:(id)arg1;
     - (void)setRange:(id)arg1;
     - (void)setStart:(id)arg1;

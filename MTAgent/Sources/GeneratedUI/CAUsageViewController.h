@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAConversationRecord;
 @class UIActivityIndicatorView;
 
+@class UIButton;
+@class UILabel;
+@class UIStackView;
+@class UIView;
+
 @interface CAUsageViewController : UIViewController
     - (void)addEquivalentUsageCostCard;
     - (void)addWindowCard:(id)arg1 fallback:(id)arg2;

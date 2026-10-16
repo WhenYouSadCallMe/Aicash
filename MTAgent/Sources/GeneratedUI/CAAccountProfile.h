@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CAAccountProfile : NSObject
     - (NSString *)accountType;
     - (bool)authenticated;

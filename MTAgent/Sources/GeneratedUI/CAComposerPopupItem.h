@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+@class UIColor;
+
 @interface CAComposerPopupItem : NSObject
     - (NSString *)badge;
     - (bool)enabled;

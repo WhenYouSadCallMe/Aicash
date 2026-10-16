@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAWorkspaceActionsCell;
 
+@class UIButton;
+
 @interface CAWorkspaceActionsCell : UITableViewCell
     - (void)applyTheme;
     - (UIButton *)browseButton;

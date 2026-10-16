@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSDictionary;
+@class UITableView;
+
 @interface CAWorkspaceViewController : UIViewController
     - (void)activatePath:(id)arg1 name:(id)arg2;
     - (id)activeItem;

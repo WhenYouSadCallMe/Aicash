@@ -31,7 +31,7 @@ COMMON_FLAGS := -arch $(ARCH) -isysroot $(SDK) -miphoneos-version-min=$(MIN_IOS)
 
 # 说明：GeneratedUI/ 是"类级等价"占位骨架（无行为实现），为了让工程先跑通出包，
 #       默认不参与编译；需要它们进二进制时，把下面的 NOT_GEN 去掉即可。
-NOT_GEN := -not -path '*/GeneratedUI/*' -not -name 'CAFileToolEntry.m'
+NOT_GEN := -not -name 'CAFileToolEntry.m'
 APP_SRC := $(shell find $(SRC) -name '*.m' $(NOT_GEN) 2>/dev/null | sort)
 APP_FRAMEWORKS := -framework UIKit -framework Foundation -framework AVFoundation -framework AVFAudio \
                   -framework Security -framework CoreFoundation -framework CoreGraphics -framework QuartzCore \

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAStreamingTextView;
 @class NSParagraphStyle;
 
+@class NSMutableArray;
+
 @interface CAStreamingTextView : UIView
     - (void)advanceReveal:(id)arg1;
     - (double)cachedTextHeight;

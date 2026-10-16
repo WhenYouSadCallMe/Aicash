@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSDictionary;
+@class UITableView;
+
 @interface CAExtensionsViewController : UIViewController
     - (void)catalogDidChange;
     - (id)codexHome;

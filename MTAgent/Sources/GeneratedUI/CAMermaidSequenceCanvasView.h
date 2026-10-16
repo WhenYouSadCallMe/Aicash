@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+
 @interface CAMermaidSequenceCanvasView : UIView
     - (NSArray *)activationSegments;
     - (CGSize)configureWithParticipants:(id)arg1 items:(id)arg2;

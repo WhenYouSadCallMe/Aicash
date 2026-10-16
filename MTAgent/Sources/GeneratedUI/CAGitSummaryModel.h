@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+
 @interface CAGitSummaryModel : NSObject
     - (unsigned long long)ahead;
     - (unsigned long long)behind;

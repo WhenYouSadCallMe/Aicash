@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class AVPlayerViewController;
 @class CAArtifactPreviewViewController;
 
+@class NSString;
+@class QLPreviewController;
+@class WKWebView;
+
 @interface CAArtifactPreviewViewController : UIViewController
     - (void)close;
     - (id)initWithPath:(id)arg1;

@@ -10,6 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAComposerAttachmentCell;
 
+@class NSString;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+
 @interface CAComposerAttachmentCell : UITableViewCell
     - (void)configure:(id)arg1;
     - (id)initWithFrame:(id)arg1;

@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAPlanDecisionChoiceView;
 
+@class NSString;
+@class UIImageView;
+@class UILabel;
+
 @interface CAPlanDecisionChoiceView : UIView
     - (UILabel *)choiceDescription;
     - (UILabel *)choiceTitle;

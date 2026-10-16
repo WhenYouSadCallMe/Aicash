@@ -12,6 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAShapeLayer;
 @class CAStreamingTextView;
 
+@class NSArray;
+@class NSDictionary;
+@class NSLayoutConstraint;
+@class NSString;
+@class UIStackView;
+@class UIView;
+
 @interface CAMessageCell : UITableViewCell
     - (void)appendMarkdownBlock:(id)arg1 toStack:(id)arg2 isUser:(id)arg3;
     - (id)artifactForMarkdownTarget:(id)arg1;

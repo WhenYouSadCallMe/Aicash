@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAWorkspaceBadgeView;
 @class CAWorkspaceProjectCell;
 
+@class UIImageView;
+@class UILabel;
+
 @interface CAWorkspaceProjectCell : UITableViewCell
     - (id)badge;
     - (UIImageView *)checkView;

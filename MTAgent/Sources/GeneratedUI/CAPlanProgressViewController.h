@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAPlanProgressViewController;
 
+@class NSArray;
+@class UILabel;
+@class UITableView;
+
 @interface CAPlanProgressViewController : UIViewController
     - (void)close;
     - (bool)executionActive;

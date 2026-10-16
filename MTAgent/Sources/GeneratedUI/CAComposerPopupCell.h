@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAComposerPopupCell;
 
+@class UIImageView;
+@class UILabel;
+@class UIView;
+
 @interface CAComposerPopupCell : UITableViewCell
     - (UILabel *)badgeLabel;
     - (void)configureWithItem:(id)arg1;

@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CARootViewController;
 
+@class UIViewController;
+
 @interface CARootViewController : UIViewController
     - (id)childViewControllerForHomeIndicatorAutoHidden;
     - (id)childViewControllerForStatusBarHidden;

@@ -11,6 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class CATextEditorViewController;
 @class UIActivityIndicatorView;
 
+@class NSString;
+@class UILabel;
+@class UITextView;
+@class UIView;
+
 @interface CATextEditorViewController : UIViewController
     - (id)displayPath;
     - (bool)editable;

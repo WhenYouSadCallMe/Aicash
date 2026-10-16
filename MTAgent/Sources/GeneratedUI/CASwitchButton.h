@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CASwitchButton;
 
+@class UIColor;
+@class UIView;
+
 @interface CASwitchButton : NSObject
     - (void)commonInit;
     - (void)handleTap;

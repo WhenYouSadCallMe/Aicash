@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class CACodexEngine;
 @class UIProgressView;
 
+@class NSMutableArray;
+@class UILabel;
+
 @interface CAContextUsageViewController : UIViewController
     - (UILabel *)cacheHint;
     - (id)cacheProgress;

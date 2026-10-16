@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UILabel;
+@class UITableViewCell;
+@class UITextField;
+
 @interface CAAgentProfileViewController : UIViewController
     - (void)applyTheme;
     - (id)draftName;

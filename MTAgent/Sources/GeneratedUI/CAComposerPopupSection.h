@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSString;
+
 @interface CAComposerPopupSection : NSObject
     - (NSArray *)items;
     - (id)sectionWithTitle:(id)arg1 items:(id)arg2;

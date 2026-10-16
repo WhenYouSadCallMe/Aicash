@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class CAGitRepository;
 @class UISegmentedControl;
 
+@class NSDictionary;
+@class UIImageView;
+@class UILabel;
+@class UITextView;
+@class UIView;
+
 @interface CAGitDiffViewController : UIViewController
     - (NSDictionary *)change;
     - (void)copyDiff;

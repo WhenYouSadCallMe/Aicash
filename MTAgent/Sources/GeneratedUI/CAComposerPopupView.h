@@ -10,6 +10,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAComposerPopupView;
 
+@class NSArray;
+@class NSIndexPath;
+@class NSString;
+@class UIButton;
+@class UILabel;
+@class UITableView;
+@class UIView;
+@class UIVisualEffectView;
+
 @interface CAComposerPopupView : UIView
     - (void)applyTheme;
     - (UIVisualEffectView *)backgroundEffect;

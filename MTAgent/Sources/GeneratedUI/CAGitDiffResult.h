@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSString;
+@class NSURL;
+
 @interface CAGitDiffResult : NSObject
     - (NSString *)error;
     - (NSURL *)fileURL;

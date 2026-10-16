@@ -8,6 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSDictionary;
+@class NSString;
+
 @interface CAGitSnapshot : NSObject
     - (unsigned long long)ahead;
     - (unsigned long long)behind;

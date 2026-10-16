@@ -10,6 +10,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CACompactOperationsCell;
 
+@class NSArray;
+@class NSLayoutConstraint;
+@class NSTimer;
+@class UIButton;
+@class UIImageView;
+@class UILabel;
+@class UIScrollView;
+@class UIStackView;
+@class UIView;
+
 @interface CACompactOperationsCell : UITableViewCell
     - (void)applyRunningAnimationToRow:(id)arg1 message:(id)arg2;
     - (UIImageView *)chevronView;

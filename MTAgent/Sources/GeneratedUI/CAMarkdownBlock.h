@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSArray;
+@class NSString;
+
 @interface CAMarkdownBlock : NSObject
     - (NSString *)content;
     - (bool)continuationFromPreviousText;

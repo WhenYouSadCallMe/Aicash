@@ -10,6 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAConversationCell;
 
+@class UIImageView;
+@class UILabel;
+@class UIView;
+
 @interface CAConversationCell : UITableViewCell
     - (UIView *)activeBar;
     - (void)configureWithRecord:(id)arg1 active:(id)arg2 running:(id)arg3;
