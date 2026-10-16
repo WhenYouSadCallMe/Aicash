@@ -27,7 +27,7 @@ MANIFEST       := $(ROOT)/build/bundle_manifest.json
 
 COMMON_FLAGS := -arch $(ARCH) -isysroot $(SDK) -miphoneos-version-min=$(MIN_IOS) \
                 -fobjc-arc -fmodules -O2 -Wall -Wno-unused-parameter -Wno-deprecated-declarations \
-                -I$(SRC) -DCODEXAPP_REPLICA=1
+                -I$(SRC) -I$(SRC)/GeneratedUI -DCODEXAPP_REPLICA=1
 
 # 说明：GeneratedUI/ 是"类级等价"占位骨架（无行为实现），为了让工程先跑通出包，
 #       默认不参与编译；需要它们进二进制时，把下面的 NOT_GEN 去掉即可。
