@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
     // 面板自身的展示状态
     NSArray<NSString *> *_officialSlugs;
     NSArray<NSString *> *_thirdPartySlugs;
+    NSDictionary<NSString *, NSString *> *_displayNames;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
@@ -126,8 +127,10 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
     BOOL thirdParty = [self isThirdPartySection:indexPath.section];
     NSString *slug = [self slugAtIndexPath:indexPath];
 
-    cell.textLabel.text = slug ?: @"";
-    cell.textLabel.font = [UIFont monospacedSystemFontOfSize:15.0 weight:UIFontWeightRegular];
+    // 原版行标题 = displayName（如 "GPT-6.1-Sol"），无 displayName 才退回 slug
+    NSString *displayName = [self displayNameForSlug:slug];
+    cell.textLabel.text = displayName ?: (slug ?: @"");
+    cell.textLabel.font = [UIFont systemFontOfSize:16.0];
     cell.textLabel.textColor = UIColor.labelColor;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.minimumScaleFactor = 0.75;
@@ -166,17 +169,16 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 
 - (id)tableView:(id)arg1 titleForFooterInSection:(id)arg2
 {
-    NSInteger section = (NSInteger)arg2;
-    if ([self isThirdPartySection:section]) {
-        return @"第三方模型来自本机 provider 的可用模型清单（CodexThirdPartyAvailableModels）。价格来自 models.dev / OpenRouter 目录，仅供参考。";
-    }
+    // 原版 footer 原文
+    return @"选择后应用到当前对话，思考深度可单独调整。";
+}
     return @"价格来自 models.dev / OpenRouter 目录，仅供参考。";
 }
 
 - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2
 {
-    NSInteger section = (NSInteger)arg2;
-    return [self isThirdPartySection:section] ? @"第三方模型" : @"官方模型";
+    // 原版：单分区标题「可用模型」；第三方分区保留原名
+    return [self isThirdPartySection:arg2] ? @"第三方模型" : @"可用模型";
 }
 
 - (void)themeDidChange
@@ -254,10 +256,16 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
         NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:modelsData options:0 error:NULL];
         NSArray<NSDictionary *> *models = payload[@"models"];
         if ([models isKindOfClass:NSArray.class]) {
+            NSMutableDictionary<NSString *, NSString *> *names = [NSMutableDictionary dictionary];
             for (NSDictionary *m in models) {
                 NSString *slug = m[@"slug"];
-                if ([slug isKindOfClass:NSString.class] && slug.length > 0) [official addObject:slug];
+                if ([slug isKindOfClass:NSString.class] && slug.length > 0) {
+                    [official addObject:slug];
+                    NSString *dn = m[@"display_name"];
+                    if ([dn isKindOfClass:NSString.class] && dn.length > 0) names[slug] = dn;
+                }
             }
+            _displayNames = names;
         }
     }
     // 当前值必须出现在列表最前（目录未收录当前模型时也要补上）
@@ -392,6 +400,12 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
 - (NSString *)selectedThirdPartySlug
 {
     return [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsThirdPartyModel] ?: @"";
+}
+
+- (NSString *)displayNameForSlug:(NSString *)slug
+{
+    if (slug.length == 0) return nil;
+    return _displayNames[slug];
 }
 
 - (NSString *)reasoningSummaryForSlug:(NSString *)slug thirdParty:(BOOL)thirdParty

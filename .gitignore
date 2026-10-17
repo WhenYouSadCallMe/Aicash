@@ -17,3 +17,13 @@ __pycache__/
 #   SPEC/assets/**               对齐基线（原文字符串表、ObjC 类/方法映射、契约分组、zip 布局；其中 CodexApp.original.bin 为 7MB 参考二进制）
 #   若仓库体积敏感，可用 Git LFS 托管 CodexApp.original.bin：
 #     git lfs track "SPEC/assets/CodexApp.original.bin"
+
+# IDA databases
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.i64
+*.idb
+SPEC/assets/ref-CodexApp.bin

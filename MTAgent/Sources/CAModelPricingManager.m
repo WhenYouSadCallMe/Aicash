@@ -757,7 +757,8 @@ static NSString *CAModelCatalogDisplayNameFromSlug(NSString *slug)
 
 + (NSArray<NSString *> *)reasoningLevels
 {
-    return @[ @"minimal", @"low", @"medium", @"high", @"xhigh", @"max", @"ultra" ];
+    // 原版顺序；Auto 由调用方在最前追加（0 = 服务默认）
+    return @[ @"auto", @"none", @"minimal", @"low", @"medium", @"high", @"xhigh", @"max" ];
 }
 
 + (NSString *)reasoningLevelTitle:(NSString *)level
@@ -765,16 +766,17 @@ static NSString *CAModelCatalogDisplayNameFromSlug(NSString *slug)
     static NSDictionary<NSString *, NSString *> *titles;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        // 短标签：chip / 设置行直接展示（原版行为："High" 而非整句）
+        // 短标签与原版 __cstring 一致：Auto/None/Minimal/Low/Med/High/xHigh/Max
         titles = @{
+            @"auto":    @"Auto",
             @"none":    @"None",
             @"minimal": @"Minimal",
             @"low":     @"Low",
-            @"medium":  @"Medium",
+            @"medium":  @"Med",
             @"high":    @"High",
-            @"xhigh":   @"XHigh",
+            @"xhigh":   @"xHigh",
             @"max":     @"Max",
-            @"ultra":   @"Ultra",
+            @"ultra":   @"Max",
         };
     });
     NSString *key = level.lowercaseString ?: @"";
