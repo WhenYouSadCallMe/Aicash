@@ -3512,6 +3512,63 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
 #pragma mark - 底部选择器（6.1-Sol / High）
 
+#pragma mark - 原包占位选择器实现（此前只声明未实现，点按钮即 unrecognized selector）
+
+- (id)handleAgentStatusInfo
+{
+    NSMutableDictionary *snapshot = [NSMutableDictionary dictionary];
+    snapshot[@"thread"] = [[self chatEngine] currentThreadId] ?: @"(none)";
+    snapshot[@"model"] = [self currentModelChipTitle] ?: @"-";
+    snapshot[@"effort"] = [self currentEffortChipTitle] ?: @"-";
+    snapshot[@"workspace"] = self.workspacePath ?: @"-";
+    snapshot[@"context"] = [NSString stringWithFormat:@"%lld%%", [[self chatEngine] contextUsagePercent]];
+
+    CAAgentStatusDetailViewController *detail = [[CAAgentStatusDetailViewController alloc] initWithSnapshot:snapshot];
+    if (!detail) {
+        detail = [[CAAgentStatusDetailViewController alloc] init];
+    }
+    return [self presentPanelInNavigationController:detail];
+}
+
+- (id)handleShowUsageDetails
+{
+    CACodexEngine *engine = [self chatEngine];
+    NSString *summary = engine.execUsageSummary;
+    if (summary.length == 0) {
+        summary = [NSString stringWithFormat:@"上下文占用：%lld%%\n输入 Token：%llu\n输出 Token：%llu\n深度推理 Token：%llu",
+                   [engine contextUsagePercent],
+                   [engine totalInputTokens], [engine totalOutputTokens], [engine totalReasoningTokens]];
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"本会话实时用量"
+                                                                  message:summary
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    return @YES;
+}
+
+- (id)presentComposerCatalogDetail:(id)arg1
+{
+    NSArray *items = CAComposerCatalog.sharedCatalog.items ?: @[];
+    NSMutableString *text = [NSMutableString string];
+    if (items.count == 0) {
+        [text appendString:@"没有可引用的 Skills、插件或 MCP。\n请在设置中检查是否已安装并启用。"];
+    } else {
+        for (CAComposerCatalogItem *item in items) {
+            if (![item isKindOfClass:CAComposerCatalogItem.class]) continue;
+            NSString *title = item.displayTitle.length > 0 ? item.displayTitle : item.name;
+            [text appendFormat:@"• [%@] %@\n", [item.kindName uppercaseString], title ?: @"?"];
+        }
+        [text appendString:@"\n在输入框键入 / 可以直接选用这些内容。"];
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"扩展与指令"
+                                                                  message:text
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    return @YES;
+}
+
 - (id)refreshBottomSelectors
 {
     NSString *model = [self currentModelChipTitle];

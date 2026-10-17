@@ -109,6 +109,50 @@ static NSString *CAModelCatalogDisplayNameFromSlug(NSString *slug)
 
 @implementation CAModelPricingManager
 
+#pragma mark - 原包占位选择器实现（此前只声明未实现）
+
+/// 模型价格候选：从已加载的价目表里取同族候选（slug 归一化后前缀匹配）
+- (id)pricingCandidatesForModel:(id)arg1 providerHint:(id)arg2 limit:(id)arg3
+{
+    NSString *slug = [arg1 isKindOfClass:NSString.class] ? [(NSString *)arg1 lowercaseString] : @"";
+    NSInteger maxCount = [arg3 respondsToSelector:@selector(integerValue)] ? [arg3 integerValue] : 5;
+    if (maxCount <= 0) maxCount = 5;
+    if (slug.length == 0) return @[];
+
+    NSDictionary<NSString *, NSDictionary *> *table = self.prices ?: @{};
+    NSMutableArray<NSDictionary *> *candidates = [NSMutableArray array];
+    for (NSString *key in table) {
+        if (![key isKindOfClass:NSString.class]) continue;
+        if ([key.lowercaseString isEqualToString:slug]) {
+            [candidates insertObject:table[key] atIndex:0];
+        } else if ([key.lowercaseString containsString:slug] || [slug containsString:key.lowercaseString]) {
+            [candidates addObject:table[key]];
+        }
+        if ((NSInteger)candidates.count >= maxCount) break;
+    }
+    return candidates;
+}
+
+/// 价目表模糊搜索（设置页价格库搜索用）
+- (id)pricingEntriesMatchingQuery:(id)arg1 limit:(id)arg2
+{
+    NSString *query = [arg1 isKindOfClass:NSString.class] ? [(NSString *)arg1 lowercaseString] : @"";
+    NSInteger maxCount = [arg2 respondsToSelector:@selector(integerValue)] ? [arg2 integerValue] : 30;
+    if (maxCount <= 0) maxCount = 30;
+
+    NSDictionary<NSString *, NSDictionary *> *table = self.prices ?: @{};
+    NSMutableArray<NSDictionary *> *results = [NSMutableArray array];
+    for (NSString *key in table) {
+        if (![key isKindOfClass:NSString.class]) continue;
+        if (query.length > 0 && [key.lowercaseString rangeOfString:query].location == NSNotFound) continue;
+        [results addObject:table[key]];
+        if ((NSInteger)results.count >= maxCount) break;
+    }
+    return results;
+}
+
+
+
 + (instancetype)sharedManager
 {
     static CAModelPricingManager *manager; static dispatch_once_t once;

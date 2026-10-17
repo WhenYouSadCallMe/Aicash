@@ -43,6 +43,43 @@ NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpda
 
 @implementation CACodexEngine
 
+#pragma mark - 原包占位选择器的真实实现（此前只有 .h 声明，调用即 unrecognized selector）
+
+- (id)currentThreadId
+{
+    if (_activeTurnThreadId.length > 0) return _activeTurnThreadId;
+    if (self.mcpCatalogThreadId.length > 0) return self.mcpCatalogThreadId;
+    return self.currentConversationId;
+}
+
+- (id)effectiveModelSlug
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    for (NSString *key in @[ @"CodexActiveModelSlug", @"CodexSelectedModel", @"CodexThirdPartyModel" ]) {
+        NSString *value = [defaults stringForKey:key];
+        if (value.length > 0) return value;
+    }
+    return self.thirdPartyModel;
+}
+
+- (id)latestContextTokenCount
+{
+    if (self.contextUsagePercent <= 0) return @(0);
+    long long limit = [self.contextWindowLimitTokens longLongValue];
+    if (limit <= 0) return @(0);
+    return @((long long)((double)limit * (double)self.contextUsagePercent / 100.0));
+}
+
+- (id)contextWindowLimitTokens
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSInteger tokens = [defaults integerForKey:@"CodexThirdPartyContextWindowTokens"];
+    if (tokens > 0) return @(tokens);
+    // 官方模型默认 272000（models.json context_window 最小值），未配置第三方时用它兜底
+    return @(272000);
+}
+
+
 + (instancetype)sharedEngine
 {
     static CACodexEngine *engine; static dispatch_once_t once;
