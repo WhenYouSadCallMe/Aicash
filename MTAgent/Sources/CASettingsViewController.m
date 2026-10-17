@@ -342,6 +342,8 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)showKeyPaths;
 - (void)showStandaloneEnvironmentForRuntime:(NSString *)runtimeID;
 
+- (void)installProfileHeader;
+
 @end
 
 @implementation CASettingsViewController
@@ -364,25 +366,28 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     self.title = @"设置";
     self.view.backgroundColor = UIColor.systemGroupedBackgroundColor;
 
+    // 原版排版参数（反编译证实）：autoresizingMask、rowHeight 60、sectionHeader 32、sectionFooter 12、
+    // 背景用 CAThemeManager 等价色（systemGroupedBackground）、分隔线用 separatorColor、tint accent。
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleInsetGrouped];
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = 60.0;
+    self.tableView.sectionHeaderHeight = 32.0;
+    self.tableView.sectionFooterHeight = 12.0;
+    self.tableView.backgroundColor = UIColor.systemGroupedBackgroundColor;
+    self.tableView.separatorColor = UIColor.separatorColor;
+    self.tableView.tintColor = UIColor.systemBlueColor;
     [self.tableView registerClass:CASettingsValueCell.class forCellReuseIdentifier:kSettingsCellReuseIdentifier];
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kSettingsFieldCellReuseIdentifier];
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kSettingsContentCellReuseIdentifier];
     [self.view addSubview:self.tableView];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-    ]];
 
     // 顶栏固定不透明：截图 05 里「主题」整行从导航栏下方滚过（卡片上边缘被裁切）
     [self applyOpaqueNavigationBarAppearance];
     [self installCloseBarButtonItem];
 
+    [self installProfileHeader];
     [self prepareThirdPartyDrafts];
     [self refreshLoginStatus];
     [self refreshRuntimeStatus];
@@ -1786,6 +1791,99 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     [self presentSettingsPanel:[[CAExtensionsViewController alloc] init]];
 }
+
+
+#pragma mark - 账户卡（原版 buildProfileHeader 逐属性复刻）
+
+- (void)installProfileHeader
+{
+    if (self.profileHeader) return;
+
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, 132.0)];
+    self.profileHeader = header;
+
+    UIView *card = [UIView new];
+    self.profileCard = card;
+    card.translatesAutoresizingMaskIntoConstraints = NO;
+    card.backgroundColor = UIColor.secondarySystemGroupedBackgroundColor;
+    card.layer.cornerRadius = 20.0;
+    card.layer.cornerCurve = kCACornerCurveContinuous;
+    [header addSubview:card];
+
+    UIImageView *avatar = [UIImageView new];
+    self.avatarView = avatar;
+    avatar.translatesAutoresizingMaskIntoConstraints = NO;
+    avatar.backgroundColor = UIColor.tertiarySystemFillColor;
+    avatar.layer.cornerRadius = 28.0;
+    avatar.clipsToBounds = YES;
+    avatar.contentMode = UIViewContentModeScaleAspectFit;
+    avatar.image = [UIImage systemImageNamed:@"person.crop.circle.fill"];
+    avatar.tintColor = UIColor.secondaryLabelColor;
+    [card addSubview:avatar];
+
+    UILabel *initial = [UILabel new];
+    self.avatarInitialLabel = initial;
+    initial.translatesAutoresizingMaskIntoConstraints = NO;
+    initial.textAlignment = NSTextAlignmentCenter;
+    initial.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightMedium];
+    initial.textColor = UIColor.labelColor;
+    [avatar addSubview:initial];
+
+    UILabel *name = [UILabel new];
+    self.userNameLabel = name;
+    name.translatesAutoresizingMaskIntoConstraints = NO;
+    name.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold];
+    name.numberOfLines = 2;
+    name.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    name.textColor = UIColor.labelColor;
+    name.text = @"账户";
+
+    UILabel *status = [UILabel new];
+    self.userStatusLabel = status;
+    status.translatesAutoresizingMaskIntoConstraints = NO;
+    status.font = [UIFont systemFontOfSize:12.0];
+    status.textColor = UIColor.secondaryLabelColor;
+    status.numberOfLines = 2;
+    status.text = @"正在读取登录状态…";
+
+    UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[ name, status ]];
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+    stack.axis = UILayoutConstraintAxisVertical;
+    stack.spacing = 5.0;
+    [card addSubview:stack];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [card.leadingAnchor constraintEqualToAnchor:header.leadingAnchor constant:20.0],
+        [card.trailingAnchor constraintEqualToAnchor:header.trailingAnchor constant:-20.0],
+        [card.topAnchor constraintEqualToAnchor:header.topAnchor constant:12.0],
+        [card.bottomAnchor constraintEqualToAnchor:header.bottomAnchor constant:-12.0],
+        [avatar.leadingAnchor constraintEqualToAnchor:card.leadingAnchor constant:16.0],
+        [avatar.centerYAnchor constraintEqualToAnchor:card.centerYAnchor],
+        [avatar.widthAnchor constraintEqualToConstant:56.0],
+        [avatar.heightAnchor constraintEqualToConstant:56.0],
+        [initial.centerXAnchor constraintEqualToAnchor:avatar.centerXAnchor],
+        [initial.centerYAnchor constraintEqualToAnchor:avatar.centerYAnchor],
+        [stack.leadingAnchor constraintEqualToAnchor:avatar.trailingAnchor constant:14.0],
+        [stack.trailingAnchor constraintEqualToAnchor:card.trailingAnchor constant:-16.0],
+        [stack.centerYAnchor constraintEqualToAnchor:card.centerYAnchor],
+    ]];
+
+    self.tableView.tableHeaderView = header;
+    [self refreshProfileHeaderText];
+}
+
+- (void)refreshProfileHeaderText
+{
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSString *name = [defaults stringForKey:@"CodexAccountDisplayName"];
+    NSString *agent = [CAAgentIdentity displayName] ?: @"";
+    self.userNameLabel.text = (name.length > 0) ? name : @"账户";
+    BOOL loggedIn = [defaults boolForKey:@"CodexIsLoggedIn"];
+    self.userStatusLabel.text = loggedIn
+        ? [NSString stringWithFormat:@"已登录%@", agent.length ? [NSString stringWithFormat:@" · %@", agent] : @""]
+        : @"未登录 · 点击「登录方式」可登录";
+}
+
 
 #pragma mark - UITableViewDataSource
 
