@@ -94,7 +94,10 @@ jobs:
         if: failure()
         run: |
           echo "==== 编译失败，日志尾部 ===="
-          tail -n 300 build_all.log || true
+          echo "==== 首个编译/链接错误 ===="
+          grep -n -E 'error:|fatal error|clang:|undefined symbols|duplicate symbol|ld:' build_all.log | head -n 100 || true
+          echo "==== 完整日志尾部（最近 500 行） ===="
+          tail -n 500 build_all.log || true
           exit 1
 
       - name: 签名（entitlements 逐项对齐原包）
