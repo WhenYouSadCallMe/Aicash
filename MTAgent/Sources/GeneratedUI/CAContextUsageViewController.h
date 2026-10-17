@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class UILabel;
 
 @interface CAContextUsageViewController : UIViewController
+    - (instancetype)initWithEngine:(nullable CACodexEngine *)engine;
     - (UILabel *)cacheHint;
     - (id)cacheProgress;
     - (UILabel *)cacheTokens;
@@ -42,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setContextValue:(id)arg1;
     - (void)setEngine:(id)arg1;
     - (void)setModelLabel:(id)arg1;
-    - (id)tokenString:(id)arg1;
-    - (void)traitCollectionDidChange:(id)arg1;
+    - (NSString *)tokenString:(id)arg1;
+    - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection;
     - (void)viewDidLoad;
 
 @end

@@ -57,14 +57,11 @@ extern char **environ;
     // 工作目录：优先用 posix_spawn_file_actions_addchdir_np（iOS 16+/macOS 10.15+）；
     // 不可用时用 /bin/sh -c 'cd "$1" && shift && exec "$@"' 包装，保证子进程 cwd 正确。
     NSMutableArray<NSString *> *argvList = [NSMutableArray array];
-    BOOL useShellWrapper = NO;
-    if (self.currentDirectoryURL.path.length) {
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
-        useShellWrapper = !@available(iOS 16.0, *);
-#else
-        useShellWrapper = YES;
-#endif
-    }
+    // The iPhoneOS SDK used by this target does not expose
+    // posix_spawn_file_actions_addchdir_np, so always use the wrapper when a
+    // working directory is requested. This keeps cwd behavior consistent on
+    // both iOS 15 and newer runtimes.
+    BOOL useShellWrapper = self.currentDirectoryURL.path.length > 0;
     if (useShellWrapper) {
         [argvList addObject:@"/bin/sh"];
         [argvList addObject:@"-c"];
@@ -100,8 +97,12 @@ extern char **environ;
     // 说明：posix_spawn_file_actions_addchdir_np 在 iOS SDK 中不可用（macOS 专属），
     // 需要 chdir 的场景统一由上面的 /bin/sh 包装实现（useShellWrapper 分支）。
 
+    // When a working directory is requested on SDKs without the chdir file
+    // action, the shell wrapper is the actual process to spawn. The original
+    // executable remains argv[4], after the wrapper has changed directory.
+    NSString *spawnPath = useShellWrapper ? @"/bin/sh" : executable;
     pid_t pid = -1;
-    int rc = posix_spawn(&pid, executable.fileSystemRepresentation, &actions, NULL, argv, envp);
+    int rc = posix_spawn(&pid, spawnPath.fileSystemRepresentation, &actions, NULL, argv, envp);
 
     posix_spawn_file_actions_destroy(&actions);
     for (NSUInteger i = 0; i <= argvList.count; i++) if (argv[i]) free(argv[i]);

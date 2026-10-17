@@ -167,7 +167,8 @@
         CALog(CALogLevelWarn, @"APP-SERVER", @"sendResult dropped requestID=%@ server not running", requestID ?: @"?");
         return;
     }
-    if (![requestID respondsToSelector:@selector(unsignedIntegerValue)]) return;
+    // JSON-RPC id 既可以是数字也可以是字符串；不要因版本差异静默丢掉应答。
+    if (![requestID isKindOfClass:NSNumber.class] && ![requestID isKindOfClass:NSString.class]) return;
 
     NSMutableDictionary *message = [NSMutableDictionary dictionary];
     message[@"jsonrpc"] = @"2.0";
@@ -212,20 +213,24 @@
         return;
     }
     if (message[@"id"] && (message[@"result"] || message[@"error"])) {
-        NSNumber *rid = message[@"id"];
+        id rid = message[@"id"];
         void (^handler)(id, NSError *) = self.pending[rid];
         [self.pending removeObjectForKey:rid];
         if (!handler) return;
         if (message[@"error"]) {
-            NSDictionary *err = message[@"error"];
-            handler(nil, [NSError errorWithDomain:@"CodexApp.AppServer" code:[err[@"code"] integerValue]
-                                         userInfo:@{ NSLocalizedDescriptionKey: err[@"message"] ?: @"app-server returned an error" }]);
+            NSDictionary *err = [message[@"error"] isKindOfClass:NSDictionary.class] ? message[@"error"] : @{};
+            id rawCode = err[@"code"];
+            id rawMessage = err[@"message"];
+            NSString *messageText = [rawMessage isKindOfClass:NSString.class] ? rawMessage : @"app-server returned an error";
+            handler(nil, [NSError errorWithDomain:@"CodexApp.AppServer" code:[rawCode respondsToSelector:@selector(integerValue)] ? [rawCode integerValue] : -1
+                                         userInfo:@{ NSLocalizedDescriptionKey: messageText }]);
         } else {
             handler(message[@"result"], nil);
         }
         return;
     }
-    NSString *method = message[@"method"];
+    id rawMethod = message[@"method"];
+    NSString *method = [rawMethod isKindOfClass:NSString.class] ? rawMethod : nil;
     NSDictionary *params = [message[@"params"] isKindOfClass:NSDictionary.class] ? message[@"params"] : @{};
 
     // 带 id 但不带 result/error 的入站消息是「服务端请求」：客户端必须回 {"id":rid,"result":...}，

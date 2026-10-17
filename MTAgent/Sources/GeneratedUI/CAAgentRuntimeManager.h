@@ -8,12 +8,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CAAgentRuntimeProcess;
+
 @interface CAAgentRuntimeManager : NSObject
     - (unsigned long long)activeProcessCount;
     - (unsigned long long)activeRootProcessCount;
     - (id)diagnosticSnapshot;
     - (bool)lastLaunchUsedRootPersona;
-    - (id)launchCodexExecutable:(id)arg1 arguments:(id)arg2 currentDirectory:(id)arg3 environment:(id)arg4 outputHandler:(id)arg5 errorHandler:(id)arg6 terminationHandler:(id)arg7 error:(id)arg8;
+    - (nullable CAAgentRuntimeProcess *)launchCodexExecutable:(id)executable arguments:(nullable NSArray *)arguments currentDirectory:(nullable id)currentDirectory environment:(nullable NSDictionary *)environment outputHandler:(nullable id)outputHandler errorHandler:(nullable id)errorHandler terminationHandler:(nullable id)terminationHandler error:(NSError **)error;
     - (bool)personaAPIsAvailable;
     - (void)processDidTerminate:(id)arg1 status:(id)arg2;
     - (id)sharedManager;

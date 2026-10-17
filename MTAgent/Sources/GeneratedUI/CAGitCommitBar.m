@@ -3,7 +3,7 @@
 //
 //  版式对齐原版截图（06/07）：
 //    · 顶部分段控件：「全部更改 <N>」/「仅已暂存 <M>」（选中段白胶囊）
-//    · 下一行：输入框（占位「这次修改了什么?」）+ 右侧「✓ 提交」按钮（不可提交时置灰）
+//    · 下一行：输入框（占位「这次修改了什么？」）+ 右侧「✓ 提交」按钮（不可提交时置灰）
 //    · 顶部 0.5pt 分隔线；整条固定底部并让出 safe area（由使用方负责约束）
 //
 
@@ -65,7 +65,7 @@
         _placeholder = [[UILabel alloc] init];
         _placeholder.translatesAutoresizingMaskIntoConstraints = NO;
         _placeholder.font = [UIFont systemFontOfSize:15.0];
-        _placeholder.text = @"这次修改了什么?";
+        _placeholder.text = @"这次修改了什么？";
         _placeholder.userInteractionEnabled = NO;
 
         _commitButton = [UIButton buttonWithType:UIButtonTypeSystem];

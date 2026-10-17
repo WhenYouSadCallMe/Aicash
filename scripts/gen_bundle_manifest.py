@@ -2,8 +2,9 @@
 """从原 .tipa 的 zip 布局生成复刻包的装配清单（顺序 / 权限 / 符号链接目标 完全一致）。"""
 import json, os
 
-SRC = r"C:\Users\Administrator\Desktop\ai\MTAgent-Replica\SPEC\assets\zip_entry_modes.json"
-OUT = r"C:\Users\Administrator\Desktop\ai\MTAgent-Replica\build\bundle_manifest.json"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, "SPEC", "assets", "zip_entry_modes.json")
+OUT = os.path.join(ROOT, "build", "bundle_manifest.json")
 
 entries = json.load(open(SRC, encoding='utf-8'))
 app_prefix = "Payload/CodexApp.app/"

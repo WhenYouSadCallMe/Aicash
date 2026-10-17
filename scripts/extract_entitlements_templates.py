@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import re, os
 
-BASE = r"C:\Users\Administrator\AppData\Local\Temp\2\rea-extracted-924be991-2975-464f-9aa3-ed94a774daa7\Payload\CodexApp.app"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# An extracted app may be supplied by the operator; keep the repository copy
+# as the default so this helper never reaches outside the workspace silently.
+BASE = os.environ.get("REA_EXTRACTED_APP", os.path.join(ROOT, "OriginalAssets", "Payload", "CodexApp.app"))
 FILES = {
     "CodexApp": os.path.join(BASE, "CodexApp"),
     "codex-sign": os.path.join(BASE, "Helpers", "codex-sign"),
@@ -9,6 +12,9 @@ FILES = {
 }
 pat = rb'<\?xml version="1\.0" encoding="UTF-8"\?>.{0,3000}?</plist>'
 for name, path in FILES.items():
+    if not os.path.isfile(path):
+        print('SKIP %s: file not present at %s' % (name, path))
+        continue
     d = open(path, 'rb').read()
     seen = set()
     for m in re.finditer(pat, d, re.S):

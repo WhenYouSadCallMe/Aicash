@@ -26,13 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
     - (id)buttonWithSymbol:(id)arg1 label:(id)arg2 action:(id)arg3;
     - (UIButton *)closeButton;
     - (void)closePage;
-    - (id)engine;
+    - (CACodexEngine *)engine;
     - (id)friendlyWindowName:(id)arg1 fallback:(id)arg2;
     - (UIView *)header;
     - (id)labelWithSize:(id)arg1 weight:(id)arg2 secondary:(id)arg3;
     - (UILabel *)planLabel;
     - (unsigned long long)quotaRefreshGeneration;
-    - (id)record;
+    - (CAConversationRecord *)record;
     - (UIButton *)refreshButton;
     - (void)refreshQuota;
     - (bool)refreshing;

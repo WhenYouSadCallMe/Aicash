@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class NSString;
 
 @interface CAReverseToolsDownload : NSObject
-    - (void)URLSession:(id)arg1 downloadTask:(id)arg2 didFinishDownloadingToURL:(id)arg3;
-    - (void)URLSession:(id)arg1 downloadTask:(id)arg2 didWriteData:(id)arg3 totalBytesWritten:(id)arg4 totalBytesExpectedToWrite:(id)arg5;
-    - (void)URLSession:(id)arg1 task:(id)arg2 didCompleteWithError:(id)arg3;
+    - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location;
+    - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite;
+    - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error;
     - (NSString *)destination;
     - (id)done;
     - (NSError *)error;

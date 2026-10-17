@@ -7,7 +7,7 @@
 //         @"options": @[ @{ @"label": 选项文本, @"description": 说明 } ],
 //         @"secret": @(BOOL), @"freeform": @(BOOL) }
 //    completion：void(^)(BOOL approved, NSDictionary *answers, BOOL rememberChoice)
-//    answers：@{ questionID: @{ @"choice": 选项文本 } 或 @{ @"text": 文本 }，勾选「允许并记住」时附带 @"remember": @YES }
+//    answers：@{ questionID: @{ @"answers": @[ 选项文本或自由文本 ] } }
 //
 //  头文件的选择器参数类型统一是占位 id；实现逐字沿用该签名，函数体第一行局部强转后使用。
 //
@@ -477,17 +477,17 @@ static UIView *CADecisionFreeformRow(UITextView *textView)
         if (selection != nil && selection.unsignedIntegerValue < options.count) {
             NSDictionary *option = options[selection.unsignedIntegerValue];
             NSString *label = [option[@"label"] isKindOfClass:NSString.class] ? option[@"label"] : @"";
-            if (label.length > 0) answer[@"choice"] = label;
+            // app-server 的 RequestUserInputAnswer 使用 answers 数组，不是自定义 choice 字段。
+            if (label.length > 0) answer[@"answers"] = @[ label ];
             BOOL remember = CADecisionBool(option[@"remember"]) || [label containsString:@"记住"];
             if (remember) {
-                answer[@"remember"] = @YES;
                 rememberChoice = YES;
             }
             if ([label isEqualToString:@"拒绝"]) denied = YES;
         }
 
         NSString *text = [self textAnswerForIndex:@(index)];
-        if (text.length > 0) answer[@"text"] = text;
+        if (text.length > 0) answer[@"answers"] = @[ text ];
 
         if (answer.count > 0) answers[questionID] = answer;
     }

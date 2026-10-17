@@ -100,8 +100,8 @@ typedef void (^CACodexTurnCompletion)(NSInteger exitStatus, NSString * _Nullable
 @property (nonatomic, strong, readonly, nullable) NSDictionary *pendingUserInputParams;
 
 /// 把用户在计划/决策卡上的答案回传给 app-server（内部 sendResult:forRequestID:）。
-/// answers 为最外层 answers 映射：@{ questionId: @{ @"choice"或@"text": ... } }；
-/// 外层包装见 CAChatViewController 的 respondWithAnswers:remember:（统一 @{ @"answers": ..., @"remember": ... }）。
+/// answers 为 RequestUserInputResponse 的 result：@{ @"answers": @{ questionId: @{ @"answers": @[ ... ] } } }。
+/// remember 只用于本地界面状态，不写入 RPC result。
 - (void)respondToUserInputRequest:(nullable NSNumber *)requestID answers:(nullable NSDictionary *)answers;
 
 #pragma mark - turn/steer（回合插话）

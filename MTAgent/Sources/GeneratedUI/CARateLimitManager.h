@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class NSString;
 
 @interface CARateLimitManager : NSObject
+    + (instancetype)sharedManager;
     - (bool)available;
     - (id)formattedQuotaReport;
     - (bool)isExpiredSnapshot:(id)arg1;

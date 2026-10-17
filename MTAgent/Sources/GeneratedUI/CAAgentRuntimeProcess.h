@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAAgentRuntimeProcess : NSObject
     - (bool)drainHandle:(id)arg1 handler:(id)arg2;
     - (id)errorSource;
-    - (id)initWithPID:(id)arg1 inputHandle:(id)arg2 outputHandle:(id)arg3 errorHandle:(id)arg4 usedPersona:(id)arg5 outputHandler:(id)arg6 errorHandler:(id)arg7 terminationHandler:(id)arg8;
+    - (instancetype)initWithPID:(int)pid inputHandle:(NSFileHandle *)inputHandle outputHandle:(NSFileHandle *)outputHandle errorHandle:(NSFileHandle *)errorHandle usedPersona:(BOOL)usedPersona outputHandler:(nullable id)outputHandler errorHandler:(nullable id)errorHandler terminationHandler:(nullable id)terminationHandler;
     - (id)ioQueue;
     - (bool)isRunning;
     - (bool)launchedWithRootPersona;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)setErrorSource:(id)arg1;
     - (void)setIoQueue:(id)arg1;
     - (void)setLaunchedWithRootPersona:(id)arg1;
-    - (void)setLifetimeRetainer:(id)arg1;
+    - (void)setLifetimeRetainer:(nullable id)arg1;
     - (void)setOutputSource:(id)arg1;
     - (void)setProcessIdentifier:(id)arg1;
     - (void)setRunning:(id)arg1;

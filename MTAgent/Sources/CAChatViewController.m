@@ -47,6 +47,8 @@
 #import "CAGitRepository.h"
 #import "CAGitSnapshot.h"
 #import "CAWorkspaceViewController.h"
+#import "CAUsageViewController.h"
+#import "CAContextUsageViewController.h"
 #import "CAModelPickerViewController.h"
 #import "CAModelPricingViewController.h"
 #import "CAModelPricingManager.h"
@@ -72,9 +74,9 @@ static const NSTimeInterval kChatSilentAudioSeconds        = 3.0;
 static const NSUInteger kChatRawTailLimit                  = 40;
 static const NSUInteger kChatStderrTailLimit               = 6;
 
-#pragma mark 空态字面量（01 主会话页·空态，逐字对齐真机截图，别动半角/全角与间隔）
+#pragma mark 空态字面量（01 主会话页·空态，逐字对齐原包与真机截图）
 
-static NSString * const kChatWelcomeTitleText        = @"今天想完成什么?";
+static NSString * const kChatWelcomeTitleText        = @"今天想完成什么？";
 static NSString * const kChatWelcomeSubtitleLine1    = @"从理解项目到交付代码";
 static NSString * const kChatWelcomeSubtitleLine2    = @"在当前工作区开始一个任务";
 static NSString * const kChatWelcomeCardProjectTitle = @"了解这个项目";
@@ -99,7 +101,7 @@ static const CGFloat kChatBottomBarSideInset     = 12.0;   // 协作条 / 输入
 static const CGFloat kChatBottomCircleSize       = 32.0;   // 圆形按钮直径（+ / 发送 / 垃圾桶 / 电闪）
 static const CGFloat kChatBottomChipHeight       = 30.0;   // 胶囊高（6.1-Sol / High / 协作药丸）
 static const CGFloat kChatBottomBarHeight        = 42.0;   // 协作条整条高
-static const CGFloat kChatComposerCardRadius     = 16.0;   // 输入卡圆角
+static const CGFloat kChatComposerCardRadius     = 20.0;   // 原包 inputContainer 圆角
 
 #pragma mark Git 角标轮询
 
@@ -215,6 +217,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (id)handleSlashMenuButton;
 - (void)handleComposerMenuLongPress:(UILongPressGestureRecognizer *)gesture;
 - (void)updateConversationBottomInset;
+- (void)presentNavigationController:(UINavigationController *)navigation attempt:(NSUInteger)attempt;
 - (void)stopGitBadgePolling;
 - (void)gitBadgeTimerTick:(NSTimer *)timer;
 - (void)applyGitBadgeChangeCount:(NSUInteger)count available:(BOOL)available;
@@ -223,6 +226,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (NSString *)currentEffortChipTitle;
 - (NSString *)effortDisplayTitleForLevel:(NSString *)level;
 - (id)presentPanelInNavigationController:(nullable UIViewController *)controller;
+- (id)presentModelPricing;
 - (id)presentPanelPlaceholderNoticeWithTitle:(NSString *)title detail:(nullable NSString *)detail;
 - (nullable NSString *)textForSelectionArgument:(id)arg1;
 
@@ -493,6 +497,8 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     self.inputBar.layer.borderWidth = 1.0 / UIScreen.mainScreen.scale;
     self.inputBar.layer.borderColor = UIColor.systemGray5Color.CGColor;
     self.inputBar.layer.masksToBounds = YES;
+    // 保留原包命名语义：当前复刻的 inputBar 就是 inputContainer。
+    self.inputContainer = self.inputBar;
     [self.view addSubview:self.inputBar];
 
     // 卡内首行：上下文 0% · 缓存 —（灰色小字）
@@ -501,6 +507,8 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     self.contextCaption.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
     self.contextCaption.textColor = UIColor.secondaryLabelColor;
     self.contextCaption.text = kChatContextCaptionText;
+    self.contextCaption.userInteractionEnabled = YES;
+    [self.contextCaption addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleContextInfo)]];
     [self.inputBar addSubview:self.contextCaption];
 
     self.attachmentHintLabel = [[UILabel alloc] init];
@@ -795,7 +803,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
                                             image:[UIImage systemImageNamed:@"tag"]
                                        identifier:nil
                                           handler:^(UIAction *action) {
-        [weakSelf handleShowUsageDetails];
+        [weakSelf presentModelPricing];
     }];
     UIAction *agent = [UIAction actionWithTitle:@"Agent 状态"
                                           image:[UIImage systemImageNamed:@"bolt.fill"]
@@ -2804,8 +2812,11 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (id)conversationSidebarDidRequestUsage:(id)arg1
 {
     [self closeHistoryDrawer];
-    [self appendNoticeText:@"用量页还没接入（CAUsageViewController 仍是骨架）。"];
-    [self conversationDidChange];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.28 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CAUsageViewController *usage = [[CAUsageViewController alloc] init];
+        usage.record = self.activeRecord;
+        [self presentPanelInNavigationController:usage];
+    });
     return nil;
 }
 
@@ -3099,22 +3110,22 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [self.view insertSubview:welcome aboveSubview:self.tableView];
     self.welcomeView = welcome;
 
-    // 终端图标：SF Symbol terminal（regular，约 34pt，截图 y 238–272）
+    // 终端图标：原包使用 32pt terminal，图标容器高度 44pt。
     UIImageView *icon = [[UIImageView alloc] init];
     icon.translatesAutoresizingMaskIntoConstraints = NO;
     icon.image = [UIImage systemImageNamed:@"terminal"
-                         withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:34.0 weight:UIImageSymbolWeightRegular]];
+                         withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:32.0 weight:UIImageSymbolWeightRegular]];
     icon.tintColor = UIColor.labelColor;
     icon.contentMode = UIViewContentModeScaleAspectFit;
     icon.hidden = NO;
     [welcome addSubview:icon];
     self.welcomeIcon = icon;
 
-    // 标题：今天想完成什么?（约 28pt bold）
+    // 标题：今天想完成什么？（24pt semibold，与原包 setupWelcomeView 一致）
     UILabel *title = [[UILabel alloc] init];
     title.translatesAutoresizingMaskIntoConstraints = NO;
     title.text = kChatWelcomeTitleText;
-    title.font = [UIFont systemFontOfSize:28.0 weight:UIFontWeightBold];
+    title.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightSemibold];
     title.textColor = UIColor.labelColor;
     title.textAlignment = NSTextAlignmentCenter;
     title.numberOfLines = 1;
@@ -3138,15 +3149,15 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [welcome addSubview:subtitle];
     self.welcomeSubtitle = subtitle;
 
-    // 原版空态：三枚横排胶囊（了解这个项目 / 检查代码问题 / 实现一个功能），居中一行
+    // 原版空态：三张纵向建议卡（了解这个项目 / 检查代码问题 / 实现一个功能）。
     UIButton *projectCard = [self welcomePillWithTitle:kChatWelcomeCardProjectTitle prompt:kChatWelcomePromptProject];
     UIButton *inspectCard = [self welcomePillWithTitle:kChatWelcomeCardInspectTitle prompt:kChatWelcomePromptInspect];
     UIButton *featureCard = [self welcomePillWithTitle:kChatWelcomeCardFeatureTitle prompt:kChatWelcomePromptFeature];
 
     UIStackView *cards = [[UIStackView alloc] initWithArrangedSubviews:@[ projectCard, inspectCard, featureCard ]];
     cards.translatesAutoresizingMaskIntoConstraints = NO;
-    cards.axis = UILayoutConstraintAxisHorizontal;
-    cards.spacing = 8.0;
+    cards.axis = UILayoutConstraintAxisVertical;
+    cards.spacing = kChatWelcomeCardSpacing;
     cards.distribution = UIStackViewDistributionFillEqually;
     [welcome addSubview:cards];
     self.welcomeActions = cards;
@@ -3179,9 +3190,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
         [hero.trailingAnchor constraintEqualToAnchor:welcome.trailingAnchor constant:-kChatWelcomeCardSideInset],
         [hero.centerYAnchor constraintEqualToAnchor:welcome.centerYAnchor constant:4.0],
 
-        [icon.widthAnchor constraintEqualToConstant:34.0],
-        [icon.heightAnchor constraintEqualToConstant:34.0],
-        // 横排胶囊行：与 hero 同宽，高度由内容决定（原版胶囊高约 36pt）
+        [icon.widthAnchor constraintEqualToConstant:32.0],
+        [icon.heightAnchor constraintEqualToConstant:44.0],
+        // 纵向建议卡：与 hero 同宽，三张卡等高、间距 8pt。
         [cards.leadingAnchor constraintEqualToAnchor:hero.leadingAnchor],
         [cards.trailingAnchor constraintEqualToAnchor:hero.trailingAnchor],
     ]];
@@ -3269,13 +3280,13 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
                                                   object:nil];
 }
 
-/// 原版空态胶囊：浅灰胶囊、居中文字、无图标；点按填输入框
+/// 原版空态建议卡：浅灰底、居中文字、无图标；点按填输入框
 - (UIButton *)welcomePillWithTitle:(NSString *)title prompt:(NSString *)prompt
 {
     UIButton *pill = [UIButton buttonWithType:UIButtonTypeSystem];
     pill.translatesAutoresizingMaskIntoConstraints = NO;
     pill.backgroundColor = UIColor.systemGray6Color;
-    pill.layer.cornerRadius = 18.0;
+    pill.layer.cornerRadius = 12.0;
     pill.layer.masksToBounds = YES;
     pill.contentEdgeInsets = UIEdgeInsetsMake(0.0, 14.0, 0.0, 14.0);
     [pill setTitle:title forState:UIControlStateNormal];
@@ -3284,7 +3295,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     pill.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     pill.accessibilityHint = prompt;
     [pill addTarget:self action:@selector(handleWelcomeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [pill.heightAnchor constraintEqualToConstant:36.0].active = YES;
+    [pill.heightAnchor constraintEqualToConstant:kChatWelcomeCardHeight].active = YES;
     return pill;
 }
 
@@ -3547,6 +3558,19 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     return @YES;
 }
 
+- (id)handleContextInfo
+{
+    CAContextUsageViewController *details = [[CAContextUsageViewController alloc] initWithEngine:self.chatEngine];
+    self.contextUsageController = details;
+    return [self presentPanelInNavigationController:details];
+}
+
+- (id)presentModelPricing
+{
+    CAModelPricingViewController *pricing = [[CAModelPricingViewController alloc] init];
+    return [self presentPanelInNavigationController:pricing];
+}
+
 - (id)presentComposerCatalogDetail:(id)arg1
 {
     NSArray *items = CAComposerCatalog.sharedCatalog.items ?: @[];
@@ -3721,7 +3745,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     appendEntry(@"计划审阅", ^{ [weakSelf presentPendingPlanReview]; });
     appendEntry(@"审批对话框", ^{ [weakSelf presentPendingPlanDecisionIfPossible]; });
     appendEntry(@"Git 变更", ^{ [weakSelf handleOpenGitChanges]; });
-    appendEntry(@"模型价格", ^{ [weakSelf handleShowUsageDetails]; });
+    appendEntry(@"模型价格", ^{ [weakSelf presentModelPricing]; });
     appendEntry(@"扩展与指令", ^{ [weakSelf presentComposerCatalogDetail:nil]; });
     appendEntry(@"工作区", ^{ [weakSelf handleOpenWorkspaceManager]; });
     appendEntry(@"Agent 状态", ^{ [weakSelf handleAgentStatusInfo]; });
@@ -3781,11 +3805,8 @@ static NSArray *CAChatQuestionsFromUserInputParams(NSDictionary *params)
         typeof(self) strongSelf = weakSelf;
         if (!strongSelf) return;
         strongSelf.activeDecisionPanel = nil;
-        // answers schema（保守包装）：{"answers": {questionId: {...}}, "remember": BOOL}
-        NSDictionary *payload = @{
-            @"answers": answers ?: @{},
-            @"remember": @(rememberChoice),
-        };
+        // app-server 只接受 RequestUserInputResponse 的 answers 映射；remember 是本地 UI 语义，不能混入 RPC result。
+        NSDictionary *payload = @{ @"answers": answers ?: @{} };
         [strongSelf respondToPendingUserInputWithAnswers:payload remember:rememberChoice requestID:requestID];
     }];
     if (!panel) {
@@ -3959,24 +3980,38 @@ static NSArray *CAChatQuestionsFromUserInputParams(NSDictionary *params)
 {
     if (!controller) return nil;
     UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentNavigationController:navigation attempt:0];
+    return controller;
+}
+
+- (void)presentNavigationController:(UINavigationController *)navigation attempt:(NSUInteger)attempt
+{
+    if (!navigation) return;
     __weak typeof(self) weakSelf = self;
-    // 面板可能是从 actionSheet 的 action 里点出来的：等这一刻的 dismiss 落定再 present，
-    // 并挂到当前最上层的页面（避免“present 被吃掉”）
     dispatch_async(dispatch_get_main_queue(), ^{
         typeof(self) strongSelf = weakSelf;
-        if (!strongSelf) return;
+        if (!strongSelf || navigation.presentingViewController) return;
+
         UIViewController *presenter = strongSelf;
         while (presenter.presentedViewController && !presenter.presentedViewController.isBeingDismissed) {
             presenter = presenter.presentedViewController;
         }
-        if (presenter.isBeingDismissed || presenter.view.window == nil) return;
+        BOOL dismissing = presenter.isBeingDismissed || presenter.navigationController.isBeingDismissed;
+        if (dismissing || presenter.view.window == nil) {
+            if (attempt < 8) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.06 * NSEC_PER_SEC)),
+                               dispatch_get_main_queue(), ^{
+                    [weakSelf presentNavigationController:navigation attempt:attempt + 1];
+                });
+            }
+            return;
+        }
         @try {
             [presenter presentViewController:navigation animated:YES completion:nil];
         } @catch (NSException *exception) {
             CALog(CALogLevelError, @"CHAT", @"panel present exception: %@ | %@", exception.name, exception.reason);
         }
     });
-    return controller;
 }
 
 /// 面板还没实装完时的可返回提示（保持入口“能点开、能返回”）

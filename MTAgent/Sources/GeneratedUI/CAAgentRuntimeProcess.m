@@ -1,159 +1,62 @@
-//
-//  CAAgentRuntimeProcess — AUTO-GENERATED（选择器与返回值取自 SPEC/method_types.json，参数类型统一占位 id）
-//  TODO(parity): 行为按原包实现补全（SPEC/复刻规格书.md）
-//
-
 #import "CAAgentRuntimeProcess.h"
+#import "CAProcess.h"
+#import <signal.h>
+
+@interface CAAgentRuntimeProcess ()
+@property(nonatomic,strong) NSFileHandle *standardInputValue;
+@property(nonatomic,strong) NSFileHandle *standardOutputValue;
+@property(nonatomic,strong) NSFileHandle *standardErrorValue;
+@property(nonatomic,strong) dispatch_queue_t ioQueueValue;
+@property(nonatomic,strong) dispatch_source_t outputSourceValue;
+@property(nonatomic,strong) dispatch_source_t errorSourceValue;
+@property(nonatomic,strong) id lifetimeRetainerValue;
+@property(nonatomic,copy) void (^terminationHandlerValue)(CAAgentRuntimeProcess *process);
+@property(nonatomic,assign) pid_t processIdentifierValue;
+@property(nonatomic,assign) int terminationStatusValue;
+@property(nonatomic,assign) BOOL runningValue;
+@property(nonatomic,assign) BOOL launchedWithRootPersonaValue;
+@property(nonatomic,strong) CAProcess *process;
+@end
 
 @implementation CAAgentRuntimeProcess
 
-- (bool)drainHandle:(id)arg1 handler:(id)arg2
+- (id)ioQueue{return _ioQueueValue;} - (void)setIoQueue:(id)v{_ioQueueValue=v;}
+- (id)outputSource{return _outputSourceValue;} - (void)setOutputSource:(id)v{_outputSourceValue=v;}
+- (id)errorSource{return _errorSourceValue;} - (void)setErrorSource:(id)v{_errorSourceValue=v;}
+- (id)lifetimeRetainer{return _lifetimeRetainerValue;} - (void)setLifetimeRetainer:(id)v{_lifetimeRetainerValue=v;}
+- (id)standardInput{return _standardInputValue;} - (void)setStandardInput:(id)v{_standardInputValue=v;}
+- (id)standardOutput{return _standardOutputValue;} - (void)setStandardOutput:(id)v{_standardOutputValue=v;}
+- (id)standardError{return _standardErrorValue;} - (void)setStandardError:(id)v{_standardErrorValue=v;}
+- (id)terminationHandler{return _terminationHandlerValue;} - (void)setTerminationHandler:(id)v{_terminationHandlerValue=[v copy];}
+- (int)processIdentifier{return (int)_processIdentifierValue;} - (void)setProcessIdentifier:(id)v{_processIdentifierValue=[v intValue];}
+- (int)terminationStatus{return _terminationStatusValue;} - (void)setTerminationStatus:(id)v{_terminationStatusValue=[v intValue];}
+- (bool)isRunning{return _runningValue;} - (void)setRunning:(id)v{_runningValue=[v boolValue];}
+- (bool)launchedWithRootPersona{return _launchedWithRootPersonaValue;} - (void)setLaunchedWithRootPersona:(id)v{_launchedWithRootPersonaValue=[v boolValue];}
+
+- (instancetype)initWithPID:(int)pid inputHandle:(NSFileHandle *)input outputHandle:(NSFileHandle *)output errorHandle:(NSFileHandle *)error usedPersona:(BOOL)persona outputHandler:(id)outHandler errorHandler:(id)errHandler terminationHandler:(id)termination
 {
-    // TODO(parity)
-    return NO;
+    if ((self=[super init])) {
+        _processIdentifierValue=pid; _standardInputValue=input; _standardOutputValue=output; _standardErrorValue=error; _launchedWithRootPersonaValue=persona; _runningValue=_processIdentifierValue>0; _ioQueueValue=dispatch_queue_create("com.codexapp.runtime.io", DISPATCH_QUEUE_SERIAL);
+        [self drainHandle:output handler:outHandler]; [self drainHandle:error handler:errHandler];
+        self.terminationHandlerValue=[termination copy];
+        self.lifetimeRetainerValue=self;
+    }
+    return self;
 }
 
-- (id)errorSource
+- (bool)drainHandle:(id)handle handler:(id)handler
 {
-    // TODO(parity)
-    return nil;
-}
-
-- (id)initWithPID:(id)arg1 inputHandle:(id)arg2 outputHandle:(id)arg3 errorHandle:(id)arg4 usedPersona:(id)arg5 outputHandler:(id)arg6 errorHandler:(id)arg7 terminationHandler:(id)arg8
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (id)ioQueue
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (bool)isRunning
-{
-    // TODO(parity)
-    return NO;
-}
-
-- (bool)launchedWithRootPersona
-{
-    // TODO(parity)
-    return NO;
-}
-
-- (id)lifetimeRetainer
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (id)outputSource
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (int)processIdentifier
-{
-    // TODO(parity)
-    return 0;
-}
-
-- (void)setErrorSource:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setIoQueue:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setLaunchedWithRootPersona:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setLifetimeRetainer:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setOutputSource:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setProcessIdentifier:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setRunning:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setStandardError:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setStandardInput:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setStandardOutput:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setTerminationHandler:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (void)setTerminationStatus:(id)arg1
-{
-    // TODO(parity)
-}
-
-- (id)standardError
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (id)standardInput
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (id)standardOutput
-{
-    // TODO(parity)
-    return nil;
+    if (![handle isKindOfClass:NSFileHandle.class] || !handler) return NO;
+    NSFileHandle *file=handle; void (^callback)(NSData *)=[handler copy];
+    file.readabilityHandler=^(NSFileHandle *h){NSData *data=h.availableData;if(!data.length){h.readabilityHandler=nil;return;}dispatch_async(self.ioQueueValue,^{callback(data);});}; return YES;
 }
 
 - (void)terminate
 {
-    // TODO(parity)
-}
-
-- (id)terminationHandler
-{
-    // TODO(parity)
-    return nil;
-}
-
-- (int)terminationStatus
-{
-    // TODO(parity)
-    return 0;
+    if (_process) [_process terminate]; else if (_processIdentifierValue>0 && _runningValue) kill(_processIdentifierValue,SIGTERM);
+    _standardOutputValue.readabilityHandler=nil;
+    _standardErrorValue.readabilityHandler=nil;
+    _runningValue=NO; _outputSourceValue=nil; _errorSourceValue=nil; _lifetimeRetainerValue=nil;
 }
 
 @end

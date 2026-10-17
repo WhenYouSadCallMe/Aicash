@@ -70,6 +70,27 @@ NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpda
     return @((long long)((double)limit * (double)self.contextUsagePercent / 100.0));
 }
 
+- (id)latestCachedInputTokens
+{
+    NSDictionary *usage = [self.usageAccountingState isKindOfClass:NSDictionary.class] ? self.usageAccountingState : @{};
+    id value = usage[@"cached_input_tokens"] ?: usage[@"cachedInputTokens"] ?: usage[@"cache_read_input_tokens"];
+    return [value respondsToSelector:@selector(unsignedLongLongValue)] ? @([value unsignedLongLongValue]) : @0;
+}
+
+- (id)latestCacheWriteInputTokens
+{
+    NSDictionary *usage = [self.usageAccountingState isKindOfClass:NSDictionary.class] ? self.usageAccountingState : @{};
+    id value = usage[@"cache_write_input_tokens"] ?: usage[@"cacheWriteInputTokens"];
+    return [value respondsToSelector:@selector(unsignedLongLongValue)] ? @([value unsignedLongLongValue]) : @0;
+}
+
+- (id)latestInputTokens
+{
+    NSDictionary *usage = [self.usageAccountingState isKindOfClass:NSDictionary.class] ? self.usageAccountingState : @{};
+    id value = usage[@"input_tokens"] ?: usage[@"inputTokens"];
+    return [value respondsToSelector:@selector(unsignedLongLongValue)] ? @([value unsignedLongLongValue]) : @0;
+}
+
 - (id)contextWindowLimitTokens
 {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
@@ -603,21 +624,32 @@ NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpda
         if (completion) completion(NO, self.loginStatusText);
         return;
     }
+    __block BOOL finished = NO;
+    __weak typeof(self) weakSelf = self;
+    task.terminationHandler = ^(CAProcess *terminatedTask) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf || finished) return;
+        finished = YES;
+        pipe.fileHandleForReading.readabilityHandler = nil;
+        NSString *output = [[NSString alloc] initWithData:[pipe.fileHandleForReading readDataToEndOfFile]
+                                                 encoding:NSUTF8StringEncoding] ?: @"";
+        BOOL loggedIn = [output.lowercaseString containsString:@"logged in"] && ![output.lowercaseString containsString:@"not logged in"];
+        strongSelf.isLoggedIn = loggedIn;
+        strongSelf.loginStatusText = output;
+        CALog(CALogLevelInfo, @"ACCOUNT", @"login status CLI exited status=%d loggedIn=%@ output=%@",
+              terminatedTask.terminationStatus, loggedIn ? @"YES" : @"NO", output);
+        if (completion) completion(loggedIn, output);
+    };
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kLoginStatusTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (task.isRunning) {
+        if (!finished && task.isRunning) {
+            finished = YES;
+            pipe.fileHandleForReading.readabilityHandler = nil;
             [task terminate];
-            self.loginStatusText = @"timed out";
+            weakSelf.loginStatusText = @"timed out";
             CALog(CALogLevelWarn, @"ACCOUNT", @"login status timed out after 8s pid=%d", task.processIdentifier);
             if (completion) completion(NO, self.loginStatusText);
         }
     });
-    [task waitUntilExit];
-    NSString *output = [[NSString alloc] initWithData:[pipe.fileHandleForReading readDataToEndOfFile] encoding:NSUTF8StringEncoding] ?: @"";
-    BOOL loggedIn = [output.lowercaseString containsString:@"logged in"] && ![output.lowercaseString containsString:@"not logged in"];
-    self.isLoggedIn = loggedIn;
-    self.loginStatusText = output;
-    CALog(CALogLevelInfo, @"ACCOUNT", @"login status CLI exited status=%d loggedIn=%@ output=%@", task.terminationStatus, loggedIn ? @"YES" : @"NO", output);
-    if (completion) completion(loggedIn, output);
 }
 
 - (void)loginWithAPIKey:(NSString *)apiKey completion:(void (^)(BOOL, NSString *))completion
@@ -690,11 +722,37 @@ NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpda
         if (completion) completion(NO, error.localizedDescription);
         return;
     }
-    [task waitUntilExit];
-    self.loginTask = nil;
-    BOOL ok = (task.terminationStatus == 0);
-    CALog(CALogLevelInfo, @"ACCOUNT", @"%@ login exited status=%d pid=%d", label, task.terminationStatus, task.processIdentifier);
-    if (completion) completion(ok, buffer);
+    __weak typeof(self) weakSelf = self;
+    task.terminationHandler = ^(CAProcess *terminatedTask) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        outPipe.fileHandleForReading.readabilityHandler = nil;
+        errPipe.fileHandleForReading.readabilityHandler = nil;
+        NSData *tail = [outPipe.fileHandleForReading readDataToEndOfFile];
+        if (tail.length > 0) {
+            NSString *text = [[NSString alloc] initWithData:tail encoding:NSUTF8StringEncoding] ?: @"";
+            [buffer appendString:text];
+            if (codeHandler) {
+                for (NSString *line in [text componentsSeparatedByString:@"\n"]) {
+                    if (line.length > 0) codeHandler(line);
+                }
+            }
+        }
+        NSData *errorTail = [errPipe.fileHandleForReading readDataToEndOfFile];
+        if (errorTail.length > 0) {
+            NSString *text = [[NSString alloc] initWithData:errorTail encoding:NSUTF8StringEncoding] ?: @"";
+            [buffer appendString:text];
+            if (codeHandler) {
+                for (NSString *line in [text componentsSeparatedByString:@"\n"]) {
+                    if (line.length > 0) codeHandler(line);
+                }
+            }
+        }
+        if (strongSelf.loginTask == terminatedTask) strongSelf.loginTask = nil;
+        BOOL ok = (terminatedTask.terminationStatus == 0);
+        CALog(CALogLevelInfo, @"ACCOUNT", @"%@ login exited status=%d pid=%d", label, terminatedTask.terminationStatus, terminatedTask.processIdentifier);
+        if (completion) completion(ok, buffer);
+    };
 }
 
 - (void)logoutWithCompletion:(void (^)(BOOL))completion
@@ -707,9 +765,17 @@ NSNotificationName const CAModelListDidUpdateNotification = @"CAModelListDidUpda
     task.environment = [self environmentForCodexInvocation];
     NSError *error = nil;
     BOOL ok = [task launchAndReturnError:&error];
-    if (ok) [task waitUntilExit];
-    self.isLoggedIn = NO;
-    if (completion) completion(ok && task.terminationStatus == 0);
+    if (!ok) {
+        if (completion) completion(NO);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    task.terminationHandler = ^(CAProcess *terminatedTask) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        strongSelf.isLoggedIn = NO;
+        if (completion) completion(terminatedTask.terminationStatus == 0);
+    };
 }
 
 #pragma mark - CAAppServerSessionDelegate

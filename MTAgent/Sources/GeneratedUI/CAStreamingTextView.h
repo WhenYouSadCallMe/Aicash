@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CAStreamRevealTarget;
 @class CAStreamingTextView;
+@class CADisplayLink;
 @class NSParagraphStyle;
 
 @class NSMutableArray;

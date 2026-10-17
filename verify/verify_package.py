@@ -15,7 +15,7 @@
 import argparse, hashlib, os, stat, sys, zipfile
 
 def _resolve_original_tipa():
-    """原包定位：环境变量 → 仓库内 reference/ → 仓库根 → SPEC/assets → 本机开发路径"""
+    """原包定位：显式环境变量或当前仓库内的参考副本。"""
     env = os.environ.get("CA_ORIGINAL_TIPA")
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     cands = [c for c in [
@@ -24,7 +24,6 @@ def _resolve_original_tipa():
         os.path.join(root, "MT-Agent-v1.0.2-Lite.tipa"),
         os.path.join(root, "MTAgent-v1.0.2-Lite.tipa"),
         os.path.join(root, "SPEC", "assets", "MT-Agent-v1.0.2-Lite.tipa"),
-        r"C:\\Users\\Administrator\\Desktop\\ai\\MT-Agent-v1.0.2-Lite.tipa",
     ] if c]
     for c in cands:
         if os.path.exists(c):
@@ -62,7 +61,7 @@ def main():
 
     if not os.path.exists(ORIGINAL):
         print("SKIP: 未提供原包（设置 CA_ORIGINAL_TIPA 或放到 reference/ 下即执行逐项比对）")
-    sys.exit(0)
+        return 0
     if not os.path.exists(args.replica):
         sys.exit("复刻包不存在: %s（先运行 build/package_tipa.py）" % args.replica)
 
