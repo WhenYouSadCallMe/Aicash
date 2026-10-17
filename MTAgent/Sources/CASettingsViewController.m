@@ -2546,6 +2546,19 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    @try {
+        [self dispatchSettingsSelectionAtIndexPath:indexPath tableView:tableView];
+    } @catch (NSException *exception) {
+        CALog(CALogLevelError, @"GENERAL", @"settings row select exception section=%ld row=%ld: %@ | %@",
+              (long)indexPath.section, (long)indexPath.row, exception.name, exception.reason);
+        [self showMessage:[NSString stringWithFormat:@"这一项打开失败（已捕获，未闪退）\n\n%@\n%@",
+                           exception.name ?: @"?", exception.reason ?: @""]
+                     title:@"设置"];
+    }
+}
+
+- (void)dispatchSettingsSelectionAtIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
+{
     switch ((CASettingsSection)indexPath.section) {
         case CASettingsSectionAccount: {
             if ((CASettingsOfficialAccountRow)indexPath.row == CASettingsOfficialAccountRowLoginMethod) {

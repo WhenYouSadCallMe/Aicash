@@ -3913,7 +3913,11 @@ static NSArray *CAChatQuestionsFromUserInputParams(NSDictionary *params)
             presenter = presenter.presentedViewController;
         }
         if (presenter.isBeingDismissed || presenter.view.window == nil) return;
-        [presenter presentViewController:navigation animated:YES completion:nil];
+        @try {
+            [presenter presentViewController:navigation animated:YES completion:nil];
+        } @catch (NSException *exception) {
+            CALog(CALogLevelError, @"CHAT", @"panel present exception: %@ | %@", exception.name, exception.reason);
+        }
     });
     return controller;
 }
