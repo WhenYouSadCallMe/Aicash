@@ -345,6 +345,14 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)installProfileHeader;
 - (void)refreshProfileHeaderText;
 
+/// 账户卡真实存储（原包 selector：-profileHeader / -setProfileHeader:）
+@property (nonatomic, strong, nullable) UIView *storedProfileHeader;
+@property (nonatomic, strong, nullable) UIView *storedProfileCard;
+@property (nonatomic, strong, nullable) UIImageView *storedAvatarView;
+@property (nonatomic, strong, nullable) UILabel *storedAvatarInitialLabel;
+@property (nonatomic, strong, nullable) UILabel *storedUserNameLabel;
+@property (nonatomic, strong, nullable) UILabel *storedUserStatusLabel;
+
 @end
 
 @implementation CASettingsViewController
@@ -1830,6 +1838,19 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 }
 
 
+#pragma mark - 账户卡存取器（补原包 selector 实现，避免 unrecognized selector）
+
+- (id)profileHeader
+{
+    return self.storedProfileHeader;
+}
+
+- (id)setProfileHeader:(id)arg1
+{
+    self.storedProfileHeader = [arg1 isKindOfClass:UIView.class] ? (UIView *)arg1 : nil;
+    return arg1;
+}
+
 #pragma mark - 账户卡（原版 buildProfileHeader 逐属性复刻）
 
 - (void)installProfileHeader
@@ -1843,7 +1864,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     self.profileHeader = header;
 
     UIView *card = [UIView new];
-    self.profileCard = card;
+    self.storedProfileCard = card;
     card.translatesAutoresizingMaskIntoConstraints = NO;
     card.backgroundColor = UIColor.secondarySystemGroupedBackgroundColor;
     card.layer.cornerRadius = 20.0;
@@ -1851,7 +1872,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     [header addSubview:card];
 
     UIImageView *avatar = [UIImageView new];
-    self.avatarView = avatar;
+    self.storedAvatarView = avatar;
     avatar.translatesAutoresizingMaskIntoConstraints = NO;
     avatar.backgroundColor = UIColor.tertiarySystemFillColor;
     avatar.layer.cornerRadius = 28.0;
@@ -1862,7 +1883,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     [card addSubview:avatar];
 
     UILabel *initial = [UILabel new];
-    self.avatarInitialLabel = initial;
+    self.storedAvatarInitialLabel = initial;
     initial.translatesAutoresizingMaskIntoConstraints = NO;
     initial.textAlignment = NSTextAlignmentCenter;
     initial.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightMedium];
@@ -1870,7 +1891,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     [avatar addSubview:initial];
 
     UILabel *name = [UILabel new];
-    self.userNameLabel = name;
+    self.storedUserNameLabel = name;
     name.translatesAutoresizingMaskIntoConstraints = NO;
     name.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold];
     name.numberOfLines = 2;
@@ -1879,7 +1900,7 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     name.text = @"账户";
 
     UILabel *status = [UILabel new];
-    self.userStatusLabel = status;
+    self.storedUserStatusLabel = status;
     status.translatesAutoresizingMaskIntoConstraints = NO;
     status.font = [UIFont systemFontOfSize:12.0];
     status.textColor = UIColor.secondaryLabelColor;
@@ -1938,9 +1959,9 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
         agent = [[identityClass alloc] performSelector:@selector(displayName)];
     }
     agent = agent ?: @"";
-    self.userNameLabel.text = (name.length > 0) ? name : @"账户";
+    self.storedUserNameLabel.text = (name.length > 0) ? name : @"账户";
     BOOL loggedIn = [defaults boolForKey:@"CodexIsLoggedIn"];
-    self.userStatusLabel.text = loggedIn
+    self.storedUserStatusLabel.text = loggedIn
         ? [NSString stringWithFormat:@"已登录%@", agent.length ? [NSString stringWithFormat:@" · %@", agent] : @""]
         : @"未登录 · 点击「登录方式」可登录";
 }
