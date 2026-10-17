@@ -353,8 +353,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 @property (nonatomic, strong, nullable) UILabel *storedUserNameLabel;
 @property (nonatomic, strong, nullable) UILabel *storedUserStatusLabel;
 
-/// Tools 行内展开状态（原版：点击 Tools 在表内展开各工具包子行）
-@property (nonatomic, assign) BOOL toolsExpanded;
 
 @end
 
