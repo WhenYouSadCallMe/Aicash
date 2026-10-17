@@ -743,6 +743,17 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     NSMutableArray *mutable = [self.sections mutableCopy];
     mutable[index] = [self installSection];
     self.sections = mutable;
+
+    // 防护：视图不在窗口 / 表尚未加载过（numberOfSections==0）/ 页面正在关闭时，
+    // reloadSections 会被 UIKit 当作 "insert section" 并抛 NSInternalInconsistencyException。
+    if (!self.tableView.window || [self.tableView numberOfSections] == 0) {
+        [self.tableView reloadData];
+        return;
+    }
+    if ((NSUInteger)index >= (NSUInteger)[self.tableView numberOfSections]) {
+        [self.tableView reloadData];
+        return;
+    }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -781,7 +792,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
 {
     [self.installRefreshTimer invalidate];
     self.installRefreshTimer = nil;
-    [self reloadInstallRows];
+    // dealloc/关闭路径不再触发 reload，避免对已 detach 的表做更新（SIGSEGV/insert-section 崩溃源）
 }
 
 - (void)installRefreshTimerTick:(NSTimer *)timer
