@@ -41,6 +41,7 @@
 #import "CAComposerPopupView.h"
 #import "CAComposerPopupSection.h"
 #import "CAComposerPopupItem.h"
+#import "CAReasoningEffortViewController.h"
 #import "CAConversationSidebarViewController.h"
 #import "CAGitChangesViewController.h"
 #import "CAGitRepository.h"
@@ -112,6 +113,8 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
 @property (nonatomic, strong, readwrite) CACodexEngine *chatEngine;
 @property (nonatomic, strong, nullable) UIView *welcomeExtensionHint;
+@property (nonatomic, strong, nullable) UIScrollView *chipScrollView;
+@property (nonatomic, strong, nullable) UIStackView *chipStackView;
 @property (nonatomic, strong, readwrite) NSMutableArray *messages;
 
 #pragma mark 视图
@@ -216,6 +219,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (void)gitBadgeTimerTick:(NSTimer *)timer;
 - (void)applyGitBadgeChangeCount:(NSUInteger)count available:(BOOL)available;
 - (NSString *)currentModelChipTitle;
+- (NSString *)chipLabelForModelSlug:(NSString *)slug;
 - (NSString *)currentEffortChipTitle;
 - (NSString *)effortDisplayTitleForLevel:(NSString *)level;
 - (id)presentPanelInNavigationController:(nullable UIViewController *)controller;
@@ -539,17 +543,33 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     self.composerMenuButton.accessibilityLabel = @"斜杠菜单";
     [self.composerActionRow addSubview:self.composerMenuButton];
 
+    // 模型 / 强度 chip：放进横向滚动条，永不压缩、永不截断（原版 chip 压缩阻力为 required）
+    UIScrollView *chipScroll = [[UIScrollView alloc] init];
+    chipScroll.translatesAutoresizingMaskIntoConstraints = NO;
+    chipScroll.showsHorizontalScrollIndicator = NO;
+    chipScroll.alwaysBounceHorizontal = YES;
+    [self.composerActionRow addSubview:chipScroll];
+    self.chipScrollView = chipScroll;
+
+    UIStackView *chipStack = [[UIStackView alloc] init];
+    chipStack.translatesAutoresizingMaskIntoConstraints = NO;
+    chipStack.axis = UILayoutConstraintAxisHorizontal;
+    chipStack.alignment = UIStackViewAlignmentFill;
+    chipStack.spacing = 9.0;
+    [chipScroll addSubview:chipStack];
+    self.chipStackView = chipStack;
+
     self.bottomModelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     self.bottomModelBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [self applyChipTitle:kChatDefaultModelChipTitle toButton:self.bottomModelBtn];
     [self.bottomModelBtn addTarget:self action:@selector(handleBottomModelBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.composerActionRow addSubview:self.bottomModelBtn];
+    [chipStack addArrangedSubview:self.bottomModelBtn];
 
     self.bottomEffortBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     self.bottomEffortBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [self applyChipTitle:kChatDefaultEffortChipTitle toButton:self.bottomEffortBtn];
     [self.bottomEffortBtn addTarget:self action:@selector(handleBottomEffortBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.composerActionRow addSubview:self.bottomEffortBtn];
+    [chipStack addArrangedSubview:self.bottomEffortBtn];
 
     self.sendButton = [self circularBarButtonWithSymbol:@"arrow.up" pointSize:17.0];
     self.sendButton.backgroundColor = UIColor.secondarySystemFillColor;
@@ -632,14 +652,20 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
         [self.composerMenuButton.widthAnchor constraintEqualToConstant:kChatBottomCircleSize],
         [self.composerMenuButton.heightAnchor constraintEqualToConstant:kChatBottomCircleSize],
 
-        [self.bottomModelBtn.leadingAnchor constraintEqualToAnchor:self.composerMenuButton.trailingAnchor constant:11.0],
-        [self.bottomModelBtn.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
-        [self.bottomModelBtn.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
+        // 滚动条占满「斜杠按钮 → 发送按钮」之间，chip 按自身内容宽度排布
+        [self.chipScrollView.leadingAnchor constraintEqualToAnchor:self.composerMenuButton.trailingAnchor constant:11.0],
+        [self.chipScrollView.trailingAnchor constraintEqualToAnchor:self.sendButton.leadingAnchor constant:-8.0],
+        [self.chipScrollView.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.chipScrollView.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
 
-        [self.bottomEffortBtn.leadingAnchor constraintEqualToAnchor:self.bottomModelBtn.trailingAnchor constant:9.0],
-        [self.bottomEffortBtn.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
+        [self.chipStackView.leadingAnchor constraintEqualToAnchor:self.chipScrollView.contentLayoutGuide.leadingAnchor],
+        [self.chipStackView.trailingAnchor constraintEqualToAnchor:self.chipScrollView.contentLayoutGuide.trailingAnchor],
+        [self.chipStackView.topAnchor constraintEqualToAnchor:self.chipScrollView.contentLayoutGuide.topAnchor],
+        [self.chipStackView.bottomAnchor constraintEqualToAnchor:self.chipScrollView.contentLayoutGuide.bottomAnchor],
+        [self.chipStackView.heightAnchor constraintEqualToAnchor:self.chipScrollView.frameLayoutGuide.heightAnchor],
+
+        [self.bottomModelBtn.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
         [self.bottomEffortBtn.heightAnchor constraintEqualToConstant:kChatBottomChipHeight],
-        [self.bottomEffortBtn.trailingAnchor constraintLessThanOrEqualToAnchor:self.sendButton.leadingAnchor constant:-8.0],
 
         [self.stopButton.trailingAnchor constraintEqualToAnchor:self.composerActionRow.trailingAnchor],
         [self.stopButton.centerYAnchor constraintEqualToAnchor:self.composerActionRow.centerYAnchor],
@@ -3298,6 +3324,10 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     configuration.background.cornerRadius = kChatBottomChipHeight / 2.0;
     button.configuration = configuration;
     button.tintColor = UIColor.labelColor;
+    // 原版：chip 横向压缩阻力 required（1150 附近），保证文字永不因挤压被截断
+    [button setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [button setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    button.titleLabel.adjustsFontSizeToFitWidth = NO;
 }
 
 /// 底部协作条：蓝色电闪 + Agent 协作就绪 药丸 + 垃圾桶（截图 y 778–790 那一行）
@@ -3498,9 +3528,42 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     for (NSString *key in @[ CADefaultsActiveModelSlug, CADefaultsSelectedModel, CADefaultsThirdPartyModel ]) {
         NSString *value = [defaults stringForKey:key];
-        if (value.length > 0) return value;
+        if (value.length > 0) return [self chipLabelForModelSlug:value];
     }
     return kChatDefaultModelChipTitle;
+}
+
+/// slug → 底部 chip 短名（models.json 的 display_name 去掉 GPT- 前缀；未知 slug 原样去前缀）
+- (NSString *)chipLabelForModelSlug:(NSString *)slug
+{
+    if (slug.length == 0) return kChatDefaultModelChipTitle;
+
+    static NSDictionary<NSString *, NSString *> *cachedNames;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableDictionary *names = [NSMutableDictionary dictionary];
+        NSString *path = [NSBundle.mainBundle pathForResource:@"models" ofType:@"json"];
+        NSData *data = path ? [NSData dataWithContentsOfFile:path] : nil;
+        if (data) {
+            NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            NSArray *models = payload[@"models"];
+            if ([models isKindOfClass:NSArray.class]) {
+                for (NSDictionary *entry in models) {
+                    if (![entry isKindOfClass:NSDictionary.class]) continue;
+                    NSString *s = entry[@"slug"];
+                    NSString *d = entry[@"display_name"];
+                    if ([s isKindOfClass:NSString.class] && [d isKindOfClass:NSString.class]) names[s] = d;
+                }
+            }
+        }
+        cachedNames = names;
+    });
+
+    NSString *label = cachedNames[slug] ?: slug;
+    for (NSString *prefix in @[ @"GPT-", @"gpt-", @"Gpt-" ]) {
+        if ([label hasPrefix:prefix]) { label = [label substringFromIndex:prefix.length]; break; }
+    }
+    return label.length > 0 ? label : kChatDefaultModelChipTitle;
 }
 
 - (NSString *)currentEffortChipTitle
@@ -3809,113 +3872,32 @@ static NSArray *CAChatQuestionsFromUserInputParams(NSDictionary *params)
 
 - (id)handleBottomEffortBtnTapped
 {
-    NSString *model = [self currentModelChipTitle];
+    NSString *slug = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsActiveModelSlug] ?: @"";
     NSString *providerHint = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsThirdPartyProviderName];
-    NSArray<NSString *> *levels = [CAModelPricingManager.sharedManager supportedReasoningEffortsForModel:model providerHint:providerHint];
+    NSString *modelForLevels = slug.length > 0 ? slug : [self currentModelChipTitle];
+    NSArray<NSString *> *levels = [CAModelPricingManager.sharedManager supportedReasoningEffortsForModel:modelForLevels providerHint:providerHint];
     if (levels.count == 0) levels = [CAThirdPartyModelCatalog reasoningLevels];
-    if (levels.count == 0) levels = @[ @"minimal", @"low", @"medium", @"high" ];
+    if (levels.count == 0) levels = @[ @"auto", @"minimal", @"low", @"medium", @"high" ];
 
     NSString *current = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsReasoningEffort];
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"推理强度" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    if (current.length == 0) current = [NSUserDefaults.standardUserDefaults stringForKey:CADefaultsActiveEffort];
+
+    CAReasoningEffortViewController *panel = [[CAReasoningEffortViewController alloc] init];
+    panel.levels = levels;
+    panel.selectedLevel = current;
     __weak typeof(self) weakSelf = self;
-    for (NSString *level in levels) {
-        NSString *title = [self effortDisplayTitleForLevel:level];
-        BOOL selectedLevel = (current.length > 0 && [level isEqualToString:current]);
-        if (selectedLevel) title = [NSString stringWithFormat:@"✓ %@", title];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:title
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-            typeof(self) strongSelf = weakSelf;
-            if (!strongSelf) return;
-            NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-            [defaults setObject:level forKey:CADefaultsReasoningEffort];   // CodexReasoningEffort
-            [defaults setObject:level forKey:CADefaultsActiveEffort];
-            [strongSelf refreshBottomSelectors];
-            CALog(CALogLevelInfo, @"CHAT", @"bottom effort chip selected level=%@", level);
-        }];
-        [sheet addAction:action];
-    }
-    [sheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    sheet.popoverPresentationController.sourceView = self.bottomEffortBtn ?: self.view;
-    sheet.popoverPresentationController.sourceRect = self.bottomEffortBtn.bounds;
-    [self presentViewController:sheet animated:YES completion:nil];
-    return sheet;
+    panel.onLevelSelected = ^(NSString *level) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf || level.length == 0) return;
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        [defaults setObject:level forKey:CADefaultsReasoningEffort];
+        [defaults setObject:level forKey:CADefaultsActiveEffort];
+        [strongSelf refreshBottomSelectors];
+        CALog(CALogLevelInfo, @"CHAT", @"reasoning panel selected level=%@", level);
+    };
+    return [self presentPanelInNavigationController:panel];
 }
 
-/// 蓝色电闪 / 协作药丸：Agent 运行状态详情
-- (id)handleAgentStatusInfo
-{
-    NSDictionary *snapshot = @{ @"state": (self.thinking ? @"running" : @"idle"),
-                                @"model": [self currentModelChipTitle],
-                                @"effort": [self currentEffortChipTitle],
-                                @"workspace": self.workspacePath ?: @"",
-                                @"thread": self.threadId ?: @"",
-                                @"contextPercent": @"0%" };
-    CAAgentStatusDetailViewController *detail = [[CAAgentStatusDetailViewController alloc] initWithSnapshot:snapshot];
-    return [self presentPanelInNavigationController:detail];
-}
-
-#pragma mark - 目录 / 文本 / 附件 / 价格入口
-
-/// “/” 面板里的目录条目：按类型选 Skills/MCP/提示词列表页或扩展总览页
-- (id)presentComposerCatalogDetail:(id)arg1
-{
-    NSInteger kind = (NSInteger)CAComposerCatalogKindUnknown;
-    if ([arg1 isKindOfClass:CAComposerCatalogItem.class]) {
-        kind = (NSInteger)((CAComposerCatalogItem *)arg1).kind;
-    } else if ([arg1 respondsToSelector:@selector(integerValue)]) {
-        kind = (NSInteger)[arg1 integerValue];
-    }
-
-    UIViewController *detail = nil;
-    if (kind == (NSInteger)CAComposerCatalogKindSkill
-        || kind == (NSInteger)CAComposerCatalogKindPlugin
-        || kind == (NSInteger)CAComposerCatalogKindPrompt) {
-        detail = [[CAExtensionListViewController alloc] initWithKind:@(kind)];
-    } else {
-        detail = [[CAExtensionsViewController alloc] init];
-    }
-    if (!detail) {
-        return [self presentPanelPlaceholderNoticeWithTitle:@"扩展与技能" detail:@"列表页还在补全中。"];
-    }
-    return [self presentPanelInNavigationController:detail];
-}
-
-/// 长按/选中消息 → 全文面板（选中即复制的那类入口）
-- (id)presentMessageTextSelection:(id)arg1
-{
-    NSString *text = [self textForSelectionArgument:arg1];
-    if (text.length == 0) {
-        return [self presentPanelPlaceholderNoticeWithTitle:@"消息正文" detail:@"这条消息没有可展示的文本。"];
-    }
-    UIViewController *detail = [[CATextDetailViewController alloc] initWithTitle:@"消息正文" text:text];
-    if (!detail) {
-        // 面板仍在补全（-initWithTitle:text: 现在返回 nil）：退化成弹窗，保证入口可用可返回
-        return [self presentPanelPlaceholderNoticeWithTitle:@"消息正文" detail:text];
-    }
-    return [self presentPanelInNavigationController:detail];
-}
-
-- (id)previewAttachmentAtPath:(id)arg1
-{
-    NSString *path = [arg1 isKindOfClass:NSString.class] ? arg1 : ([arg1 isKindOfClass:NSURL.class] ? [(NSURL *)arg1 path] : nil);
-    if (path.length == 0) {
-        return [self presentPanelPlaceholderNoticeWithTitle:@"附件预览" detail:@"没有拿到附件路径。"];
-    }
-    UIViewController *detail = [[CAArtifactPreviewViewController alloc] initWithPath:path];
-    if (!detail) {
-        return [self presentPanelPlaceholderNoticeWithTitle:@"附件预览" detail:path];
-    }
-    return [self presentPanelInNavigationController:detail];
-}
-
-- (id)handleShowUsageDetails
-{
-    CAModelPricingViewController *pricing = [[CAModelPricingViewController alloc] init];
-    return [self presentPanelInNavigationController:pricing];
-}
-
-/// 统一 present：包一层 UINavigationController（照抄 presentSettingsForRequiredRuntimes 的写法）
 - (id)presentPanelInNavigationController:(UIViewController *)controller
 {
     if (!controller) return nil;

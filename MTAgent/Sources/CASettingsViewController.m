@@ -414,6 +414,12 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
     CALog(CALogLevelInfo, @"GENERAL", @"settings view loaded");
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [self relayoutTableHeader];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -1800,7 +1806,10 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     if (self.profileHeader) return;
 
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, 132.0)];
+    // 宽度取屏幕宽（viewDidLoad 时 self.view.bounds 可能还是 0，约束会算出负宽度）
+    CGFloat headerWidth = self.view.bounds.size.width > 0.0 ? self.view.bounds.size.width : UIScreen.mainScreen.bounds.size.width;
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, headerWidth, 132.0)];
+    header.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.profileHeader = header;
 
     UIView *card = [UIView new];
@@ -1871,6 +1880,20 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
     self.tableView.tableHeaderView = header;
     [self refreshProfileHeaderText];
+    [self relayoutTableHeader];
+}
+
+- (void)relayoutTableHeader
+{
+    UIView *header = self.tableView.tableHeaderView;
+    if (!header) return;
+    CGFloat width = self.tableView.bounds.size.width;
+    if (width <= 0.0) return;
+    CGRect frame = header.frame;
+    if (fabs(frame.size.width - width) < 0.5) return;
+    frame.size.width = width;
+    header.frame = frame;
+    self.tableView.tableHeaderView = header;   // 触发 UITableView 重新测量
 }
 
 - (void)refreshProfileHeaderText
