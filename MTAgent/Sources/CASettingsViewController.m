@@ -353,6 +353,9 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 @property (nonatomic, strong, nullable) UILabel *storedUserNameLabel;
 @property (nonatomic, strong, nullable) UILabel *storedUserStatusLabel;
 
+/// Tools 行内展开状态（原版：点击 Tools 在表内展开各工具包子行）
+@property (nonatomic, assign) BOOL toolsExpanded;
+
 @end
 
 @implementation CASettingsViewController
@@ -1738,7 +1741,8 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     NSUInteger count = [self settingsToolPackageEntries].count;
     if (count == 0) return kSettingsToolsFallbackText;
-    return [NSString stringWithFormat:@"%lu 个工具包 · 点击展开", (unsigned long)count];
+    return [NSString stringWithFormat:@"%lu 个工具包 · %@", (unsigned long)count,
+            self.toolsExpanded ? @"点击收起" : @"点击展开"];
 }
 
 #pragma mark - Tools / 新面板入口
@@ -1985,8 +1989,11 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             return CASettingsAIServiceRowCount;
         case CASettingsSectionApplication:
             return CASettingsApplicationRowCount;
-        case CASettingsSectionDevelopment:
-            return CASettingsDevelopmentRowCount;
+        case CASettingsSectionDevelopment: {
+            NSUInteger base = CASettingsDevelopmentRowCount;
+            if (self.toolsExpanded) base += [self settingsToolPackageEntries].count;
+            return base;
+        }
         case CASettingsSectionProvider:
             // 外壳实现保留整组 provider 字段（原包在关闭第三方时折叠为开关行）
             return CASettingsProviderRowCount;
@@ -2152,6 +2159,28 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             cell.accessoryView = nil;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+            // Tools 展开出来的工具包子行
+            if (indexPath.row >= CASettingsDevelopmentRowCount) {
+                NSArray<CARuntimeCatalogEntry *> *tools = [self settingsToolPackageEntries];
+                NSUInteger idx = (NSUInteger)indexPath.row - CASettingsDevelopmentRowCount;
+                if (idx < tools.count) {
+                    CARuntimeCatalogEntry *entry = tools[idx];
+                    BOOL installed = [CAUpdateViewController isRuntimeInstalled:entry.runtimeID];
+                    NSString *detail = installed
+                        ? [NSString stringWithFormat:@"已安装 · %@", entry.version ?: @"-"]
+                        : [NSString stringWithFormat:@"未安装 · %.1f MB", entry.expandedSize / 1024.0 / 1024.0];
+                    [self configureContentCell:cell
+                                          text:entry.runtimeID ?: @"?"
+                                          icon:@"shippingbox"
+                                        detail:detail
+                                     tintColor:installed ? UIColor.systemGreenColor : nil];
+                    cell.indentationLevel = 2;
+                    cell.indentationWidth = 16.0;
+                    return cell;
+                }
+            }
+            cell.indentationLevel = 0;
 
             switch ((CASettingsDevelopmentRow)indexPath.row) {
                 case CASettingsDevelopmentRowCodex:
@@ -2580,6 +2609,19 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
 - (void)dispatchSettingsSelectionAtIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
+    // Tools 展开子行：打开该工具包条目
+    if ((CASettingsSection)indexPath.section == CASettingsSectionDevelopment
+        && indexPath.row >= (NSInteger)CASettingsDevelopmentRowCount) {
+        NSArray<CARuntimeCatalogEntry *> *tools = [self settingsToolPackageEntries];
+        NSUInteger idx = (NSUInteger)indexPath.row - CASettingsDevelopmentRowCount;
+        if (idx < tools.count) {
+            CARuntimeCatalogEntry *entry = tools[idx];
+            BOOL installed = [CAUpdateViewController isRuntimeInstalled:entry.runtimeID];
+            [self showRuntimeToolEntry:entry installed:installed root:[CARuntimePaths runtimeRootForID:entry.runtimeID]];
+        }
+        return;
+    }
+
     switch ((CASettingsSection)indexPath.section) {
         case CASettingsSectionAccount: {
             if ((CASettingsOfficialAccountRow)indexPath.row == CASettingsOfficialAccountRowLoginMethod) {
@@ -2622,7 +2664,17 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
             switch ((CASettingsDevelopmentRow)indexPath.row) {
                 case CASettingsDevelopmentRowCodex:       [self installOrRepairRuntime]; break;
                 case CASettingsDevelopmentRowTheos:       [self showTheosEnvironment]; break;
-                case CASettingsDevelopmentRowTools:       [self presentToolsPackagesSheet:indexPath]; break;
+                case CASettingsDevelopmentRowTools: {
+                    if ([self settingsToolPackageEntries].count == 0) {
+                        [self presentToolsPackagesSheet:indexPath];
+                        break;
+                    }
+                    // 原版：点击 Tools 在表内展开 / 收起工具包子行
+                    self.toolsExpanded = !self.toolsExpanded;
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:CASettingsSectionDevelopment]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
+                }
                 case CASettingsDevelopmentRowSkills:      [self openExtensionsPanel]; break;
                 case CASettingsDevelopmentRowDiagnostics: [self showDiagnostics]; break;
                 case CASettingsDevelopmentRowLogs:        [self showLogViewer]; break;

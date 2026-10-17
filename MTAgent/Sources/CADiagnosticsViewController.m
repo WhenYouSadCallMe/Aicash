@@ -472,7 +472,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
 
 - (NSArray<CADiagnosticsSection *> *)pendingUserSections
 {
-    NSArray<NSString *> *titles = @[ @"概览", @"网络", @"远端开关", @"运行时", @"环境", @"shell 探针", @"MCP 桥", @"登录态" ];
+    NSArray<NSString *> *titles = @[ @"检查结果", @"基础运行", @"插件", @"组件与工具", @"运行环境", @"基础运行", @"插件", @"账户" ];
     NSMutableArray<CADiagnosticsSection *> *sections = [NSMutableArray array];
     for (NSString *title in titles) {
         CADiagnosticsSection *section = [CADiagnosticsSection sectionWithTitle:title];
@@ -499,7 +499,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     NSDictionary *login = result[@"login"];
 
     // 概览
-    CADiagnosticsSection *overview = [CADiagnosticsSection sectionWithTitle:@"概览"];
+    CADiagnosticsSection *overview = [CADiagnosticsSection sectionWithTitle:@"检查结果"];
     [overview.items addObject:[CADiagnosticsItem friendlyItem:@"生成时间" ok:YES optional:NO detail:result[@"generated_at"] ?: @""]];
     [overview.items addObject:[CADiagnosticsItem friendlyItem:@"应用版本" ok:YES optional:NO
                                                       detail:[NSString stringWithFormat:@"%@ (%@) · %@", CABundleShortVersion, CABundleVersion, CABundleIdentifier]]];
@@ -510,7 +510,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:overview];
 
     // 网络
-    CADiagnosticsSection *network = [CADiagnosticsSection sectionWithTitle:@"网络"];
+    CADiagnosticsSection *network = [CADiagnosticsSection sectionWithTitle:@"基础运行"];
     [network.items addObject:[CADiagnosticsItem friendlyItem:@"远端端点" ok:YES optional:NO detail:remote[@"base"] ?: @""]];
     [network.items addObject:[CADiagnosticsItem friendlyItem:@"心跳"
                                                          ok:[remote[@"heartbeatHealthy"] boolValue]
@@ -524,7 +524,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:network];
 
     // 远端开关
-    CADiagnosticsSection *remoteSection = [CADiagnosticsSection sectionWithTitle:@"远端开关"];
+    CADiagnosticsSection *remoteSection = [CADiagnosticsSection sectionWithTitle:@"插件"];
     NSDictionary *policy = [remote[@"policy"] isKindOfClass:NSDictionary.class] ? remote[@"policy"] : @{};
     NSDictionary *featureFlags = [policy[@"feature_flags"] isKindOfClass:NSDictionary.class] ? policy[@"feature_flags"] : @{};
     NSDictionary *logSwitches = [policy[@"log_switches"] isKindOfClass:NSDictionary.class] ? policy[@"log_switches"] : @{};
@@ -553,7 +553,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:remoteSection];
 
     // 运行时
-    CADiagnosticsSection *runtimeSection = [CADiagnosticsSection sectionWithTitle:@"运行时"];
+    CADiagnosticsSection *runtimeSection = [CADiagnosticsSection sectionWithTitle:@"组件与工具"];
     [runtimeSection.items addObject:[CADiagnosticsItem friendlyItem:@"清单地址" ok:YES optional:NO detail:runtime[@"manifest"] ?: @""]];
     [runtimeSection.items addObject:[CADiagnosticsItem friendlyItem:@"本地缓存"
                                                                 ok:[(runtime[@"lastError"] ?: @"") length] == 0
@@ -586,7 +586,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:[self installSection]];
 
     // 环境
-    CADiagnosticsSection *environmentSection = [CADiagnosticsSection sectionWithTitle:@"环境"];
+    CADiagnosticsSection *environmentSection = [CADiagnosticsSection sectionWithTitle:@"运行环境"];
     [environmentSection.items addObject:[CADiagnosticsItem friendlyItem:@"环境类型" ok:YES optional:NO detail:environment[@"kind"] ?: @"unknown"]];
     [environmentSection.items addObject:[CADiagnosticsItem friendlyItem:@"越狱证据" ok:YES optional:YES detail:[environment[@"jailbreak"] boolValue] ? @"有" : @"无"]];
     [environmentSection.items addObject:[CADiagnosticsItem friendlyItem:@"TrollStore" ok:YES optional:YES detail:[environment[@"trollstore"] boolValue] ? @"有" : @"无"]];
@@ -622,7 +622,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:environmentSection];
 
     // shell 探针
-    CADiagnosticsSection *shellSection = [CADiagnosticsSection sectionWithTitle:@"shell 探针"];
+    CADiagnosticsSection *shellSection = [CADiagnosticsSection sectionWithTitle:@"基础运行"];
     [shellSection.items addObject:[CADiagnosticsItem friendlyItem:@"shell 可执行" ok:[(shell[@"executable"] ?: @"(未解析)") hasPrefix:@"/"] optional:NO detail:shell[@"executable"] ?: @"(未解析)"]];
     [shellSection.items addObject:[CADiagnosticsItem friendlyItem:@"启动方式" ok:YES optional:NO detail:shell[@"spawnMode"] ?: @"(未知)"]];
     [shellSection.items addObject:[CADiagnosticsItem friendlyItem:@"环境变量数" ok:YES optional:YES detail:[NSString stringWithFormat:@"%@ 项", shell[@"environmentKeys"] ?: @0]]];
@@ -632,7 +632,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:shellSection];
 
     // MCP 桥
-    CADiagnosticsSection *mcpSection = [CADiagnosticsSection sectionWithTitle:@"MCP 桥"];
+    CADiagnosticsSection *mcpSection = [CADiagnosticsSection sectionWithTitle:@"插件"];
     [mcpSection.items addObject:[CADiagnosticsItem friendlyItem:@"监听端口"
                                                             ok:[mcp[@"running"] boolValue]
                                                       optional:NO
@@ -648,7 +648,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     [sections addObject:mcpSection];
 
     // 登录态
-    CADiagnosticsSection *loginSection = [CADiagnosticsSection sectionWithTitle:@"登录态"];
+    CADiagnosticsSection *loginSection = [CADiagnosticsSection sectionWithTitle:@"账户"];
     [loginSection.items addObject:[CADiagnosticsItem friendlyItem:@"登录状态"
                                                                ok:[login[@"loggedIn"] boolValue]
                                                          optional:NO
@@ -665,6 +665,31 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     }
     [sections addObject:loginSection];
 
+    // 同名分区合并（原包每个分类只出现一次）
+    NSMutableArray<CADiagnosticsSection *> *merged = [NSMutableArray array];
+    NSMutableDictionary<NSString *, CADiagnosticsSection *> *byTitle = [NSMutableDictionary dictionary];
+    for (CADiagnosticsSection *section in sections) {
+        NSString *title = section.title ?: @"";
+        CADiagnosticsSection *existing = byTitle[title];
+        if (existing) {
+            [existing.items addObjectsFromArray:section.items];
+        } else {
+            byTitle[title] = section;
+            [merged addObject:section];
+        }
+    }
+    sections = merged;
+
+    // 按原包分区顺序排列：检查结果 → 基础运行 → 组件与工具 → 安装 → 插件 → 运行环境 → 账户
+    NSArray<NSString *> *preferredOrder = @[ @"检查结果", @"基础运行", @"组件与工具", @"安装", @"插件", @"运行环境", @"账户" ];
+    [sections sortUsingComparator:^NSComparisonResult(CADiagnosticsSection *a, CADiagnosticsSection *b) {
+        NSUInteger ia = [preferredOrder indexOfObject:a.title ?: @""];
+        NSUInteger ib = [preferredOrder indexOfObject:b.title ?: @""];
+        if (ia == NSNotFound) ia = preferredOrder.count;
+        if (ib == NSNotFound) ib = preferredOrder.count;
+        if (ia == ib) return NSOrderedSame;
+        return ia < ib ? NSOrderedAscending : NSOrderedDescending;
+    }];
     return sections;
 }
 
@@ -1103,7 +1128,7 @@ typedef NS_ENUM(NSInteger, CADiagnosticsInstallRow) {
     if (!runtimeID.length) return;
     CARuntimeCatalogEntry *entry = [[CARuntimeCatalog sharedCatalog] entryForID:runtimeID];
     if (!entry || !entry.archiveURL.length) {
-        [self showMessage:[NSString stringWithFormat:@"运行时清单里没有 %@（可重新检查刷新清单）", runtimeID] title:@"运行时"];
+        [self showMessage:[NSString stringWithFormat:@"运行时清单里没有 %@（可重新检查刷新清单）", runtimeID] title:@"组件与工具"];
         return;
     }
 
