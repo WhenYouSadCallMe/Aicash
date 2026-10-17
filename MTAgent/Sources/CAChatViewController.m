@@ -3086,15 +3086,15 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [welcome addSubview:subtitle];
     self.welcomeSubtitle = subtitle;
 
-    // 三张等高白圆角建议卡：了解这个项目 / 检查代码问题 / 实现一个功能
-    UIButton *projectCard = [self welcomeCardWithTitle:kChatWelcomeCardProjectTitle symbol:@"folder" prompt:kChatWelcomePromptProject];
-    UIButton *inspectCard = [self welcomeCardWithTitle:kChatWelcomeCardInspectTitle symbol:@"checkmark.circle" prompt:kChatWelcomePromptInspect];
-    UIButton *featureCard = [self welcomeCardWithTitle:kChatWelcomeCardFeatureTitle symbol:@"square.and.pencil" prompt:kChatWelcomePromptFeature];
+    // 原版空态：三枚横排胶囊（了解这个项目 / 检查代码问题 / 实现一个功能），居中一行
+    UIButton *projectCard = [self welcomePillWithTitle:kChatWelcomeCardProjectTitle prompt:kChatWelcomePromptProject];
+    UIButton *inspectCard = [self welcomePillWithTitle:kChatWelcomeCardInspectTitle prompt:kChatWelcomePromptInspect];
+    UIButton *featureCard = [self welcomePillWithTitle:kChatWelcomeCardFeatureTitle prompt:kChatWelcomePromptFeature];
 
     UIStackView *cards = [[UIStackView alloc] initWithArrangedSubviews:@[ projectCard, inspectCard, featureCard ]];
     cards.translatesAutoresizingMaskIntoConstraints = NO;
-    cards.axis = UILayoutConstraintAxisVertical;
-    cards.spacing = kChatWelcomeCardSpacing;   // 卡高 46 + 间距 8 = 行距 54pt
+    cards.axis = UILayoutConstraintAxisHorizontal;
+    cards.spacing = 8.0;
     cards.distribution = UIStackViewDistributionFillEqually;
     [welcome addSubview:cards];
     self.welcomeActions = cards;
@@ -3122,10 +3122,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 
         [icon.widthAnchor constraintEqualToConstant:34.0],
         [icon.heightAnchor constraintEqualToConstant:34.0],
-        // 三张卡撑满 hero 宽度（= welcome 左右各内缩 31pt），图标/标题/副标题仍居中
+        // 横排胶囊行：与 hero 同宽，高度由内容决定（原版胶囊高约 36pt）
         [cards.leadingAnchor constraintEqualToAnchor:hero.leadingAnchor],
         [cards.trailingAnchor constraintEqualToAnchor:hero.trailingAnchor],
-        [cards.heightAnchor constraintEqualToConstant:kChatWelcomeCardHeight * 3.0 + kChatWelcomeCardSpacing * 2.0],
     ]];
     return nil;
 }
@@ -3151,6 +3150,25 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     card.accessibilityHint = prompt;
     [card addTarget:self action:@selector(handleWelcomeAction:) forControlEvents:UIControlEventTouchUpInside];
     return card;
+}
+
+/// 原版空态胶囊：浅灰胶囊、居中文字、无图标；点按填输入框
+- (UIButton *)welcomePillWithTitle:(NSString *)title prompt:(NSString *)prompt
+{
+    UIButton *pill = [UIButton buttonWithType:UIButtonTypeSystem];
+    pill.translatesAutoresizingMaskIntoConstraints = NO;
+    pill.backgroundColor = UIColor.systemGray6Color;
+    pill.layer.cornerRadius = 18.0;
+    pill.layer.masksToBounds = YES;
+    pill.contentEdgeInsets = UIEdgeInsetsMake(0.0, 14.0, 0.0, 14.0);
+    [pill setTitle:title forState:UIControlStateNormal];
+    [pill setTitleColor:UIColor.labelColor forState:UIControlStateNormal];
+    pill.titleLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    pill.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    pill.accessibilityHint = prompt;
+    [pill addTarget:self action:@selector(handleWelcomeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [pill.heightAnchor constraintEqualToConstant:36.0].active = YES;
+    return pill;
 }
 
 /// 圆形底部按钮（+ / 发送 / 垃圾桶）：浅灰底圆形，图标居中
