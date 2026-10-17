@@ -345,13 +345,6 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)installProfileHeader;
 - (void)refreshProfileHeaderText;
 
-@property (nonatomic, strong, nullable) UIView *profileHeader;
-@property (nonatomic, strong, nullable) UIView *profileCard;
-@property (nonatomic, strong, nullable) UIImageView *avatarView;
-@property (nonatomic, strong, nullable) UILabel *avatarInitialLabel;
-@property (nonatomic, strong, nullable) UILabel *userNameLabel;
-@property (nonatomic, strong, nullable) UILabel *userStatusLabel;
-
 @end
 
 @implementation CASettingsViewController
@@ -1884,7 +1877,13 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     NSString *name = [defaults stringForKey:@"CodexAccountDisplayName"];
-    NSString *agent = [CAAgentIdentity displayName] ?: @"";
+    NSString *agent = nil;
+    if ([CAAgentIdentity respondsToSelector:@selector(displayName)]) {
+        agent = [(id)CAAgentIdentity displayName];
+    } else if ([CAAgentIdentity instancesRespondToSelector:@selector(displayName)]) {
+        agent = [[CAAgentIdentity alloc] performSelector:@selector(displayName)];
+    }
+    agent = agent ?: @"";
     self.userNameLabel.text = (name.length > 0) ? name : @"账户";
     BOOL loggedIn = [defaults boolForKey:@"CodexIsLoggedIn"];
     self.userStatusLabel.text = loggedIn
