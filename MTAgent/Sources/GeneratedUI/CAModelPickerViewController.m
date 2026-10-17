@@ -172,13 +172,12 @@ typedef NS_ENUM(NSInteger, CAModelPickerSection) {
     // 原版 footer 原文
     return @"选择后应用到当前对话，思考深度可单独调整。";
 }
-    return @"价格来自 models.dev / OpenRouter 目录，仅供参考。";
-}
 
 - (id)tableView:(id)arg1 titleForHeaderInSection:(id)arg2
 {
+    NSInteger section = (NSInteger)arg2;
     // 原版：单分区标题「可用模型」；第三方分区保留原名
-    return [self isThirdPartySection:arg2] ? @"第三方模型" : @"可用模型";
+    return [self isThirdPartySection:section] ? @"第三方模型" : @"可用模型";
 }
 
 - (void)themeDidChange
