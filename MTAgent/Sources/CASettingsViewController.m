@@ -1391,14 +1391,44 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 
 - (void)showLogViewer
 {
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CALogViewerViewController alloc] init]];
-    [self presentViewController:navigation animated:YES completion:nil];
+    @try {
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CALogViewerViewController alloc] init]];
+        [self safePresent:navigation];
+    } @catch (NSException *exception) {
+        CALog(CALogLevelError, @"GENERAL", @"showLogViewer exception: %@ | %@", exception.name, exception.reason);
+        [self showMessage:[NSString stringWithFormat:@"打开日志失败：%@", exception.reason ?: exception.name] title:@"日志"];
+    }
 }
 
 - (void)showDiagnostics
 {
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CADiagnosticsViewController alloc] init]];
-    [self presentViewController:navigation animated:YES completion:nil];
+    @try {
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:[[CADiagnosticsViewController alloc] init]];
+        [self safePresent:navigation];
+    } @catch (NSException *exception) {
+        CALog(CALogLevelError, @"GENERAL", @"showDiagnostics exception: %@ | %@", exception.name, exception.reason);
+        [self showMessage:[NSString stringWithFormat:@"打开诊断失败：%@", exception.reason ?: exception.name] title:@"诊断"];
+    }
+}
+
+/// 统一的模态呈现：等上一次 dismiss 落定、确认在 window 上，异常不冒泡
+- (void)safePresent:(UIViewController *)controller
+{
+    if (!controller) return;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __weak typeof(self) weakSelf = self;
+        UIViewController *presenter = weakSelf;
+        if (!presenter) return;
+        while (presenter.presentedViewController && !presenter.presentedViewController.isBeingDismissed) {
+            presenter = presenter.presentedViewController;
+        }
+        if (presenter.isBeingDismissed || presenter.view.window == nil) return;
+        @try {
+            [presenter presentViewController:controller animated:YES completion:nil];
+        } @catch (NSException *exception) {
+            CALog(CALogLevelError, @"GENERAL", @"safePresent exception: %@ | %@", exception.name, exception.reason);
+        }
+    });
 }
 
 - (void)runtimeCatalogChanged:(NSNotification *)notification

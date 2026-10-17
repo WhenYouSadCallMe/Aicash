@@ -94,6 +94,41 @@ typedef NS_ENUM(NSInteger, CALogLevelFilter) {
 {
     [super viewDidLoad];
 
+    // 自诊断：任何构建期异常都不再直接 abort，而是把异常原因显示在页面上并落日志
+    @try {
+        [self buildLogViewerUI];
+    } @catch (NSException *exception) {
+        NSLog(@"[CALogViewer] viewDidLoad exception: %@ | %@", exception.name, exception.reason);
+        [self showSetupFailure:exception];
+    }
+}
+
+- (void)showSetupFailure:(NSException *)exception
+{
+    self.title = @"日志";
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
+
+    UILabel *label = [[UILabel alloc] init];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.numberOfLines = 0;
+    label.font = [UIFont monospacedSystemFontOfSize:12.0 weight:UIFontWeightRegular];
+    label.textColor = UIColor.systemRedColor;
+    label.text = [NSString stringWithFormat:@"日志页初始化失败（已捕获，未闪退）\n\n%@\n%@",
+                  exception.name ?: @"?", exception.reason ?: @""];
+    [self.view addSubview:label];
+    [NSLayoutConstraint activateConstraints:@[
+        [label.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:16.0],
+        [label.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0],
+        [label.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0],
+    ]];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemClose
+                                                                                         target:self
+                                                                                         action:@selector(close)];
+}
+
+- (void)buildLogViewerUI
+{
     self.title = @"日志";
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 
@@ -270,8 +305,8 @@ typedef NS_ENUM(NSInteger, CALogLevelFilter) {
     NSString *crashDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
     crashDir = [crashDir stringByAppendingPathComponent:@"CrashReports"];
     NSMutableString *crashText = [NSMutableString string];
-    [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashDir error:NULL];
-    for (NSString *name in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashDir error:NULL]) {
+    NSArray<NSString *> *crashFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashDir error:NULL] ?: @[];
+    for (NSString *name in crashFiles) {
         if (![name hasPrefix:@"crash-"] || ![name hasSuffix:@".log"]) continue;
         NSString *content = [NSString stringWithContentsOfFile:[crashDir stringByAppendingPathComponent:name]
                                                       encoding:NSUTF8StringEncoding error:NULL];
