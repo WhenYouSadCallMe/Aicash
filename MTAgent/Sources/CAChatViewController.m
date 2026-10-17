@@ -3176,6 +3176,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     UIButtonConfiguration *configuration = [UIButtonConfiguration plainButtonConfiguration];
     configuration.attributedTitle = [[NSAttributedString alloc] initWithString:text
                                                                     attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular] }];
+    // chip 必须单行：禁止内部换行（原版 "High" 单词；长模型名靠省略号截断）
+    configuration.titleLineBreakMode = NSLineBreakByTruncatingTail;
+    configuration.titleAlignment = UIControlContentHorizontalAlignmentCenter;
     configuration.image = [UIImage systemImageNamed:@"chevron.down"
                                    withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:10.0 weight:UIImageSymbolWeightSemibold]];
     configuration.imagePlacement = NSDirectionalRectEdgeTrailing;

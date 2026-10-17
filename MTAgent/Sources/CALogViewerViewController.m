@@ -266,6 +266,19 @@ typedef NS_ENUM(NSInteger, CALogLevelFilter) {
     self.fileSignature = signature;
     NSString *text = [[CALogger sharedLogger] currentLogText];
 
+    // 附加崩溃报告（Library/CrashReports/crash-*.log），便于真机闪退定位
+    NSString *crashDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+    crashDir = [crashDir stringByAppendingPathComponent:@"CrashReports"];
+    NSMutableString *crashText = [NSMutableString string];
+    [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashDir error:NULL];
+    for (NSString *name in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashDir error:NULL]) {
+        if (![name hasPrefix:@"crash-"] || ![name hasSuffix:@".log"]) continue;
+        NSString *content = [NSString stringWithContentsOfFile:[crashDir stringByAppendingPathComponent:name]
+                                                      encoding:NSUTF8StringEncoding error:NULL];
+        if (content.length) [crashText appendFormat:@"\n[CRASH] %@\n%@\n", name, content];
+    }
+    if (crashText.length) text = text.length ? [text stringByAppendingString:crashText] : crashText;
+
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
         NSArray<CALogViewerEntry *> *entries = [weakSelf parseLogText:text];

@@ -765,15 +765,16 @@ static NSString *CAModelCatalogDisplayNameFromSlug(NSString *slug)
     static NSDictionary<NSString *, NSString *> *titles;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
+        // 短标签：chip / 设置行直接展示（原版行为："High" 而非整句）
         titles = @{
-            @"none":    @"No additional reasoning effort",
-            @"minimal": @"Minimal reasoning effort",
-            @"low":     @"Low reasoning effort",
-            @"medium":  @"Balanced reasoning effort",
-            @"high":    @"High reasoning effort",
-            @"xhigh":   @"Extra high reasoning effort",
-            @"max":     @"Maximum reasoning effort",
-            @"ultra":   @"Ultra reasoning effort",
+            @"none":    @"None",
+            @"minimal": @"Minimal",
+            @"low":     @"Low",
+            @"medium":  @"Medium",
+            @"high":    @"High",
+            @"xhigh":   @"XHigh",
+            @"max":     @"Max",
+            @"ultra":   @"Ultra",
         };
     });
     NSString *key = level.lowercaseString ?: @"";
