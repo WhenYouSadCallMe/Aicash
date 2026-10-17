@@ -343,6 +343,14 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 - (void)showStandaloneEnvironmentForRuntime:(NSString *)runtimeID;
 
 - (void)installProfileHeader;
+- (void)refreshProfileHeaderText;
+
+@property (nonatomic, strong, nullable) UIView *profileHeader;
+@property (nonatomic, strong, nullable) UIView *profileCard;
+@property (nonatomic, strong, nullable) UIImageView *avatarView;
+@property (nonatomic, strong, nullable) UILabel *avatarInitialLabel;
+@property (nonatomic, strong, nullable) UILabel *userNameLabel;
+@property (nonatomic, strong, nullable) UILabel *userStatusLabel;
 
 @end
 
