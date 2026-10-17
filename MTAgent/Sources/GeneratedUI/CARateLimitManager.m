@@ -200,8 +200,13 @@
     [self applySnapshot:arg1];
     NSData *data = [NSJSONSerialization dataWithJSONObject:arg1 options:NSJSONWritingPrettyPrinted error:NULL];
     if (data) {
-        [CARuntimePaths ensureDirectory:self.snapshotCachePath.stringByDeletingLastPathComponent mode:0755 error:NULL];
-        [CARuntimePaths writeFileAtomically:self.snapshotCachePath contents:data mode:0644 error:NULL];
+        // snapshotCachePath is an id in the generated compatibility header; keep
+        // filesystem operations type-safe instead of relying on dot syntax.
+        NSString *cachePath = [self.snapshotCachePath isKindOfClass:NSString.class] ? self.snapshotCachePath : nil;
+        if (cachePath.length) {
+            [CARuntimePaths ensureDirectory:[cachePath stringByDeletingLastPathComponent] mode:0755 error:NULL];
+            [CARuntimePaths writeFileAtomically:cachePath contents:data mode:0644 error:NULL];
+        }
     }
 }
 
