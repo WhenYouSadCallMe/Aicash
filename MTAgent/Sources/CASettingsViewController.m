@@ -1877,11 +1877,12 @@ typedef NS_ENUM(NSInteger, CASettingsEnvironmentRow) {
 {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     NSString *name = [defaults stringForKey:@"CodexAccountDisplayName"];
+    Class identityClass = [CAAgentIdentity class];
     NSString *agent = nil;
-    if ([CAAgentIdentity respondsToSelector:@selector(displayName)]) {
-        agent = [(id)CAAgentIdentity displayName];
-    } else if ([CAAgentIdentity instancesRespondToSelector:@selector(displayName)]) {
-        agent = [[CAAgentIdentity alloc] performSelector:@selector(displayName)];
+    if ([identityClass respondsToSelector:@selector(displayName)]) {
+        agent = [identityClass performSelector:@selector(displayName)];
+    } else if ([identityClass instancesRespondToSelector:@selector(displayName)]) {
+        agent = [[identityClass alloc] performSelector:@selector(displayName)];
     }
     agent = agent ?: @"";
     self.userNameLabel.text = (name.length > 0) ? name : @"账户";
