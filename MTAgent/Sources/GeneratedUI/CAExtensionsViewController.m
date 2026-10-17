@@ -417,7 +417,9 @@ static NSString * const kCAExtensionsCellIdentifier = @"CAExtensionsCell";
 {
     NSInteger section = [arg2 respondsToSelector:@selector(integerValue)] ? [arg2 integerValue] : 0;
     if (section != 0) return nil;
-    return [self instructionStatusSummary];
+    // 原版页脚：说明可直接在输入框用 / 选用这些内容
+    NSString *summary = [self instructionStatusSummary] ?: @"";
+    return [NSString stringWithFormat:@"%@\n在输入框键入 / 可以直接选用这些内容。", summary];
 }
 
 #pragma mark - 主题

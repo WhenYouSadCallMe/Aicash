@@ -111,6 +111,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 @interface CAChatViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIDocumentPickerDelegate>
 
 @property (nonatomic, strong, readwrite) CACodexEngine *chatEngine;
+@property (nonatomic, strong, nullable) UIView *welcomeExtensionHint;
 @property (nonatomic, strong, readwrite) NSMutableArray *messages;
 
 #pragma mark 视图
@@ -2004,8 +2005,9 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 {
     CAComposerPopupView *popup = [[CAComposerPopupView alloc] init];
     popup.hidden = YES;
-    popup.headerTitle = @"命令 · 技能 · MCP";
-    popup.headerHint = @"点选插入";
+    // 原版字符串（__ustring 提取）：标题「引用 MCP、插件与 Skills」+ 右侧计数
+    popup.headerTitle = @"引用 MCP、插件与 Skills";
+    popup.headerHint = [self composerPopupCountHint];
 
     __weak typeof(self) weakSelf = self;
     popup.onSelectItem = ^(CAComposerPopupItem *item) {
@@ -2133,6 +2135,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
 - (id)reloadSlashComposerPopupPreserving:(id)arg1
 {
     NSArray *sections = [self composerPopupSections];
+    self.composerPopupView.headerHint = [self composerPopupCountHint];
     [self.composerPopupView setSections:sections preserveHighlight:arg1 ?: @NO];
     if (self.composerPopupVisible) {
         self.composerPopupHeightConstraint.constant = (CGFloat)[self.composerPopupView preferredHeight];
@@ -2177,11 +2180,25 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     }
 
     if (sections.count == 0) {
+        BOOL loading = CAComposerCatalog.sharedCatalog.loading;
+        BOOL hasAny = CAComposerCatalog.sharedCatalog.items.count > 0;
         CAComposerPopupItem *empty = [[CAComposerPopupItem alloc] init];
         empty.identifier = @"empty";
-        empty.title = CAComposerCatalog.sharedCatalog.loading ? @"正在扫描技能 / MCP…" : @"没有匹配的命令或技能";
-        empty.subtitle = CAComposerCatalog.sharedCatalog.loading ? @"稍候自动刷新" : @"换个关键词试试（技能需要安装到 CODEX_HOME/skills）";
-        empty.symbol = @"magnifyingglass";
+        if (loading) {
+            // 原版：首次读取需要启动 Codex
+            empty.title = @"正在读取 MCP、插件与 Skills…";
+            empty.subtitle = @"首次读取需要启动 Codex，稍等片刻";
+            empty.symbol = @"hourglass";
+        } else if (hasAny) {
+            // 原版：有内容但被筛选词过滤掉
+            empty.title = [NSString stringWithFormat:@"没有匹配“%@”的项目", filter.length ? filter : @""];
+            empty.subtitle = @"继续输入或删除 / 关闭面板";
+            empty.symbol = @"magnifyingglass";
+        } else {
+            empty.title = @"没有可引用的 Skills、插件或 MCP";
+            empty.subtitle = @"请在设置中检查是否已安装并启用";
+            empty.symbol = @"folder";
+        }
         [empty setEnabled:@NO];
         CAComposerPopupSection *section = [[CAComposerPopupSection alloc] init];
         section.title = @"结果";
@@ -2191,13 +2208,22 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     return sections;
 }
 
+- (NSString *)composerPopupCountHint
+{
+    CAComposerCatalog *catalog = CAComposerCatalog.sharedCatalog;
+    NSUInteger total = catalog.items.count;
+    if (catalog.loading && total == 0) return @"正在读取…";
+    if (catalog.loading) return [NSString stringWithFormat:@"%lu 项 · 后台刷新", (unsigned long)total];
+    return [NSString stringWithFormat:@"%lu 项", (unsigned long)total];
+}
+
 - (NSString *)titleForComposerCatalogKind:(CAComposerCatalogKind)kind
 {
     switch (kind) {
-        case CAComposerCatalogKindSkill:  return @"技能";
+        case CAComposerCatalogKindSkill:  return @"Skills";
         case CAComposerCatalogKindPlugin: return @"插件";
-        case CAComposerCatalogKindMCP:    return @"MCP";
-        case CAComposerCatalogKindPrompt: return @"命令";
+        case CAComposerCatalogKindMCP:    return @"MCP 服务";
+        case CAComposerCatalogKindPrompt: return @"指令";
         case CAComposerCatalogKindMemory: return @"记忆";
         default:                          return @"其它";
     }
@@ -3099,7 +3125,13 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [welcome addSubview:cards];
     self.welcomeActions = cards;
 
-    UIStackView *hero = [[UIStackView alloc] initWithArrangedSubviews:@[ icon, title, subtitle, cards ]];
+    // 原版空态提示卡：没有可引用的 Skills、插件或 MCP（catalog 为空时显示）
+    UIView *extensionHint = [self buildExtensionHintCard];
+    NSMutableArray *heroViews = [NSMutableArray arrayWithObjects:icon, title, subtitle, nil];
+    if (extensionHint) [heroViews addObject:extensionHint];
+    [heroViews addObject:cards];
+    self.welcomeExtensionHint = extensionHint;
+    UIStackView *hero = [[UIStackView alloc] initWithArrangedSubviews:heroViews];
     hero.translatesAutoresizingMaskIntoConstraints = NO;
     hero.axis = UILayoutConstraintAxisVertical;
     hero.alignment = UIStackViewAlignmentCenter;
@@ -3107,6 +3139,7 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     [hero setCustomSpacing:16.0 afterView:icon];
     [hero setCustomSpacing:10.0 afterView:title];
     [hero setCustomSpacing:12.0 afterView:subtitle];
+    if (extensionHint) [hero setCustomSpacing:10.0 afterView:extensionHint];
     [welcome addSubview:hero];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -3150,6 +3183,64 @@ static NSString * const kChatGitBadgeFallbackText = @"99+";
     card.accessibilityHint = prompt;
     [card addTarget:self action:@selector(handleWelcomeAction:) forControlEvents:UIControlEventTouchUpInside];
     return card;
+}
+
+/// 原版空态提示卡：没有可引用的 Skills、插件或 MCP（catalog 为空时显示，点击进设置）
+- (nullable UIView *)buildExtensionHintCard
+{
+    if (CAComposerCatalog.sharedCatalog.items.count > 0) return nil;
+
+    UIView *card = [UIView new];
+    card.translatesAutoresizingMaskIntoConstraints = NO;
+    card.backgroundColor = UIColor.systemGray6Color;
+    card.layer.cornerRadius = 12.0;
+    card.layer.masksToBounds = YES;
+
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"folder"]];
+    icon.translatesAutoresizingMaskIntoConstraints = NO;
+    icon.tintColor = UIColor.secondaryLabelColor;
+    icon.contentMode = UIViewContentModeScaleAspectFit;
+    [card addSubview:icon];
+
+    UILabel *label = [UILabel new];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.numberOfLines = 2;
+    label.font = [UIFont systemFontOfSize:14.0];
+    label.textColor = UIColor.secondaryLabelColor;
+    label.text = @"没有可引用的 Skills、插件或 MCP\n请在设置中检查是否已安装并启用";
+    [card addSubview:label];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOpenSettings)];
+    [card addGestureRecognizer:tap];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [icon.leadingAnchor constraintEqualToAnchor:card.leadingAnchor constant:14.0],
+        [icon.centerYAnchor constraintEqualToAnchor:card.centerYAnchor],
+        [icon.widthAnchor constraintEqualToConstant:22.0],
+        [icon.heightAnchor constraintEqualToConstant:22.0],
+        [label.leadingAnchor constraintEqualToAnchor:icon.trailingAnchor constant:10.0],
+        [label.trailingAnchor constraintEqualToAnchor:card.trailingAnchor constant:-14.0],
+        [label.topAnchor constraintEqualToAnchor:card.topAnchor constant:12.0],
+        [label.bottomAnchor constraintEqualToAnchor:card.bottomAnchor constant:-12.0],
+    ]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(extensionHintCatalogChanged:)
+                                                 name:CAComposerCatalogDidChangeNotification
+                                               object:nil];
+    return card;
+}
+
+/// catalog 从空变有扩展后自动收起提示卡
+- (void)extensionHintCatalogChanged:(NSNotification *)notification
+{
+    if (CAComposerCatalog.sharedCatalog.items.count == 0) return;
+    UIView *hint = self.welcomeExtensionHint;
+    if (!hint || hint.hidden) return;
+    hint.hidden = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:CAComposerCatalogDidChangeNotification
+                                                  object:nil];
 }
 
 /// 原版空态胶囊：浅灰胶囊、居中文字、无图标；点按填输入框

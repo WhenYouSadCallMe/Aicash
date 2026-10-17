@@ -73,7 +73,7 @@ static CGFloat const kCAComposerPopupMaxHeight    = 320.0;
     _headerTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _headerTitleLabel.font = [UIFont systemFontOfSize:12.0 weight:UIFontWeightSemibold];
     _headerTitleLabel.textColor = UIColor.secondaryLabelColor;
-    _headerTitleLabel.text = @"命令与技能";
+    _headerTitleLabel.text = @"引用 MCP、插件与 Skills";
     [_headerView addSubview:_headerTitleLabel];
 
     _headerHintLabel = [[UILabel alloc] init];
@@ -161,7 +161,7 @@ static CGFloat const kCAComposerPopupMaxHeight    = 320.0;
 {
     self.backgroundColor = UIColor.clearColor;
     self.layer.borderColor = UIColor.separatorColor.CGColor;
-    self.headerTitleLabel.text = self.headerTitle.length > 0 ? self.headerTitle : @"命令与技能";
+    self.headerTitleLabel.text = self.headerTitle.length > 0 ? self.headerTitle : @"引用 MCP、插件与 Skills";
     self.headerHintLabel.text = self.headerHint ?: @"↑↓ 选择 · ⏎ 插入";
     self.tableView.backgroundColor = UIColor.clearColor;
 }
